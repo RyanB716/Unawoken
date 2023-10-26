@@ -1,10 +1,16 @@
 [gd_scene load_steps=3 format=3 uid="uid://ccjctttiken65"]
 
 [ext_resource type="PackedScene" uid="uid://c4oy4c3d46qb4" path="res://Levels/TestLevel01.tscn" id="1_1m60y"]
-[ext_resource type="PackedScene" uid="uid://8w8x6d8ohi48" path="res://Player.tscn" id="2_t5728"]
+[ext_resource type="PackedScene" uid="uid://ce2ot07ptfk72" path="res://Player.tscn" id="2_t5728"]
 
 [node name="GameManager" type="Node"]
 
 [node name="Test Level 01" parent="." instance=ExtResource("1_1m60y")]
 
 [node name="Player" parent="." instance=ExtResource("2_t5728")]
+position = Vector2(288, 117)
+motion_mode = 1
+TopSpeed = 150.0
+
+[node name="Camera2D" type="Camera2D" parent="Player"]
+zoom = Vector2(3, 3)

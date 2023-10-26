@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bi38invhap0t"
-path="res://.godot/imported/player.png-2dd0af52de4b213777cd8c9df94c0978.ctex"
+uid="uid://cnsgcmpirjsnw"
+path="res://.godot/imported/Run-Sheet.png-0344a8f965c5a4b0ec7cd4bcfa167296.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://player.png"
-dest_files=["res://.godot/imported/player.png-2dd0af52de4b213777cd8c9df94c0978.ctex"]
+source_file="res://Assets/TileSets/Pixel Crawler - FREE - 1.8/Enemy/Orc Crew/Orc - Warrior/Run/Run-Sheet.png"
+dest_files=["res://.godot/imported/Run-Sheet.png-0344a8f965c5a4b0ec7cd4bcfa167296.ctex"]
 
 [params]
 
@@ -31,4 +31,4 @@ process/normal_map_invert_y=false
 process/hdr_as_srgb=false
 process/hdr_clamp_exposure=false
 process/size_limit=0
-detect_3d/compress_to=0
+detect_3d/compress_to=1
