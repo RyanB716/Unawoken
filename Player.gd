@@ -4,34 +4,68 @@ extends CharacterBody2D
 
 enum DirectionStates {Up, Down, Left, Right}
 enum MoveStates {Idle, Run}
-enum AttackStates {Idle, Attack1}
+enum AttackStates {NotAttacking, Attack1}
 
 var CurrentMoveState : int
 var CurrentDirection : int
 var CurrentAttackState : int
 
-@export var TopSpeed = 300.0
-@export var Acceleration = 1
-@export var Deceleration = 0.5
+var IsMoving = false
+
+@export var TopSpeed = 0
+@export var Acceleration = 0.0
+@export var Deceleration = 0.0
+
 var CurrentSpeed = 0
-var direction
+var HorizontalInput = 0
+var VerticalInput = 0
+var Direction = Vector2.ZERO
 
 func _ready():
 	CurrentMoveState = MoveStates.Idle
 	CurrentDirection = DirectionStates.Down
-	CurrentAttackState = AttackStates.Idle
+	CurrentAttackState = AttackStates.NotAttacking
+	
+func _process(delta):
+	match CurrentDirection:
+		0:
+			if IsMoving:
+				$AnimationPlayer.play("Run_Up")
+			else:
+				$AnimationPlayer.play("Idle_Up")
+		1:
+			if IsMoving:
+				$AnimationPlayer.play("Run_Down")
+			else:
+				$AnimationPlayer.play("Idle_Down")
+		2:
+			if IsMoving:
+				$AnimationPlayer.play("Run_Left")
+			else:
+				$AnimationPlayer.play("Idle_Left")
+		3:
+			if IsMoving:
+				$AnimationPlayer.play("Run_Right")
+			else:
+				$AnimationPlayer.play("Idle_Right")
 
 func _physics_process(delta):
-	direction = Input.get_vector("Run_Left", "Run_Right", "Run_Up", "Run_Down")
-	if direction != Vector2(0,0):
+	
+	IsMoving = Input.is_action_pressed("Run_Up") || Input.is_action_pressed("Run_Down") || Input.is_action_pressed("Run_Left") || Input.is_action_pressed("Run_Right")
+	
+	if IsMoving:
+		HorizontalInput = int(Input.is_action_pressed("Run_Right")) - int(Input.is_action_pressed("Run_Left"))
+		VerticalInput = int(Input.is_action_pressed("Run_Down")) - int(Input.is_action_pressed("Run_Up"))
+		
 		CurrentSpeed = lerpf(CurrentSpeed, TopSpeed, Acceleration * delta)
-		velocity = (direction * CurrentSpeed)
 		CurrentMoveState = MoveStates.Run
+		
 	else:
 		CurrentSpeed = lerpf(CurrentSpeed, 0, Deceleration * delta)
 		CurrentMoveState = MoveStates.Idle
-		velocity = (direction * CurrentSpeed)
-
+	
+	Direction = Vector2(HorizontalInput, VerticalInput).normalized()
+	velocity = (Direction * CurrentSpeed)
 	move_and_slide()
 	GetSpriteDirection()
 	
@@ -39,7 +73,7 @@ func _physics_process(delta):
 		Attack()
 		
 func GetSpriteDirection():
-	match direction:
+	match Direction:
 		Vector2.DOWN:
 			CurrentDirection = DirectionStates.Down
 		Vector2.UP:
