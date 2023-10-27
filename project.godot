@@ -15,10 +15,6 @@ run/main_scene="res://Game Management/GameManager.tscn"
 config/features=PackedStringArray("4.1", "Forward Plus")
 config/icon="res://icon.svg"
 
-[display]
-
-window/size/mode=3
-
 [input]
 
 Run_Up={

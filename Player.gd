@@ -4,7 +4,7 @@ extends CharacterBody2D
 
 enum DirectionStates {Up, Down, Left, Right}
 enum MoveStates {Idle, Run}
-enum AttackStates {NotAttacking, Attack1}
+enum AttackStates {NotAttacking, Attack1, Attack2}
 
 var CurrentMoveState : int
 var CurrentDirection : int
@@ -79,7 +79,11 @@ func GetSpriteDirection():
 			CurrentDirection = DirectionStates.Left
 
 func Attack():
+	await get_tree().create_timer(0.15).timeout
 	CurrentAttackState = AttackStates.Attack1
+	var PreviousSpeed = CurrentSpeed
+	CurrentSpeed = CurrentSpeed * 0.75
 	AnimState.travel('Attack')
 	await get_tree().create_timer(0.25).timeout
 	CurrentAttackState = AttackStates.NotAttacking
+	CurrentSpeed = PreviousSpeed
