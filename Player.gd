@@ -1,6 +1,6 @@
 extends CharacterBody2D
 
-@onready var SpriteAnimator = $AnimationPlayer
+@onready var AnimTree = $AnimationTree
 
 enum DirectionStates {Up, Down, Left, Right}
 enum MoveStates {Idle, Run}
@@ -21,33 +21,17 @@ var HorizontalInput = 0
 var VerticalInput = 0
 var Direction = Vector2.ZERO
 
+var AnimState = null
+
 func _ready():
 	CurrentMoveState = MoveStates.Idle
 	CurrentDirection = DirectionStates.Down
 	CurrentAttackState = AttackStates.NotAttacking
 	
+	AnimState = AnimTree.get("parameters/playback")
+	
 func _process(delta):
-	match CurrentDirection:
-		0:
-			if IsMoving:
-				$AnimationPlayer.play("Run_Up")
-			else:
-				$AnimationPlayer.play("Idle_Up")
-		1:
-			if IsMoving:
-				$AnimationPlayer.play("Run_Down")
-			else:
-				$AnimationPlayer.play("Idle_Down")
-		2:
-			if IsMoving:
-				$AnimationPlayer.play("Run_Left")
-			else:
-				$AnimationPlayer.play("Idle_Left")
-		3:
-			if IsMoving:
-				$AnimationPlayer.play("Run_Right")
-			else:
-				$AnimationPlayer.play("Idle_Right")
+	pass
 
 func _physics_process(delta):
 	
@@ -60,12 +44,23 @@ func _physics_process(delta):
 		CurrentSpeed = lerpf(CurrentSpeed, TopSpeed, Acceleration * delta)
 		CurrentMoveState = MoveStates.Run
 		
+		if CurrentAttackState == AttackStates.NotAttacking:
+			AnimState.travel("Run")
+		
 	else:
 		CurrentSpeed = lerpf(CurrentSpeed, 0, Deceleration * delta)
 		CurrentMoveState = MoveStates.Idle
+		
+		if CurrentAttackState == AttackStates.NotAttacking:
+			AnimState.travel("Idle")
 	
 	Direction = Vector2(HorizontalInput, VerticalInput).normalized()
 	velocity = (Direction * CurrentSpeed)
+	
+	AnimTree.set("parameters/Idle/blend_position", Direction)
+	AnimTree.set("parameters/Run/blend_position", Direction)
+	AnimTree.set("parameters/Attack/blend_position", Direction)
+	
 	move_and_slide()
 	GetSpriteDirection()
 	
@@ -85,3 +80,6 @@ func GetSpriteDirection():
 
 func Attack():
 	CurrentAttackState = AttackStates.Attack1
+	AnimState.travel('Attack')
+	await get_tree().create_timer(0.25).timeout
+	CurrentAttackState = AttackStates.NotAttacking
