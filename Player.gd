@@ -1,6 +1,8 @@
 extends CharacterBody2D
 
 @onready var AnimTree = $AnimationTree
+@onready var B_Audio = $BodyAudio
+@onready var W_Audio = $WeaponAudio
 
 enum DirectionStates {Up, Down, Left, Right}
 enum MoveStates {Idle, Run}
@@ -66,6 +68,8 @@ func _physics_process(delta):
 	
 	if Input.is_action_just_pressed("Attack"):
 		Attack()
+	
+	pass
 		
 func GetSpriteDirection():
 	match Direction:
@@ -79,10 +83,12 @@ func GetSpriteDirection():
 			CurrentDirection = DirectionStates.Left
 
 func Attack():
-	await get_tree().create_timer(0.15).timeout
+	W_Audio.PlaySFX()
+	await get_tree().create_timer(0.2).timeout
 	CurrentAttackState = AttackStates.Attack1
+	B_Audio.PlaySFX()
 	var PreviousSpeed = CurrentSpeed
-	CurrentSpeed = CurrentSpeed * 0.75
+	CurrentSpeed = CurrentSpeed * 0.25
 	AnimState.travel('Attack')
 	await get_tree().create_timer(0.25).timeout
 	CurrentAttackState = AttackStates.NotAttacking

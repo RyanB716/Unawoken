@@ -1,7 +1,14 @@
-[gd_scene load_steps=42 format=3 uid="uid://ce2ot07ptfk72"]
+[gd_scene load_steps=49 format=3 uid="uid://ce2ot07ptfk72"]
 
 [ext_resource type="Script" path="res://Player.gd" id="1_t65ic"]
 [ext_resource type="Texture2D" uid="uid://bi38invhap0t" path="res://Assets/SpriteSheets/player.png" id="2_hajb3"]
+[ext_resource type="Script" path="res://AudioPlayer.gd" id="3_84huk"]
+[ext_resource type="AudioStream" uid="uid://d33remjia4oc1" path="res://Audio/SFX/07_human_atk_sword_1.wav" id="4_u6q72"]
+[ext_resource type="AudioStream" uid="uid://nj05r1o16v2k" path="res://Audio/SFX/07_human_atk_sword_2.wav" id="5_0gfni"]
+[ext_resource type="AudioStream" uid="uid://c5quaak31hhg6" path="res://Audio/SFX/07_human_atk_sword_3.wav" id="6_4qepj"]
+[ext_resource type="AudioStream" uid="uid://d0iijvcalr7qr" path="res://Audio/SFX/attack1.wav" id="7_3qwdw"]
+[ext_resource type="AudioStream" uid="uid://cdla8hf16tqfv" path="res://Audio/SFX/attack2.wav" id="8_aipwv"]
+[ext_resource type="AudioStream" uid="uid://tky2sadciuix" path="res://Audio/SFX/attack3.wav" id="9_oy70y"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_8v8gj"]
 
@@ -440,3 +447,11 @@ active = true
 parameters/Attack/blend_position = Vector2(-0.9984, 0.0305676)
 parameters/Idle/blend_position = Vector2(0, 0)
 parameters/Run/blend_position = Vector2(0, 0)
+
+[node name="BodyAudio" type="AudioStreamPlayer" parent="."]
+script = ExtResource("3_84huk")
+TrackArray = [ExtResource("4_u6q72"), ExtResource("5_0gfni"), ExtResource("6_4qepj")]
+
+[node name="WeaponAudio" type="AudioStreamPlayer" parent="."]
+script = ExtResource("3_84huk")
+TrackArray = [ExtResource("7_3qwdw"), ExtResource("8_aipwv"), ExtResource("9_oy70y")]
