@@ -6,7 +6,7 @@ extends CharacterBody2D
 
 enum DirectionStates {Up, Down, Left, Right}
 enum MoveStates {Idle, Run}
-enum AttackStates {NotAttacking, Attack1, Attack2}
+enum AttackStates {NotAttacking, Attack1, Attack2, Attack3, Cooldown}
 
 var CurrentMoveState : int
 var CurrentDirection : int
@@ -32,7 +32,7 @@ func _ready():
 	
 	AnimState = AnimTree.get("parameters/playback")
 	
-func _process(delta):
+func _process(_delta):
 	pass
 
 func _physics_process(delta):
@@ -67,7 +67,10 @@ func _physics_process(delta):
 	GetSpriteDirection()
 	
 	if Input.is_action_just_pressed("Attack"):
-		Attack()
+		if CurrentAttackState == AttackStates.Cooldown:
+			print("Can NOT attack!")
+		else:
+			Attack()
 	
 	pass
 		
@@ -83,13 +86,41 @@ func GetSpriteDirection():
 			CurrentDirection = DirectionStates.Left
 
 func Attack():
-	W_Audio.PlaySFX()
-	await get_tree().create_timer(0.2).timeout
-	CurrentAttackState = AttackStates.Attack1
-	B_Audio.PlaySFX()
+	
+	await get_tree().create_timer(0.10).timeout
+	
+	match CurrentAttackState:
+		0:
+			print("Attack ONE")
+			
+			B_Audio.PlaySFX()
+			await get_tree().create_timer(0.25).timeout
+			CurrentAttackState = AttackStates.Attack1
+			AnimState.travel('Attack')
+			W_Audio.PlaySFX()
+		
+		1:
+			print("Attack TWO")
+			
+			await get_tree().create_timer(0.10).timeout
+			
+			B_Audio.PlaySFX()
+			await get_tree().create_timer(0.25).timeout
+			CurrentAttackState = AttackStates.Attack1
+			AnimState.travel('Attack')
+			W_Audio.PlaySFX()
+			
+			AttackCooldown(3)
+			
 	var PreviousSpeed = CurrentSpeed
 	CurrentSpeed = CurrentSpeed * 0.25
-	AnimState.travel('Attack')
-	await get_tree().create_timer(0.25).timeout
+	await get_tree().create_timer(0.3).timeout
 	CurrentAttackState = AttackStates.NotAttacking
 	CurrentSpeed = PreviousSpeed
+	await get_tree().create_timer(0.25).timeout
+
+func AttackCooldown(time : float):
+	CurrentAttackState = AttackStates.Cooldown
+	await get_tree().create_timer(time).timeout
+	CurrentAttackState = AttackStates.NotAttacking
+	print("Can Attack!")

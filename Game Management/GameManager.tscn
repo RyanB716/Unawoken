@@ -1,9 +1,11 @@
-[gd_scene load_steps=3 format=3 uid="uid://ccjctttiken65"]
+[gd_scene load_steps=4 format=3 uid="uid://ccjctttiken65"]
 
 [ext_resource type="PackedScene" uid="uid://c4oy4c3d46qb4" path="res://Levels/TestLevel01.tscn" id="1_1m60y"]
+[ext_resource type="Script" path="res://Game Management/GameManager.gd" id="1_gdgan"]
 [ext_resource type="PackedScene" uid="uid://ce2ot07ptfk72" path="res://Player.tscn" id="2_t5728"]
 
 [node name="GameManager" type="Node"]
+script = ExtResource("1_gdgan")
 
 [node name="Test Level 01" parent="." instance=ExtResource("1_1m60y")]
 
@@ -15,4 +17,4 @@ Acceleration = 1.5
 Deceleration = 17.0
 
 [node name="Camera2D" type="Camera2D" parent="Player"]
-zoom = Vector2(3, 3)
+zoom = Vector2(4, 4)

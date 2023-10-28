@@ -1,4 +1,4 @@
-[gd_scene load_steps=49 format=3 uid="uid://ce2ot07ptfk72"]
+[gd_scene load_steps=54 format=3 uid="uid://ce2ot07ptfk72"]
 
 [ext_resource type="Script" path="res://Player.gd" id="1_t65ic"]
 [ext_resource type="Texture2D" uid="uid://bi38invhap0t" path="res://Assets/SpriteSheets/player.png" id="2_hajb3"]
@@ -320,23 +320,40 @@ tracks/0/keys = {
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_aj5eb"]
 _data = {
-"Attack_Down": SubResource("Animation_6mu3k"),
-"Attack_Left": SubResource("Animation_3hjxn"),
-"Attack_Right": SubResource("Animation_brb81"),
-"Attack_Up": SubResource("Animation_txiqo")
+"Attack_1_Down": SubResource("Animation_6mu3k"),
+"Attack_1_Left": SubResource("Animation_3hjxn"),
+"Attack_1_Right": SubResource("Animation_brb81"),
+"Attack_1_Up": SubResource("Animation_txiqo")
+}
+
+[sub_resource type="Animation" id="Animation_g75o7"]
+length = 0.30001
+
+[sub_resource type="Animation" id="Animation_6aob8"]
+
+[sub_resource type="Animation" id="Animation_1okrm"]
+
+[sub_resource type="Animation" id="Animation_gwqxn"]
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_tt8jn"]
+_data = {
+"Attack_2_Down": SubResource("Animation_g75o7"),
+"Attack_2_Left": SubResource("Animation_6aob8"),
+"Attack_2_Right": SubResource("Animation_1okrm"),
+"Attack_2_Up": SubResource("Animation_gwqxn")
 }
 
 [sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_bumc8"]
-animation = &"Attack_1/Attack_Left"
+animation = &"Attack_1/Attack_1_Left"
 
 [sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_w51s7"]
-animation = &"Attack_1/Attack_Right"
+animation = &"Attack_1/Attack_1_Right"
 
 [sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_qb7yw"]
-animation = &"Attack_1/Attack_Down"
+animation = &"Attack_1/Attack_1_Down"
 
 [sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_5arbi"]
-animation = &"Attack_1/Attack_Up"
+animation = &"Attack_1/Attack_1_Up"
 
 [sub_resource type="AnimationNodeBlendSpace2D" id="AnimationNodeBlendSpace2D_tnktl"]
 blend_point_0/node = SubResource("AnimationNodeAnimation_bumc8")
@@ -411,13 +428,14 @@ advance_mode = 2
 
 [sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_2lvlg"]
 states/Attack/node = SubResource("AnimationNodeBlendSpace2D_tnktl")
-states/Attack/position = Vector2(568, 187)
+states/Attack/position = Vector2(553, 225)
 states/Idle/node = SubResource("AnimationNodeBlendSpace2D_c26p5")
 states/Idle/position = Vector2(394, 100)
 states/Run/node = SubResource("AnimationNodeBlendSpace2D_vm4bk")
 states/Run/position = Vector2(671, 100)
 states/Start/position = Vector2(192, 100)
 transitions = ["Start", "Idle", SubResource("AnimationNodeStateMachineTransition_r2363"), "Idle", "Run", SubResource("AnimationNodeStateMachineTransition_hlahw"), "Run", "Idle", SubResource("AnimationNodeStateMachineTransition_6br77"), "Idle", "Attack", SubResource("AnimationNodeStateMachineTransition_hn44d"), "Attack", "Idle", SubResource("AnimationNodeStateMachineTransition_bypsp"), "Run", "Attack", SubResource("AnimationNodeStateMachineTransition_1md3x"), "Attack", "Run", SubResource("AnimationNodeStateMachineTransition_xypkv")]
+graph_offset = Vector2(0, 56.5708)
 
 [node name="Player" type="CharacterBody2D"]
 script = ExtResource("1_t65ic")
@@ -437,7 +455,8 @@ shape = SubResource("RectangleShape2D_8v8gj")
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
 "": SubResource("AnimationLibrary_8gsv8"),
-"Attack_1": SubResource("AnimationLibrary_aj5eb")
+"Attack_1": SubResource("AnimationLibrary_aj5eb"),
+"Attack_2": SubResource("AnimationLibrary_tt8jn")
 }
 
 [node name="AnimationTree" type="AnimationTree" parent="."]
@@ -450,8 +469,8 @@ parameters/Run/blend_position = Vector2(0, 0)
 
 [node name="BodyAudio" type="AudioStreamPlayer" parent="."]
 script = ExtResource("3_84huk")
-TrackArray = [ExtResource("4_u6q72"), ExtResource("5_0gfni"), ExtResource("6_4qepj")]
+TrackArray = [ExtResource("7_3qwdw"), ExtResource("8_aipwv"), ExtResource("9_oy70y")]
 
 [node name="WeaponAudio" type="AudioStreamPlayer" parent="."]
 script = ExtResource("3_84huk")
-TrackArray = [ExtResource("7_3qwdw"), ExtResource("8_aipwv"), ExtResource("9_oy70y")]
+TrackArray = [ExtResource("4_u6q72"), ExtResource("5_0gfni"), ExtResource("6_4qepj")]
