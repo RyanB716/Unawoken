@@ -85,7 +85,7 @@ func AnimationStateController():
 	elif CurrentAttackState == AttackActionStates.IsAttacking:
 		match CurrentAttackIndex:
 			0:
-				AnimState.travel("Attack")
+				pass
 			1:
 				AnimState.travel("Attack 2")
 			2:
@@ -104,6 +104,7 @@ func Attack():
 	if AttackTimer.is_stopped():
 		if CurrentAttackIndex != AttackSlots.Attack1:
 			CurrentAttackIndex = AttackSlots.Attack1
+		AnimState.travel("Attack")
 		print("Attack 1")
 	
 	#else; match attack index and increase until cooldown
@@ -119,6 +120,7 @@ func Attack():
 				AttackTimer.stop()
 
 	await AnimTree.animation_finished
+	CurrentAttackState = AttackActionStates.NotAttacking
 	TopSpeed = InitialSpeed
 	
 	if CurrentAttackIndex == AttackSlots.Attack3:
@@ -129,7 +131,6 @@ func Attack():
 		#print("Can attack")
 		AttackTimer.stop()
 		AttackTimer.start(AttackTime)
-		CurrentAttackState = AttackActionStates.NotAttacking
 
 func _on_attack_state_timer_timeout():
 	CurrentAttackIndex = AttackSlots.Attack1
