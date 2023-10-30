@@ -41,7 +41,7 @@ func _ready():
 	AnimState = AnimTree.get("parameters/playback")
 
 func _physics_process(delta):
-
+	
 	IsMoving = Input.is_action_pressed("Run_Up") || Input.is_action_pressed("Run_Down") || Input.is_action_pressed("Run_Left") || Input.is_action_pressed("Run_Right")
 	
 	if IsMoving:
@@ -68,9 +68,9 @@ func _physics_process(delta):
 	if Input.is_action_just_pressed("Attack"):
 		if CurrentAttackState == AttackActionStates.NotAttacking && CurrentAttackState != AttackActionStates.Cooldown:
 			Attack()
+				
 		else:
-			pass
-			#print("Can NOT attack!")
+			print("Can NOT attack!")
 			
 	AnimationStateController()
 			
@@ -97,8 +97,8 @@ func Attack():
 	CurrentAttackState = AttackActionStates.IsAttacking
 	
 	#Movement Decrease
-	var InitialSpeed = CurrentSpeed
-	CurrentSpeed = CurrentSpeed * 0.25
+	var InitialSpeed = TopSpeed
+	TopSpeed = TopSpeed * 0.25
 	
 	#If timer is not running; execute attack 1
 	if AttackTimer.is_stopped():
@@ -117,10 +117,9 @@ func Attack():
 				print("Attack 3")
 				CurrentAttackIndex = AttackSlots.Attack3
 				AttackTimer.stop()
-		
-	#print("Attack State: " + str(CurrentAttackState) + " , Attack #: " + str(CurrentAttackIndex))
 
 	await AnimTree.animation_finished
+	TopSpeed = InitialSpeed
 	
 	if CurrentAttackIndex == AttackSlots.Attack3:
 		CurrentAttackState = AttackActionStates.Cooldown
