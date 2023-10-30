@@ -68,9 +68,6 @@ func _physics_process(delta):
 	if Input.is_action_just_pressed("Attack"):
 		if CurrentAttackState == AttackActionStates.NotAttacking && CurrentAttackState != AttackActionStates.Cooldown:
 			Attack()
-				
-		else:
-			print("Can NOT attack!")
 			
 	AnimationStateController()
 			
@@ -113,6 +110,7 @@ func Attack():
 			0:
 				print("Attack 2")
 				CurrentAttackIndex = AttackSlots.Attack2
+				AttackTimer.stop()
 			
 			1:
 				print("Attack 3")
