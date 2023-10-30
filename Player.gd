@@ -8,7 +8,7 @@ extends CharacterBody2D
 enum DirectionStates {Up, Down, Left, Right}
 enum MoveStates {Idle, Run}
 enum AttackActionStates {NotAttacking, IsAttacking, Cooldown}
-enum AttackSlots {Attack1, Attack2}
+enum AttackSlots {Attack1, Attack2, Attack3}
 
 var CurrentMoveState : int
 var CurrentDirection : int
@@ -17,9 +17,14 @@ var CurrentAttackIndex : int
 
 var IsMoving = false
 
+@export_category("Movement Stats")
 @export var TopSpeed = 0
 @export var Acceleration = 0.0
 @export var Deceleration = 0.0
+
+@export_category("Attack Stats")
+@export var AttackTime : float
+@export var CooldownTime : float
 
 var CurrentSpeed = 0
 var HorizontalInput = 0
@@ -64,7 +69,8 @@ func _physics_process(delta):
 		if CurrentAttackState == AttackActionStates.NotAttacking && CurrentAttackState != AttackActionStates.Cooldown:
 			Attack()
 		else:
-			print("Can NOT attack!")
+			pass
+			#print("Can NOT attack!")
 			
 	AnimationStateController()
 			
@@ -81,7 +87,7 @@ func AnimationStateController():
 			0:
 				AnimState.travel("Attack")
 			1:
-				AnimState.travel("Attack")
+				AnimState.travel("Attack 2")
 			2:
 				AnimState.travel("Attack")
 
@@ -90,12 +96,15 @@ func Attack():
 	await get_tree().create_timer(0.2).timeout
 	CurrentAttackState = AttackActionStates.IsAttacking
 	
+	#Movement Decrease
+	var InitialSpeed = CurrentSpeed
+	CurrentSpeed = CurrentSpeed * 0.25
+	
 	#If timer is not running; execute attack 1
 	if AttackTimer.is_stopped():
 		if CurrentAttackIndex != AttackSlots.Attack1:
 			CurrentAttackIndex = AttackSlots.Attack1
 		print("Attack 1")
-		AttackTimer.start(1.5)
 	
 	#else; match attack index and increase until cooldown
 	else:
@@ -103,26 +112,32 @@ func Attack():
 			0:
 				print("Attack 2")
 				CurrentAttackIndex = AttackSlots.Attack2
+			
+			1:
+				print("Attack 3")
+				CurrentAttackIndex = AttackSlots.Attack3
 				AttackTimer.stop()
-				AttackTimer.start(1.5)
 		
-	print("Attack State: " + str(CurrentAttackState) + " , Attack #: " + str(CurrentAttackIndex))
+	#print("Attack State: " + str(CurrentAttackState) + " , Attack #: " + str(CurrentAttackIndex))
 
-	await get_tree().create_timer(0.3).timeout
+	await AnimTree.animation_finished
 	
-	if CurrentAttackIndex == AttackSlots.Attack2:
+	if CurrentAttackIndex == AttackSlots.Attack3:
 		CurrentAttackState = AttackActionStates.Cooldown
-		AttackCooldown(3.5)
+		AttackTimer.stop()
+		AttackCooldown()
 	else:
-		print("Can attack")
+		#print("Can attack")
+		AttackTimer.stop()
+		AttackTimer.start(AttackTime)
 		CurrentAttackState = AttackActionStates.NotAttacking
 
 func _on_attack_state_timer_timeout():
-	print("Timer Reset!")
 	CurrentAttackIndex = AttackSlots.Attack1
 
-func AttackCooldown(time : float):
+func AttackCooldown():
 	print("Cooldown STARTED!")
-	await get_tree().create_timer(time).timeout
+	await get_tree().create_timer(CooldownTime).timeout
 	CurrentAttackState = AttackActionStates.NotAttacking
+	CurrentAttackIndex = AttackSlots.Attack1
 	print('Cooldown FINISHED!')
