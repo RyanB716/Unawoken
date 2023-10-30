@@ -12,6 +12,7 @@ var CurrentMoveState : int
 var CurrentDirection : int
 
 var IsMoving = false
+var IsAttacking = false
 
 @export var TopSpeed = 0
 @export var Acceleration = 0.0
@@ -39,7 +40,11 @@ func _physics_process(delta):
 		
 		CurrentSpeed = lerpf(CurrentSpeed, TopSpeed, Acceleration * delta)
 		CurrentMoveState = MoveStates.Run
-		AnimState.travel("Run")
+		
+		if IsAttacking == true:
+			AnimState.travel("Attack")
+		else:
+			AnimState.travel("Run")
 		
 	else:
 		CurrentSpeed = lerpf(CurrentSpeed, 0, Deceleration * delta)
@@ -51,9 +56,17 @@ func _physics_process(delta):
 	
 	AnimTree.set("parameters/Idle/blend_position", Direction)
 	AnimTree.set("parameters/Run/blend_position", Direction)
+	AnimTree.set("parameters/Attack/blend_position", Direction)
 	
 	move_and_slide()
-	GetSpriteDirection()	
+	GetSpriteDirection()
+	
+	if Input.is_action_just_pressed("Attack"):
+		if IsAttacking == false:
+			Attack()
+		else:
+			print("Can NOT attack!")
+	
 	pass
 		
 func GetSpriteDirection():
@@ -66,3 +79,11 @@ func GetSpriteDirection():
 			CurrentDirection = DirectionStates.Right
 		Vector2.LEFT:
 			CurrentDirection = DirectionStates.Left
+
+func Attack():
+	await get_tree().create_timer(0.15).timeout
+	print("Attacking")
+	IsAttacking = true
+	await $AnimationTree.animation_finished
+	print("Can attack")
+	IsAttacking = false
