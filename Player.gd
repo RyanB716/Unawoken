@@ -25,6 +25,7 @@ var IsMoving = false
 @export_category("Attack Stats")
 @export var AttackTime : float
 @export var CooldownTime : float
+@export var InputBufferAmnt : float
 
 var CurrentSpeed = 0
 var HorizontalInput = 0
@@ -79,19 +80,14 @@ func AnimationStateController():
 			AnimState.travel("Run")
 		elif CurrentMoveState == MoveStates.Idle:
 			AnimState.travel("Idle")
-	elif CurrentAttackState == AttackActionStates.IsAttacking:
-		match CurrentAttackIndex:
-			0:
-				pass
-			1:
-				AnimState.travel("Attack 2")
-			2:
-				AnimState.travel("Attack")
 
 func Attack():
+	
+	B_Audio.PlaySFX()
+	CurrentAttackState = AttackActionStates.IsAttacking
+	
 	#Initial Input Buffer + State Switch
 	await get_tree().create_timer(0.2).timeout
-	CurrentAttackState = AttackActionStates.IsAttacking
 	
 	#Movement Decrease
 	var InitialSpeed = TopSpeed
@@ -102,6 +98,7 @@ func Attack():
 		if CurrentAttackIndex != AttackSlots.Attack1:
 			CurrentAttackIndex = AttackSlots.Attack1
 		AnimState.travel("Attack")
+		W_Audio.PlaySFX()
 		print("Attack 1")
 	
 	#else; match attack index and increase until cooldown
@@ -109,15 +106,20 @@ func Attack():
 		match CurrentAttackIndex:
 			0:
 				print("Attack 2")
+				AnimState.travel("Attack 2")
+				W_Audio.PlaySFX()
 				CurrentAttackIndex = AttackSlots.Attack2
 				AttackTimer.stop()
 			
 			1:
 				print("Attack 3")
+				AnimState.travel("Attack")
+				W_Audio.PlaySFX()
 				CurrentAttackIndex = AttackSlots.Attack3
 				AttackTimer.stop()
 
 	await AnimTree.animation_finished
+	print("Can Attack")
 	CurrentAttackState = AttackActionStates.NotAttacking
 	TopSpeed = InitialSpeed
 	
@@ -126,7 +128,6 @@ func Attack():
 		AttackTimer.stop()
 		AttackCooldown()
 	else:
-		#print("Can attack")
 		AttackTimer.stop()
 		AttackTimer.start(AttackTime)
 
