@@ -1,4 +1,4 @@
-[gd_scene load_steps=63 format=3 uid="uid://ce2ot07ptfk72"]
+[gd_scene load_steps=65 format=3 uid="uid://ce2ot07ptfk72"]
 
 [ext_resource type="Script" path="res://Player.gd" id="1_t65ic"]
 [ext_resource type="Texture2D" uid="uid://bi38invhap0t" path="res://Assets/SpriteSheets/player.png" id="2_hajb3"]
@@ -10,6 +10,8 @@
 [ext_resource type="AudioStream" uid="uid://cdla8hf16tqfv" path="res://Audio/SFX/attack2.wav" id="8_aipwv"]
 [ext_resource type="AudioStream" uid="uid://tky2sadciuix" path="res://Audio/SFX/attack3.wav" id="9_oy70y"]
 [ext_resource type="Script" path="res://PlayerHealthBar.gd" id="10_ypf4b"]
+[ext_resource type="Script" path="res://StaminaUI.gd" id="11_exbte"]
+[ext_resource type="PackedScene" uid="uid://6sqs2pdh1v6d" path="res://StaminaCircle.tscn" id="12_6fskf"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_8v8gj"]
 
@@ -623,20 +625,26 @@ parameters/Attack/blend_position = Vector2(0, 0)
 parameters/Idle/blend_position = Vector2(0.0476191, -0.676856)
 parameters/Run/blend_position = Vector2(0, 0)
 
-[node name="BodyAudio" type="AudioStreamPlayer" parent="."]
+[node name="Audio" type="Node" parent="."]
+
+[node name="BodyAudio" type="AudioStreamPlayer" parent="Audio"]
 script = ExtResource("3_84huk")
 TrackArray = [ExtResource("7_3qwdw"), ExtResource("8_aipwv"), ExtResource("9_oy70y")]
 
-[node name="WeaponAudio" type="AudioStreamPlayer" parent="."]
+[node name="WeaponAudio" type="AudioStreamPlayer" parent="Audio"]
 script = ExtResource("3_84huk")
 TrackArray = [ExtResource("4_u6q72"), ExtResource("5_0gfni"), ExtResource("6_4qepj")]
 
-[node name="AttackStateTimer" type="Timer" parent="."]
+[node name="Timers" type="Node" parent="."]
+
+[node name="AttackStateTimer" type="Timer" parent="Timers"]
 one_shot = true
 
-[node name="CanvasLayer" type="CanvasLayer" parent="."]
+[node name="StaminaTimer" type="Timer" parent="Timers"]
 
-[node name="HealthBar" type="ProgressBar" parent="CanvasLayer"]
+[node name="Player UI" type="CanvasLayer" parent="."]
+
+[node name="HealthBar" type="ProgressBar" parent="Player UI"]
 custom_minimum_size = Vector2(300, 35)
 offset_left = 10.0
 offset_top = 10.0
@@ -650,4 +658,15 @@ theme_override_styles/fill = SubResource("StyleBoxFlat_7m4r8")
 value = 50.0
 script = ExtResource("10_ypf4b")
 
-[connection signal="timeout" from="AttackStateTimer" to="." method="_on_attack_state_timer_timeout"]
+[node name="StaminaCircles" type="HBoxContainer" parent="Player UI"]
+offset_left = 15.0
+offset_top = 50.0
+offset_right = 47.0
+offset_bottom = 82.0
+theme_override_constants/separation = 15
+script = ExtResource("11_exbte")
+
+[node name="StamCircle" parent="Player UI/StaminaCircles" instance=ExtResource("12_6fskf")]
+layout_mode = 2
+
+[connection signal="timeout" from="Timers/AttackStateTimer" to="." method="_on_attack_state_timer_timeout"]

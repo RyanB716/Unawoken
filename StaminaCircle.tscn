@@ -1,0 +1,14 @@
+[gd_scene load_steps=5 format=3 uid="uid://6sqs2pdh1v6d"]
+
+[ext_resource type="Texture2D" uid="uid://vsf6w8pd2bnb" path="res://Assets/StamCircle_Filled.png" id="1_7hx1r"]
+[ext_resource type="Script" path="res://StaminaCircle.gd" id="1_8ffw1"]
+[ext_resource type="Texture2D" uid="uid://dyquhhyqgre0c" path="res://Assets/StamCircle_Empty.png" id="1_rnkto"]
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_0hcas"]
+load_path = "res://.godot/imported/StamCircle_Filled.png-8de627cddeb672228e24c97f3b0bd8b0.ctex"
+
+[node name="StamCircle" type="TextureRect"]
+texture = SubResource("CompressedTexture2D_0hcas")
+script = ExtResource("1_8ffw1")
+CircleFilled = ExtResource("1_7hx1r")
+CircleEmpty = ExtResource("1_rnkto")

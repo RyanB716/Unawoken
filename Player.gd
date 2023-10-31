@@ -1,9 +1,10 @@
 extends CharacterBody2D
 
 @onready var AnimTree = $AnimationTree
-@onready var AttackTimer = $AttackStateTimer
-@onready var B_Audio = $BodyAudio
-@onready var W_Audio = $WeaponAudio
+@onready var AttackTimer = $Timers/AttackStateTimer
+@onready var B_Audio = $Audio/BodyAudio
+@onready var W_Audio = $Audio/WeaponAudio
+@onready var UI = $"Player UI"
 
 enum DirectionStates {Up, Down, Left, Right}
 enum MoveStates {Idle, Run, Roll}
@@ -20,6 +21,7 @@ var IsMoving = false
 @export_category("PlayerStats")
 @export var MaxHealth : int
 @export var MaxStaminaMoves : int
+@export var StaminaRefillTime : float
 
 @export_category("Movement Stats")
 @export var TopSpeed = 0
@@ -38,6 +40,7 @@ var VerticalInput = 0
 var Direction = Vector2.ZERO
 
 var CurrentHealth : int
+var CurrentStaminaActions : int
 
 var AnimState = null
 
@@ -49,6 +52,7 @@ func _ready():
 	AnimState = AnimTree.get("parameters/playback")
 	
 	CurrentHealth = MaxHealth
+	CurrentStaminaActions = MaxStaminaMoves
 
 func _physics_process(delta):
 	
@@ -144,6 +148,8 @@ func Attack():
 		AttackTimer.start(AttackTime)
 
 func Roll():
+	UI.get_node("StaminaCircles").UpdateCircles(1)
+	
 	B_Audio.PlaySFX()
 	$CollisionShape2D.disabled = true
 	CurrentMoveState = MoveStates.Roll
