@@ -146,6 +146,7 @@ func Attack():
 		AttackTimer.start(AttackTime)
 
 func Roll():
+	B_Audio.PlaySFX()
 	print('Rolling!')
 	$CollisionShape2D.disabled = true
 	CurrentMoveState = MoveStates.Roll
