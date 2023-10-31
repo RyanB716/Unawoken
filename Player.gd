@@ -119,7 +119,6 @@ func Attack():
 				AttackTimer.stop()
 
 	await AnimTree.animation_finished
-	print("Can Attack")
 	CurrentAttackState = AttackActionStates.NotAttacking
 	TopSpeed = InitialSpeed
 	
