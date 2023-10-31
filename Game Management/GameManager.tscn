@@ -13,8 +13,6 @@ script = ExtResource("1_gdgan")
 position = Vector2(288, 117)
 motion_mode = 1
 TopSpeed = 125
-Acceleration = 1.5
-Deceleration = 17.0
 AttackTime = 1.25
 CooldownTime = 2.5
 

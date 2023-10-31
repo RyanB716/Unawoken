@@ -17,6 +17,10 @@ var CurrentAttackIndex : int
 
 var IsMoving = false
 
+@export_category("PlayerStats")
+@export var MaxHealth : int
+@export var MaxStaminaMoves : int
+
 @export_category("Movement Stats")
 @export var TopSpeed = 0
 @export var Acceleration = 0.0
@@ -32,6 +36,8 @@ var HorizontalInput = 0
 var VerticalInput = 0
 var Direction = Vector2.ZERO
 
+var CurrentHealth : int
+
 var AnimState = null
 
 func _ready():
@@ -40,6 +46,8 @@ func _ready():
 	CurrentAttackState = AttackActionStates.NotAttacking
 	
 	AnimState = AnimTree.get("parameters/playback")
+	
+	CurrentHealth = MaxHealth
 
 func _physics_process(delta):
 	
@@ -139,3 +147,6 @@ func AttackCooldown():
 	CurrentAttackState = AttackActionStates.NotAttacking
 	CurrentAttackIndex = AttackSlots.Attack1
 	print('Cooldown FINISHED!')
+	
+func TakeDamage(Amount : int):
+	CurrentHealth -= Amount

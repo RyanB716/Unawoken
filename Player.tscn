@@ -1,4 +1,4 @@
-[gd_scene load_steps=59 format=3 uid="uid://ce2ot07ptfk72"]
+[gd_scene load_steps=62 format=3 uid="uid://ce2ot07ptfk72"]
 
 [ext_resource type="Script" path="res://Player.gd" id="1_t65ic"]
 [ext_resource type="Texture2D" uid="uid://bi38invhap0t" path="res://Assets/SpriteSheets/player.png" id="2_hajb3"]
@@ -9,6 +9,7 @@
 [ext_resource type="AudioStream" uid="uid://d0iijvcalr7qr" path="res://Audio/SFX/attack1.wav" id="7_3qwdw"]
 [ext_resource type="AudioStream" uid="uid://cdla8hf16tqfv" path="res://Audio/SFX/attack2.wav" id="8_aipwv"]
 [ext_resource type="AudioStream" uid="uid://tky2sadciuix" path="res://Audio/SFX/attack3.wav" id="9_oy70y"]
+[ext_resource type="Script" path="res://PlayerHealthBar.gd" id="10_ypf4b"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_8v8gj"]
 
@@ -549,9 +550,27 @@ states/Start/position = Vector2(192, 100)
 transitions = ["Idle", "Run", SubResource("AnimationNodeStateMachineTransition_hlahw"), "Run", "Idle", SubResource("AnimationNodeStateMachineTransition_6br77"), "Idle", "Attack", SubResource("AnimationNodeStateMachineTransition_hn44d"), "Attack", "Idle", SubResource("AnimationNodeStateMachineTransition_bypsp"), "Run", "Attack", SubResource("AnimationNodeStateMachineTransition_1md3x"), "Attack", "Run", SubResource("AnimationNodeStateMachineTransition_xypkv"), "Start", "Idle", SubResource("AnimationNodeStateMachineTransition_5kdj5")]
 graph_offset = Vector2(0, 55.4348)
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_2ey7s"]
+bg_color = Color(0, 0, 0, 1)
+corner_radius_top_left = 7
+corner_radius_top_right = 7
+corner_radius_bottom_right = 7
+corner_radius_bottom_left = 7
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_7m4r8"]
+bg_color = Color(0.717647, 0, 0, 1)
+corner_radius_top_left = 7
+corner_radius_top_right = 7
+corner_radius_bottom_right = 7
+corner_radius_bottom_left = 7
+
 [node name="Player" type="CharacterBody2D"]
 script = ExtResource("1_t65ic")
+MaxHealth = 250
+MaxStaminaMoves = 3
 TopSpeed = 200
+Acceleration = 1.5
+Deceleration = 17.0
 AttackTime = 1.5
 CooldownTime = 3.0
 InputBufferAmnt = 0.12
@@ -581,7 +600,7 @@ anim_player = NodePath("../AnimationPlayer")
 active = true
 parameters/Attack/blend_position = Vector2(0, 0)
 "parameters/Attack 2/blend_position" = Vector2(0, 0)
-parameters/Idle/blend_position = Vector2(0, 0)
+parameters/Idle/blend_position = Vector2(0.0476191, -0.676856)
 parameters/Run/blend_position = Vector2(0, 0)
 
 [node name="BodyAudio" type="AudioStreamPlayer" parent="."]
@@ -594,5 +613,21 @@ TrackArray = [ExtResource("4_u6q72"), ExtResource("5_0gfni"), ExtResource("6_4qe
 
 [node name="AttackStateTimer" type="Timer" parent="."]
 one_shot = true
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="HealthBar" type="ProgressBar" parent="CanvasLayer"]
+custom_minimum_size = Vector2(300, 35)
+offset_left = 10.0
+offset_top = 10.0
+offset_right = 310.0
+offset_bottom = 45.0
+theme_override_colors/font_color = Color(0, 0, 0, 0)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 0)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 0)
+theme_override_styles/background = SubResource("StyleBoxFlat_2ey7s")
+theme_override_styles/fill = SubResource("StyleBoxFlat_7m4r8")
+value = 50.0
+script = ExtResource("10_ypf4b")
 
 [connection signal="timeout" from="AttackStateTimer" to="." method="_on_attack_state_timer_timeout"]
