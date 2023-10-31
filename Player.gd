@@ -6,7 +6,7 @@ extends CharacterBody2D
 @onready var W_Audio = $WeaponAudio
 
 enum DirectionStates {Up, Down, Left, Right}
-enum MoveStates {Idle, Run}
+enum MoveStates {Idle, Run, Roll}
 enum AttackActionStates {NotAttacking, IsAttacking, Cooldown}
 enum AttackSlots {Attack1, Attack2, Attack3}
 
@@ -25,6 +25,7 @@ var IsMoving = false
 @export var TopSpeed = 0
 @export var Acceleration = 0.0
 @export var Deceleration = 0.0
+@export var RollTime = 0.0
 
 @export_category("Attack Stats")
 @export var AttackTime : float
@@ -53,16 +54,17 @@ func _physics_process(delta):
 	
 	IsMoving = Input.is_action_pressed("Run_Up") || Input.is_action_pressed("Run_Down") || Input.is_action_pressed("Run_Left") || Input.is_action_pressed("Run_Right")
 	
-	if IsMoving:
-		HorizontalInput = int(Input.is_action_pressed("Run_Right")) - int(Input.is_action_pressed("Run_Left"))
-		VerticalInput = int(Input.is_action_pressed("Run_Down")) - int(Input.is_action_pressed("Run_Up"))
+	if CurrentMoveState != MoveStates.Roll:
+		if IsMoving:
+			HorizontalInput = int(Input.is_action_pressed("Run_Right")) - int(Input.is_action_pressed("Run_Left"))
+			VerticalInput = int(Input.is_action_pressed("Run_Down")) - int(Input.is_action_pressed("Run_Up"))
 		
-		CurrentSpeed = lerpf(CurrentSpeed, TopSpeed, Acceleration * delta)
-		CurrentMoveState = MoveStates.Run
+			CurrentSpeed = lerpf(CurrentSpeed, TopSpeed, Acceleration * delta)
+			CurrentMoveState = MoveStates.Run
 		
-	else:
-		CurrentSpeed = lerpf(CurrentSpeed, 0, Deceleration * delta)
-		CurrentMoveState = MoveStates.Idle
+		else:
+			CurrentSpeed = lerpf(CurrentSpeed, 0, Deceleration * delta)
+			CurrentMoveState = MoveStates.Idle
 	
 	Direction = Vector2(HorizontalInput, VerticalInput).normalized()
 	velocity = (Direction * CurrentSpeed)
@@ -77,7 +79,10 @@ func _physics_process(delta):
 	if Input.is_action_just_pressed("Attack"):
 		if CurrentAttackState == AttackActionStates.NotAttacking && CurrentAttackState != AttackActionStates.Cooldown:
 			Attack()
-			
+	
+	if Input.is_action_just_pressed("Roll") && CurrentAttackState != AttackActionStates.IsAttacking:
+		Roll()
+	
 	AnimationStateController()
 			
 	pass
@@ -86,6 +91,8 @@ func AnimationStateController():
 	if CurrentAttackState == AttackActionStates.NotAttacking or CurrentAttackState == AttackActionStates.Cooldown:
 		if CurrentMoveState == MoveStates.Run:
 			AnimState.travel("Run")
+		elif CurrentMoveState == MoveStates.Roll:
+			AnimState.travel('Roll')
 		elif CurrentMoveState == MoveStates.Idle:
 			AnimState.travel("Idle")
 
@@ -137,6 +144,15 @@ func Attack():
 	else:
 		AttackTimer.stop()
 		AttackTimer.start(AttackTime)
+
+func Roll():
+	print('Rolling!')
+	$CollisionShape2D.disabled = true
+	CurrentMoveState = MoveStates.Roll
+	await get_tree().create_timer(RollTime).timeout
+	print("Roll finished!")
+	$CollisionShape2D.disabled = false
+	CurrentMoveState = MoveStates.Idle
 
 func _on_attack_state_timer_timeout():
 	CurrentAttackIndex = AttackSlots.Attack1

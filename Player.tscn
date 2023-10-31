@@ -1,4 +1,4 @@
-[gd_scene load_steps=62 format=3 uid="uid://ce2ot07ptfk72"]
+[gd_scene load_steps=63 format=3 uid="uid://ce2ot07ptfk72"]
 
 [ext_resource type="Script" path="res://Player.gd" id="1_t65ic"]
 [ext_resource type="Texture2D" uid="uid://bi38invhap0t" path="res://Assets/SpriteSheets/player.png" id="2_hajb3"]
@@ -230,6 +230,22 @@ tracks/0/keys = {
 "values": [30, 31, 32, 33, 34, 35]
 }
 
+[sub_resource type="Animation" id="Animation_fpfok"]
+resource_name = "Roll"
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite:frame_coords")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.4, 0.6, 0.8, 1),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [Vector2i(0, 9), Vector2i(1, 9), Vector2i(1, 9), Vector2i(1, 9), Vector2i(1, 9), Vector2i(0, 9)]
+}
+
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_8gsv8"]
 _data = {
 "Idle_Down": SubResource("Animation_tt04w"),
@@ -237,6 +253,7 @@ _data = {
 "Idle_Right": SubResource("Animation_n34t2"),
 "Idle_Up": SubResource("Animation_8f6o3"),
 "RESET": SubResource("Animation_5ufst"),
+"Roll": SubResource("Animation_fpfok"),
 "Run_Down": SubResource("Animation_w2m0s"),
 "Run_Left": SubResource("Animation_u4v2d"),
 "Run_Right": SubResource("Animation_326kp"),
@@ -499,6 +516,9 @@ blend_point_3/node = SubResource("AnimationNodeAnimation_v4hoi")
 blend_point_3/pos = Vector2(0, -1)
 blend_mode = 1
 
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_4t36e"]
+animation = &"Roll"
+
 [sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_lopgq"]
 animation = &"Run_Left"
 
@@ -534,21 +554,20 @@ blend_mode = 1
 
 [sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_xypkv"]
 
-[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_5kdj5"]
-advance_mode = 2
-
 [sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_2lvlg"]
 states/Attack/node = SubResource("AnimationNodeBlendSpace2D_tnktl")
-states/Attack/position = Vector2(553, 225)
+states/Attack/position = Vector2(394, 227)
 "states/Attack 2/node" = SubResource("AnimationNodeBlendSpace2D_s1kno")
-"states/Attack 2/position" = Vector2(553, 356.519)
+"states/Attack 2/position" = Vector2(394, 304.519)
 states/Idle/node = SubResource("AnimationNodeBlendSpace2D_c26p5")
 states/Idle/position = Vector2(394, 100)
+states/Roll/node = SubResource("AnimationNodeAnimation_4t36e")
+states/Roll/position = Vector2(658, 294.649)
 states/Run/node = SubResource("AnimationNodeBlendSpace2D_vm4bk")
 states/Run/position = Vector2(671, 100)
 states/Start/position = Vector2(192, 100)
-transitions = ["Idle", "Run", SubResource("AnimationNodeStateMachineTransition_hlahw"), "Run", "Idle", SubResource("AnimationNodeStateMachineTransition_6br77"), "Idle", "Attack", SubResource("AnimationNodeStateMachineTransition_hn44d"), "Attack", "Idle", SubResource("AnimationNodeStateMachineTransition_bypsp"), "Run", "Attack", SubResource("AnimationNodeStateMachineTransition_1md3x"), "Attack", "Run", SubResource("AnimationNodeStateMachineTransition_xypkv"), "Start", "Idle", SubResource("AnimationNodeStateMachineTransition_5kdj5")]
-graph_offset = Vector2(0, 55.4348)
+transitions = ["Idle", "Run", SubResource("AnimationNodeStateMachineTransition_hlahw"), "Run", "Idle", SubResource("AnimationNodeStateMachineTransition_6br77"), "Idle", "Attack", SubResource("AnimationNodeStateMachineTransition_hn44d"), "Attack", "Idle", SubResource("AnimationNodeStateMachineTransition_bypsp"), "Run", "Attack", SubResource("AnimationNodeStateMachineTransition_1md3x"), "Attack", "Run", SubResource("AnimationNodeStateMachineTransition_xypkv")]
+graph_offset = Vector2(96, 83.6494)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_2ey7s"]
 bg_color = Color(0, 0, 0, 1)
@@ -571,6 +590,7 @@ MaxStaminaMoves = 3
 TopSpeed = 200
 Acceleration = 1.5
 Deceleration = 17.0
+RollTime = 1.25
 AttackTime = 1.5
 CooldownTime = 3.0
 InputBufferAmnt = 0.12
