@@ -84,8 +84,6 @@ func _physics_process(delta):
 		Roll()
 	
 	AnimationStateController()
-			
-	pass
 	
 func AnimationStateController():
 	if CurrentAttackState == AttackActionStates.NotAttacking or CurrentAttackState == AttackActionStates.Cooldown:
@@ -147,13 +145,17 @@ func Attack():
 
 func Roll():
 	B_Audio.PlaySFX()
-	print('Rolling!')
 	$CollisionShape2D.disabled = true
 	CurrentMoveState = MoveStates.Roll
+	
+	var PrevSpeed = CurrentSpeed
+	CurrentSpeed = PrevSpeed * 0.75
+	
 	await get_tree().create_timer(RollTime).timeout
-	print("Roll finished!")
 	$CollisionShape2D.disabled = false
 	CurrentMoveState = MoveStates.Idle
+	
+	CurrentSpeed = PrevSpeed
 
 func _on_attack_state_timer_timeout():
 	CurrentAttackIndex = AttackSlots.Attack1
