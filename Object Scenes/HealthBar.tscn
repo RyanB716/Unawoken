@@ -7,7 +7,11 @@ bg_color = Color(0, 0, 0, 1)
 bg_color = Color(1, 0, 0, 1)
 
 [node name="Health Bar" type="ProgressBar"]
-custom_minimum_size = Vector2(250, 25)
+custom_minimum_size = Vector2(500, 50)
+offset_left = 25.0
+offset_top = 25.0
+offset_right = 525.0
+offset_bottom = 75.0
 theme_override_colors/font_color = Color(0, 0, 0, 0)
 theme_override_colors/font_shadow_color = Color(0, 0, 0, 0)
 theme_override_colors/font_outline_color = Color(0, 0, 0, 0)

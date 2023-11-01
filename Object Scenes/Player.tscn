@@ -1,4 +1,4 @@
-[gd_scene load_steps=64 format=3 uid="uid://ce2ot07ptfk72"]
+[gd_scene load_steps=62 format=3 uid="uid://ce2ot07ptfk72"]
 
 [ext_resource type="Script" path="res://Scripts/Player.gd" id="1_2gr55"]
 [ext_resource type="Texture2D" uid="uid://bi38invhap0t" path="res://Assets/SpriteSheets/player.png" id="2_w50ld"]
@@ -9,7 +9,7 @@
 [ext_resource type="AudioStream" uid="uid://d33remjia4oc1" path="res://Audio/SFX/07_human_atk_sword_1.wav" id="7_xep2m"]
 [ext_resource type="AudioStream" uid="uid://nj05r1o16v2k" path="res://Audio/SFX/07_human_atk_sword_2.wav" id="8_6cs7t"]
 [ext_resource type="AudioStream" uid="uid://c5quaak31hhg6" path="res://Audio/SFX/07_human_atk_sword_3.wav" id="9_ywbp4"]
-[ext_resource type="Script" path="res://Scripts/PlayerHealthBar.gd" id="10_c82rn"]
+[ext_resource type="PackedScene" uid="uid://cvlh1usf2hwre" path="res://Object Scenes/HealthBar.tscn" id="10_1g6mq"]
 [ext_resource type="PackedScene" uid="uid://b8dv2qk331bb" path="res://Object Scenes/StaminaContainer.tscn" id="11_0842j"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_8v8gj"]
@@ -570,20 +570,6 @@ states/Start/position = Vector2(192, 100)
 transitions = ["Idle", "Run", SubResource("AnimationNodeStateMachineTransition_hlahw"), "Run", "Idle", SubResource("AnimationNodeStateMachineTransition_6br77"), "Idle", "Attack", SubResource("AnimationNodeStateMachineTransition_hn44d"), "Attack", "Idle", SubResource("AnimationNodeStateMachineTransition_bypsp"), "Run", "Attack", SubResource("AnimationNodeStateMachineTransition_1md3x"), "Attack", "Run", SubResource("AnimationNodeStateMachineTransition_xypkv")]
 graph_offset = Vector2(96, 83.6494)
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_2ey7s"]
-bg_color = Color(0, 0, 0, 1)
-corner_radius_top_left = 7
-corner_radius_top_right = 7
-corner_radius_bottom_right = 7
-corner_radius_bottom_left = 7
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_7m4r8"]
-bg_color = Color(0.717647, 0, 0, 1)
-corner_radius_top_left = 7
-corner_radius_top_right = 7
-corner_radius_bottom_right = 7
-corner_radius_bottom_left = 7
-
 [node name="Player" type="CharacterBody2D"]
 script = ExtResource("1_2gr55")
 MaxHealth = 250
@@ -644,24 +630,10 @@ one_shot = true
 
 [node name="Player UI" type="CanvasLayer" parent="."]
 
-[node name="HealthBar" type="ProgressBar" parent="Player UI"]
-custom_minimum_size = Vector2(300, 35)
-offset_left = 10.0
-offset_top = 10.0
-offset_right = 310.0
-offset_bottom = 45.0
-theme_override_colors/font_color = Color(0, 0, 0, 0)
-theme_override_colors/font_shadow_color = Color(0, 0, 0, 0)
-theme_override_colors/font_outline_color = Color(0, 0, 0, 0)
-theme_override_styles/background = SubResource("StyleBoxFlat_2ey7s")
-theme_override_styles/fill = SubResource("StyleBoxFlat_7m4r8")
-value = 50.0
-script = ExtResource("10_c82rn")
+[node name="Health Bar" parent="Player UI" instance=ExtResource("10_1g6mq")]
 
 [node name="StaminaContainer" parent="Player UI" instance=ExtResource("11_0842j")]
-offset_left = 15.0
-offset_top = 60.0
-offset_right = 175.0
-offset_bottom = 100.0
+offset_top = 85.0
+offset_bottom = 165.0
 
 [connection signal="timeout" from="Timers/AttackStateTimer" to="." method="_on_attack_state_timer_timeout"]
