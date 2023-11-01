@@ -151,9 +151,7 @@ func Attack():
 		AttackTimer.start(AttackTime)
 
 func Roll():
-	CurrentStaminaActions -= 1
-	UI.get_node("StaminaContainer").UpdateIcons(CurrentStaminaActions)
-	ResetStamina()
+	ReduceStamina(1)
 	
 	B_Audio.PlaySFX()
 	$CollisionShape2D.disabled = true
@@ -180,6 +178,13 @@ func AttackCooldown():
 	
 func TakeDamage(Amount : int):
 	CurrentHealth -= Amount
+
+func ReduceStamina(Amnt : int):
+	CurrentStaminaActions -= Amnt
+	UI.get_node("StaminaContainer").UpdateIcons(CurrentStaminaActions)
+	
+	for i in range(Amnt):
+		ResetStamina()
 
 func ResetStamina():
 	await get_tree().create_timer(StaminaRefillTime).timeout
