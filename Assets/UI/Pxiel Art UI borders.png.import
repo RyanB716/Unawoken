@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dyquhhyqgre0c"
-path="res://.godot/imported/StamCircle_Empty.png-be595bc060324c5cf6deeaa7f926c034.ctex"
+uid="uid://nx5oku8efyeo"
+path="res://.godot/imported/Pxiel Art UI borders.png-5372756f1fb3aa7cc484b1a1eb779e65.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/StamCircle_Empty.png"
-dest_files=["res://.godot/imported/StamCircle_Empty.png-be595bc060324c5cf6deeaa7f926c034.ctex"]
+source_file="res://Assets/UI/Pxiel Art UI borders.png"
+dest_files=["res://.godot/imported/Pxiel Art UI borders.png-5372756f1fb3aa7cc484b1a1eb779e65.ctex"]
 
 [params]
 

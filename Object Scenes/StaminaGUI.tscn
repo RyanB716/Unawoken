@@ -1,6 +1,6 @@
 [gd_scene load_steps=4 format=3 uid="uid://cs2uv0qtv8j1f"]
 
-[ext_resource type="Texture2D" uid="uid://vsf6w8pd2bnb" path="res://Assets/StamCircle_Filled.png" id="1_fxqps"]
+[ext_resource type="Texture2D" uid="uid://vsf6w8pd2bnb" path="res://Assets/UI/StamCircle_Filled.png" id="1_fxqps"]
 [ext_resource type="Script" path="res://Object Scenes/StaminaGUI.gd" id="1_ga1bh"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_0jkg4"]

@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="Unawoken"
-run/main_scene="res://Game Management/GameManager.tscn"
+run/main_scene="res://Object Scenes/MainMenu.tscn"
 config/features=PackedStringArray("4.1", "Forward Plus")
 config/icon="res://icon.svg"
 
