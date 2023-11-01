@@ -1,17 +1,16 @@
-[gd_scene load_steps=65 format=3 uid="uid://ce2ot07ptfk72"]
+[gd_scene load_steps=64 format=3 uid="uid://ce2ot07ptfk72"]
 
-[ext_resource type="Script" path="res://Player.gd" id="1_t65ic"]
-[ext_resource type="Texture2D" uid="uid://bi38invhap0t" path="res://Assets/SpriteSheets/player.png" id="2_hajb3"]
-[ext_resource type="Script" path="res://AudioPlayer.gd" id="3_84huk"]
-[ext_resource type="AudioStream" uid="uid://d33remjia4oc1" path="res://Audio/SFX/07_human_atk_sword_1.wav" id="4_u6q72"]
-[ext_resource type="AudioStream" uid="uid://nj05r1o16v2k" path="res://Audio/SFX/07_human_atk_sword_2.wav" id="5_0gfni"]
-[ext_resource type="AudioStream" uid="uid://c5quaak31hhg6" path="res://Audio/SFX/07_human_atk_sword_3.wav" id="6_4qepj"]
-[ext_resource type="AudioStream" uid="uid://d0iijvcalr7qr" path="res://Audio/SFX/attack1.wav" id="7_3qwdw"]
-[ext_resource type="AudioStream" uid="uid://cdla8hf16tqfv" path="res://Audio/SFX/attack2.wav" id="8_aipwv"]
-[ext_resource type="AudioStream" uid="uid://tky2sadciuix" path="res://Audio/SFX/attack3.wav" id="9_oy70y"]
-[ext_resource type="Script" path="res://PlayerHealthBar.gd" id="10_ypf4b"]
-[ext_resource type="Script" path="res://StaminaUI.gd" id="11_exbte"]
-[ext_resource type="PackedScene" uid="uid://6sqs2pdh1v6d" path="res://StaminaCircle.tscn" id="12_6fskf"]
+[ext_resource type="Script" path="res://Scripts/Player.gd" id="1_2gr55"]
+[ext_resource type="Texture2D" uid="uid://bi38invhap0t" path="res://Assets/SpriteSheets/player.png" id="2_w50ld"]
+[ext_resource type="Script" path="res://Scripts/AudioPlayer.gd" id="3_lafq4"]
+[ext_resource type="AudioStream" uid="uid://d0iijvcalr7qr" path="res://Audio/SFX/attack1.wav" id="4_h2l6k"]
+[ext_resource type="AudioStream" uid="uid://cdla8hf16tqfv" path="res://Audio/SFX/attack2.wav" id="5_p67ey"]
+[ext_resource type="AudioStream" uid="uid://tky2sadciuix" path="res://Audio/SFX/attack3.wav" id="6_x3tyq"]
+[ext_resource type="AudioStream" uid="uid://d33remjia4oc1" path="res://Audio/SFX/07_human_atk_sword_1.wav" id="7_xep2m"]
+[ext_resource type="AudioStream" uid="uid://nj05r1o16v2k" path="res://Audio/SFX/07_human_atk_sword_2.wav" id="8_6cs7t"]
+[ext_resource type="AudioStream" uid="uid://c5quaak31hhg6" path="res://Audio/SFX/07_human_atk_sword_3.wav" id="9_ywbp4"]
+[ext_resource type="Script" path="res://Scripts/PlayerHealthBar.gd" id="10_c82rn"]
+[ext_resource type="PackedScene" uid="uid://b8dv2qk331bb" path="res://Object Scenes/StaminaContainer.tscn" id="11_0842j"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_8v8gj"]
 
@@ -144,6 +143,22 @@ tracks/2/keys = {
 "values": [Vector2i(3, 6)]
 }
 
+[sub_resource type="Animation" id="Animation_fpfok"]
+resource_name = "Roll"
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite:frame_coords")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.4, 0.6, 0.8, 1),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [Vector2i(0, 9), Vector2i(1, 9), Vector2i(1, 9), Vector2i(1, 9), Vector2i(1, 9), Vector2i(0, 9)]
+}
+
 [sub_resource type="Animation" id="Animation_w2m0s"]
 resource_name = "Run_Down"
 loop_mode = 1
@@ -230,22 +245,6 @@ tracks/0/keys = {
 "transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
 "update": 1,
 "values": [30, 31, 32, 33, 34, 35]
-}
-
-[sub_resource type="Animation" id="Animation_fpfok"]
-resource_name = "Roll"
-loop_mode = 1
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Sprite:frame_coords")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.2, 0.4, 0.6, 0.8, 1),
-"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
-"update": 1,
-"values": [Vector2i(0, 9), Vector2i(1, 9), Vector2i(1, 9), Vector2i(1, 9), Vector2i(1, 9), Vector2i(0, 9)]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_8gsv8"]
@@ -586,9 +585,10 @@ corner_radius_bottom_right = 7
 corner_radius_bottom_left = 7
 
 [node name="Player" type="CharacterBody2D"]
-script = ExtResource("1_t65ic")
+script = ExtResource("1_2gr55")
 MaxHealth = 250
 MaxStaminaMoves = 3
+StaminaRefillTime = 5.0
 TopSpeed = 200
 Acceleration = 1.5
 Deceleration = 17.0
@@ -599,7 +599,7 @@ InputBufferAmnt = 0.12
 
 [node name="Sprite" type="Sprite2D" parent="."]
 texture_filter = 1
-texture = ExtResource("2_hajb3")
+texture = ExtResource("2_w50ld")
 flip_h = true
 hframes = 6
 vframes = 10
@@ -628,12 +628,12 @@ parameters/Run/blend_position = Vector2(0, 0)
 [node name="Audio" type="Node" parent="."]
 
 [node name="BodyAudio" type="AudioStreamPlayer" parent="Audio"]
-script = ExtResource("3_84huk")
-TrackArray = [ExtResource("7_3qwdw"), ExtResource("8_aipwv"), ExtResource("9_oy70y")]
+script = ExtResource("3_lafq4")
+TrackArray = [ExtResource("4_h2l6k"), ExtResource("5_p67ey"), ExtResource("6_x3tyq")]
 
 [node name="WeaponAudio" type="AudioStreamPlayer" parent="Audio"]
-script = ExtResource("3_84huk")
-TrackArray = [ExtResource("4_u6q72"), ExtResource("5_0gfni"), ExtResource("6_4qepj")]
+script = ExtResource("3_lafq4")
+TrackArray = [ExtResource("7_xep2m"), ExtResource("8_6cs7t"), ExtResource("9_ywbp4")]
 
 [node name="Timers" type="Node" parent="."]
 
@@ -656,17 +656,12 @@ theme_override_colors/font_outline_color = Color(0, 0, 0, 0)
 theme_override_styles/background = SubResource("StyleBoxFlat_2ey7s")
 theme_override_styles/fill = SubResource("StyleBoxFlat_7m4r8")
 value = 50.0
-script = ExtResource("10_ypf4b")
+script = ExtResource("10_c82rn")
 
-[node name="StaminaCircles" type="HBoxContainer" parent="Player UI"]
+[node name="StaminaContainer" parent="Player UI" instance=ExtResource("11_0842j")]
 offset_left = 15.0
-offset_top = 50.0
-offset_right = 47.0
-offset_bottom = 82.0
-theme_override_constants/separation = 15
-script = ExtResource("11_exbte")
-
-[node name="StamCircle" parent="Player UI/StaminaCircles" instance=ExtResource("12_6fskf")]
-layout_mode = 2
+offset_top = 60.0
+offset_right = 175.0
+offset_bottom = 100.0
 
 [connection signal="timeout" from="Timers/AttackStateTimer" to="." method="_on_attack_state_timer_timeout"]

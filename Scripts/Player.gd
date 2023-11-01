@@ -53,6 +53,8 @@ func _ready():
 	
 	CurrentHealth = MaxHealth
 	CurrentStaminaActions = MaxStaminaMoves
+	
+	UI.get_node("StaminaContainer").SetMaxIcons(MaxStaminaMoves)
 
 func _physics_process(delta):
 	
@@ -84,8 +86,9 @@ func _physics_process(delta):
 		if CurrentAttackState == AttackActionStates.NotAttacking && CurrentAttackState != AttackActionStates.Cooldown:
 			Attack()
 	
-	if Input.is_action_just_pressed("Roll") && CurrentAttackState != AttackActionStates.IsAttacking:
-		Roll()
+	if Input.is_action_just_pressed("Roll") && CurrentAttackState != AttackActionStates.IsAttacking && CurrentMoveState != MoveStates.Roll:
+		if IsMoving && CurrentStaminaActions > 0:
+			Roll()
 	
 	AnimationStateController()
 	
@@ -148,7 +151,9 @@ func Attack():
 		AttackTimer.start(AttackTime)
 
 func Roll():
-	UI.get_node("StaminaCircles").UpdateCircles(1)
+	CurrentStaminaActions -= 1
+	UI.get_node("StaminaContainer").UpdateIcons(CurrentStaminaActions)
+	ResetStamina()
 	
 	B_Audio.PlaySFX()
 	$CollisionShape2D.disabled = true
@@ -175,3 +180,11 @@ func AttackCooldown():
 	
 func TakeDamage(Amount : int):
 	CurrentHealth -= Amount
+
+func ResetStamina():
+	await get_tree().create_timer(StaminaRefillTime).timeout
+	if CurrentStaminaActions + 1 <= MaxStaminaMoves:
+		CurrentStaminaActions += 1
+		UI.get_node("StaminaContainer").UpdateIcons(CurrentStaminaActions)
+	else:
+		print('ERROR @ ResetStamina(): CurrentStaminaActions += 1 would EXCEED MaxStamina variable')

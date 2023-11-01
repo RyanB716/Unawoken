@@ -1,0 +1,9 @@
+[gd_scene load_steps=2 format=3 uid="uid://b8dv2qk331bb"]
+
+[ext_resource type="Script" path="res://Scripts/StaminaContainer.gd" id="1_7kqj4"]
+
+[node name="StaminaContainer" type="HBoxContainer"]
+offset_right = 40.0
+offset_bottom = 40.0
+theme_override_constants/separation = 20
+script = ExtResource("1_7kqj4")
