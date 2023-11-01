@@ -626,8 +626,6 @@ TrackArray = [ExtResource("7_xep2m"), ExtResource("8_6cs7t"), ExtResource("9_ywb
 [node name="AttackStateTimer" type="Timer" parent="Timers"]
 one_shot = true
 
-[node name="StaminaTimer" type="Timer" parent="Timers"]
-
 [node name="Player UI" type="CanvasLayer" parent="."]
 
 [node name="Health Bar" parent="Player UI" instance=ExtResource("10_1g6mq")]

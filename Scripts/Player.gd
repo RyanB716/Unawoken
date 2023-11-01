@@ -57,7 +57,6 @@ func _ready():
 	UI.get_node("StaminaContainer").SetMaxIcons(MaxStaminaMoves)
 
 func _physics_process(delta):
-	
 	IsMoving = Input.is_action_pressed("Run_Up") || Input.is_action_pressed("Run_Down") || Input.is_action_pressed("Run_Left") || Input.is_action_pressed("Run_Right")
 	
 	if CurrentMoveState != MoveStates.Roll:

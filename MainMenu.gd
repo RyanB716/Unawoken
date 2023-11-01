@@ -1,5 +1,7 @@
 extends Control
 
+@export var PlayIntro : bool
+
 @onready var TitleBox = $"Title Container"
 @onready var ButtonBox = $"Button Container"
 
@@ -34,7 +36,10 @@ func TitleFX():
 
 func NewGame():
 	print("Starting new game...")
-	get_tree().change_scene_to_file("res://Game Management/GameManager.tscn")
+	if PlayIntro:
+		get_tree().change_scene_to_file("res://Object Scenes/IntroScene.tscn")
+	else:
+		get_tree().change_scene_to_file("res://Game Management/GameManager.tscn")
 	
 func QuitGame():
 	get_tree().quit()

@@ -1,0 +1,251 @@
+[gd_scene load_steps=14 format=3 uid="uid://dg5qf8cba6ldd"]
+
+[ext_resource type="Script" path="res://Intro Scene.gd" id="1_ndr6t"]
+[ext_resource type="FontFile" uid="uid://dlulxm5dxb804" path="res://Assets/Fonts/Seagram tfb.ttf" id="2_ox527"]
+[ext_resource type="FontFile" uid="uid://ba0gbrsq1d1dv" path="res://Assets/Fonts/OldLondon.ttf" id="3_nl0ne"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_5tcly"]
+bg_color = Color(0, 0, 0, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_qx31p"]
+font = ExtResource("3_nl0ne")
+font_size = 100
+
+[sub_resource type="LabelSettings" id="LabelSettings_pf625"]
+font = ExtResource("3_nl0ne")
+font_size = 100
+
+[sub_resource type="LabelSettings" id="LabelSettings_fecdp"]
+font = ExtResource("3_nl0ne")
+font_size = 100
+
+[sub_resource type="LabelSettings" id="LabelSettings_bdkma"]
+font = ExtResource("3_nl0ne")
+font_size = 100
+
+[sub_resource type="LabelSettings" id="LabelSettings_uewv4"]
+font = ExtResource("2_ox527")
+font_size = 75
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_4n6ka"]
+bg_color = Color(1, 1, 1, 1)
+
+[sub_resource type="Animation" id="Animation_48l12"]
+resource_name = "IdleAnim"
+length = 3.5
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:theme_override_styles/normal:bg_color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1.8, 3.5),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(0, 0, 0, 1), Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_texls"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:theme_override_styles/normal:bg_color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_bmxf7"]
+_data = {
+"IdleAnim": SubResource("Animation_48l12"),
+"RESET": SubResource("Animation_texls")
+}
+
+[node name="Intro Scene" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_ndr6t")
+
+[node name="Panel" type="Panel" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_5tcly")
+
+[node name="Presents" type="Label" parent="Panel"]
+visible = false
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -723.5
+offset_top = -80.5
+offset_right = 723.5
+offset_bottom = 80.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_fonts/font = ExtResource("2_ox527")
+theme_override_font_sizes/font_size = 125
+text = "Rustbelt Games presents..."
+
+[node name="Title" type="Label" parent="Panel"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -930.0
+offset_top = -372.0
+offset_right = 909.0
+offset_bottom = 135.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_fonts/font = ExtResource("2_ox527")
+theme_override_font_sizes/font_size = 400
+text = "Unawoken"
+horizontal_alignment = 1
+
+[node name="Year" type="Label" parent="Panel"]
+visible = false
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -60.0
+offset_top = -80.0
+offset_right = 64.0
+offset_bottom = -51.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_fonts/font = ExtResource("2_ox527")
+theme_override_font_sizes/font_size = 20
+text = "Rustbelt Game Software est. MMXXIII"
+horizontal_alignment = 1
+
+[node name="Poem Container" type="VBoxContainer" parent="Panel"]
+visible = false
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -770.0
+offset_top = -458.0
+offset_right = 770.0
+offset_bottom = 74.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 55
+
+[node name="Poem1" type="Label" parent="Panel/Poem Container"]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_constants/line_spacing = 50
+theme_override_fonts/font = ExtResource("3_nl0ne")
+theme_override_font_sizes/font_size = 100
+text = "\"Innocent Child,"
+label_settings = SubResource("LabelSettings_qx31p")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Poem2" type="Label" parent="Panel/Poem Container"]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_constants/line_spacing = 50
+theme_override_fonts/font = ExtResource("3_nl0ne")
+theme_override_font_sizes/font_size = 100
+text = "thrust into this world unwitting."
+label_settings = SubResource("LabelSettings_pf625")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Poem3" type="Label" parent="Panel/Poem Container"]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_constants/line_spacing = 50
+theme_override_fonts/font = ExtResource("3_nl0ne")
+theme_override_font_sizes/font_size = 100
+text = "Never privy to the anguish you will endure,"
+label_settings = SubResource("LabelSettings_fecdp")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Poem4" type="Label" parent="Panel/Poem Container"]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_constants/line_spacing = 50
+theme_override_fonts/font = ExtResource("3_nl0ne")
+theme_override_font_sizes/font_size = 100
+text = "...and affect.\""
+label_settings = SubResource("LabelSettings_bdkma")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Book title" type="Label" parent="Panel"]
+visible = false
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -820.0
+offset_top = -405.0
+offset_right = -81.0
+offset_bottom = -209.0
+grow_horizontal = 0
+grow_vertical = 0
+size_flags_horizontal = 4
+theme_override_constants/line_spacing = 50
+theme_override_fonts/font = ExtResource("3_nl0ne")
+theme_override_font_sizes/font_size = 100
+text = "~ The Exalted Mother
+Book I, Act I"
+label_settings = SubResource("LabelSettings_uewv4")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Continue" type="Button" parent="Panel"]
+visible = false
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -187.5
+offset_top = -237.0
+offset_right = 187.5
+offset_bottom = -110.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("2_ox527")
+theme_override_font_sizes/font_size = 100
+theme_override_styles/normal = SubResource("StyleBoxFlat_4n6ka")
+text = "Continue"
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Panel/Continue"]
+libraries = {
+"": SubResource("AnimationLibrary_bmxf7")
+}
