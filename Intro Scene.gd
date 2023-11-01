@@ -47,7 +47,11 @@ func IntroFX():
 	for i in range(Poems.size()):
 		var colorTween = get_tree().create_tween()
 		colorTween.tween_property(Poems[i].label_settings, "font_color", Color.WHITE, 0.5)
-		await get_tree().create_timer(2.5).timeout
+		if i == 2:
+			await get_tree().create_timer(3.5).timeout
+		else:
+			await get_tree().create_timer(2.5).timeout
+		
 	var colorTween = get_tree().create_tween()
 	Book.visible = true
 	colorTween.tween_property(Book.label_settings, "font_color", Color.WHITE, 0.5)

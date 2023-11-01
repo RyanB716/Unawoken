@@ -8,19 +8,19 @@
 bg_color = Color(0, 0, 0, 1)
 
 [sub_resource type="LabelSettings" id="LabelSettings_qx31p"]
-font = ExtResource("3_nl0ne")
+font = ExtResource("2_ox527")
 font_size = 100
 
 [sub_resource type="LabelSettings" id="LabelSettings_pf625"]
-font = ExtResource("3_nl0ne")
+font = ExtResource("2_ox527")
 font_size = 100
 
 [sub_resource type="LabelSettings" id="LabelSettings_fecdp"]
-font = ExtResource("3_nl0ne")
+font = ExtResource("2_ox527")
 font_size = 100
 
 [sub_resource type="LabelSettings" id="LabelSettings_bdkma"]
-font = ExtResource("3_nl0ne")
+font = ExtResource("2_ox527")
 font_size = 100
 
 [sub_resource type="LabelSettings" id="LabelSettings_uewv4"]
@@ -105,6 +105,7 @@ theme_override_font_sizes/font_size = 125
 text = "Rustbelt Games presents..."
 
 [node name="Title" type="Label" parent="Panel"]
+visible = false
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -142,20 +143,19 @@ text = "Rustbelt Game Software est. MMXXIII"
 horizontal_alignment = 1
 
 [node name="Poem Container" type="VBoxContainer" parent="Panel"]
-visible = false
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -770.0
-offset_top = -458.0
-offset_right = 770.0
-offset_bottom = 74.0
+offset_left = -882.0
+offset_top = -489.0
+offset_right = 882.0
+offset_bottom = 136.0
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_constants/separation = 55
+theme_override_constants/separation = 35
 
 [node name="Poem1" type="Label" parent="Panel/Poem Container"]
 layout_mode = 2
@@ -202,7 +202,6 @@ horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="Book title" type="Label" parent="Panel"]
-visible = false
 layout_mode = 1
 anchors_preset = 3
 anchor_left = 1.0
@@ -210,9 +209,9 @@ anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
 offset_left = -820.0
-offset_top = -405.0
+offset_top = -383.0
 offset_right = -81.0
-offset_bottom = -209.0
+offset_bottom = -187.0
 grow_horizontal = 0
 grow_vertical = 0
 size_flags_horizontal = 4
