@@ -1,8 +1,10 @@
-[gd_scene load_steps=15 format=3 uid="uid://dk8t0mgb1oyra"]
+[gd_scene load_steps=17 format=3 uid="uid://dk8t0mgb1oyra"]
 
 [ext_resource type="Script" path="res://MainMenu.gd" id="1_mtd8w"]
 [ext_resource type="FontFile" uid="uid://dlulxm5dxb804" path="res://Assets/Fonts/Seagram tfb.ttf" id="2_s43nk"]
 [ext_resource type="FontFile" uid="uid://ba0gbrsq1d1dv" path="res://Assets/Fonts/OldLondon.ttf" id="3_mekxc"]
+[ext_resource type="PackedScene" uid="uid://dukgowli70ket" path="res://ShaderRects/ChromaticAbberation.tscn" id="4_l438a"]
+[ext_resource type="PackedScene" uid="uid://hjgr02ppy2rv" path="res://ShaderRects/FilmGrain.tscn" id="5_qmh14"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_qj17k"]
 bg_color = Color(0, 0, 0, 1)
@@ -64,6 +66,15 @@ size_flags_horizontal = 3
 size_flags_vertical = 3
 script = ExtResource("1_mtd8w")
 PlayIntro = true
+
+[node name="ChromaticAbberation" parent="." instance=ExtResource("4_l438a")]
+z_index = 1
+layout_mode = 1
+mouse_filter = 1
+
+[node name="FilmGrain" parent="." instance=ExtResource("5_qmh14")]
+z_index = 1
+layout_mode = 1
 
 [node name="Panel" type="Panel" parent="."]
 layout_mode = 1

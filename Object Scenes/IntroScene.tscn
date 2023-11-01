@@ -1,8 +1,10 @@
-[gd_scene load_steps=14 format=3 uid="uid://dg5qf8cba6ldd"]
+[gd_scene load_steps=16 format=3 uid="uid://dg5qf8cba6ldd"]
 
 [ext_resource type="Script" path="res://Intro Scene.gd" id="1_ndr6t"]
 [ext_resource type="FontFile" uid="uid://dlulxm5dxb804" path="res://Assets/Fonts/Seagram tfb.ttf" id="2_ox527"]
 [ext_resource type="FontFile" uid="uid://ba0gbrsq1d1dv" path="res://Assets/Fonts/OldLondon.ttf" id="3_nl0ne"]
+[ext_resource type="PackedScene" uid="uid://hjgr02ppy2rv" path="res://ShaderRects/FilmGrain.tscn" id="4_tvdif"]
+[ext_resource type="PackedScene" uid="uid://dukgowli70ket" path="res://ShaderRects/ChromaticAbberation.tscn" id="5_caxtv"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_5tcly"]
 bg_color = Color(0, 0, 0, 1)
@@ -76,6 +78,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_ndr6t")
+ShakeAmnt = 10.0
 
 [node name="Panel" type="Panel" parent="."]
 layout_mode = 1
@@ -248,3 +251,9 @@ text = "Continue"
 libraries = {
 "": SubResource("AnimationLibrary_bmxf7")
 }
+
+[node name="FilmGrain" parent="." instance=ExtResource("4_tvdif")]
+layout_mode = 1
+
+[node name="ChromaticAbberation" parent="." instance=ExtResource("5_caxtv")]
+layout_mode = 1

@@ -1,5 +1,7 @@
 extends Control
 
+@export var ShakeAmnt : float
+
 @onready var panel = $Panel
 
 @onready var Presents = $Panel/Presents
@@ -10,6 +12,8 @@ extends Control
 @onready var ContinueBtn = $Panel/Continue
 
 @onready var Poems
+
+var RNG
 
 func _ready():
 	Input.mouse_mode = Input.MOUSE_MODE_HIDDEN
@@ -25,6 +29,8 @@ func _ready():
 		Poems[i].label_settings.set_font_color(Color.BLACK)
 	
 	IntroFX()
+	
+	RNG = RandomNumberGenerator.new()
 	
 func _process(delta):
 	if ContinueBtn.visible:
