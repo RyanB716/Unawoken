@@ -1,8 +1,9 @@
-[gd_scene load_steps=16 format=3 uid="uid://dg5qf8cba6ldd"]
+[gd_scene load_steps=17 format=3 uid="uid://dg5qf8cba6ldd"]
 
 [ext_resource type="Script" path="res://Game Management/Scripts/Intro Scene.gd" id="1_ndr6t"]
 [ext_resource type="FontFile" uid="uid://dlulxm5dxb804" path="res://Visual Assets/Fonts/Seagram tfb.ttf" id="2_ox527"]
 [ext_resource type="FontFile" uid="uid://ba0gbrsq1d1dv" path="res://Visual Assets/Fonts/OldLondon.ttf" id="3_nl0ne"]
+[ext_resource type="PackedScene" uid="uid://dtgqca3e0gt6j" path="res://Object Scenes/Shaders/NodeShake.tscn" id="4_g7m72"]
 [ext_resource type="PackedScene" uid="uid://hjgr02ppy2rv" path="res://Object Scenes/Shaders/Color Rects/FilmGrain.tscn" id="4_tvdif"]
 [ext_resource type="PackedScene" uid="uid://dukgowli70ket" path="res://Object Scenes/Shaders/Color Rects/ChromaticAbberation.tscn" id="5_caxtv"]
 
@@ -81,6 +82,7 @@ script = ExtResource("1_ndr6t")
 ShakeAmnt = 10.0
 
 [node name="Panel" type="Panel" parent="."]
+custom_minimum_size = Vector2(1921, 1081)
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -90,7 +92,6 @@ grow_vertical = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_5tcly")
 
 [node name="Presents" type="Label" parent="Panel"]
-visible = false
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -108,7 +109,6 @@ theme_override_font_sizes/font_size = 125
 text = "Rustbelt Games presents..."
 
 [node name="Title" type="Label" parent="Panel"]
-visible = false
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -126,7 +126,7 @@ theme_override_font_sizes/font_size = 400
 text = "Unawoken"
 horizontal_alignment = 1
 
-[node name="Year" type="Label" parent="Panel"]
+[node name="Year" type="Label" parent="Panel/Title"]
 visible = false
 layout_mode = 1
 anchors_preset = 7
@@ -134,10 +134,10 @@ anchor_left = 0.5
 anchor_top = 1.0
 anchor_right = 0.5
 anchor_bottom = 1.0
-offset_left = -60.0
-offset_top = -80.0
-offset_right = 64.0
-offset_bottom = -51.0
+offset_left = -171.5
+offset_top = 325.0
+offset_right = 196.5
+offset_bottom = 354.0
 grow_horizontal = 2
 grow_vertical = 0
 theme_override_fonts/font = ExtResource("2_ox527")
@@ -251,6 +251,10 @@ text = "Continue"
 libraries = {
 "": SubResource("AnimationLibrary_bmxf7")
 }
+
+[node name="NodeShake" parent="." instance=ExtResource("4_g7m72")]
+RandomStrength = 0.25
+ShakeFade = 0.1
 
 [node name="FilmGrain" parent="." instance=ExtResource("4_tvdif")]
 layout_mode = 1

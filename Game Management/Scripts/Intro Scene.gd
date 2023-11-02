@@ -6,7 +6,7 @@ extends Control
 
 @onready var Presents = $Panel/Presents
 @onready var Title = $Panel/Title
-@onready var Year = $Panel/Year
+@onready var Year = $Panel/Title/Year
 @onready var PoemBox = $"Panel/Poem Container"
 @onready var Book = $"Panel/Book title"
 @onready var ContinueBtn = $Panel/Continue
@@ -39,16 +39,19 @@ func _process(_delta):
 			
 func IntroFX():
 	await get_tree().create_timer(1.5).timeout
+	$NodeShake.Target = Presents
 	Presents.visible = true
 	await get_tree().create_timer(3.5).timeout
 	Presents.visible = false
 	await get_tree().create_timer(1.5).timeout
+	$NodeShake.Target = Title
 	Title.visible = true
 	Year.visible = true
 	await get_tree().create_timer(5).timeout
 	Title.visible = false
 	Year.visible = false
 	await get_tree().create_timer(1.5).timeout
+	$NodeShake.Target = PoemBox
 	PoemBox.visible = true
 	for i in range(Poems.size()):
 		var colorTween = get_tree().create_tween()

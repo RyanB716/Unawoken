@@ -67,7 +67,6 @@ grow_vertical = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 script = ExtResource("1_mtd8w")
-PlayIntro = true
 Intro = ExtResource("2_7we7i")
 MainScene = ExtResource("3_b77oe")
 

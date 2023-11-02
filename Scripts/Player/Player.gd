@@ -1,4 +1,5 @@
 extends CharacterBody2D
+class_name Player
 
 @onready var AnimTree = $AnimationTree
 @onready var AttackTimer = $Timers/AttackStateTimer
@@ -45,7 +46,6 @@ var CurrentStaminaActions : int
 var AnimState = null
 
 func _ready():
-	CurrentMoveState = MoveStates.Idle
 	CurrentDirection = DirectionStates.Down
 	CurrentAttackState = AttackActionStates.NotAttacking
 	
@@ -57,28 +57,28 @@ func _ready():
 	UI.get_node("StaminaContainer").SetMaxIcons(MaxStaminaMoves)
 
 func _physics_process(delta):
+	
 	IsMoving = Input.is_action_pressed("Run_Up") || Input.is_action_pressed("Run_Down") || Input.is_action_pressed("Run_Left") || Input.is_action_pressed("Run_Right")
 	
-	if CurrentMoveState != MoveStates.Roll:
-		if IsMoving:
-			HorizontalInput = int(Input.is_action_pressed("Run_Right")) - int(Input.is_action_pressed("Run_Left"))
-			VerticalInput = int(Input.is_action_pressed("Run_Down")) - int(Input.is_action_pressed("Run_Up"))
+	if Input.is_action_pressed("Run_Up"):
+		CurrentDirection = DirectionStates.Up
+	elif Input.is_action_pressed("Run_Down"):
+		CurrentDirection = DirectionStates.Down
+	elif Input.is_action_pressed("Run_Right"):
+		CurrentDirection = DirectionStates.Right
+	elif Input.is_action_pressed("Run_Left"):
+		CurrentDirection = DirectionStates.Left
+	
+	if IsMoving:
+		HorizontalInput = int(Input.is_action_pressed("Run_Right")) - int(Input.is_action_pressed("Run_Left"))
+		VerticalInput = int(Input.is_action_pressed("Run_Down")) - int(Input.is_action_pressed("Run_Up"))
+		CurrentSpeed = lerpf(CurrentSpeed, TopSpeed, Acceleration * delta)
 		
-			CurrentSpeed = lerpf(CurrentSpeed, TopSpeed, Acceleration * delta)
-			CurrentMoveState = MoveStates.Run
-		
-		else:
-			CurrentSpeed = lerpf(CurrentSpeed, 0, Deceleration * delta)
-			CurrentMoveState = MoveStates.Idle
+	else:
+		CurrentSpeed = lerpf(CurrentSpeed, 0, Deceleration * delta)
 	
 	Direction = Vector2(HorizontalInput, VerticalInput).normalized()
 	velocity = (Direction * CurrentSpeed)
-	
-	AnimTree.set("parameters/Idle/blend_position", Direction)
-	AnimTree.set("parameters/Run/blend_position", Direction)
-	AnimTree.set("parameters/Attack/blend_position", Direction)
-	AnimTree.set("parameters/Attack 2/blend_position", Direction)
-	
 	move_and_slide()
 	
 	if Input.is_action_just_pressed("Attack"):
@@ -89,16 +89,6 @@ func _physics_process(delta):
 		if IsMoving && CurrentStaminaActions > 0:
 			Roll()
 	
-	AnimationStateController()
-	
-func AnimationStateController():
-	if CurrentAttackState == AttackActionStates.NotAttacking or CurrentAttackState == AttackActionStates.Cooldown:
-		if CurrentMoveState == MoveStates.Run:
-			AnimState.travel("Run")
-		elif CurrentMoveState == MoveStates.Roll:
-			AnimState.travel('Roll')
-		elif CurrentMoveState == MoveStates.Idle:
-			AnimState.travel("Idle")
 
 func Attack():
 	

@@ -1,0 +1,7 @@
+[gd_scene load_steps=2 format=3 uid="uid://dtgqca3e0gt6j"]
+
+[ext_resource type="Script" path="res://Game Management/Scenes/NodeShake.gd" id="1_yc0gc"]
+
+[node name="NodeShake" type="Node" node_paths=PackedStringArray("Target")]
+script = ExtResource("1_yc0gc")
+Target = NodePath("")

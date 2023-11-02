@@ -1,4 +1,4 @@
-[gd_scene load_steps=62 format=3 uid="uid://ce2ot07ptfk72"]
+[gd_scene load_steps=65 format=3 uid="uid://ce2ot07ptfk72"]
 
 [ext_resource type="Script" path="res://Scripts/Player/Player.gd" id="1_2gr55"]
 [ext_resource type="Texture2D" uid="uid://bi38invhap0t" path="res://Visual Assets/SpriteSheets/player.png" id="2_w50ld"]
@@ -11,6 +11,9 @@
 [ext_resource type="AudioStream" uid="uid://c5quaak31hhg6" path="res://Audio/SFX/07_human_atk_sword_3.wav" id="9_ywbp4"]
 [ext_resource type="PackedScene" uid="uid://cvlh1usf2hwre" path="res://Object Scenes/Player/HealthBar.tscn" id="10_1g6mq"]
 [ext_resource type="PackedScene" uid="uid://b8dv2qk331bb" path="res://Object Scenes/Player/StaminaContainer.tscn" id="11_0842j"]
+[ext_resource type="Script" path="res://Scripts/Components/FSM/StateMachine.gd" id="12_lsmi8"]
+[ext_resource type="Script" path="res://Scripts/Player/States/Player_Idle.gd" id="13_pcoj7"]
+[ext_resource type="Script" path="res://Scripts/Player/States/Player_Move.gd" id="14_votbp"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_8v8gj"]
 
@@ -633,5 +636,19 @@ one_shot = true
 [node name="StaminaContainer" parent="Player UI" instance=ExtResource("11_0842j")]
 offset_top = 85.0
 offset_bottom = 165.0
+
+[node name="StateMachine" type="Node" parent="." node_paths=PackedStringArray("InitialState")]
+script = ExtResource("12_lsmi8")
+InitialState = NodePath("Player_Idle")
+
+[node name="Player_Idle" type="Node" parent="StateMachine" node_paths=PackedStringArray("PlayerRef", "AnimPlayer")]
+script = ExtResource("13_pcoj7")
+PlayerRef = NodePath("../..")
+AnimPlayer = NodePath("../../AnimationPlayer")
+
+[node name="Player_Move" type="Node" parent="StateMachine" node_paths=PackedStringArray("PlayerRef", "AnimPlayer")]
+script = ExtResource("14_votbp")
+PlayerRef = NodePath("../..")
+AnimPlayer = NodePath("../../AnimationPlayer")
 
 [connection signal="timeout" from="Timers/AttackStateTimer" to="." method="_on_attack_state_timer_timeout"]
