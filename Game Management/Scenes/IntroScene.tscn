@@ -253,8 +253,8 @@ libraries = {
 }
 
 [node name="NodeShake" parent="." instance=ExtResource("4_g7m72")]
-RandomStrength = 0.25
-ShakeFade = 0.1
+RandomStrength = 0.1
+ShakeFade = 0.01
 
 [node name="FilmGrain" parent="." instance=ExtResource("4_tvdif")]
 layout_mode = 1

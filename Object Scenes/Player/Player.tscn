@@ -1,4 +1,4 @@
-[gd_scene load_steps=65 format=3 uid="uid://ce2ot07ptfk72"]
+[gd_scene load_steps=67 format=3 uid="uid://ce2ot07ptfk72"]
 
 [ext_resource type="Script" path="res://Scripts/Player/Player.gd" id="1_2gr55"]
 [ext_resource type="Texture2D" uid="uid://bi38invhap0t" path="res://Visual Assets/SpriteSheets/player.png" id="2_w50ld"]
@@ -14,6 +14,8 @@
 [ext_resource type="Script" path="res://Scripts/Components/FSM/StateMachine.gd" id="12_lsmi8"]
 [ext_resource type="Script" path="res://Scripts/Player/States/Player_Idle.gd" id="13_pcoj7"]
 [ext_resource type="Script" path="res://Scripts/Player/States/Player_Move.gd" id="14_votbp"]
+[ext_resource type="Script" path="res://Scripts/Player/States/Player_Attack1.gd" id="15_ng2mp"]
+[ext_resource type="Script" path="res://Scripts/Player/States/Roll.gd" id="16_d2gd4"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_8v8gj"]
 
@@ -148,7 +150,6 @@ tracks/2/keys = {
 
 [sub_resource type="Animation" id="Animation_fpfok"]
 resource_name = "Roll"
-loop_mode = 1
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -648,6 +649,16 @@ AnimPlayer = NodePath("../../AnimationPlayer")
 
 [node name="Player_Move" type="Node" parent="StateMachine" node_paths=PackedStringArray("PlayerRef", "AnimPlayer")]
 script = ExtResource("14_votbp")
+PlayerRef = NodePath("../..")
+AnimPlayer = NodePath("../../AnimationPlayer")
+
+[node name="Player_Attack1" type="Node" parent="StateMachine" node_paths=PackedStringArray("PlayerRef", "AnimPlayer")]
+script = ExtResource("15_ng2mp")
+PlayerRef = NodePath("../..")
+AnimPlayer = NodePath("../../AnimationPlayer")
+
+[node name="Roll" type="Node" parent="StateMachine" node_paths=PackedStringArray("PlayerRef", "AnimPlayer")]
+script = ExtResource("16_d2gd4")
 PlayerRef = NodePath("../..")
 AnimPlayer = NodePath("../../AnimationPlayer")
 
