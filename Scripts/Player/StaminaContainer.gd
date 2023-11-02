@@ -1,6 +1,6 @@
 extends HBoxContainer
 
-@onready var IconScene = preload("res://Object Scenes/StaminaGUI.tscn")
+@export var IconScene : PackedScene
 
 func SetMaxIcons(Amnt : int):
 	for i in range(Amnt):

@@ -1,7 +1,7 @@
 extends Panel
 
-@onready var FilledIcon = preload("res://Assets/UI/StamCircle_Filled.png")
-@onready var EmptyIcon = preload("res://Assets/UI/StamCircle_Empty.png")
+@export var FilledIcon : Texture
+@export var EmptyIcon : Texture
 
 @onready var sprite = $Sprite2D
 

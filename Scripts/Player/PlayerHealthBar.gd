@@ -5,5 +5,5 @@ extends ProgressBar
 func _ready():
 	self.max_value = PlayerRef.MaxHealth
 
-func _process(delta):
+func _process(_delta):
 	self.value = PlayerRef.CurrentHealth

@@ -1,6 +1,8 @@
 extends Control
 
 @export var PlayIntro : bool
+@export var Intro : PackedScene
+@export var MainScene : PackedScene
 
 @onready var TitleBox = $"Title Container"
 @onready var ButtonBox = $"Button Container"
@@ -19,9 +21,6 @@ func _ready():
 	await get_tree().create_timer(1.5).timeout
 	TitleFX()
 
-func _process(delta):
-	pass
-
 func TitleFX():
 	for i in range(TitleLetters.size()):
 		var colorTween = get_tree().create_tween()
@@ -37,9 +36,9 @@ func TitleFX():
 func NewGame():
 	print("Starting new game...")
 	if PlayIntro:
-		get_tree().change_scene_to_file("res://Object Scenes/IntroScene.tscn")
+		get_tree().change_scene_to_packed(Intro)
 	else:
-		get_tree().change_scene_to_file("res://Game Management/GameManager.tscn")
+		get_tree().change_scene_to_packed(MainScene)
 	
 func QuitGame():
 	get_tree().quit()
