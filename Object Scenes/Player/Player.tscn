@@ -652,14 +652,17 @@ script = ExtResource("14_votbp")
 PlayerRef = NodePath("../..")
 AnimPlayer = NodePath("../../AnimationPlayer")
 
-[node name="Player_Attack1" type="Node" parent="StateMachine" node_paths=PackedStringArray("PlayerRef", "AnimPlayer")]
+[node name="Player_Attack1" type="Node" parent="StateMachine" node_paths=PackedStringArray("PlayerRef", "AnimPlayer", "BodyAudio", "WeaponAudio")]
 script = ExtResource("15_ng2mp")
 PlayerRef = NodePath("../..")
 AnimPlayer = NodePath("../../AnimationPlayer")
+BodyAudio = NodePath("../../Audio/BodyAudio")
+WeaponAudio = NodePath("../../Audio/WeaponAudio")
 
-[node name="Roll" type="Node" parent="StateMachine" node_paths=PackedStringArray("PlayerRef", "AnimPlayer")]
+[node name="Roll" type="Node" parent="StateMachine" node_paths=PackedStringArray("PlayerRef", "AnimPlayer", "BodyAudio")]
 script = ExtResource("16_d2gd4")
 PlayerRef = NodePath("../..")
 AnimPlayer = NodePath("../../AnimationPlayer")
+BodyAudio = NodePath("../../Audio/BodyAudio")
 
 [connection signal="timeout" from="Timers/AttackStateTimer" to="." method="_on_attack_state_timer_timeout"]

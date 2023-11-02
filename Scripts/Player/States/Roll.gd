@@ -3,10 +3,12 @@ class_name Roll
 
 @export var PlayerRef : Player
 @export var AnimPlayer : AnimationPlayer
+@export var BodyAudio : AudioPlayer
 
 func OnEnter():
 	await get_tree().create_timer(0.12).timeout
 	
+	BodyAudio.PlaySFX()
 	PlayerRef.ReduceStamina(1)
 	
 	match PlayerRef.CurrentDirection:
