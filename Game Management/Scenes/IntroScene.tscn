@@ -1,8 +1,9 @@
-[gd_scene load_steps=17 format=3 uid="uid://dg5qf8cba6ldd"]
+[gd_scene load_steps=18 format=3 uid="uid://dg5qf8cba6ldd"]
 
 [ext_resource type="Script" path="res://Game Management/Scripts/Intro Scene.gd" id="1_ndr6t"]
 [ext_resource type="FontFile" uid="uid://dlulxm5dxb804" path="res://Visual Assets/Fonts/Seagram tfb.ttf" id="2_ox527"]
 [ext_resource type="FontFile" uid="uid://ba0gbrsq1d1dv" path="res://Visual Assets/Fonts/OldLondon.ttf" id="3_nl0ne"]
+[ext_resource type="FontFile" uid="uid://bs6libyxfwgc" path="res://Visual Assets/Fonts/MorrisRomanBlack.ttf" id="4_3f2pa"]
 [ext_resource type="PackedScene" uid="uid://dtgqca3e0gt6j" path="res://Object Scenes/Shaders/NodeShake.tscn" id="4_g7m72"]
 [ext_resource type="PackedScene" uid="uid://hjgr02ppy2rv" path="res://Object Scenes/Shaders/Color Rects/FilmGrain.tscn" id="4_tvdif"]
 [ext_resource type="PackedScene" uid="uid://dukgowli70ket" path="res://Object Scenes/Shaders/Color Rects/ChromaticAbberation.tscn" id="5_caxtv"]
@@ -11,24 +12,24 @@
 bg_color = Color(0, 0, 0, 1)
 
 [sub_resource type="LabelSettings" id="LabelSettings_qx31p"]
-font = ExtResource("2_ox527")
-font_size = 100
+font = ExtResource("4_3f2pa")
+font_size = 125
 
 [sub_resource type="LabelSettings" id="LabelSettings_pf625"]
-font = ExtResource("2_ox527")
-font_size = 100
+font = ExtResource("4_3f2pa")
+font_size = 125
 
 [sub_resource type="LabelSettings" id="LabelSettings_fecdp"]
-font = ExtResource("2_ox527")
-font_size = 100
+font = ExtResource("4_3f2pa")
+font_size = 110
 
 [sub_resource type="LabelSettings" id="LabelSettings_bdkma"]
-font = ExtResource("2_ox527")
-font_size = 100
+font = ExtResource("4_3f2pa")
+font_size = 125
 
 [sub_resource type="LabelSettings" id="LabelSettings_uewv4"]
-font = ExtResource("2_ox527")
-font_size = 75
+font = ExtResource("4_3f2pa")
+font_size = 100
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_4n6ka"]
 bg_color = Color(1, 1, 1, 1)
@@ -92,6 +93,7 @@ grow_vertical = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_5tcly")
 
 [node name="Presents" type="Label" parent="Panel"]
+visible = false
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -109,6 +111,7 @@ theme_override_font_sizes/font_size = 125
 text = "Rustbelt Games presents..."
 
 [node name="Title" type="Label" parent="Panel"]
+visible = false
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -152,10 +155,10 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -882.0
-offset_top = -489.0
-offset_right = 882.0
-offset_bottom = 136.0
+offset_left = -897.5
+offset_top = -459.0
+offset_right = 897.5
+offset_bottom = 166.0
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_constants/separation = 35
@@ -211,10 +214,10 @@ anchor_left = 1.0
 anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = -820.0
-offset_top = -383.0
-offset_right = -81.0
-offset_bottom = -187.0
+offset_left = -867.5
+offset_top = -433.5
+offset_right = -40.5
+offset_bottom = -237.5
 grow_horizontal = 0
 grow_vertical = 0
 size_flags_horizontal = 4
@@ -228,7 +231,6 @@ horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="Continue" type="Button" parent="Panel"]
-visible = false
 layout_mode = 1
 anchors_preset = 7
 anchor_left = 0.5

@@ -15,7 +15,7 @@ func Update(delta : float):
 		3:
 			AnimPlayer.play("Idle_Right")
 			
-	if PlayerRef.CurrentSpeed > 0.15:
+	if PlayerRef.IsMoving:
 		Transitioned.emit(self, "Player_Move")
 	
 	if Input.is_action_just_pressed("Attack"):
