@@ -15,5 +15,5 @@ func Update(delta : float):
 		3:
 			AnimPlayer.play("Idle_Right")
 			
-	if PlayerRef.CurrentSpeed >= 0.1 && AnimPlayer.animation_finished:
+	if PlayerRef.CurrentSpeed > 0.1:
 		Transitioned.emit(self, "Player_Move")

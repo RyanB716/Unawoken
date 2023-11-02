@@ -14,6 +14,6 @@ func Update(delta : float):
 			AnimPlayer.play("Run_Left")
 		3:
 			AnimPlayer.play("Run_Right")
-	
-	if PlayerRef.CurrentSpeed <= 0.25 && AnimPlayer.animation_finished:
+
+	if PlayerRef.CurrentSpeed < 0.1:
 		Transitioned.emit(self, "Player_Idle")
