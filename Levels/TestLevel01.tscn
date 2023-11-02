@@ -1,9 +1,9 @@
 [gd_scene load_steps=10 format=3 uid="uid://c4oy4c3d46qb4"]
 
-[ext_resource type="Texture2D" uid="uid://dnopw8nsh0l6t" path="res://Assets/TileSets/Zelda-like/TX Tileset Grass.png" id="1_c676x"]
-[ext_resource type="Texture2D" uid="uid://dtvpq5rbt1lpm" path="res://Assets/TileSets/Zelda-like/TX Props.png" id="2_qtsql"]
-[ext_resource type="Texture2D" uid="uid://cdpbqhwevef1q" path="res://Assets/TileSets/Zelda-like/TX Struct.png" id="3_mw2ad"]
-[ext_resource type="Texture2D" uid="uid://d2ta7w5mu121t" path="res://Assets/TileSets/Zelda-like/TX Tileset Wall.png" id="4_p0cqg"]
+[ext_resource type="Texture2D" uid="uid://dnopw8nsh0l6t" path="res://Visual Assets/TileSets/Zelda-like/TX Tileset Grass.png" id="1_c676x"]
+[ext_resource type="Texture2D" uid="uid://dtvpq5rbt1lpm" path="res://Visual Assets/TileSets/Zelda-like/TX Props.png" id="2_qtsql"]
+[ext_resource type="Texture2D" uid="uid://cdpbqhwevef1q" path="res://Visual Assets/TileSets/Zelda-like/TX Struct.png" id="3_mw2ad"]
+[ext_resource type="Texture2D" uid="uid://d2ta7w5mu121t" path="res://Visual Assets/TileSets/Zelda-like/TX Tileset Wall.png" id="4_p0cqg"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_lbjpo"]
 resource_name = "TS_Grass"
