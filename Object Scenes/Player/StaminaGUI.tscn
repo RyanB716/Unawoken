@@ -10,8 +10,9 @@ bg_color = Color(0.6, 0.6, 0.6, 0)
 [node name="StaminaGUI" type="Panel"]
 texture_filter = 1
 custom_minimum_size = Vector2(40, 40)
-offset_right = 40.0
-offset_bottom = 40.0
+offset_right = 60.0
+offset_bottom = 60.0
+scale = Vector2(2, 2)
 theme_override_styles/panel = SubResource("StyleBoxFlat_0jkg4")
 script = ExtResource("1_lu6k7")
 FilledIcon = ExtResource("2_u5mbu")
@@ -19,6 +20,6 @@ EmptyIcon = ExtResource("3_6mrxr")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture_filter = 1
-position = Vector2(20, 20)
-scale = Vector2(1.25, 1.25)
+position = Vector2(30, 30)
+scale = Vector2(2, 2)
 texture = ExtResource("2_u5mbu")

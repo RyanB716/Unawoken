@@ -466,6 +466,29 @@ AttackTime = 1.5
 CooldownTime = 3.0
 InputBufferAmnt = 0.12
 
+[node name="StateMachine" type="Node" parent="." node_paths=PackedStringArray("InitialState")]
+script = ExtResource("12_lsmi8")
+InitialState = NodePath("Player_Idle")
+
+[node name="Player_Idle" type="Node" parent="StateMachine" node_paths=PackedStringArray("PlayerRef")]
+script = ExtResource("13_pcoj7")
+PlayerRef = NodePath("../..")
+
+[node name="Player_Move" type="Node" parent="StateMachine" node_paths=PackedStringArray("PlayerRef", "AnimPlayer")]
+script = ExtResource("14_votbp")
+PlayerRef = NodePath("../..")
+AnimPlayer = NodePath("../../AnimationPlayer")
+
+[node name="Player_Attack" type="Node" parent="StateMachine" node_paths=PackedStringArray("PlayerRef")]
+script = ExtResource("15_8a7nj")
+PlayerRef = NodePath("../..")
+
+[node name="Roll" type="Node" parent="StateMachine" node_paths=PackedStringArray("PlayerRef", "AnimPlayer", "BodyAudio")]
+script = ExtResource("16_d2gd4")
+PlayerRef = NodePath("../..")
+AnimPlayer = NodePath("../../AnimationPlayer")
+BodyAudio = NodePath("../../Audio/BodyAudio")
+
 [node name="Sprite" type="Sprite2D" parent="."]
 texture_filter = 1
 texture = ExtResource("2_w50ld")
@@ -510,28 +533,6 @@ one_shot = true
 [node name="StaminaContainer" parent="Player UI" instance=ExtResource("11_0842j")]
 offset_top = 85.0
 offset_bottom = 165.0
-
-[node name="StateMachine" type="Node" parent="." node_paths=PackedStringArray("InitialState")]
-script = ExtResource("12_lsmi8")
-InitialState = NodePath("Player_Idle")
-
-[node name="Player_Idle" type="Node" parent="StateMachine" node_paths=PackedStringArray("PlayerRef")]
-script = ExtResource("13_pcoj7")
-PlayerRef = NodePath("../..")
-
-[node name="Player_Move" type="Node" parent="StateMachine" node_paths=PackedStringArray("PlayerRef", "AnimPlayer")]
-script = ExtResource("14_votbp")
-PlayerRef = NodePath("../..")
-AnimPlayer = NodePath("../../AnimationPlayer")
-
-[node name="Player_Attack" type="Node" parent="StateMachine" node_paths=PackedStringArray("PlayerRef")]
-script = ExtResource("15_8a7nj")
-PlayerRef = NodePath("../..")
-
-[node name="Roll" type="Node" parent="StateMachine" node_paths=PackedStringArray("PlayerRef", "AnimPlayer", "BodyAudio")]
-script = ExtResource("16_d2gd4")
-PlayerRef = NodePath("../..")
-AnimPlayer = NodePath("../../AnimationPlayer")
-BodyAudio = NodePath("../../Audio/BodyAudio")
+theme_override_constants/separation = 35
 
 [connection signal="timeout" from="Timers/AttackStateTimer" to="." method="_on_attack_state_timer_timeout"]
