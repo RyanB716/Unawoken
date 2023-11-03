@@ -1,0 +1,15 @@
+[gd_scene load_steps=3 format=3 uid="uid://coi4vvrt6aof5"]
+
+[ext_resource type="Script" path="res://Object Scenes/Enemies/Enemy_Skeleton.gd" id="1_j8bui"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_isx61"]
+
+[node name="Enemy_Skeleton" type="CharacterBody2D"]
+script = ExtResource("1_j8bui")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_isx61")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
