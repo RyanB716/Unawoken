@@ -2,16 +2,18 @@ extends State
 class_name Enemy_Follow
 
 @export var SelfRef : BasicEnemy
-@onready var PlayerTarget : Player
 
 func OnEnter():
-	PlayerTarget = get_tree().get_first_node_in_group("Player")
+	print("Skeleton: FOLLOWING")
 	
 func PhysicsUpdate(_deta : float):
-	if PlayerTarget != null:
-		var Direction = PlayerTarget.global_position - SelfRef.global_position
+	if SelfRef.PlayerTarget != null:
+		var Direction = SelfRef.PlayerTarget.global_position - SelfRef.global_position
 	
-		if Direction.length() > 20.0:
+		if Direction.length() > SelfRef.AttackRange:
 			SelfRef.velocity = Direction.normalized() * SelfRef.TopSpeed
 		else:
 			SelfRef.velocity = Vector2.ZERO
+			
+		if Direction.length() > SelfRef.DisengagementRange:
+			Transitioned.emit("Idle")

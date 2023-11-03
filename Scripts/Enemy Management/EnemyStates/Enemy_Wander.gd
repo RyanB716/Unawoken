@@ -7,7 +7,7 @@ var MoveDirection : Vector2
 var WanderTime : float
 
 func OnEnter():
-	print("Wandering!")
+	print("Skelton: WANDERING!")
 
 func Update(delta : float):
 	if WanderTime > 0:
@@ -27,7 +27,7 @@ func RandomizeTime():
 	if newValue >= 0.75:
 		print("Transitioning to IDLE")
 		SelfRef.velocity = Vector2.ZERO
-		Transitioned.emit("Enemy_Idle")
+		Transitioned.emit("Idle")
 	else:
 		MoveDirection = Vector2(RNG.randf_range(-1, 1), RNG.randf_range(-1, 1)).normalized()
 		WanderTime = RNG.randf_range(0.5, 3.0)

@@ -3,8 +3,10 @@ extends BasicEnemy
 @onready var AnimPlayer = $AnimationPlayer
 @onready var sprite = $Sprite2D
 
+var PlayerTarget : Player
+
 func _ready():
-	pass
+	PlayerTarget = get_tree().get_first_node_in_group("Player")
 
 func _physics_process(_delta):
 	move_and_slide()

@@ -13,6 +13,8 @@ class_name BasicEnemy
 
 @export_category("Surveilance Stats")
 @export var DetectionRange : float
+@export var DisengagementRange : float
+@export var AttackRange : float
 
 func _physics_process(_delta):
 	move_and_slide()
