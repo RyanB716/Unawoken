@@ -24,4 +24,4 @@ func OnEnter():
 	await AnimPlayer.animation_finished
 	
 	PlayerRef.ResetStamina(2)
-	Transitioned.emit(self, "Player_Idle")
+	Transitioned.emit("Player_Idle")

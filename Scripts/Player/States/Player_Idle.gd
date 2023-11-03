@@ -3,7 +3,7 @@ class_name Player_Idle
 
 @export var PlayerRef : Player
 
-func Update(delta : float):
+func Update(_delta : float):
 	match PlayerRef.CurrentDirection:
 		0:
 			PlayerRef.AnimPlayer.play("Idle_Up")
@@ -15,7 +15,7 @@ func Update(delta : float):
 			PlayerRef.AnimPlayer.play("Idle_Right")
 	
 	if PlayerRef.IsMoving:
-			Transitioned.emit(self, "Player_Move")
+			Transitioned.emit("Player_Move")
 	
 	if Input.is_action_just_pressed("Attack") && PlayerRef.CooldownTimer.is_stopped():
-		Transitioned.emit(self, "Player_Attack")
+		Transitioned.emit("Player_Attack")

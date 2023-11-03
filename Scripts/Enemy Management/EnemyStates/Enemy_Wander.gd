@@ -23,7 +23,7 @@ func Update(delta : float):
 		else:
 			SelfRef.sprite.flip_h = true
 		
-func PhysicsUpdate(delta : float):
+func PhysicsUpdate(_delta : float):
 	if SelfRef:
 		SelfRef.velocity = (MoveDirection * SelfRef.BaseSpeed)
 		
@@ -34,7 +34,7 @@ func RandomizeTime():
 	if newValue >= 0.75:
 		print("Transitioning to IDLE")
 		SelfRef.velocity = Vector2.ZERO
-		Transitioned.emit(self, "Enemy_Idle")
+		Transitioned.emit("Enemy_Idle")
 	else:
 		MoveDirection = Vector2(RNG.randf_range(-1, 1), RNG.randf_range(-1, 1)).normalized()
 		WanderTime = RNG.randf_range(0.5, 3.0)

@@ -68,4 +68,4 @@ func OnEnter():
 	if PlayerRef.CurrentAttackIndex < 3:
 		PlayerRef.AttackTimer.start(PlayerRef.AttackTime)
 	
-	Transitioned.emit(self, "Player_Idle")
+	Transitioned.emit("Player_Idle")

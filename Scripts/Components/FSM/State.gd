@@ -6,10 +6,10 @@ signal Transitioned
 func OnEnter():
 	pass
 	
-func Update(delta : float):
+func Update(_delta : float):
 	pass
 	
-func PhysicsUpdate(delta : float):
+func PhysicsUpdate(_delta : float):
 	pass
 	
 func OnExit():

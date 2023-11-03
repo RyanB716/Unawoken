@@ -4,7 +4,7 @@ class_name Player_Move
 @export var PlayerRef : Player
 @export var AnimPlayer : AnimationPlayer
 
-func Update(delta : float):
+func Update(_delta : float):
 	match PlayerRef.CurrentDirection:
 		0:
 			AnimPlayer.play("Run_Up")
@@ -16,10 +16,10 @@ func Update(delta : float):
 			AnimPlayer.play("Run_Right")
 
 	if !PlayerRef.IsMoving:
-		Transitioned.emit(self, "Player_Idle")
+		Transitioned.emit("Player_Idle")
 	
 	if Input.is_action_just_pressed("Attack") && PlayerRef.CooldownTimer.is_stopped():
-		Transitioned.emit(self, "Player_Attack")
+		Transitioned.emit("Player_Attack")
 		
 	if Input.is_action_just_pressed("Roll"):
-		Transitioned.emit(self, "Roll")
+		Transitioned.emit("Roll")

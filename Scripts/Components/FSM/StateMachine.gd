@@ -25,7 +25,7 @@ func _physics_process(delta):
 	if CurrentState:
 		CurrentState.PhysicsUpdate(delta)
 
-func OnStateTransition(state, newStateName):
+func OnStateTransition(newStateName):
 	
 	var nextState = StatesList.get(newStateName.to_lower())
 	if !nextState:

@@ -23,7 +23,7 @@ func ChangeToWander():
 	
 	if newValue <= 0.75:
 		print("Transitioning to WANDER")
-		Transitioned.emit(self, "Enemy_Wander")
+		Transitioned.emit("Enemy_Wander")
 	else:
 		print("Staying in Idle")
 		ChangeTime = RNG.randf_range(0, 5)
