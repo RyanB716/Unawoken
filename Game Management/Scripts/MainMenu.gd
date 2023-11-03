@@ -1,8 +1,8 @@
 extends Control
 
-@export var PlayIntro : bool
 @export var Intro : PackedScene
 @export var MainScene : PackedScene
+@export var ConfigMenu : PackedScene
 
 @onready var TitleBox = $"Title Container"
 @onready var ButtonBox = $"Button Container"
@@ -11,15 +11,17 @@ extends Control
 @onready var ButtonList = ButtonBox.get_children()
 
 func _ready():
-	for i in range(TitleLetters.size()):
-		TitleLetters[i].label_settings.set_font_color(Color.BLACK)
 	
-	for i in range(ButtonList.size()):
-		ButtonList[i].visible = false
-		ButtonList[i].mouse_filter = MOUSE_FILTER_IGNORE
+	if GameSettings.IsLaunched == false:
+		for i in range(TitleLetters.size()):
+			TitleLetters[i].label_settings.set_font_color(Color.BLACK)
 	
-	await get_tree().create_timer(1.5).timeout
-	TitleFX()
+		for i in range(ButtonList.size()):
+			ButtonList[i].visible = false
+			ButtonList[i].mouse_filter = MOUSE_FILTER_IGNORE
+	
+		await get_tree().create_timer(1.5).timeout
+		TitleFX()
 
 func TitleFX():
 	for i in range(TitleLetters.size()):
@@ -32,13 +34,19 @@ func TitleFX():
 		ButtonList[i].mouse_filter = MOUSE_FILTER_STOP
 		
 		await get_tree().create_timer(0.25).timeout
+		
+	GameSettings.IsLaunched = true
 
 func NewGame():
 	print("Starting new game...")
-	if PlayIntro:
+	
+	if GameSettings.PlayIntro == true:
 		get_tree().change_scene_to_packed(Intro)
 	else:
 		get_tree().change_scene_to_packed(MainScene)
 	
 func QuitGame():
 	get_tree().quit()
+
+func ToOptions():
+	get_tree().change_scene_to_packed(ConfigMenu)

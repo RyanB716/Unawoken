@@ -1,0 +1,60 @@
+[gd_scene load_steps=6 format=3 uid="uid://bmrv0ur1rwq74"]
+
+[ext_resource type="Script" path="res://Game Management/Scenes/ConfigMenu.gd" id="1_l27hy"]
+[ext_resource type="FontFile" uid="uid://dlulxm5dxb804" path="res://Visual Assets/Fonts/Seagram tfb.ttf" id="1_prdbe"]
+[ext_resource type="Texture2D" uid="uid://b5xuwwu0n6qn7" path="res://Visual Assets/UI/ButtonChecked.png" id="2_blf6l"]
+[ext_resource type="Texture2D" uid="uid://pdqr85ksfkk5" path="res://Visual Assets/UI/ButtonUnchecked.png" id="3_uld67"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_4hcfq"]
+bg_color = Color(0, 0, 0, 1)
+
+[node name="ConfigMenu" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_l27hy")
+
+[node name="Panel" type="Panel" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_4hcfq")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -210.0
+offset_top = -105.0
+offset_right = 210.0
+offset_bottom = 105.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="CheckIntro" type="CheckBox" parent="VBoxContainer"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("1_prdbe")
+theme_override_font_sizes/font_size = 75
+theme_override_icons/checked = ExtResource("2_blf6l")
+theme_override_icons/unchecked = ExtResource("3_uld67")
+text = "Play Intro"
+alignment = 2
+
+[node name="BackButton" type="Button" parent="VBoxContainer"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("1_prdbe")
+theme_override_font_sizes/font_size = 75
+text = "Back
+"
+
+[connection signal="pressed" from="VBoxContainer/CheckIntro" to="." method="CheckIntro"]
+[connection signal="pressed" from="VBoxContainer/BackButton" to="." method="GoBack"]

@@ -10,11 +10,7 @@ script = ExtResource("1_gdgan")
 [node name="Test Level 01" parent="." instance=ExtResource("1_1m60y")]
 
 [node name="Player" parent="." instance=ExtResource("2_t5728")]
-position = Vector2(288, 117)
-motion_mode = 1
-TopSpeed = 125
-AttackTime = 1.25
-CooldownTime = 2.5
+position = Vector2(0, 183)
 
 [node name="Camera2D" type="Camera2D" parent="Player"]
 zoom = Vector2(4, 4)

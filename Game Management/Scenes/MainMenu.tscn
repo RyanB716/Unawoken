@@ -1,10 +1,11 @@
-[gd_scene load_steps=19 format=3 uid="uid://dk8t0mgb1oyra"]
+[gd_scene load_steps=20 format=3 uid="uid://dk8t0mgb1oyra"]
 
 [ext_resource type="Script" path="res://Game Management/Scripts/MainMenu.gd" id="1_mtd8w"]
 [ext_resource type="PackedScene" uid="uid://dg5qf8cba6ldd" path="res://Game Management/Scenes/IntroScene.tscn" id="2_7we7i"]
 [ext_resource type="FontFile" uid="uid://dlulxm5dxb804" path="res://Visual Assets/Fonts/Seagram tfb.ttf" id="2_s43nk"]
 [ext_resource type="PackedScene" uid="uid://ccjctttiken65" path="res://Game Management/Scenes/GameManager.tscn" id="3_b77oe"]
 [ext_resource type="FontFile" uid="uid://ba0gbrsq1d1dv" path="res://Visual Assets/Fonts/OldLondon.ttf" id="3_mekxc"]
+[ext_resource type="PackedScene" uid="uid://bmrv0ur1rwq74" path="res://Game Management/Scenes/ConfigMenu.tscn" id="4_d0sfs"]
 [ext_resource type="PackedScene" uid="uid://dukgowli70ket" path="res://Object Scenes/Shaders/Color Rects/ChromaticAbberation.tscn" id="4_l438a"]
 [ext_resource type="PackedScene" uid="uid://hjgr02ppy2rv" path="res://Object Scenes/Shaders/Color Rects/FilmGrain.tscn" id="5_qmh14"]
 
@@ -67,9 +68,9 @@ grow_vertical = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 script = ExtResource("1_mtd8w")
-PlayIntro = true
 Intro = ExtResource("2_7we7i")
 MainScene = ExtResource("3_b77oe")
+ConfigMenu = ExtResource("4_d0sfs")
 
 [node name="ChromaticAbberation" parent="." instance=ExtResource("4_l438a")]
 z_index = 1
@@ -228,4 +229,5 @@ grow_vertical = 0
 text = "ver. 0.02"
 
 [connection signal="pressed" from="Button Container/Start" to="." method="NewGame"]
+[connection signal="pressed" from="Button Container/Config" to="." method="ToOptions"]
 [connection signal="pressed" from="Button Container/Quit" to="." method="QuitGame"]

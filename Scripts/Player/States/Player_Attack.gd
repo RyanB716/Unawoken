@@ -4,6 +4,10 @@ class_name Player_Attack
 @export var PlayerRef : Player
 
 func OnEnter():
+	
+	if !PlayerRef.AttackTimer.is_stopped():
+			PlayerRef.AttackTimer.stop()
+			
 	PlayerRef.BodyAudio.PlaySFX()
 	
 	await get_tree().create_timer(PlayerRef.InputBufferAmnt).timeout

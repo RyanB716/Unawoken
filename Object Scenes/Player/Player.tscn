@@ -267,7 +267,7 @@ _data = {
 
 [sub_resource type="Animation" id="Animation_6mu3k"]
 resource_name = "Attack_Down"
-length = 0.80001
+length = 0.60001
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -283,7 +283,7 @@ tracks/0/keys = {
 
 [sub_resource type="Animation" id="Animation_3hjxn"]
 resource_name = "Attack_Left"
-length = 0.80001
+length = 0.60001
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -311,7 +311,7 @@ tracks/1/keys = {
 
 [sub_resource type="Animation" id="Animation_brb81"]
 resource_name = "Attack_Right"
-length = 0.80001
+length = 0.60001
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -339,7 +339,7 @@ tracks/1/keys = {
 
 [sub_resource type="Animation" id="Animation_txiqo"]
 resource_name = "Attack_Up"
-length = 0.80001
+length = 0.60001
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -362,7 +362,7 @@ _data = {
 }
 
 [sub_resource type="Animation" id="Animation_g75o7"]
-length = 0.30001
+length = 0.60001
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -370,14 +370,14 @@ tracks/0/path = NodePath("Sprite:frame_coords")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.1, 0.2, 0.3),
+"times": PackedFloat32Array(0, 0.2, 0.4, 0.6),
 "transitions": PackedFloat32Array(1, 1, 1, 1),
 "update": 1,
 "values": [Vector2i(0, 6), Vector2i(2, 6), Vector2i(1, 6), Vector2i(3, 6)]
 }
 
 [sub_resource type="Animation" id="Animation_6aob8"]
-length = 0.30001
+length = 0.60001
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -385,7 +385,7 @@ tracks/0/path = NodePath("Sprite:frame_coords")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.1, 0.2, 0.3),
+"times": PackedFloat32Array(0, 0.2, 0.4, 0.6),
 "transitions": PackedFloat32Array(1, 1, 1, 1),
 "update": 1,
 "values": [Vector2i(0, 7), Vector2i(2, 7), Vector2i(1, 7), Vector2i(3, 7)]
@@ -404,7 +404,7 @@ tracks/1/keys = {
 }
 
 [sub_resource type="Animation" id="Animation_1okrm"]
-length = 0.30001
+length = 0.60001
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -424,14 +424,14 @@ tracks/1/path = NodePath("Sprite:frame_coords")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
-"times": PackedFloat32Array(0, 0.1, 0.2, 0.3),
+"times": PackedFloat32Array(0, 0.2, 0.4, 0.6),
 "transitions": PackedFloat32Array(1, 1, 1, 1),
 "update": 1,
 "values": [Vector2i(0, 7), Vector2i(2, 7), Vector2i(1, 7), Vector2i(3, 7)]
 }
 
 [sub_resource type="Animation" id="Animation_gwqxn"]
-length = 0.30001
+length = 0.60001
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -439,7 +439,7 @@ tracks/0/path = NodePath("Sprite:frame_coords")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.1, 0.2, 0.3),
+"times": PackedFloat32Array(0, 0.2, 0.4, 0.6),
 "transitions": PackedFloat32Array(1, 1, 1, 1),
 "update": 1,
 "values": [Vector2i(0, 8), Vector2i(2, 8), Vector2i(1, 8), Vector2i(3, 8)]
@@ -457,14 +457,14 @@ _data = {
 script = ExtResource("1_2gr55")
 MaxHealth = 250
 MaxStaminaMoves = 3
-StaminaRefillTime = 2.5
-TopSpeed = 200
+StaminaRefillTime = 3.5
+TopSpeed = 125
 Acceleration = 1.5
 Deceleration = 10.0
 RollTime = 0.75
-AttackTime = 1.5
-CooldownTime = 3.0
-InputBufferAmnt = 0.12
+AttackTime = 3.0
+CooldownTime = 5.0
+InputBufferAmnt = 0.13
 
 [node name="StateMachine" type="Node" parent="." node_paths=PackedStringArray("InitialState")]
 script = ExtResource("12_lsmi8")
