@@ -1,8 +1,9 @@
-[gd_scene load_steps=4 format=3 uid="uid://ccjctttiken65"]
+[gd_scene load_steps=5 format=3 uid="uid://ccjctttiken65"]
 
 [ext_resource type="PackedScene" uid="uid://c4oy4c3d46qb4" path="res://Levels/TestLevel01.tscn" id="1_1m60y"]
 [ext_resource type="Script" path="res://Game Management/Scripts/GameManager.gd" id="1_gdgan"]
 [ext_resource type="PackedScene" uid="uid://c3k8mn8f7r27v" path="res://Object Scenes/Player/Player.tscn" id="2_t5728"]
+[ext_resource type="PackedScene" uid="uid://coi4vvrt6aof5" path="res://Object Scenes/Enemies/Enemy_Skeleton.tscn" id="4_6tne4"]
 
 [node name="GameManager" type="Node"]
 script = ExtResource("1_gdgan")
@@ -10,7 +11,11 @@ script = ExtResource("1_gdgan")
 [node name="Test Level 01" parent="." instance=ExtResource("1_1m60y")]
 
 [node name="Player" parent="." instance=ExtResource("2_t5728")]
-position = Vector2(0, 183)
+position = Vector2(209, 144)
 
 [node name="Camera2D" type="Camera2D" parent="Player"]
 zoom = Vector2(4, 4)
+
+[node name="Enemy_Skeleton" parent="." instance=ExtResource("4_6tne4")]
+position = Vector2(420, 303)
+BaseSpeed = 15.0

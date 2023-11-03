@@ -23,7 +23,7 @@ func _process(delta):
 	
 func _physics_process(delta):
 	if CurrentState:
-		CurrentState.Update(delta)
+		CurrentState.PhysicsUpdate(delta)
 
 func OnStateTransition(state, newStateName):
 	

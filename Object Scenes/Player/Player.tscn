@@ -18,6 +18,7 @@
 [ext_resource type="Script" path="res://Scripts/Player/States/Roll.gd" id="16_d2gd4"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_8v8gj"]
+size = Vector2(13, 17)
 
 [sub_resource type="Animation" id="Animation_tt04w"]
 resource_name = "Idle_Down"
@@ -497,7 +498,7 @@ vframes = 10
 frame = 39
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(0, 9)
+position = Vector2(-0.5, 8.5)
 shape = SubResource("RectangleShape2D_8v8gj")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]

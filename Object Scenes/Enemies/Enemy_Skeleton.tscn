@@ -1,15 +1,146 @@
-[gd_scene load_steps=3 format=3 uid="uid://coi4vvrt6aof5"]
+[gd_scene load_steps=12 format=3 uid="uid://coi4vvrt6aof5"]
 
-[ext_resource type="Script" path="res://Object Scenes/Enemies/Enemy_Skeleton.gd" id="1_j8bui"]
+[ext_resource type="Script" path="res://Scripts/Enemy Management/Enemy_Skeleton.gd" id="1_awncw"]
+[ext_resource type="Texture2D" uid="uid://c50k72ev7uwhi" path="res://Visual Assets/SpriteSheets/Enemies/Skeleton/Skeleton Walk.png" id="2_0qup4"]
+[ext_resource type="Script" path="res://Scripts/Components/FSM/StateMachine.gd" id="2_5ijn0"]
+[ext_resource type="Texture2D" uid="uid://bv0co7xtdnx37" path="res://Visual Assets/SpriteSheets/Enemies/Skeleton/Skeleton Idle.png" id="3_4dmcb"]
+[ext_resource type="Script" path="res://Scripts/Enemy Management/EnemyStates/Enemy_Wander.gd" id="5_lh5cc"]
+[ext_resource type="Script" path="res://Scripts/Enemy Management/EnemyStates/Enemy_Idle.gd" id="5_xjhhd"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_isx61"]
+size = Vector2(10, 24)
+
+[sub_resource type="Animation" id="Animation_fhujm"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite2D:texture")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("2_0qup4")]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Sprite2D:frame_coords")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [Vector2i(0, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_gitfk"]
+resource_name = "Skeleton_Idle"
+length = 1.00001
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("3_4dmcb")]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite2D:frame_coords")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [Vector2i(0, 0), Vector2i(1, 0), Vector2i(2, 0), Vector2i(3, 0), Vector2i(4, 0), Vector2i(5, 0), Vector2i(6, 0), Vector2i(7, 0), Vector2i(8, 0), Vector2i(9, 0), Vector2i(10, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_7ywxm"]
+resource_name = "Skeleton_Walk"
+length = 1.20001
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1, 1.1, 1.2),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite2D:texture")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("2_0qup4")]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_1yyg0"]
+_data = {
+"RESET": SubResource("Animation_fhujm"),
+"Skeleton_Idle": SubResource("Animation_gitfk"),
+"Skeleton_Walk": SubResource("Animation_7ywxm")
+}
 
 [node name="Enemy_Skeleton" type="CharacterBody2D"]
-script = ExtResource("1_j8bui")
+script = ExtResource("1_awncw")
+BaseSpeed = 50.0
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
+texture_filter = 1
+texture = ExtResource("2_0qup4")
+hframes = 13
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(-4, 4)
 shape = SubResource("RectangleShape2D_isx61")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_1yyg0")
+}
+
+[node name="StateMachine" type="Node" parent="." node_paths=PackedStringArray("InitialState")]
+script = ExtResource("2_5ijn0")
+InitialState = NodePath("Enemy_Wander")
+
+[node name="Enemy_Wander" type="Node" parent="StateMachine" node_paths=PackedStringArray("Anim", "SelfRef", "sprite")]
+script = ExtResource("5_lh5cc")
+Anim = NodePath("../../AnimationPlayer")
+SelfRef = NodePath("../..")
+sprite = NodePath("../../Sprite2D")
+
+[node name="Enemy_Idle" type="Node" parent="StateMachine"]
+script = ExtResource("5_xjhhd")
