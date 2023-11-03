@@ -1,5 +1,5 @@
 extends Node
 
 var IsLaunched : bool = false
-var PlayIntro : bool = false
+var PlayIntro : bool = true
 
