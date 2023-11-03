@@ -17,5 +17,5 @@ position = Vector2(209, 144)
 zoom = Vector2(4, 4)
 
 [node name="Enemy_Skeleton" parent="." instance=ExtResource("4_6tne4")]
-position = Vector2(420, 303)
+position = Vector2(257, 164)
 BaseSpeed = 15.0
