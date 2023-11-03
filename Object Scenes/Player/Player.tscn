@@ -267,7 +267,7 @@ _data = {
 
 [sub_resource type="Animation" id="Animation_6mu3k"]
 resource_name = "Attack_Down"
-length = 0.30001
+length = 0.80001
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -275,7 +275,7 @@ tracks/0/path = NodePath("Sprite:frame")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.1, 0.2, 0.3),
+"times": PackedFloat32Array(0, 0.2, 0.4, 0.6),
 "transitions": PackedFloat32Array(1, 1, 1, 1),
 "update": 1,
 "values": [36, 37, 38, 39]
@@ -283,7 +283,7 @@ tracks/0/keys = {
 
 [sub_resource type="Animation" id="Animation_3hjxn"]
 resource_name = "Attack_Left"
-length = 0.30001
+length = 0.80001
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -291,7 +291,7 @@ tracks/0/path = NodePath("Sprite:frame")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.1, 0.2, 0.3),
+"times": PackedFloat32Array(0, 0.2, 0.4, 0.6),
 "transitions": PackedFloat32Array(1, 1, 1, 1),
 "update": 1,
 "values": [42, 43, 44, 45]
@@ -311,7 +311,7 @@ tracks/1/keys = {
 
 [sub_resource type="Animation" id="Animation_brb81"]
 resource_name = "Attack_Right"
-length = 0.30001
+length = 0.80001
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -319,7 +319,7 @@ tracks/0/path = NodePath("Sprite:frame")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.1, 0.2, 0.3),
+"times": PackedFloat32Array(0, 0.2, 0.4, 0.6),
 "transitions": PackedFloat32Array(1, 1, 1, 1),
 "update": 1,
 "values": [42, 43, 44, 45]
@@ -339,7 +339,7 @@ tracks/1/keys = {
 
 [sub_resource type="Animation" id="Animation_txiqo"]
 resource_name = "Attack_Up"
-length = 0.30001
+length = 0.80001
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -347,7 +347,7 @@ tracks/0/path = NodePath("Sprite:frame")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.1, 0.2, 0.3),
+"times": PackedFloat32Array(0, 0.2, 0.4, 0.6),
 "transitions": PackedFloat32Array(1, 1, 1, 1),
 "update": 1,
 "values": [48, 49, 50, 51]
