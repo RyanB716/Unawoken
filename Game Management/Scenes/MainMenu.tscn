@@ -226,7 +226,7 @@ offset_top = -35.0
 offset_right = 76.0
 offset_bottom = -9.0
 grow_vertical = 0
-text = "ver. 0.02"
+text = "ver. 0.03"
 
 [connection signal="pressed" from="Button Container/Start" to="." method="NewGame"]
 [connection signal="pressed" from="Button Container/Config" to="." method="ToOptions"]
