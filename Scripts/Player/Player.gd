@@ -24,7 +24,6 @@ var IsMoving = false
 @export var TopSpeed = 0
 @export var Acceleration = 0.0
 @export var Deceleration = 0.0
-@export var RollTime = 0.0
 
 @export_category("Attack Stats")
 @export var AttackTime : float

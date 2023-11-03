@@ -12,6 +12,8 @@ func OnEnter():
 	PlayerRef.BodyAudio.PlaySFX()
 	
 	await get_tree().create_timer(PlayerRef.InputBufferAmnt).timeout
+	var PreviousSpeed = PlayerRef.TopSpeed
+	PlayerRef.TopSpeed = PlayerRef.TopSpeed * 0.25
 	
 	if PlayerRef.CurrentAttackIndex <= 1 && PlayerRef.AttackTimer.is_stopped():
 		match PlayerRef.CurrentDirection:
@@ -60,6 +62,8 @@ func OnEnter():
 	
 	PlayerRef.WeaponAudio.PlaySFX()
 	await PlayerRef.AnimPlayer.animation_finished
+	
+	PlayerRef.TopSpeed = PreviousSpeed
 	
 	if PlayerRef.CurrentAttackIndex < 3:
 		PlayerRef.AttackTimer.start(PlayerRef.AttackTime)

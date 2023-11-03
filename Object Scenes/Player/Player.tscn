@@ -461,7 +461,6 @@ StaminaRefillTime = 3.5
 TopSpeed = 125
 Acceleration = 1.5
 Deceleration = 10.0
-RollTime = 0.75
 AttackTime = 3.0
 CooldownTime = 3.5
 InputBufferAmnt = 0.13
