@@ -4,6 +4,7 @@ class_name Player_Attack
 @export var PlayerRef : Player
 
 func OnEnter():
+	print(PlayerRef.CurrentAttackIndex)
 	
 	if !PlayerRef.AttackTimer.is_stopped():
 			PlayerRef.AttackTimer.stop()

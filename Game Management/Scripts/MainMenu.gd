@@ -33,7 +33,7 @@ func TitleFX():
 		ButtonList[i].visible = true
 		ButtonList[i].mouse_filter = MOUSE_FILTER_STOP
 		
-		await get_tree().create_timer(0.25).timeout
+		await get_tree().create_timer(0.35).timeout
 		
 	GameSettings.IsLaunched = true
 

@@ -1,7 +1,10 @@
 extends Control
 
 func _ready():
-	$VBoxContainer/CheckIntro.button_pressed = true
+	if GameSettings.PlayIntro == true:
+		$VBoxContainer/CheckIntro.button_pressed = true
+	else:
+		$VBoxContainer/CheckIntro.button_pressed = false
 
 func CheckIntro():
 	GameSettings.PlayIntro = !GameSettings.PlayIntro

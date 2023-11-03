@@ -1,4 +1,4 @@
-[gd_scene load_steps=6 format=3 uid="uid://bmrv0ur1rwq74"]
+[gd_scene load_steps=8 format=3 uid="uid://bmrv0ur1rwq74"]
 
 [ext_resource type="Script" path="res://Game Management/Scripts/ConfigMenu.gd" id="1_iyanm"]
 [ext_resource type="FontFile" uid="uid://dlulxm5dxb804" path="res://Visual Assets/Fonts/Seagram tfb.ttf" id="1_prdbe"]
@@ -7,6 +7,12 @@
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_4hcfq"]
 bg_color = Color(0, 0, 0, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_e64d2"]
+bg_color = Color(0, 0, 0, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_irvya"]
+bg_color = Color(1, 1, 1, 1)
 
 [node name="ConfigMenu" type="Control"]
 layout_mode = 3
@@ -53,6 +59,8 @@ alignment = 2
 layout_mode = 2
 theme_override_fonts/font = ExtResource("1_prdbe")
 theme_override_font_sizes/font_size = 75
+theme_override_styles/normal = SubResource("StyleBoxFlat_e64d2")
+theme_override_styles/hover = SubResource("StyleBoxFlat_irvya")
 text = "Back
 "
 
