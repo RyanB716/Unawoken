@@ -6,10 +6,10 @@ class_name Roll
 @export var BodyAudio : AudioPlayer
 
 func OnEnter():
-	await get_tree().create_timer(0.12).timeout
+	await get_tree().create_timer(PlayerRef.InputBufferAmnt).timeout
 	
 	BodyAudio.PlaySFX()
-	PlayerRef.ReduceStamina(1)
+	PlayerRef.ReduceStamina(2)
 	
 	match PlayerRef.CurrentDirection:
 		0:
@@ -22,4 +22,6 @@ func OnEnter():
 			AnimPlayer.play("Roll")
 			
 	await AnimPlayer.animation_finished
+	
+	PlayerRef.ResetStamina(2)
 	Transitioned.emit(self, "Player_Idle")

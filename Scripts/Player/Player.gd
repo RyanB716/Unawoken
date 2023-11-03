@@ -1,21 +1,17 @@
 extends CharacterBody2D
 class_name Player
 
-@onready var AnimTree = $AnimationTree
+@onready var AnimPlayer = $AnimationPlayer
 @onready var AttackTimer = $Timers/AttackStateTimer
-@onready var B_Audio = $Audio/BodyAudio
-@onready var W_Audio = $Audio/WeaponAudio
+@onready var CooldownTimer = $Timers/CoolDown
+@onready var BodyAudio = $Audio/BodyAudio
+@onready var WeaponAudio = $Audio/WeaponAudio
 @onready var UI = $"Player UI"
 
 enum DirectionStates {Up, Down, Left, Right}
-enum MoveStates {Idle, Run, Roll}
-enum AttackActionStates {NotAttacking, IsAttacking, Cooldown}
-enum AttackSlots {Attack1, Attack2, Attack3}
 
-var CurrentMoveState : int
 var CurrentDirection : int
-var CurrentAttackState : int
-var CurrentAttackIndex : int
+@onready var CurrentAttackIndex : int = 1
 
 var IsMoving = false
 
@@ -78,31 +74,16 @@ func _physics_process(delta):
 	
 	velocity = (Direction * CurrentSpeed)
 	move_and_slide()
-	
-func Roll():
-	ReduceStamina(1)
-	
-	B_Audio.PlaySFX()
-	$CollisionShape2D.disabled = true
-	CurrentMoveState = MoveStates.Roll
-	
-	var PrevSpeed = CurrentSpeed
-	CurrentSpeed = PrevSpeed * 0.75
-	
-	await get_tree().create_timer(RollTime).timeout
-	$CollisionShape2D.disabled = false
-	CurrentMoveState = MoveStates.Idle
-	
-	CurrentSpeed = PrevSpeed
 
 func _on_attack_state_timer_timeout():
-	CurrentAttackIndex = AttackSlots.Attack1
+	print("Attack timer reset")
+	CurrentAttackIndex = 1
 
 func AttackCooldown():
 	print("Cooldown STARTED!")
-	await get_tree().create_timer(CooldownTime).timeout
-	CurrentAttackState = AttackActionStates.NotAttacking
-	CurrentAttackIndex = AttackSlots.Attack1
+	CooldownTimer.start(CooldownTime)
+	await CooldownTimer.timeout
+	CurrentAttackIndex = 1
 	print('Cooldown FINISHED!')
 	
 func TakeDamage(Amount : int):
@@ -111,14 +92,14 @@ func TakeDamage(Amount : int):
 func ReduceStamina(Amnt : int):
 	CurrentStaminaActions -= Amnt
 	UI.get_node("StaminaContainer").UpdateIcons(CurrentStaminaActions)
-	
-	for i in range(Amnt):
-		ResetStamina()
 
-func ResetStamina():
-	await get_tree().create_timer(StaminaRefillTime).timeout
-	if CurrentStaminaActions + 1 <= MaxStaminaMoves:
-		CurrentStaminaActions += 1
-		UI.get_node("StaminaContainer").UpdateIcons(CurrentStaminaActions)
-	else:
-		print('ERROR @ ResetStamina(): CurrentStaminaActions += 1 would EXCEED MaxStamina variable')
+func ResetStamina(Amnt : int):
+	for i in range(Amnt):
+		
+		await get_tree().create_timer(StaminaRefillTime).timeout
+		
+		if CurrentStaminaActions + 1 <= MaxStaminaMoves:
+			CurrentStaminaActions += 1
+			UI.get_node("StaminaContainer").UpdateIcons(CurrentStaminaActions)
+		else:
+			print('ERROR @ ResetStamina(): CurrentStaminaActions += 1 would EXCEED MaxStamina variable')

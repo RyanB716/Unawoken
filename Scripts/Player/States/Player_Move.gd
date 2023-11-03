@@ -18,8 +18,8 @@ func Update(delta : float):
 	if !PlayerRef.IsMoving:
 		Transitioned.emit(self, "Player_Idle")
 	
-	if Input.is_action_just_pressed("Attack"):
-		Transitioned.emit(self, "Player_Attack1")
+	if Input.is_action_just_pressed("Attack") && PlayerRef.CooldownTimer.is_stopped():
+		Transitioned.emit(self, "Player_Attack")
 		
 	if Input.is_action_just_pressed("Roll"):
 		Transitioned.emit(self, "Roll")
