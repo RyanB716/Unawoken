@@ -1,7 +1,7 @@
 extends State
 class_name Enemy_Idle
 
-@export var SelfRef : EnemySkeleton
+@export var SelfRef : BasicEnemy
 var ChangeTime : float
 
 func OnEnter():

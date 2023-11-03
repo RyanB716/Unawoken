@@ -454,7 +454,7 @@ _data = {
 "Attack_2_Up": SubResource("Animation_gwqxn")
 }
 
-[node name="Player" type="CharacterBody2D"]
+[node name="Player" type="CharacterBody2D" groups=["Player"]]
 z_index = 5
 script = ExtResource("1_2gr55")
 MaxHealth = 250

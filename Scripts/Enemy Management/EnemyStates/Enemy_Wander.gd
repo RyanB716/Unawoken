@@ -1,7 +1,7 @@
 extends State
 class_name Enemy_Wander
 
-@export var SelfRef : EnemySkeleton
+@export var SelfRef : BasicEnemy
 
 var MoveDirection : Vector2
 var WanderTime : float
@@ -15,13 +15,6 @@ func Update(delta : float):
 		
 	else:
 		RandomizeTime()
-		
-	if SelfRef.AnimPlayer:
-		SelfRef.AnimPlayer.play("Skeleton_Walk")
-		if MoveDirection.x >= 0.01:
-			SelfRef.sprite.flip_h = false
-		else:
-			SelfRef.sprite.flip_h = true
 		
 func PhysicsUpdate(_delta : float):
 	if SelfRef:

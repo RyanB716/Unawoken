@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://coi4vvrt6aof5"]
+[gd_scene load_steps=13 format=3 uid="uid://coi4vvrt6aof5"]
 
 [ext_resource type="Script" path="res://Scripts/Enemy Management/Enemy_Skeleton.gd" id="1_awncw"]
 [ext_resource type="Texture2D" uid="uid://c50k72ev7uwhi" path="res://Visual Assets/SpriteSheets/Enemies/Skeleton/Skeleton Walk.png" id="2_0qup4"]
@@ -6,6 +6,7 @@
 [ext_resource type="Texture2D" uid="uid://bv0co7xtdnx37" path="res://Visual Assets/SpriteSheets/Enemies/Skeleton/Skeleton Idle.png" id="3_4dmcb"]
 [ext_resource type="Script" path="res://Scripts/Enemy Management/EnemyStates/Enemy_Wander.gd" id="5_lh5cc"]
 [ext_resource type="Script" path="res://Scripts/Enemy Management/EnemyStates/Enemy_Idle.gd" id="5_xjhhd"]
+[ext_resource type="Script" path="res://Scripts/Enemy Management/EnemyStates/Enemy_Follow.gd" id="7_vphw1"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_isx61"]
 size = Vector2(10, 24)
@@ -105,7 +106,8 @@ _data = {
 [node name="Enemy_Skeleton" type="CharacterBody2D"]
 scale = Vector2(2, 2)
 script = ExtResource("1_awncw")
-BaseSpeed = 50.0
+BaseSpeed = 15.0
+TopSpeed = 50.0
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture_filter = 1
@@ -124,12 +126,16 @@ libraries = {
 
 [node name="StateMachine" type="Node" parent="." node_paths=PackedStringArray("InitialState")]
 script = ExtResource("2_5ijn0")
-InitialState = NodePath("Enemy_Idle")
+InitialState = NodePath("Follow")
 
-[node name="Enemy_Wander" type="Node" parent="StateMachine" node_paths=PackedStringArray("SelfRef")]
+[node name="Wander" type="Node" parent="StateMachine" node_paths=PackedStringArray("SelfRef")]
 script = ExtResource("5_lh5cc")
 SelfRef = NodePath("../..")
 
-[node name="Enemy_Idle" type="Node" parent="StateMachine" node_paths=PackedStringArray("SelfRef")]
+[node name="Idle" type="Node" parent="StateMachine" node_paths=PackedStringArray("SelfRef")]
 script = ExtResource("5_xjhhd")
+SelfRef = NodePath("../..")
+
+[node name="Follow" type="Node" parent="StateMachine" node_paths=PackedStringArray("SelfRef")]
+script = ExtResource("7_vphw1")
 SelfRef = NodePath("../..")
