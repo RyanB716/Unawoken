@@ -40,6 +40,12 @@ func TitleFX():
 func NewGame():
 	print("Starting new game...")
 	
+	if $AudioStreamPlayer is MenuAudio:
+		$AudioStreamPlayer.PlayNGSFX()
+	TitleBox.visible = false
+	ButtonBox.visible = false
+	await $AudioStreamPlayer.finished
+	
 	if GameSettings.PlayIntro == true:
 		get_tree().change_scene_to_packed(Intro)
 	else:

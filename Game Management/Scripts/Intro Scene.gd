@@ -37,6 +37,9 @@ func _process(_delta):
 		if Input.is_action_just_pressed("Attack") or Input.is_action_just_pressed("Roll") or Input.is_key_pressed(KEY_ENTER):
 			get_tree().change_scene_to_file("res://Game Management/Scenes/GameManager.tscn")
 			
+	if $AudioStreamPlayer.playing == false:
+		$AudioStreamPlayer.play()
+			
 func IntroFX():
 	await get_tree().create_timer(1.5).timeout
 	$NodeShake.Target = Presents

@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=3 uid="uid://dk8t0mgb1oyra"]
+[gd_scene load_steps=23 format=3 uid="uid://dk8t0mgb1oyra"]
 
 [ext_resource type="Script" path="res://Game Management/Scripts/MainMenu.gd" id="1_mtd8w"]
 [ext_resource type="PackedScene" uid="uid://dg5qf8cba6ldd" path="res://Game Management/Scenes/IntroScene.tscn" id="2_7we7i"]
@@ -8,6 +8,9 @@
 [ext_resource type="PackedScene" uid="uid://bmrv0ur1rwq74" path="res://Game Management/Scenes/ConfigMenu.tscn" id="4_d0sfs"]
 [ext_resource type="PackedScene" uid="uid://dukgowli70ket" path="res://Object Scenes/Shaders/Color Rects/ChromaticAbberation.tscn" id="4_l438a"]
 [ext_resource type="PackedScene" uid="uid://hjgr02ppy2rv" path="res://Object Scenes/Shaders/Color Rects/FilmGrain.tscn" id="5_qmh14"]
+[ext_resource type="Script" path="res://Game Management/Scenes/MenuAudio.gd" id="9_yp6t8"]
+[ext_resource type="AudioStream" uid="uid://wxdkvn5k7u4q" path="res://Audio/SFX/Fantasy_UI (57).wav" id="10_agfws"]
+[ext_resource type="AudioStream" uid="uid://05r4hhm2yxwl" path="res://Audio/SFX/16461_1460643357.mp3" id="11_a608u"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_qj17k"]
 bg_color = Color(0, 0, 0, 1)
@@ -228,6 +231,16 @@ offset_bottom = -9.0
 grow_vertical = 0
 text = "ver. 0.03"
 
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+volume_db = -20.0
+script = ExtResource("9_yp6t8")
+NewGameSFX = ExtResource("10_agfws")
+Tick = ExtResource("11_a608u")
+
+[connection signal="mouse_entered" from="Button Container/Continue" to="AudioStreamPlayer" method="PlayTick"]
+[connection signal="mouse_entered" from="Button Container/Start" to="AudioStreamPlayer" method="PlayTick"]
 [connection signal="pressed" from="Button Container/Start" to="." method="NewGame"]
+[connection signal="mouse_entered" from="Button Container/Config" to="AudioStreamPlayer" method="PlayTick"]
 [connection signal="pressed" from="Button Container/Config" to="." method="ToOptions"]
+[connection signal="mouse_entered" from="Button Container/Quit" to="AudioStreamPlayer" method="PlayTick"]
 [connection signal="pressed" from="Button Container/Quit" to="." method="QuitGame"]
