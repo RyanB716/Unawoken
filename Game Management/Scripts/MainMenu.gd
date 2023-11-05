@@ -12,6 +12,8 @@ extends Control
 
 func _ready():
 	
+	Input.mouse_mode = Input.MOUSE_MODE_HIDDEN
+	
 	if GameSettings.IsLaunched == false:
 		for i in range(TitleLetters.size()):
 			TitleLetters[i].label_settings.set_font_color(Color.BLACK)

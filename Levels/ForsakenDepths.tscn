@@ -1,7 +1,10 @@
-[gd_scene load_steps=6 format=3 uid="uid://c4oy4c3d46qb4"]
+[gd_scene load_steps=9 format=3 uid="uid://c4oy4c3d46qb4"]
 
 [ext_resource type="Texture2D" uid="uid://dij84ijwq0tae" path="res://Visual Assets/TileSets/Tiles.png" id="1_ocd84"]
+[ext_resource type="Script" path="res://Levels/ForsakenDepths.gd" id="1_u4b3h"]
 [ext_resource type="Texture2D" uid="uid://dgmg5rdrhnbnq" path="res://Visual Assets/TileSets/Props.png" id="2_87l2t"]
+[ext_resource type="AudioStream" uid="uid://dp5kawtmj2jip" path="res://Audio/SFX/Ambiance_Cave_Drips_Loop_Stereo.wav" id="4_q3ya1"]
+[ext_resource type="AudioStream" uid="uid://3r8k50onxhr6" path="res://Audio/SFX/18566_1464794295.mp3" id="5_hjy3f"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_j2tg3"]
 texture = ExtResource("1_ocd84")
@@ -1506,6 +1509,7 @@ sources/0 = SubResource("TileSetAtlasSource_j2tg3")
 sources/1 = SubResource("TileSetAtlasSource_wk6tw")
 
 [node name="Forsaken Depths" type="Node2D"]
+script = ExtResource("1_u4b3h")
 
 [node name="TileMap" type="TileMap" parent="."]
 texture_filter = 1
@@ -1520,3 +1524,11 @@ layer_1/y_sort_enabled = false
 layer_1/y_sort_origin = 0
 layer_1/z_index = 0
 layer_1/tile_data = PackedInt32Array(-65536, 0, 0, 0, 0, 1, -65535, 65536, 0, 1, 65536, 1, -65534, 65536, 0, 2, 65536, 1, -65533, 65536, 0, 3, 65536, 1, -65532, 65536, 0, 4, 65536, 1, -65531, 65536, 0, 5, 65536, 1, -65530, 65536, 0, 6, 65536, 1, -65529, 65536, 0, 7, 65536, 1, -65528, 65536, 0, 8, 65536, 1, -65527, 65536, 0, 9, 65536, 1, -65526, 65536, 0, 10, 65536, 1, -65525, 65536, 0, 11, 65536, 1, -65524, 65536, 0, 12, 65536, 1, -65523, 65536, 0, 13, 65536, 1, 65536, 0, 2, 65537, 65536, 2, 65538, 65536, 2, 65539, 65536, 2, 65540, 65536, 2, 65541, 65536, 2, 65542, 65536, 2, 65543, 65536, 2, 65544, 65536, 2, 65545, 65536, 2, 65546, 65536, 2, 65547, 65536, 2, 65548, 65536, 2, 65549, 65536, 2, -1, 196608, 4, 65535, 196608, 5, 131071, 196608, 5, 196607, 196608, 5, 262143, 196608, 5, 327679, 196608, 5, 393215, 196608, 5, 458751, 196608, 5, 524287, 196608, 5, 589823, 196608, 6, 524288, 65536, 3, 524289, 65536, 3, 524290, 65536, 3, 524291, 65536, 3, 524292, 65536, 3, 524293, 65536, 3, 524294, 65536, 3, 524295, 65536, 3, 524296, 65536, 3, 524297, 65536, 3, 524298, 65536, 3, 524299, 65536, 3, 524300, 65536, 3, 524301, 65536, 3, 524302, 65536, 3, 524303, 65536, 3, 524304, 262144, 6, 458768, 262144, 5, 393232, 262144, 5, 327696, 262144, 5, 262160, 262144, 5, 196624, 262144, 5, 131088, 262144, 5, 65552, 262144, 5, 16, 262144, 5, -65520, 262144, 4, -65522, 0, 7, 14, 0, 8, 65550, 0, 9, -65521, 65536, 7, 15, 65536, 8, 65551, 65536, 9)
+
+[node name="Audio" type="Node" parent="."]
+
+[node name="Ambient Audio 1" type="AudioStreamPlayer" parent="Audio"]
+stream = ExtResource("5_hjy3f")
+
+[node name="Ambient Audio 2" type="AudioStreamPlayer" parent="Audio"]
+stream = ExtResource("4_q3ya1")
