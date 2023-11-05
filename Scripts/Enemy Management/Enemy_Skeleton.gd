@@ -3,6 +3,8 @@ extends BasicEnemy
 @onready var AnimPlayer = $AnimationPlayer
 @onready var sprite = $Sprite2D
 
+@onready var AttackSFX = $AudioStreamPlayer
+
 var PlayerTarget : Player
 
 func _ready():

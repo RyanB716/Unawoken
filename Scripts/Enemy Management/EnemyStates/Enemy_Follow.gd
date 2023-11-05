@@ -13,8 +13,7 @@ func PhysicsUpdate(_deta : float):
 		if Direction.length() > SelfRef.AttackRange:
 			SelfRef.velocity = Direction.normalized() * SelfRef.TopSpeed
 		else:
-			print("In attack Range!")
-			SelfRef.velocity = Vector2.ZERO
+			Transitioned.emit("Attack")
 			
 		if Direction.length() > SelfRef.DisengagementRange:
 			Transitioned.emit("Idle")
