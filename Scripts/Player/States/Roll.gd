@@ -3,7 +3,7 @@ class_name Roll
 
 @export var PlayerRef : Player
 @export var AnimPlayer : AnimationPlayer
-@export var BodyAudio : AudioPlayer
+@export var BodyAudio : BodyAudioPlayer
 
 func OnEnter():
 	await get_tree().create_timer(PlayerRef.InputBufferAmnt).timeout

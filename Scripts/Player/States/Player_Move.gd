@@ -14,6 +14,11 @@ func Update(_delta : float):
 			AnimPlayer.play("Run_Left")
 		3:
 			AnimPlayer.play("Run_Right")
+			
+			
+	if PlayerRef.SFXtime.time_left <= 0:
+			PlayerRef.BodyAudio.PlayStep()
+			PlayerRef.SFXtime.start(0.5)
 
 	if !PlayerRef.IsMoving:
 		Transitioned.emit("Player_Idle")

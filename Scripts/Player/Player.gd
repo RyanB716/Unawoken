@@ -4,6 +4,7 @@ class_name Player
 @onready var AnimPlayer = $AnimationPlayer
 @onready var AttackTimer = $Timers/AttackStateTimer
 @onready var CooldownTimer = $Timers/CoolDown
+@onready var SFXtime = $Timers/SFXtimer
 @onready var BodyAudio = $Audio/BodyAudio
 @onready var WeaponAudio = $Audio/WeaponAudio
 @onready var UI = $"Player UI"
@@ -67,7 +68,6 @@ func _physics_process(delta):
 	
 	if IsMoving:
 		CurrentSpeed = TopSpeed
-		#CurrentSpeed = lerpf(CurrentSpeed, TopSpeed, Acceleration * delta)
 		
 	else:
 		CurrentSpeed = 0
