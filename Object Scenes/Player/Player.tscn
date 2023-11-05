@@ -460,10 +460,10 @@ script = ExtResource("1_2gr55")
 MaxHealth = 250
 MaxStaminaMoves = 3
 StaminaRefillTime = 3.5
-TopSpeed = 125
+TopSpeed = 100
 Acceleration = 1.5
 Deceleration = 10.0
-AttackTime = 1.5
+AttackTime = 0.75
 CooldownTime = 3.5
 InputBufferAmnt = 0.13
 

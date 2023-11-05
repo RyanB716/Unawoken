@@ -36,6 +36,7 @@ func TitleFX():
 		await get_tree().create_timer(0.35).timeout
 		
 	GameSettings.IsLaunched = true
+	ButtonBox.get_child(1).grab_focus()
 
 func NewGame():
 	print("Starting new game...")

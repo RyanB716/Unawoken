@@ -13,7 +13,7 @@ func OnEnter():
 	
 	await get_tree().create_timer(PlayerRef.InputBufferAmnt).timeout
 	var PreviousSpeed = PlayerRef.TopSpeed
-	PlayerRef.TopSpeed = PlayerRef.TopSpeed * 0.25
+	PlayerRef.TopSpeed = PlayerRef.TopSpeed * 0.5
 	
 	if PlayerRef.CurrentAttackIndex <= 1 && PlayerRef.AttackTimer.is_stopped():
 		match PlayerRef.CurrentDirection:

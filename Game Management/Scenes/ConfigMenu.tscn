@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3 uid="uid://bmrv0ur1rwq74"]
+[gd_scene load_steps=16 format=3 uid="uid://bmrv0ur1rwq74"]
 
 [ext_resource type="Script" path="res://Game Management/Scripts/ConfigMenu.gd" id="1_iyanm"]
 [ext_resource type="FontFile" uid="uid://dlulxm5dxb804" path="res://Visual Assets/Fonts/Seagram tfb.ttf" id="1_prdbe"]
@@ -25,10 +25,16 @@ bg_color = Color(1, 1, 1, 1)
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_1y0jc"]
 bg_color = Color(1, 1, 1, 1)
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_jlyip"]
+bg_color = Color(1, 1, 1, 1)
+
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_e64d2"]
 bg_color = Color(0, 0, 0, 1)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_irvya"]
+bg_color = Color(1, 1, 1, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_imya3"]
 bg_color = Color(1, 1, 1, 1)
 
 [node name="ConfigMenu" type="Control"]
@@ -72,6 +78,7 @@ theme_override_icons/unchecked = ExtResource("3_uld67")
 theme_override_styles/normal = SubResource("StyleBoxFlat_qvgct")
 theme_override_styles/hover = SubResource("StyleBoxFlat_t1yu6")
 theme_override_styles/hover_pressed = SubResource("StyleBoxFlat_1y0jc")
+theme_override_styles/focus = SubResource("StyleBoxFlat_jlyip")
 text = "Play Intro"
 alignment = 2
 
@@ -81,6 +88,7 @@ theme_override_fonts/font = ExtResource("1_prdbe")
 theme_override_font_sizes/font_size = 75
 theme_override_styles/normal = SubResource("StyleBoxFlat_e64d2")
 theme_override_styles/hover = SubResource("StyleBoxFlat_irvya")
+theme_override_styles/focus = SubResource("StyleBoxFlat_imya3")
 text = "Back
 "
 
@@ -90,7 +98,9 @@ script = ExtResource("5_dc1un")
 NewGameSFX = ExtResource("6_ccb6k")
 Tick = ExtResource("7_rpqoa")
 
+[connection signal="focus_entered" from="VBoxContainer/CheckIntro" to="AudioStreamPlayer" method="PlayTick"]
 [connection signal="mouse_entered" from="VBoxContainer/CheckIntro" to="AudioStreamPlayer" method="PlayTick"]
 [connection signal="pressed" from="VBoxContainer/CheckIntro" to="." method="CheckIntro"]
+[connection signal="focus_entered" from="VBoxContainer/BackButton" to="AudioStreamPlayer" method="PlayTick"]
 [connection signal="mouse_entered" from="VBoxContainer/BackButton" to="AudioStreamPlayer" method="PlayTick"]
 [connection signal="pressed" from="VBoxContainer/BackButton" to="." method="GoBack"]

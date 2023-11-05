@@ -66,10 +66,12 @@ func _physics_process(delta):
 		Direction = Vector2.LEFT
 	
 	if IsMoving:
-		CurrentSpeed = lerpf(CurrentSpeed, TopSpeed, Acceleration * delta)
+		CurrentSpeed = TopSpeed
+		#CurrentSpeed = lerpf(CurrentSpeed, TopSpeed, Acceleration * delta)
 		
 	else:
-		CurrentSpeed = lerpf(CurrentSpeed, 0, Deceleration * delta)
+		CurrentSpeed = 0
+		#CurrentSpeed = lerpf(CurrentSpeed, 0, Deceleration * delta)
 	
 	velocity = (Direction * CurrentSpeed)
 	move_and_slide()

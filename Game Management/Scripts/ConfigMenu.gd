@@ -5,6 +5,8 @@ func _ready():
 		$VBoxContainer/CheckIntro.button_pressed = true
 	else:
 		$VBoxContainer/CheckIntro.button_pressed = false
+		
+	$VBoxContainer/BackButton.grab_focus()
 
 func CheckIntro():
 	GameSettings.PlayIntro = !GameSettings.PlayIntro
