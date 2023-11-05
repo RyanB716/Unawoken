@@ -107,8 +107,8 @@ _data = {
 scale = Vector2(2, 2)
 script = ExtResource("1_awncw")
 BaseSpeed = 15.0
-TopSpeed = 50.0
-DetectionRange = 25.0
+TopSpeed = 25.0
+DetectionRange = 50.0
 DisengagementRange = 100.0
 AttackRange = 15.0
 

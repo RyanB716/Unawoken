@@ -1,12 +1,29 @@
-[gd_scene load_steps=8 format=3 uid="uid://bmrv0ur1rwq74"]
+[gd_scene load_steps=14 format=3 uid="uid://bmrv0ur1rwq74"]
 
 [ext_resource type="Script" path="res://Game Management/Scripts/ConfigMenu.gd" id="1_iyanm"]
 [ext_resource type="FontFile" uid="uid://dlulxm5dxb804" path="res://Visual Assets/Fonts/Seagram tfb.ttf" id="1_prdbe"]
 [ext_resource type="Texture2D" uid="uid://b5xuwwu0n6qn7" path="res://Visual Assets/UI/ButtonChecked.png" id="2_blf6l"]
 [ext_resource type="Texture2D" uid="uid://pdqr85ksfkk5" path="res://Visual Assets/UI/ButtonUnchecked.png" id="3_uld67"]
+[ext_resource type="Script" path="res://Game Management/Scenes/MenuAudio.gd" id="5_dc1un"]
+[ext_resource type="AudioStream" uid="uid://wxdkvn5k7u4q" path="res://Audio/SFX/Fantasy_UI (57).wav" id="6_ccb6k"]
+[ext_resource type="AudioStream" uid="uid://05r4hhm2yxwl" path="res://Audio/SFX/16461_1460643357.mp3" id="7_rpqoa"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_4hcfq"]
 bg_color = Color(0, 0, 0, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_qvgct"]
+bg_color = Color(0, 0, 0, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(1, 1, 1, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_t1yu6"]
+bg_color = Color(1, 1, 1, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_1y0jc"]
+bg_color = Color(1, 1, 1, 1)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_e64d2"]
 bg_color = Color(0, 0, 0, 1)
@@ -52,6 +69,9 @@ theme_override_fonts/font = ExtResource("1_prdbe")
 theme_override_font_sizes/font_size = 75
 theme_override_icons/checked = ExtResource("2_blf6l")
 theme_override_icons/unchecked = ExtResource("3_uld67")
+theme_override_styles/normal = SubResource("StyleBoxFlat_qvgct")
+theme_override_styles/hover = SubResource("StyleBoxFlat_t1yu6")
+theme_override_styles/hover_pressed = SubResource("StyleBoxFlat_1y0jc")
 text = "Play Intro"
 alignment = 2
 
@@ -64,5 +84,13 @@ theme_override_styles/hover = SubResource("StyleBoxFlat_irvya")
 text = "Back
 "
 
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+volume_db = -20.0
+script = ExtResource("5_dc1un")
+NewGameSFX = ExtResource("6_ccb6k")
+Tick = ExtResource("7_rpqoa")
+
+[connection signal="mouse_entered" from="VBoxContainer/CheckIntro" to="AudioStreamPlayer" method="PlayTick"]
 [connection signal="pressed" from="VBoxContainer/CheckIntro" to="." method="CheckIntro"]
+[connection signal="mouse_entered" from="VBoxContainer/BackButton" to="AudioStreamPlayer" method="PlayTick"]
 [connection signal="pressed" from="VBoxContainer/BackButton" to="." method="GoBack"]
