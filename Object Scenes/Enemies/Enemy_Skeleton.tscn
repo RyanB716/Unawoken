@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=3 uid="uid://coi4vvrt6aof5"]
+[gd_scene load_steps=22 format=3 uid="uid://coi4vvrt6aof5"]
 
 [ext_resource type="Script" path="res://Scripts/Enemy Management/Enemy_Skeleton.gd" id="1_awncw"]
 [ext_resource type="Texture2D" uid="uid://c50k72ev7uwhi" path="res://Visual Assets/SpriteSheets/Enemies/Skeleton/Skeleton Walk.png" id="2_0qup4"]
@@ -361,6 +361,13 @@ _data = {
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_p8gbx"]
 size = Vector2(12, 25)
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_5rc8f"]
+bg_color = Color(1, 1, 1, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_22op2"]
+bg_color = Color(1, 0, 0, 1)
+border_color = Color(1, 1, 1, 1)
+
 [node name="Enemy_Skeleton" type="CharacterBody2D"]
 scale = Vector2(2, 2)
 collision_layer = 4
@@ -418,3 +425,18 @@ ParentRef = NodePath("..")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HitBox"]
 position = Vector2(-4, 4)
 shape = SubResource("RectangleShape2D_p8gbx")
+
+[node name="ProgressBar" type="ProgressBar" parent="."]
+custom_minimum_size = Vector2(25, 2.5)
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -15.5
+offset_top = -12.0
+offset_right = 9.5
+offset_bottom = -9.5
+grow_horizontal = 2
+theme_override_styles/background = SubResource("StyleBoxFlat_5rc8f")
+theme_override_styles/fill = SubResource("StyleBoxFlat_22op2")
+value = 25.0
+show_percentage = false

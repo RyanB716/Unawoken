@@ -5,12 +5,18 @@ extends BasicEnemy
 
 @onready var AttackSFX = $AudioStreamPlayer
 
+@onready var HealthBar = $ProgressBar
+
 var PlayerTarget : Player
 
 func _ready():
 	PlayerTarget = get_tree().get_first_node_in_group("Player")
 	
 	CurrentHealth = MaxHealth
+	HealthBar.max_value = MaxHealth
+	
+func _process(delta):
+	HealthBar.value = CurrentHealth
 
 func _physics_process(_delta):
 	move_and_slide()
