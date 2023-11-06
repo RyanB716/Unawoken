@@ -3,6 +3,7 @@ class_name BasicEnemy
 
 @export_category("Combat Stats")
 @export var MaxHealth : int
+var CurrentHealth : int
 @export var NumberOfAttacks : int
 @export var DamageMinimum : int
 @export var DamageMaximum : int
@@ -15,6 +16,9 @@ class_name BasicEnemy
 @export var DetectionRange : float
 @export var DisengagementRange : float
 @export var AttackRange : float
+
+func _ready():
+	CurrentHealth = MaxHealth
 
 func _physics_process(_delta):
 	move_and_slide()

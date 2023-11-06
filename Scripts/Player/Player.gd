@@ -27,6 +27,7 @@ var IsMoving = false
 @export var Deceleration = 0.0
 
 @export_category("Attack Stats")
+@export var DamageOutput : int
 @export var AttackTime : float
 @export var CooldownTime : float
 @export var InputBufferAmnt : float
@@ -48,6 +49,11 @@ func _ready():
 	CurrentStaminaActions = MaxStaminaMoves
 	
 	UI.get_node("StaminaContainer").SetMaxIcons(MaxStaminaMoves)
+	
+	$SwordArea/SwordCollision.disabled = true
+
+func _process(delta):
+	pass
 
 func _physics_process(delta):
 	
@@ -103,3 +109,7 @@ func ResetStamina(Amnt : int):
 			UI.get_node("StaminaContainer").UpdateIcons(CurrentStaminaActions)
 		else:
 			print('ERROR @ ResetStamina(): CurrentStaminaActions += 1 would EXCEED MaxStamina variable')
+
+func _on_sword_area_area_entered(area):
+	print("Connected!")
+	area.TakeDamage(DamageOutput)
