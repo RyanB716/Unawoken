@@ -18,6 +18,9 @@ func Update(delta : float):
 		ChangeToWander()
 		
 func PhysicsUpdate(_delta : float):
+	
+	SelfRef.velocity = Vector2.ZERO
+	
 	if SelfRef.PlayerTarget != null:
 		var Direction = SelfRef.PlayerTarget.global_position - SelfRef.global_position
 	
@@ -29,9 +32,7 @@ func ChangeToWander():
 	var newValue = RNG.randf_range(0, 1.0)
 	
 	if newValue <= 0.75:
-		print("Transitioning to WANDER")
 		Transitioned.emit("Wander")
 	else:
-		print("Staying in Idle")
 		ChangeTime = RNG.randf_range(0, 5)
 	

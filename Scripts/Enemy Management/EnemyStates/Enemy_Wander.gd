@@ -20,12 +20,17 @@ func PhysicsUpdate(_delta : float):
 	if SelfRef:
 		SelfRef.velocity = (MoveDirection * SelfRef.BaseSpeed)
 		
+	if SelfRef.PlayerTarget != null:
+		var Direction = SelfRef.PlayerTarget.global_position - SelfRef.global_position
+	
+		if Direction.length() < SelfRef.DetectionRange:
+			Transitioned.emit("Follow")
+		
 func RandomizeTime():
 	var RNG = RandomNumberGenerator.new()
 	var newValue = RNG.randf_range(0, 1.0)
 	
 	if newValue >= 0.75:
-		print("Transitioning to IDLE")
 		SelfRef.velocity = Vector2.ZERO
 		Transitioned.emit("Idle")
 	else:
