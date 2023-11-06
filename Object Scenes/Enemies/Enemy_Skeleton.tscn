@@ -12,7 +12,7 @@
 [ext_resource type="AudioStream" uid="uid://nj05r1o16v2k" path="res://Audio/SFX/07_human_atk_sword_2.wav" id="10_6wfhp"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_isx61"]
-size = Vector2(13, 8.5)
+size = Vector2(9, 8)
 
 [sub_resource type="Animation" id="Animation_fhujm"]
 length = 0.001
@@ -209,12 +209,14 @@ _data = {
 
 [node name="Enemy_Skeleton" type="CharacterBody2D"]
 scale = Vector2(2, 2)
+collision_layer = 4
+collision_mask = 4
 script = ExtResource("1_awncw")
 BaseSpeed = 15.0
 TopSpeed = 25.0
 DetectionRange = 75.0
 DisengagementRange = 100.0
-AttackRange = 50.0
+AttackRange = 25.0
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture_filter = 1
@@ -222,7 +224,7 @@ texture = ExtResource("2_0qup4")
 hframes = 13
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(-3.5, 12.25)
+position = Vector2(-4.5, 12.5)
 shape = SubResource("RectangleShape2D_isx61")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]

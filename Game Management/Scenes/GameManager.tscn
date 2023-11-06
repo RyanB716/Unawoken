@@ -9,8 +9,10 @@ script = ExtResource("1_gdgan")
 
 [node name="Player" parent="." instance=ExtResource("2_t5728")]
 position = Vector2(94, 71)
+collision_layer = 1
+collision_mask = 1
 
 [node name="Camera2D" type="Camera2D" parent="Player"]
-zoom = Vector2(3, 3)
+zoom = Vector2(3.5, 3.5)
 
 [node name="Forsaken Depths" parent="." instance=ExtResource("1_1m60y")]
