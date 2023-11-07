@@ -10,7 +10,7 @@ script = ExtResource("1_gdgan")
 [node name="Forsaken Depths" parent="." instance=ExtResource("1_1m60y")]
 
 [node name="Player" parent="." instance=ExtResource("2_t5728")]
-position = Vector2(27, 58)
+position = Vector2(-279, 247)
 
 [node name="Camera2D" type="Camera2D" parent="Player"]
 zoom = Vector2(3.5, 3.5)
