@@ -1,4 +1,4 @@
-[gd_scene load_steps=28 format=3 uid="uid://coi4vvrt6aof5"]
+[gd_scene load_steps=31 format=3 uid="uid://coi4vvrt6aof5"]
 
 [ext_resource type="Script" path="res://Scripts/Enemy Management/Enemy_Skeleton.gd" id="1_awncw"]
 [ext_resource type="Texture2D" uid="uid://c50k72ev7uwhi" path="res://Visual Assets/SpriteSheets/Enemies/Skeleton/Skeleton Walk.png" id="2_0qup4"]
@@ -13,7 +13,10 @@
 [ext_resource type="AudioStream" uid="uid://nj05r1o16v2k" path="res://Audio/SFX/07_human_atk_sword_2.wav" id="10_6wfhp"]
 [ext_resource type="Script" path="res://Scripts/Enemy Management/EnemyStates/Enemy_Dead.gd" id="11_2dqr5"]
 [ext_resource type="Script" path="res://Scripts/Components/HitBox.gd" id="13_xavdn"]
+[ext_resource type="AudioStream" uid="uid://wxjdu8j2vlgm" path="res://Audio/SFX/block_large_59.wav" id="14_csje4"]
 [ext_resource type="Script" path="res://Scripts/Components/HurtBox.gd" id="14_yjlfo"]
+[ext_resource type="AudioStream" uid="uid://vysptgw3gs4d" path="res://Audio/SFX/body_hit_large_76.wav" id="15_l585l"]
+[ext_resource type="AudioStream" uid="uid://ee4gr04chvry" path="res://Audio/SFX/body_hit_large_32.wav" id="16_yflgy"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_isx61"]
 size = Vector2(23, 32)
@@ -925,6 +928,7 @@ show_percentage = false
 [node name="HitBox" type="Area2D" parent="." node_paths=PackedStringArray("TargetReference")]
 script = ExtResource("13_xavdn")
 TargetReference = NodePath("..")
+ImpactSFX = [ExtResource("14_csje4"), ExtResource("15_l585l"), ExtResource("16_yflgy")]
 
 [node name="HitCollider" type="CollisionShape2D" parent="HitBox"]
 position = Vector2(4, 2)

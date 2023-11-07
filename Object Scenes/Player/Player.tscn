@@ -1,4 +1,4 @@
-[gd_scene load_steps=45 format=3 uid="uid://dxprot5svswbe"]
+[gd_scene load_steps=47 format=3 uid="uid://dxprot5svswbe"]
 
 [ext_resource type="Script" path="res://Scripts/Player/Player.gd" id="1_2gr55"]
 [ext_resource type="Texture2D" uid="uid://bi38invhap0t" path="res://Visual Assets/SpriteSheets/player.png" id="2_w50ld"]
@@ -13,8 +13,10 @@
 [ext_resource type="PackedScene" uid="uid://cvlh1usf2hwre" path="res://Object Scenes/Player/HealthBar.tscn" id="10_1g6mq"]
 [ext_resource type="PackedScene" uid="uid://b8dv2qk331bb" path="res://Object Scenes/Player/StaminaContainer.tscn" id="11_0842j"]
 [ext_resource type="Script" path="res://Scripts/Components/FSM/StateMachine.gd" id="12_lsmi8"]
+[ext_resource type="AudioStream" uid="uid://dlnsrugki0emv" path="res://Audio/SFX/blade_hit_07.wav" id="13_4u3h0"]
 [ext_resource type="Script" path="res://Scripts/Player/States/Player_Idle.gd" id="13_pcoj7"]
 [ext_resource type="Script" path="res://Scripts/Components/Audio Controllers/WeaponAudio.gd" id="13_vyl8c"]
+[ext_resource type="AudioStream" uid="uid://b1u7ihusdosr8" path="res://Audio/SFX/blade_hit_08.wav" id="14_b6uf5"]
 [ext_resource type="Script" path="res://Scripts/Player/States/Player_Move.gd" id="14_votbp"]
 [ext_resource type="Script" path="res://Scripts/Player/States/Player_Attack.gd" id="15_8a7nj"]
 [ext_resource type="Script" path="res://Scripts/Player/States/Roll.gd" id="16_d2gd4"]
@@ -1008,7 +1010,7 @@ libraries = {
 
 [node name="BodyAudio" type="AudioStreamPlayer" parent="Audio"]
 script = ExtResource("8_syxxs")
-VoiceTrackArray = [ExtResource("4_h2l6k"), ExtResource("5_p67ey"), ExtResource("6_x3tyq")]
+VoiceTrackArray = [ExtResource("4_h2l6k"), ExtResource("5_p67ey"), ExtResource("6_x3tyq"), null]
 FootSFX = ExtResource("9_5adc7")
 
 [node name="WeaponAudio" type="AudioStreamPlayer" parent="Audio"]
@@ -1048,6 +1050,7 @@ shape = SubResource("CapsuleShape2D_dv778")
 position = Vector2(1, -2)
 script = ExtResource("19_51bkk")
 TargetReference = NodePath("..")
+ImpactSFX = [ExtResource("13_4u3h0"), ExtResource("14_b6uf5")]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HitBox"]
 position = Vector2(-0.5, 9)
