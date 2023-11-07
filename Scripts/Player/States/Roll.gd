@@ -7,7 +7,7 @@ class_name Roll
 
 func OnEnter():
 	await get_tree().create_timer(PlayerRef.InputBufferAmnt).timeout
-	
+	PlayerRef.IsRolling = true
 	BodyAudio.PlaySFX()
 	PlayerRef.ReduceStamina(1)
 	
@@ -22,6 +22,6 @@ func OnEnter():
 			AnimPlayer.play("Roll")
 			
 	await AnimPlayer.animation_finished
-	
+	PlayerRef.IsRolling = false
 	PlayerRef.ResetStamina(1)
 	Transitioned.emit("Player_Idle")

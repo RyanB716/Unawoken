@@ -45,6 +45,8 @@ var CurrentStaminaActions : int
 
 var AnimState = null
 
+var IsRolling = false
+
 func _ready():
 	CurrentDirection = DirectionStates.Down
 	
@@ -58,21 +60,24 @@ func _physics_process(_delta):
 	
 	IsMoving = Input.is_action_pressed("Run_Up") || Input.is_action_pressed("Run_Down") || Input.is_action_pressed("Run_Left") || Input.is_action_pressed("Run_Right")
 	
-	if Input.is_action_pressed("Run_Up"):
-		CurrentDirection = DirectionStates.Up
-		Direction = Vector2.UP
-	elif Input.is_action_pressed("Run_Down"):
-		CurrentDirection = DirectionStates.Down
-		Direction = Vector2.DOWN
-	elif Input.is_action_pressed("Run_Right"):
-		CurrentDirection = DirectionStates.Right
-		Direction = Vector2.RIGHT
-	elif Input.is_action_pressed("Run_Left"):
-		CurrentDirection = DirectionStates.Left
-		Direction = Vector2.LEFT
+	if IsRolling == false:
+		if Input.is_action_pressed("Run_Up"):
+			CurrentDirection = DirectionStates.Up
+			Direction = Vector2.UP
+		elif Input.is_action_pressed("Run_Down"):
+			CurrentDirection = DirectionStates.Down
+			Direction = Vector2.DOWN
+		elif Input.is_action_pressed("Run_Right"):
+			CurrentDirection = DirectionStates.Right
+			Direction = Vector2.RIGHT
+		elif Input.is_action_pressed("Run_Left"):
+			CurrentDirection = DirectionStates.Left
+			Direction = Vector2.LEFT
 	
 	if IsMoving:
 		CurrentSpeed = TopSpeed
+	elif IsRolling:
+		CurrentSpeed = TopSpeed + 25
 	else:
 		CurrentSpeed = 0
 	
