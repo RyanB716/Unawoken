@@ -31,7 +31,6 @@ shape = SubResource("CircleShape2D_2k2o0")
 [node name="Label" type="Label" parent="."]
 texture_filter = 1
 custom_minimum_size = Vector2(50, 25)
-anchors_preset = -1
 offset_left = -24.0
 offset_top = -46.0
 offset_right = 26.0
