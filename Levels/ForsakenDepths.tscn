@@ -1,7 +1,7 @@
 [gd_scene load_steps=10 format=3 uid="uid://c4oy4c3d46qb4"]
 
 [ext_resource type="Texture2D" uid="uid://dij84ijwq0tae" path="res://Visual Assets/TileSets/Tiles.png" id="1_ocd84"]
-[ext_resource type="Script" path="res://Levels/ForsakenDepths.gd" id="1_u4b3h"]
+[ext_resource type="Script" path="res://Scripts/Level Controllers/ForsakenDepths.gd" id="1_u4b3h"]
 [ext_resource type="Texture2D" uid="uid://dgmg5rdrhnbnq" path="res://Visual Assets/TileSets/Props.png" id="2_87l2t"]
 [ext_resource type="AudioStream" uid="uid://dp5kawtmj2jip" path="res://Audio/SFX/Ambiance_Cave_Drips_Loop_Stereo.wav" id="4_q3ya1"]
 [ext_resource type="AudioStream" uid="uid://3r8k50onxhr6" path="res://Audio/SFX/18566_1464794295.mp3" id="5_hjy3f"]

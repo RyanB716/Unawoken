@@ -8,7 +8,7 @@
 [ext_resource type="PackedScene" uid="uid://bmrv0ur1rwq74" path="res://Game Management/Scenes/ConfigMenu.tscn" id="4_d0sfs"]
 [ext_resource type="PackedScene" uid="uid://dukgowli70ket" path="res://Object Scenes/Shaders/Color Rects/ChromaticAbberation.tscn" id="4_l438a"]
 [ext_resource type="PackedScene" uid="uid://hjgr02ppy2rv" path="res://Object Scenes/Shaders/Color Rects/FilmGrain.tscn" id="5_qmh14"]
-[ext_resource type="Script" path="res://Game Management/Scenes/MenuAudio.gd" id="9_yp6t8"]
+[ext_resource type="Script" path="res://Scripts/Components/Audio Controllers/MenuAudio.gd" id="9_yp6t8"]
 [ext_resource type="AudioStream" uid="uid://wxdkvn5k7u4q" path="res://Audio/SFX/Fantasy_UI (57).wav" id="10_agfws"]
 [ext_resource type="AudioStream" uid="uid://05r4hhm2yxwl" path="res://Audio/SFX/16461_1460643357.mp3" id="11_a608u"]
 
