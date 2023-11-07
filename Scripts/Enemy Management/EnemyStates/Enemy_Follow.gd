@@ -4,11 +4,8 @@ class_name Enemy_Follow
 @export var SelfRef : BasicEnemy
 
 var Direction
-
-func OnEnter():
-	print("Skeleton: FOLLOWING")
 	
-func Update(delta : float):
+func Update(_delta : float):
 	if SelfRef.CurrentHealth <= 0:
 		Transitioned.emit("Dead")
 	

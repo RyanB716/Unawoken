@@ -52,10 +52,7 @@ func _ready():
 	
 	$SwordArea/SwordCollision.disabled = true
 
-func _process(delta):
-	pass
-
-func _physics_process(delta):
+func _physics_process(_delta):
 	
 	IsMoving = Input.is_action_pressed("Run_Up") || Input.is_action_pressed("Run_Down") || Input.is_action_pressed("Run_Left") || Input.is_action_pressed("Run_Right")
 	
@@ -91,7 +88,6 @@ func AttackCooldown():
 	await CooldownTimer.timeout
 	CurrentAttackIndex = 1
 	print('Cooldown FINISHED!')
-
 
 func ReduceStamina(Amnt : int):
 	CurrentStaminaActions -= Amnt

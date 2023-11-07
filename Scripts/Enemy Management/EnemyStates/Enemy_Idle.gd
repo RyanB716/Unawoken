@@ -5,7 +5,6 @@ class_name Enemy_Idle
 var ChangeTime : float
 
 func OnEnter():
-	print("Skeleton: IDLE")
 	ChangeTime = 3.0
 
 func Update(delta : float):

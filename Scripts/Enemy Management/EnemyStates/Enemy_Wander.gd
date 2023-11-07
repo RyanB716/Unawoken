@@ -6,9 +6,6 @@ class_name Enemy_Wander
 var MoveDirection : Vector2
 var WanderTime : float
 
-func OnEnter():
-	print("Skelton: WANDERING!")
-
 func Update(delta : float):
 	if WanderTime > 0:
 		WanderTime -= delta

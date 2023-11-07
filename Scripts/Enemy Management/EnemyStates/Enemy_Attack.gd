@@ -3,14 +3,22 @@ class_name Enemy_Attack
 
 @export var SelfRef : BasicEnemy
 
+var Direction
+
 func OnEnter():
-	print("Attacking")
 	SelfRef.velocity = Vector2.ZERO
-	SelfRef.AnimPlayer.play("Skeleton_Attack")
+	
+	Direction = SelfRef.PlayerTarget.global_position - SelfRef.global_position
+	
+	if Direction.x > 0:
+		SelfRef.AnimPlayer.play("Skeleton_Attack_R")
+	elif Direction.x < 0:
+		SelfRef.AnimPlayer.play("Skeleton_Attack_L")
+		
 	await SelfRef.AnimPlayer.animation_finished
 	
 	if SelfRef.PlayerTarget != null:
-		var Direction = SelfRef.PlayerTarget.global_position - SelfRef.global_position
+		Direction = SelfRef.PlayerTarget.global_position - SelfRef.global_position
 	
 		if SelfRef.CurrentHealth >= 1:
 			if Direction.length() < SelfRef.DetectionRange:
@@ -18,7 +26,7 @@ func OnEnter():
 			else:
 				Transitioned.emit("Idle")
 			
-func Update(delta : float):
+func Update(_delta : float):
 	if SelfRef.CurrentHealth <= 0:
 		Transitioned.emit("Dead")
 	

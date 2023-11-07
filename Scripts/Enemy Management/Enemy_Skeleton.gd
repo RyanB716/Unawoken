@@ -7,9 +7,8 @@ extends BasicEnemy
 
 @onready var HealthBar = $ProgressBar
 
-@onready var HitBoxColl = $"HitBox/HitBox Collider"
-@onready var HurtBoxColl = $HurtBox/HurtBoxCollider
 @onready var EnvironmentCollider = $EnvironmentCollider
+@onready var HitBoxCollider = $HitBox/HitCollider
 
 var PlayerTarget : Player
 
@@ -19,7 +18,7 @@ func _ready():
 	CurrentHealth = MaxHealth
 	HealthBar.max_value = MaxHealth
 	
-func _process(delta):
+func _process(_delta):
 	HealthBar.value = CurrentHealth
 
 func _physics_process(_delta):

@@ -1,6 +1,6 @@
 extends Node2D
 
-func _process(delta):
+func _process(_delta):
 	if !$"Audio/Ambient Audio 1".playing:
 		$"Audio/Ambient Audio 1".play()
 		
