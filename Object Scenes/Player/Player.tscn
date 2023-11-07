@@ -1,20 +1,20 @@
-[gd_scene load_steps=45 format=3 uid="uid://c3k8mn8f7r27v"]
+[gd_scene load_steps=45 format=3 uid="uid://dxprot5svswbe"]
 
 [ext_resource type="Script" path="res://Scripts/Player/Player.gd" id="1_2gr55"]
 [ext_resource type="Texture2D" uid="uid://bi38invhap0t" path="res://Visual Assets/SpriteSheets/player.png" id="2_w50ld"]
-[ext_resource type="Script" path="res://Scripts/Components/AudioPlayer.gd" id="3_lafq4"]
 [ext_resource type="AudioStream" uid="uid://d0iijvcalr7qr" path="res://Audio/SFX/attack1.wav" id="4_h2l6k"]
 [ext_resource type="AudioStream" uid="uid://cdla8hf16tqfv" path="res://Audio/SFX/attack2.wav" id="5_p67ey"]
 [ext_resource type="AudioStream" uid="uid://tky2sadciuix" path="res://Audio/SFX/attack3.wav" id="6_x3tyq"]
 [ext_resource type="AudioStream" uid="uid://d33remjia4oc1" path="res://Audio/SFX/07_human_atk_sword_1.wav" id="7_xep2m"]
 [ext_resource type="AudioStream" uid="uid://nj05r1o16v2k" path="res://Audio/SFX/07_human_atk_sword_2.wav" id="8_6cs7t"]
+[ext_resource type="Script" path="res://Scripts/Components/Audio Controllers/BodyAudioPlayer.gd" id="8_syxxs"]
 [ext_resource type="AudioStream" uid="uid://dfg2itgn13nbu" path="res://Audio/SFX/16_human_walk_stone_1.wav" id="9_5adc7"]
-[ext_resource type="Script" path="res://Object Scenes/Player/WeaponAudio.gd" id="9_eq87u"]
 [ext_resource type="AudioStream" uid="uid://c5quaak31hhg6" path="res://Audio/SFX/07_human_atk_sword_3.wav" id="9_ywbp4"]
 [ext_resource type="PackedScene" uid="uid://cvlh1usf2hwre" path="res://Object Scenes/Player/HealthBar.tscn" id="10_1g6mq"]
 [ext_resource type="PackedScene" uid="uid://b8dv2qk331bb" path="res://Object Scenes/Player/StaminaContainer.tscn" id="11_0842j"]
 [ext_resource type="Script" path="res://Scripts/Components/FSM/StateMachine.gd" id="12_lsmi8"]
 [ext_resource type="Script" path="res://Scripts/Player/States/Player_Idle.gd" id="13_pcoj7"]
+[ext_resource type="Script" path="res://Scripts/Components/Audio Controllers/WeaponAudio.gd" id="13_vyl8c"]
 [ext_resource type="Script" path="res://Scripts/Player/States/Player_Move.gd" id="14_votbp"]
 [ext_resource type="Script" path="res://Scripts/Player/States/Player_Attack.gd" id="15_8a7nj"]
 [ext_resource type="Script" path="res://Scripts/Player/States/Roll.gd" id="16_d2gd4"]
@@ -1007,12 +1007,12 @@ libraries = {
 [node name="Audio" type="Node" parent="."]
 
 [node name="BodyAudio" type="AudioStreamPlayer" parent="Audio"]
-script = ExtResource("3_lafq4")
+script = ExtResource("8_syxxs")
 VoiceTrackArray = [ExtResource("4_h2l6k"), ExtResource("5_p67ey"), ExtResource("6_x3tyq")]
 FootSFX = ExtResource("9_5adc7")
 
 [node name="WeaponAudio" type="AudioStreamPlayer" parent="Audio"]
-script = ExtResource("9_eq87u")
+script = ExtResource("13_vyl8c")
 AttackTrackArray = [ExtResource("7_xep2m"), ExtResource("8_6cs7t"), ExtResource("9_ywbp4")]
 
 [node name="Timers" type="Node" parent="."]
