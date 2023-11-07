@@ -12,8 +12,13 @@ func OnEnter():
 	if SelfRef.PlayerTarget != null:
 		var Direction = SelfRef.PlayerTarget.global_position - SelfRef.global_position
 	
-		if Direction.length() < SelfRef.DetectionRange:
-			Transitioned.emit("Follow")
-		else:
-			Transitioned.emit("Idle")
+		if SelfRef.CurrentHealth >= 1:
+			if Direction.length() < SelfRef.DetectionRange:
+				Transitioned.emit("Follow")
+			else:
+				Transitioned.emit("Idle")
+			
+func Update(delta : float):
+	if SelfRef.CurrentHealth <= 0:
+		Transitioned.emit("Dead")
 	

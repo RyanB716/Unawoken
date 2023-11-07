@@ -8,6 +8,10 @@ var Direction
 func OnEnter():
 	print("Skeleton: FOLLOWING")
 	
+func Update(delta : float):
+	if SelfRef.CurrentHealth <= 0:
+		Transitioned.emit("Dead")
+	
 func PhysicsUpdate(_deta : float):
 	if SelfRef.PlayerTarget != null:
 		Direction = SelfRef.PlayerTarget.global_position - SelfRef.global_position

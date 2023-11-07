@@ -91,9 +91,7 @@ func AttackCooldown():
 	await CooldownTimer.timeout
 	CurrentAttackIndex = 1
 	print('Cooldown FINISHED!')
-	
-func TakeDamage(Amount : int):
-	CurrentHealth -= Amount
+
 
 func ReduceStamina(Amnt : int):
 	CurrentStaminaActions -= Amnt
@@ -111,5 +109,5 @@ func ResetStamina(Amnt : int):
 			print('ERROR @ ResetStamina(): CurrentStaminaActions += 1 would EXCEED MaxStamina variable')
 
 func _on_sword_area_area_entered(area):
-	print("Connected!")
-	area.TakeDamage(DamageOutput)
+	if area is HitBox:
+		area.TakeDamage(DamageOutput)

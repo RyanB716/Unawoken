@@ -7,6 +7,10 @@ extends BasicEnemy
 
 @onready var HealthBar = $ProgressBar
 
+@onready var HitBoxColl = $"HitBox/HitBox Collider"
+@onready var HurtBoxColl = $HurtBox/HurtBoxCollider
+@onready var EnvironmentCollider = $EnvironmentCollider
+
 var PlayerTarget : Player
 
 func _ready():

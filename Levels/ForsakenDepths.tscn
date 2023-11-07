@@ -1536,4 +1536,7 @@ stream = ExtResource("5_hjy3f")
 stream = ExtResource("4_q3ya1")
 
 [node name="Enemy_Skeleton" parent="." instance=ExtResource("6_067pe")]
-position = Vector2(243, 176)
+position = Vector2(175, 176)
+
+[node name="Enemy_Skeleton2" parent="." instance=ExtResource("6_067pe")]
+position = Vector2(46, 174)

@@ -1,4 +1,4 @@
-[gd_scene load_steps=42 format=3 uid="uid://c3k8mn8f7r27v"]
+[gd_scene load_steps=44 format=3 uid="uid://c3k8mn8f7r27v"]
 
 [ext_resource type="Script" path="res://Scripts/Player/Player.gd" id="1_2gr55"]
 [ext_resource type="Texture2D" uid="uid://bi38invhap0t" path="res://Visual Assets/SpriteSheets/player.png" id="2_w50ld"]
@@ -18,6 +18,7 @@
 [ext_resource type="Script" path="res://Scripts/Player/States/Player_Move.gd" id="14_votbp"]
 [ext_resource type="Script" path="res://Scripts/Player/States/Player_Attack.gd" id="15_8a7nj"]
 [ext_resource type="Script" path="res://Scripts/Player/States/Roll.gd" id="16_d2gd4"]
+[ext_resource type="Script" path="res://Object Scenes/Player/Player HitBox.gd" id="19_s2clv"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_8v8gj"]
 size = Vector2(11, 4)
@@ -761,6 +762,10 @@ _data = {
 radius = 4.0
 height = 24.0
 
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_gr50a"]
+radius = 7.0
+height = 18.0
+
 [node name="Player" type="CharacterBody2D" groups=["Player"]]
 z_index = 5
 collision_layer = 3
@@ -773,8 +778,8 @@ TopSpeed = 100
 Acceleration = 1.5
 Deceleration = 10.0
 DamageOutput = 50
-AttackTime = 0.75
-CooldownTime = 3.5
+AttackTime = 0.25
+CooldownTime = 1.5
 InputBufferAmnt = 0.13
 
 [node name="StateMachine" type="Node" parent="." node_paths=PackedStringArray("InitialState")]
@@ -856,6 +861,13 @@ theme_override_constants/separation = 35
 position = Vector2(-2, 20)
 rotation = 1.5708
 shape = SubResource("CapsuleShape2D_dv778")
+
+[node name="Player HitBox" type="Area2D" parent="."]
+script = ExtResource("19_s2clv")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Player HitBox"]
+position = Vector2(0, 8)
+shape = SubResource("CapsuleShape2D_gr50a")
 
 [connection signal="timeout" from="Timers/AttackStateTimer" to="." method="_on_attack_state_timer_timeout"]
 [connection signal="area_entered" from="SwordArea" to="." method="_on_sword_area_area_entered"]

@@ -56,8 +56,6 @@ func OnEnter():
 						PlayerRef.AnimPlayer.play("Attack_1/Attack_1_Right")
 						
 				PlayerRef.AttackCooldown()
-				PlayerRef.ReduceStamina(1)
-				PlayerRef.ResetStamina(1)
 	
 	
 	PlayerRef.WeaponAudio.PlaySFX()
