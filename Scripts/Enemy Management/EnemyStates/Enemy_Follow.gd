@@ -21,7 +21,7 @@ func PhysicsUpdate(_deta : float):
 		if Direction.length() > SelfRef.DisengagementRange:
 			Transitioned.emit("Idle")
 			
-		if Direction.y > 0:
+		if Direction.y > -0.1:
 			SelfRef.z_index = 0
 		else:
 			SelfRef.z_index = 2
