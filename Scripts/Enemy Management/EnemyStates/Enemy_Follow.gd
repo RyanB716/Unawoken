@@ -20,6 +20,11 @@ func PhysicsUpdate(_deta : float):
 			
 		if Direction.length() > SelfRef.DisengagementRange:
 			Transitioned.emit("Idle")
+			
+		if Direction.y > 0:
+			SelfRef.z_index = 0
+		else:
+			SelfRef.z_index = 2
 
 func DecideToAttack():
 	var RNG = RandomNumberGenerator.new()

@@ -9,7 +9,7 @@ func OnEnter():
 	await get_tree().create_timer(PlayerRef.InputBufferAmnt).timeout
 	
 	BodyAudio.PlaySFX()
-	PlayerRef.ReduceStamina(2)
+	PlayerRef.ReduceStamina(1)
 	
 	match PlayerRef.CurrentDirection:
 		0:

@@ -872,7 +872,6 @@ flip_h = true
 hframes = 13
 
 [node name="EnvironmentCollider" type="CollisionShape2D" parent="."]
-visible = false
 position = Vector2(4.5, 12.5)
 shape = SubResource("RectangleShape2D_isx61")
 

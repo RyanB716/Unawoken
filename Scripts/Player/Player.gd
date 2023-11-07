@@ -2,11 +2,14 @@ extends CharacterBody2D
 class_name Player
 
 @onready var AnimPlayer = $AnimationPlayer
+
 @onready var AttackTimer = $Timers/AttackStateTimer
 @onready var CooldownTimer = $Timers/CoolDown
 @onready var SFXtime = $Timers/SFXtimer
+
 @onready var BodyAudio = $Audio/BodyAudio
 @onready var WeaponAudio = $Audio/WeaponAudio
+
 @onready var UI = $"Player UI"
 
 enum DirectionStates {Up, Down, Left, Right}
@@ -81,11 +84,9 @@ func _on_attack_state_timer_timeout():
 	CurrentAttackIndex = 1
 
 func AttackCooldown():
-	print("Cooldown STARTED!")
 	CooldownTimer.start(CooldownTime)
 	await CooldownTimer.timeout
 	CurrentAttackIndex = 1
-	print('Cooldown FINISHED!')
 
 func ReduceStamina(Amnt : int):
 	CurrentStaminaActions -= Amnt

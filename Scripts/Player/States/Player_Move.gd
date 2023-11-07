@@ -18,7 +18,7 @@ func Update(_delta : float):
 	
 	if PlayerRef.SFXtime.time_left <= 0 && PlayerRef.velocity.length() > 0.01:
 			PlayerRef.BodyAudio.PlayStep()
-			PlayerRef.SFXtime.start(0.5)
+			PlayerRef.SFXtime.start(0.45)
 
 	if !PlayerRef.IsMoving:
 		Transitioned.emit("Player_Idle")
