@@ -50,7 +50,6 @@ func _ready():
 	
 	UI.get_node("StaminaContainer").SetMaxIcons(MaxStaminaMoves)
 	
-	$SwordArea/SwordCollision.disabled = true
 
 func _physics_process(_delta):
 	
@@ -101,8 +100,4 @@ func ResetStamina(Amnt : int):
 			CurrentStaminaActions += 1
 			UI.get_node("StaminaContainer").UpdateIcons(CurrentStaminaActions)
 		else:
-			print('ERROR @ ResetStamina(): CurrentStaminaActions += 1 would EXCEED MaxStamina variable')
-
-func _on_sword_area_area_entered(area):
-	if area is HitBox:
-		area.TakeDamage(DamageOutput)
+			print_debug('ERROR @ ResetStamina(): CurrentStaminaActions += 1 would EXCEED MaxStamina variable')

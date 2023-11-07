@@ -5,8 +5,7 @@ class_name BasicEnemy
 @export var MaxHealth : int
 var CurrentHealth : int
 @export var NumberOfAttacks : int
-@export var DamageMinimum : int
-@export var DamageMaximum : int
+@export var DamageOutput : int
 
 @export_category("Movement Stats")
 @export var BaseSpeed : float
