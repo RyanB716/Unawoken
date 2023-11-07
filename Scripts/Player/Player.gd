@@ -79,7 +79,6 @@ func _physics_process(_delta):
 	move_and_slide()
 
 func _on_attack_state_timer_timeout():
-	print("Attack timer reset")
 	CurrentAttackIndex = 1
 
 func AttackCooldown():
