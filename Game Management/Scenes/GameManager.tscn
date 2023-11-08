@@ -12,6 +12,7 @@ script = ExtResource("1_gdgan")
 
 [node name="MainCamera" parent="." instance=ExtResource("4_8fpqb")]
 position = Vector2(-665, 514)
+CamSpeed = 1.0
 
 [node name="Player" parent="." instance=ExtResource("2_t5728")]
 position = Vector2(-665, 514)

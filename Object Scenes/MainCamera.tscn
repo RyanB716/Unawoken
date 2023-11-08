@@ -5,3 +5,4 @@
 [node name="MainCamera" type="Camera2D" groups=["Cameras"]]
 zoom = Vector2(3.5, 3.5)
 script = ExtResource("1_qwcuj")
+CamSpeed = 1.5
