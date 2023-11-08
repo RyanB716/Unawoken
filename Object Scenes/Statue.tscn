@@ -11,6 +11,7 @@ size = Vector2(26, 39)
 radius = 44.0114
 
 [node name="Statue" type="StaticBody2D"]
+scale = Vector2(0.5, 0.5)
 script = ExtResource("1_nni3r")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]

@@ -1,0 +1,30 @@
+[gd_scene load_steps=5 format=3 uid="uid://bkee3pqvgv4x1"]
+
+[ext_resource type="Texture2D" uid="uid://dgmg5rdrhnbnq" path="res://Visual Assets/TileSets/Props.png" id="1_p62lq"]
+[ext_resource type="Script" path="res://Object Scenes/Pot.gd" id="2_csvlt"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_kphhi"]
+size = Vector2(13, 15)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_rmudn"]
+size = Vector2(16, 18)
+
+[node name="Pot" type="StaticBody2D"]
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture_filter = 1
+texture = ExtResource("1_p62lq")
+region_enabled = true
+region_rect = Rect2(32, 16, 16, 16)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, -0.5)
+shape = SubResource("RectangleShape2D_kphhi")
+
+[node name="Area2D" type="Area2D" parent="."]
+script = ExtResource("2_csvlt")
+NeededHits = 1
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+position = Vector2(0, -1)
+shape = SubResource("RectangleShape2D_rmudn")
