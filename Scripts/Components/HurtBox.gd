@@ -9,8 +9,7 @@ func _ready():
 func WeaponHit(target : Area2D):
 	if target is HitBox && target.TargetReference != self.TargetReference:
 		target.TakeDamage(TargetReference.DamageOutput)
-		if target.TargetReference != Player:
-			get_tree().get_first_node_in_group("GameManager").HitStop(0.25)
+		get_tree().get_first_node_in_group("GameManager").HitStop(0.15)
 			
 	if target is DestructableObject:
 		if (target.CurrentHits + 1) == target.NeededHits:
