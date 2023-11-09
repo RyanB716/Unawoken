@@ -20,8 +20,8 @@
 [ext_resource type="Script" path="res://Scripts/Player/States/Player_Move.gd" id="14_votbp"]
 [ext_resource type="Script" path="res://Scripts/Player/States/Player_Attack.gd" id="15_8a7nj"]
 [ext_resource type="Script" path="res://Scripts/Player/States/Roll.gd" id="16_d2gd4"]
-[ext_resource type="Script" path="res://Scripts/Components/HitBox.gd" id="19_51bkk"]
-[ext_resource type="Script" path="res://Scripts/Components/HurtBox.gd" id="19_dr0gu"]
+[ext_resource type="Script" path="res://Object Scenes/Player/SwordArea.gd" id="19_8it4o"]
+[ext_resource type="Script" path="res://Object Scenes/Player/PlayerHitBox.gd" id="19_pcv0g"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_8v8gj"]
 size = Vector2(11, 4)
@@ -1169,19 +1169,19 @@ offset_top = 85.0
 offset_bottom = 165.0
 theme_override_constants/separation = 35
 
-[node name="SwordArea" type="Area2D" parent="." node_paths=PackedStringArray("TargetReference")]
-script = ExtResource("19_dr0gu")
-TargetReference = NodePath("..")
+[node name="SwordArea" type="Area2D" parent="." node_paths=PackedStringArray("SelfReference")]
+script = ExtResource("19_8it4o")
+SelfReference = NodePath("..")
 
 [node name="SwordCollision" type="CollisionShape2D" parent="SwordArea"]
 position = Vector2(-2, 20)
 rotation = 1.5708
 shape = SubResource("CapsuleShape2D_dv778")
 
-[node name="HitBox" type="Area2D" parent="." node_paths=PackedStringArray("TargetReference")]
+[node name="HitBox" type="Area2D" parent="." node_paths=PackedStringArray("SelfRef")]
 position = Vector2(1, -2)
-script = ExtResource("19_51bkk")
-TargetReference = NodePath("..")
+script = ExtResource("19_pcv0g")
+SelfRef = NodePath("..")
 ImpactSFX = [ExtResource("13_4u3h0"), ExtResource("14_b6uf5")]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HitBox"]

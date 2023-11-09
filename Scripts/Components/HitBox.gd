@@ -1,8 +1,7 @@
 extends Area2D
 class_name HitBox
 
-@export var TargetReference : CharacterBody2D
-
+@export var SelfRef : CharacterBody2D
 @export var ImpactSFX  = []
 
 func _ready():
@@ -10,8 +9,7 @@ func _ready():
 		self.get_child(0).disabled = false
 
 func TakeDamage(Amnt : int):
-	TargetReference.CurrentHealth -= Amnt
-	
+	SelfRef.CurrentHealth -= Amnt
 	var RNG = RandomNumberGenerator.new()
 	var index = RNG.randi_range(0, ImpactSFX.size() - 1)
 	var NewPlayer = AudioStreamPlayer.new()

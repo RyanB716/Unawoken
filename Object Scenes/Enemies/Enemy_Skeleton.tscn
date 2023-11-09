@@ -12,9 +12,9 @@
 [ext_resource type="Script" path="res://Scripts/Enemy Management/EnemyStates/Enemy_Attack.gd" id="8_8s87k"]
 [ext_resource type="AudioStream" uid="uid://nj05r1o16v2k" path="res://Audio/SFX/07_human_atk_sword_2.wav" id="10_6wfhp"]
 [ext_resource type="Script" path="res://Scripts/Enemy Management/EnemyStates/Enemy_Dead.gd" id="11_2dqr5"]
-[ext_resource type="Script" path="res://Scripts/Components/HitBox.gd" id="13_xavdn"]
+[ext_resource type="Script" path="res://Object Scenes/Enemies/EnemyHitBox.gd" id="13_hdkd4"]
 [ext_resource type="AudioStream" uid="uid://wxjdu8j2vlgm" path="res://Audio/SFX/block_large_59.wav" id="14_csje4"]
-[ext_resource type="Script" path="res://Scripts/Components/HurtBox.gd" id="14_yjlfo"]
+[ext_resource type="Script" path="res://Object Scenes/Enemies/EnemyHurtBox.gd" id="14_xbum7"]
 [ext_resource type="AudioStream" uid="uid://vysptgw3gs4d" path="res://Audio/SFX/body_hit_large_76.wav" id="15_l585l"]
 [ext_resource type="AudioStream" uid="uid://ee4gr04chvry" path="res://Audio/SFX/body_hit_large_32.wav" id="16_yflgy"]
 
@@ -956,19 +956,19 @@ theme_override_styles/fill = SubResource("StyleBoxFlat_22op2")
 value = 25.0
 show_percentage = false
 
-[node name="HitBox" type="Area2D" parent="." node_paths=PackedStringArray("TargetReference")]
-script = ExtResource("13_xavdn")
-TargetReference = NodePath("..")
-ImpactSFX = [ExtResource("14_csje4"), ExtResource("15_l585l"), ExtResource("16_yflgy")]
+[node name="HitBox" type="Area2D" parent="." node_paths=PackedStringArray("SelfRef")]
+script = ExtResource("13_hdkd4")
+SelfRef = NodePath("..")
+ImpactSFX = [ExtResource("14_csje4"), ExtResource("16_yflgy"), ExtResource("15_l585l")]
 
 [node name="HitCollider" type="CollisionShape2D" parent="HitBox"]
 shape = SubResource("RectangleShape2D_gej31")
 debug_color = Color(1, 0.00784314, 0.0470588, 0.419608)
 
-[node name="HurtBox" type="Area2D" parent="." node_paths=PackedStringArray("TargetReference")]
+[node name="HurtBox" type="Area2D" parent="." node_paths=PackedStringArray("SelfReference")]
 position = Vector2(-15.5, 8.5)
-script = ExtResource("14_yjlfo")
-TargetReference = NodePath("..")
+script = ExtResource("14_xbum7")
+SelfReference = NodePath("..")
 
 [node name="HurtCollider" type="CollisionShape2D" parent="HurtBox"]
 position = Vector2(-3.5, 0)
