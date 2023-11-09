@@ -3,7 +3,7 @@ extends CanvasLayer
 @export var StatueMenu : Statue_Menu
 
 func _ready():
-	StatueMenu.visible = false
+	pass
 
 func ToggleStatueMenu():
 	if StatueMenu.visible == true:

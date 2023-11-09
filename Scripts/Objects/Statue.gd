@@ -8,7 +8,7 @@ var CanInput = false
 func _ready():
 	$Label.visible = false
 
-func _process(delta):
+func _process(_delta):
 	if CanInput == true && Input.is_action_just_pressed("Interact"):
 		GameSettings.RespawnPoint = self.position
 		UI.ToggleStatueMenu()
@@ -18,7 +18,7 @@ func _on_detection_sphere_area_entered(area):
 		$Label.visible = true
 		CanInput = true
 
-func _on_detection_sphere_area_exited(area):
+func _on_detection_sphere_area_exited(_area):
 	$Label.visible = false
 	CanInput = false
 	UI.StatueMenu.visible = false

@@ -1174,6 +1174,7 @@ offset_bottom = 165.0
 theme_override_constants/separation = 35
 
 [node name="StatueMenu" parent="Player UI" instance=ExtResource("19_nq3nm")]
+visible = false
 
 [node name="SwordArea" type="Area2D" parent="." node_paths=PackedStringArray("SelfReference")]
 script = ExtResource("19_8it4o")

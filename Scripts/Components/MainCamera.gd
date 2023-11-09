@@ -11,7 +11,6 @@ extends Camera2D
 
 func _ready():
 	Target = get_tree().get_first_node_in_group("Player")
-	position = Target.position
 
 func _physics_process(delta):
 	self.position = lerp(self.position, Target.position, CamSpeed * delta)

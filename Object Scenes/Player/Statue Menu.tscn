@@ -1,7 +1,10 @@
-[gd_scene load_steps=7 format=3 uid="uid://bah6bwn6do5bj"]
+[gd_scene load_steps=10 format=3 uid="uid://bah6bwn6do5bj"]
 
 [ext_resource type="FontFile" uid="uid://bs6libyxfwgc" path="res://Visual Assets/Fonts/MorrisRomanBlack.ttf" id="1_5ft2k"]
 [ext_resource type="Script" path="res://Object Scenes/Player/Statue Menu.gd" id="1_febv6"]
+[ext_resource type="AudioStream" uid="uid://e6lc4du0uqfn" path="res://Audio/SFX/UI/Menu_In.mp3" id="2_ljwb3"]
+[ext_resource type="AudioStream" uid="uid://70y0whjphl5c" path="res://Audio/SFX/UI/Menu_Out.mp3" id="3_p7qaj"]
+[ext_resource type="AudioStream" uid="uid://05r4hhm2yxwl" path="res://Audio/SFX/UI/16461_1460643357.mp3" id="4_cgium"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_kh83s"]
 bg_color = Color(1, 1, 1, 1)
@@ -39,6 +42,9 @@ grow_horizontal = 2
 grow_vertical = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_kh83s")
 script = ExtResource("1_febv6")
+InSFX = ExtResource("2_ljwb3")
+OutSFX = ExtResource("3_p7qaj")
+Click = ExtResource("4_cgium")
 
 [node name="Label" type="Label" parent="."]
 layout_mode = 1
@@ -92,6 +98,11 @@ theme_override_styles/normal = SubResource("StyleBoxFlat_c3nji")
 theme_override_styles/focus = SubResource("StyleBoxFlat_jwas2")
 text = "No."
 
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+volume_db = -15.0
+
 [connection signal="visibility_changed" from="." to="." method="_on_visibility_changed"]
+[connection signal="focus_entered" from="HBoxContainer/Yes" to="." method="PlayClick"]
 [connection signal="pressed" from="HBoxContainer/Yes" to="." method="_on_yes_pressed"]
+[connection signal="focus_entered" from="HBoxContainer/No" to="." method="PlayClick"]
 [connection signal="pressed" from="HBoxContainer/No" to="." method="_on_no_pressed"]
