@@ -241,7 +241,7 @@ tracks/4/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [Vector2(0, -2)]
+"values": [Vector2(-10.5, -2)]
 }
 tracks/5/type = "value"
 tracks/5/imported = false
@@ -253,7 +253,7 @@ tracks/5/keys = {
 "times": PackedFloat32Array(0, 0.7, 1.7),
 "transitions": PackedFloat32Array(1, 1, 1),
 "update": 0,
-"values": [Vector2(11, 12), Vector2(2.5, 12), Vector2(10, 12)]
+"values": [Vector2(1, 12.5), Vector2(-5.5, 12), Vector2(2, 12.5)]
 }
 tracks/6/type = "value"
 tracks/6/imported = false
@@ -274,10 +274,10 @@ tracks/7/path = NodePath("HitBox:position")
 tracks/7/interp = 1
 tracks/7/loop_wrap = true
 tracks/7/keys = {
-"times": PackedFloat32Array(0, 0.7, 1.70001),
+"times": PackedFloat32Array(0, 0.7, 1.7),
 "transitions": PackedFloat32Array(1, 1, 1),
 "update": 0,
-"values": [Vector2(7, 2), Vector2(-2, 2), Vector2(6, 2)]
+"values": [Vector2(1, 4.5), Vector2(-5.5, 4), Vector2(2, 4.5)]
 }
 tracks/8/type = "value"
 tracks/8/imported = false
@@ -294,46 +294,34 @@ tracks/8/keys = {
 tracks/9/type = "value"
 tracks/9/imported = false
 tracks/9/enabled = true
-tracks/9/path = NodePath("ProgressBar:position")
+tracks/9/path = NodePath("HurtBox:position")
 tracks/9/interp = 1
 tracks/9/loop_wrap = true
 tracks/9/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
+"times": PackedFloat32Array(0, 0.7),
+"transitions": PackedFloat32Array(1, 1),
 "update": 0,
-"values": [Vector2(3, -10)]
+"values": [Vector2(-15.5, 8.5), Vector2(-22.5, 12.5)]
 }
 tracks/10/type = "value"
 tracks/10/imported = false
 tracks/10/enabled = true
-tracks/10/path = NodePath("HurtBox:position")
+tracks/10/path = NodePath("HurtBox/HurtCollider:disabled")
 tracks/10/interp = 1
 tracks/10/loop_wrap = true
 tracks/10/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector2(-15.5, 8.5)]
-}
-tracks/11/type = "value"
-tracks/11/imported = false
-tracks/11/enabled = true
-tracks/11/path = NodePath("HurtBox/HurtCollider:disabled")
-tracks/11/interp = 1
-tracks/11/loop_wrap = true
-tracks/11/keys = {
 "times": PackedFloat32Array(0.7, 0.9),
 "transitions": PackedFloat32Array(1, 1),
 "update": 1,
 "values": [false, true]
 }
-tracks/12/type = "value"
-tracks/12/imported = false
-tracks/12/enabled = true
-tracks/12/path = NodePath("HurtBox/HurtCollider:shape:size")
-tracks/12/interp = 1
-tracks/12/loop_wrap = true
-tracks/12/keys = {
+tracks/11/type = "value"
+tracks/11/imported = false
+tracks/11/enabled = true
+tracks/11/path = NodePath("HurtBox/HurtCollider:shape:size")
+tracks/11/interp = 1
+tracks/11/loop_wrap = true
+tracks/11/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
@@ -401,7 +389,7 @@ tracks/4/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [Vector2(0, -2)]
+"values": [Vector2(10, -2)]
 }
 tracks/5/type = "value"
 tracks/5/imported = false
@@ -410,10 +398,10 @@ tracks/5/path = NodePath("EnvironmentCollider:position")
 tracks/5/interp = 1
 tracks/5/loop_wrap = true
 tracks/5/keys = {
-"times": PackedFloat32Array(0, 0.8, 1.7),
-"transitions": PackedFloat32Array(1, 1, 1),
+"times": PackedFloat32Array(0, 0.7, 0.8, 0.9, 1.7),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
 "update": 0,
-"values": [Vector2(-10.5, 12), Vector2(-5.5, 12), Vector2(-11, 12)]
+"values": [Vector2(-0.5, 12.5), Vector2(5.5, 12.5), Vector2(5, 12.5), Vector2(5, 12), Vector2(-1.5, 12.5)]
 }
 tracks/6/type = "value"
 tracks/6/imported = false
@@ -434,10 +422,10 @@ tracks/7/path = NodePath("HitBox:position")
 tracks/7/interp = 1
 tracks/7/loop_wrap = true
 tracks/7/keys = {
-"times": PackedFloat32Array(0, 0.7, 1.7),
-"transitions": PackedFloat32Array(1, 1, 1),
+"times": PackedFloat32Array(0, 0.7, 0.9, 1.7),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
 "update": 0,
-"values": [Vector2(-14.5, 2), Vector2(-9.5, 2), Vector2(-15, 2)]
+"values": [Vector2(-0.5, 4.5), Vector2(5, 4.5), Vector2(4.5, 4), Vector2(-1.5, 4.5)]
 }
 tracks/8/type = "value"
 tracks/8/imported = false
@@ -454,46 +442,34 @@ tracks/8/keys = {
 tracks/9/type = "value"
 tracks/9/imported = false
 tracks/9/enabled = true
-tracks/9/path = NodePath("ProgressBar:position")
+tracks/9/path = NodePath("HurtBox:position")
 tracks/9/interp = 1
 tracks/9/loop_wrap = true
 tracks/9/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
+"times": PackedFloat32Array(0, 0.7),
+"transitions": PackedFloat32Array(1, 1),
 "update": 0,
-"values": [Vector2(-17, -10)]
+"values": [Vector2(15.5, 8.5), Vector2(29, 12.5)]
 }
 tracks/10/type = "value"
 tracks/10/imported = false
 tracks/10/enabled = true
-tracks/10/path = NodePath("HurtBox:position")
+tracks/10/path = NodePath("HurtBox/HurtCollider:disabled")
 tracks/10/interp = 1
 tracks/10/loop_wrap = true
 tracks/10/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector2(15.5, 8.5)]
-}
-tracks/11/type = "value"
-tracks/11/imported = false
-tracks/11/enabled = true
-tracks/11/path = NodePath("HurtBox/HurtCollider:disabled")
-tracks/11/interp = 1
-tracks/11/loop_wrap = true
-tracks/11/keys = {
 "times": PackedFloat32Array(0.7, 0.9),
 "transitions": PackedFloat32Array(1, 1),
 "update": 1,
 "values": [false, true]
 }
-tracks/12/type = "value"
-tracks/12/imported = false
-tracks/12/enabled = true
-tracks/12/path = NodePath("HurtBox/HurtCollider:shape:size")
-tracks/12/interp = 1
-tracks/12/loop_wrap = true
-tracks/12/keys = {
+tracks/11/type = "value"
+tracks/11/imported = false
+tracks/11/enabled = true
+tracks/11/path = NodePath("HurtBox/HurtCollider:shape:size")
+tracks/11/interp = 1
+tracks/11/loop_wrap = true
+tracks/11/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
@@ -932,7 +908,6 @@ TargetReference = NodePath("..")
 ImpactSFX = [ExtResource("14_csje4"), ExtResource("15_l585l"), ExtResource("16_yflgy")]
 
 [node name="HitCollider" type="CollisionShape2D" parent="HitBox"]
-position = Vector2(4, 2)
 shape = SubResource("RectangleShape2D_gej31")
 debug_color = Color(1, 0.00784314, 0.0470588, 0.419608)
 
@@ -942,7 +917,7 @@ script = ExtResource("14_yjlfo")
 TargetReference = NodePath("..")
 
 [node name="HurtCollider" type="CollisionShape2D" parent="HurtBox"]
-position = Vector2(0, 4)
+position = Vector2(-3.5, 0)
 shape = SubResource("RectangleShape2D_clpk5")
 
 [connection signal="area_entered" from="HurtBox" to="HurtBox" method="WeaponHit"]
