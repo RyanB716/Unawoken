@@ -2,28 +2,28 @@
 
 [ext_resource type="Script" path="res://Scripts/Player/Player.gd" id="1_2gr55"]
 [ext_resource type="Texture2D" uid="uid://bi38invhap0t" path="res://Visual Assets/SpriteSheets/player.png" id="2_w50ld"]
-[ext_resource type="AudioStream" uid="uid://d0iijvcalr7qr" path="res://Audio/SFX/attack1.wav" id="4_h2l6k"]
-[ext_resource type="AudioStream" uid="uid://cdla8hf16tqfv" path="res://Audio/SFX/attack2.wav" id="5_p67ey"]
-[ext_resource type="AudioStream" uid="uid://tky2sadciuix" path="res://Audio/SFX/attack3.wav" id="6_x3tyq"]
-[ext_resource type="AudioStream" uid="uid://d33remjia4oc1" path="res://Audio/SFX/07_human_atk_sword_1.wav" id="7_xep2m"]
-[ext_resource type="AudioStream" uid="uid://nj05r1o16v2k" path="res://Audio/SFX/07_human_atk_sword_2.wav" id="8_6cs7t"]
 [ext_resource type="Script" path="res://Scripts/Components/Audio Controllers/BodyAudioPlayer.gd" id="8_syxxs"]
-[ext_resource type="AudioStream" uid="uid://dfg2itgn13nbu" path="res://Audio/SFX/16_human_walk_stone_1.wav" id="9_5adc7"]
-[ext_resource type="AudioStream" uid="uid://c5quaak31hhg6" path="res://Audio/SFX/07_human_atk_sword_3.wav" id="9_ywbp4"]
+[ext_resource type="AudioStream" uid="uid://d0iijvcalr7qr" path="res://Audio/SFX/Player/attack1.wav" id="9_pigyr"]
 [ext_resource type="PackedScene" uid="uid://cvlh1usf2hwre" path="res://Object Scenes/Player/HealthBar.tscn" id="10_1g6mq"]
+[ext_resource type="AudioStream" uid="uid://cdla8hf16tqfv" path="res://Audio/SFX/Player/attack2.wav" id="10_1yyqr"]
 [ext_resource type="PackedScene" uid="uid://b8dv2qk331bb" path="res://Object Scenes/Player/StaminaContainer.tscn" id="11_0842j"]
+[ext_resource type="AudioStream" uid="uid://tky2sadciuix" path="res://Audio/SFX/Player/attack3.wav" id="11_e46q2"]
 [ext_resource type="Script" path="res://Scripts/Components/FSM/StateMachine.gd" id="12_lsmi8"]
-[ext_resource type="AudioStream" uid="uid://dlnsrugki0emv" path="res://Audio/SFX/blade_hit_07.wav" id="13_4u3h0"]
+[ext_resource type="AudioStream" uid="uid://dfg2itgn13nbu" path="res://Audio/SFX/Player/16_human_walk_stone_1.wav" id="12_x7l6c"]
 [ext_resource type="Script" path="res://Scripts/Player/States/Player_Idle.gd" id="13_pcoj7"]
 [ext_resource type="Script" path="res://Scripts/Components/Audio Controllers/WeaponAudio.gd" id="13_vyl8c"]
-[ext_resource type="AudioStream" uid="uid://b1u7ihusdosr8" path="res://Audio/SFX/blade_hit_08.wav" id="14_b6uf5"]
+[ext_resource type="AudioStream" uid="uid://d33remjia4oc1" path="res://Audio/SFX/Player/07_human_atk_sword_1.wav" id="14_lowa5"]
 [ext_resource type="Script" path="res://Scripts/Player/States/Player_Move.gd" id="14_votbp"]
 [ext_resource type="Script" path="res://Scripts/Player/States/Player_Attack.gd" id="15_8a7nj"]
+[ext_resource type="AudioStream" uid="uid://nj05r1o16v2k" path="res://Audio/SFX/Player/07_human_atk_sword_2.wav" id="15_pj7e2"]
 [ext_resource type="Script" path="res://Scripts/Player/States/Roll.gd" id="16_d2gd4"]
+[ext_resource type="AudioStream" uid="uid://c5quaak31hhg6" path="res://Audio/SFX/Player/07_human_atk_sword_3.wav" id="16_nt7aq"]
 [ext_resource type="Script" path="res://Object Scenes/Player/Player UI.gd" id="17_k3vfi"]
 [ext_resource type="Script" path="res://Scripts/Components/Hurt Boxes/SwordArea.gd" id="19_8it4o"]
 [ext_resource type="PackedScene" uid="uid://bah6bwn6do5bj" path="res://Object Scenes/Player/Statue Menu.tscn" id="19_nq3nm"]
 [ext_resource type="Script" path="res://Scripts/Components/Hit Boxes/PlayerHitBox.gd" id="19_pcv0g"]
+[ext_resource type="AudioStream" uid="uid://dlnsrugki0emv" path="res://Audio/SFX/Player/blade_hit_07.wav" id="23_4lgdd"]
+[ext_resource type="AudioStream" uid="uid://b1u7ihusdosr8" path="res://Audio/SFX/Player/blade_hit_08.wav" id="24_pwdi1"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_8v8gj"]
 size = Vector2(11, 4)
@@ -1144,12 +1144,12 @@ libraries = {
 
 [node name="BodyAudio" type="AudioStreamPlayer" parent="Audio"]
 script = ExtResource("8_syxxs")
-VoiceTrackArray = [ExtResource("4_h2l6k"), ExtResource("5_p67ey"), ExtResource("6_x3tyq"), null]
-FootSFX = ExtResource("9_5adc7")
+VoiceTrackArray = [ExtResource("9_pigyr"), ExtResource("10_1yyqr"), ExtResource("11_e46q2"), null]
+FootSFX = ExtResource("12_x7l6c")
 
 [node name="WeaponAudio" type="AudioStreamPlayer" parent="Audio"]
 script = ExtResource("13_vyl8c")
-AttackTrackArray = [ExtResource("7_xep2m"), ExtResource("8_6cs7t"), ExtResource("9_ywbp4")]
+AttackTrackArray = [ExtResource("14_lowa5"), ExtResource("15_pj7e2"), ExtResource("16_nt7aq")]
 
 [node name="Timers" type="Node" parent="."]
 
@@ -1188,7 +1188,7 @@ shape = SubResource("CapsuleShape2D_dv778")
 position = Vector2(1, -2)
 script = ExtResource("19_pcv0g")
 SelfRef = NodePath("..")
-ImpactSFX = [ExtResource("13_4u3h0"), ExtResource("14_b6uf5")]
+ImpactSFX = [ExtResource("23_4lgdd"), ExtResource("24_pwdi1")]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HitBox"]
 position = Vector2(-0.5, 9)

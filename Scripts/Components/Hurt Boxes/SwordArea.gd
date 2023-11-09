@@ -17,8 +17,8 @@ func WeaponHit(target : Area2D):
 
 	if target is DestructableObject:
 		if (target.CurrentHits + 1) == target.NeededHits:
-			target.PlayBreakSFX()
 			GameCamera.ApplyShake(1.5, 0.25)
+			target.Destroy()
 		else:
 			GameCamera.ApplyShake(0.75, 0.15)
 			target.PlayHitSFX()

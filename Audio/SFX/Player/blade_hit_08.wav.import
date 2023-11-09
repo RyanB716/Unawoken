@@ -3,12 +3,12 @@
 importer="wav"
 type="AudioStreamWAV"
 uid="uid://b1u7ihusdosr8"
-path="res://.godot/imported/blade_hit_08.wav-7f950fd12ada6e61baae6e351b089fed.sample"
+path="res://.godot/imported/blade_hit_08.wav-76e612038117ecb0e7c2ee9b5c14a191.sample"
 
 [deps]
 
-source_file="res://Audio/SFX/blade_hit_08.wav"
-dest_files=["res://.godot/imported/blade_hit_08.wav-7f950fd12ada6e61baae6e351b089fed.sample"]
+source_file="res://Audio/SFX/Player/blade_hit_08.wav"
+dest_files=["res://.godot/imported/blade_hit_08.wav-76e612038117ecb0e7c2ee9b5c14a191.sample"]
 
 [params]
 

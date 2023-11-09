@@ -3,12 +3,12 @@
 importer="wav"
 type="AudioStreamWAV"
 uid="uid://ee4gr04chvry"
-path="res://.godot/imported/body_hit_large_32.wav-b564300e5ba6d2166c560a6719a1929a.sample"
+path="res://.godot/imported/body_hit_large_32.wav-7903763c7447a5bcf98f8529f0a40593.sample"
 
 [deps]
 
-source_file="res://Audio/SFX/body_hit_large_32.wav"
-dest_files=["res://.godot/imported/body_hit_large_32.wav-b564300e5ba6d2166c560a6719a1929a.sample"]
+source_file="res://Audio/SFX/Enemy/body_hit_large_32.wav"
+dest_files=["res://.godot/imported/body_hit_large_32.wav-7903763c7447a5bcf98f8529f0a40593.sample"]
 
 [params]
 

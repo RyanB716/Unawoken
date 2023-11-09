@@ -1,7 +1,11 @@
-[gd_scene load_steps=5 format=3 uid="uid://1vl2wudjscly"]
+[gd_scene load_steps=9 format=3 uid="uid://1vl2wudjscly"]
 
 [ext_resource type="Texture2D" uid="uid://dij84ijwq0tae" path="res://Visual Assets/TileSets/Tiles.png" id="1_ficw0"]
 [ext_resource type="Script" path="res://Scripts/Objects/Door.gd" id="2_1620b"]
+[ext_resource type="AudioStream" uid="uid://wxjdu8j2vlgm" path="res://Audio/SFX/Enemy/block_large_59.wav" id="3_q3ow3"]
+[ext_resource type="AudioStream" uid="uid://ee4gr04chvry" path="res://Audio/SFX/Enemy/body_hit_large_32.wav" id="4_qdw60"]
+[ext_resource type="AudioStream" uid="uid://vysptgw3gs4d" path="res://Audio/SFX/Enemy/body_hit_large_76.wav" id="5_5xu6l"]
+[ext_resource type="AudioStream" uid="uid://dc5w2hst7asji" path="res://Audio/SFX/Object/19059_WoodCrashImpactBi_PE1056805.mp3" id="6_ctg8n"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_brt2u"]
 size = Vector2(34, 34)
@@ -23,6 +27,8 @@ shape = SubResource("RectangleShape2D_brt2u")
 [node name="Area2D" type="Area2D" parent="."]
 script = ExtResource("2_1620b")
 NeededHits = 3
+HitSFX = [ExtResource("3_q3ow3"), ExtResource("4_qdw60"), ExtResource("5_5xu6l")]
+BreakSFX = [ExtResource("6_ctg8n")]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
 shape = SubResource("RectangleShape2D_sbyvc")

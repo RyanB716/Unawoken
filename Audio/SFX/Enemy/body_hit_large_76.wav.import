@@ -3,12 +3,12 @@
 importer="wav"
 type="AudioStreamWAV"
 uid="uid://vysptgw3gs4d"
-path="res://.godot/imported/body_hit_large_76.wav-1e5a6071b84181ef61ed5efcad5e101a.sample"
+path="res://.godot/imported/body_hit_large_76.wav-7a6c483b91f3a9f4a09e6e4568c99ccd.sample"
 
 [deps]
 
-source_file="res://Audio/SFX/body_hit_large_76.wav"
-dest_files=["res://.godot/imported/body_hit_large_76.wav-1e5a6071b84181ef61ed5efcad5e101a.sample"]
+source_file="res://Audio/SFX/Enemy/body_hit_large_76.wav"
+dest_files=["res://.godot/imported/body_hit_large_76.wav-7a6c483b91f3a9f4a09e6e4568c99ccd.sample"]
 
 [params]
 
