@@ -8,8 +8,13 @@ func OnEnter():
 	ChangeTime = 3.0
 
 func Update(delta : float):
+	var Direction = SelfRef.PlayerTarget.global_position - SelfRef.global_position
+	
 	if SelfRef.AnimPlayer:
-		SelfRef.AnimPlayer.play("Skeleton_Idle")
+		if Direction.x > 0:
+			SelfRef.AnimPlayer.play("Skeleton_Idle_R")
+		elif Direction.x < 0:
+			SelfRef.AnimPlayer.play("Skeleton_Idle_L")
 		
 	if ChangeTime > 0:
 		ChangeTime -= delta
