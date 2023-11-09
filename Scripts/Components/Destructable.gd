@@ -17,23 +17,21 @@ func _ready():
 
 func Destroy():
 	self.get_parent().visible = false
-	self.get_parent().get_node("CollisionShape2D").queue_free()
 	RNG.randomize()
-	var index = RNG.randi_range(0, BreakSFX.size() - 1)
+	var index = RNG.randi_range(1, BreakSFX.size())
 	var NewPlayer = AudioStreamPlayer.new()
 	add_child(NewPlayer)
-	NewPlayer.stream = BreakSFX[index]
+	NewPlayer.stream = BreakSFX[index - 1]
 	NewPlayer.play()
 	await NewPlayer.finished
 	self.get_parent().queue_free()
 
 func PlayHitSFX():
-	print("Playing hit")
 	RNG.randomize()
-	var index = RNG.randi_range(0, HitSFX.size() - 1)
+	var index = RNG.randi_range(1, HitSFX.size())
 	var NewPlayer = AudioStreamPlayer.new()
 	add_child(NewPlayer)
-	NewPlayer.stream = HitSFX[index]
+	NewPlayer.stream = HitSFX[index - 1]
 	NewPlayer.play()
 	await NewPlayer.finished
 	NewPlayer.queue_free()

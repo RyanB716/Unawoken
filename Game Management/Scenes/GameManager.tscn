@@ -10,7 +10,6 @@ process_mode = 3
 script = ExtResource("1_gdgan")
 
 [node name="Forsaken Depths" parent="." instance=ExtResource("1_1m60y")]
-process_mode = 1
 
 [node name="MainCamera" parent="." instance=ExtResource("4_8fpqb")]
 position = Vector2(-665, 514)
