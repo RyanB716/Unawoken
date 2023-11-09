@@ -13,7 +13,7 @@ var CurrentHits : int
 func _ready():
 	CurrentHits = 0
 
-func _process(delta):
+func _process(_delta):
 	if CurrentHits == NeededHits:
 		Destroy()
 

@@ -20,8 +20,8 @@
 [ext_resource type="Script" path="res://Scripts/Player/States/Player_Move.gd" id="14_votbp"]
 [ext_resource type="Script" path="res://Scripts/Player/States/Player_Attack.gd" id="15_8a7nj"]
 [ext_resource type="Script" path="res://Scripts/Player/States/Roll.gd" id="16_d2gd4"]
-[ext_resource type="Script" path="res://Object Scenes/Player/SwordArea.gd" id="19_8it4o"]
-[ext_resource type="Script" path="res://Object Scenes/Player/PlayerHitBox.gd" id="19_pcv0g"]
+[ext_resource type="Script" path="res://Scripts/Components/Hurt Boxes/SwordArea.gd" id="19_8it4o"]
+[ext_resource type="Script" path="res://Scripts/Components/Hit Boxes/PlayerHitBox.gd" id="19_pcv0g"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_8v8gj"]
 size = Vector2(11, 4)

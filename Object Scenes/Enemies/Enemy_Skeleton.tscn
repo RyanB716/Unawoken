@@ -12,9 +12,9 @@
 [ext_resource type="Script" path="res://Scripts/Enemy Management/EnemyStates/Enemy_Attack.gd" id="8_8s87k"]
 [ext_resource type="AudioStream" uid="uid://nj05r1o16v2k" path="res://Audio/SFX/07_human_atk_sword_2.wav" id="10_6wfhp"]
 [ext_resource type="Script" path="res://Scripts/Enemy Management/EnemyStates/Enemy_Dead.gd" id="11_2dqr5"]
-[ext_resource type="Script" path="res://Object Scenes/Enemies/EnemyHitBox.gd" id="13_hdkd4"]
+[ext_resource type="Script" path="res://Scripts/Components/Hit Boxes/EnemyHitBox.gd" id="13_hdkd4"]
 [ext_resource type="AudioStream" uid="uid://wxjdu8j2vlgm" path="res://Audio/SFX/block_large_59.wav" id="14_csje4"]
-[ext_resource type="Script" path="res://Object Scenes/Enemies/EnemyHurtBox.gd" id="14_xbum7"]
+[ext_resource type="Script" path="res://Scripts/Components/Hurt Boxes/EnemyHurtBox.gd" id="14_xbum7"]
 [ext_resource type="AudioStream" uid="uid://vysptgw3gs4d" path="res://Audio/SFX/body_hit_large_76.wav" id="15_l585l"]
 [ext_resource type="AudioStream" uid="uid://ee4gr04chvry" path="res://Audio/SFX/body_hit_large_32.wav" id="16_yflgy"]
 

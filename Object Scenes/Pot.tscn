@@ -1,7 +1,7 @@
 [gd_scene load_steps=5 format=3 uid="uid://bkee3pqvgv4x1"]
 
 [ext_resource type="Texture2D" uid="uid://dgmg5rdrhnbnq" path="res://Visual Assets/TileSets/Props.png" id="1_p62lq"]
-[ext_resource type="Script" path="res://Object Scenes/Pot.gd" id="2_csvlt"]
+[ext_resource type="Script" path="res://Scripts/Objects/Pot.gd" id="2_csvlt"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_kphhi"]
 size = Vector2(13, 15)
