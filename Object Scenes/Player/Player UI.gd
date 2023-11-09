@@ -6,7 +6,6 @@ func _ready():
 	StatueMenu.visible = false
 
 func ToggleStatueMenu():
-	print("toggling")
 	if StatueMenu.visible == true:
 		StatueMenu.visible = false
 	else:

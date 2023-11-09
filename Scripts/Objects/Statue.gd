@@ -1,8 +1,6 @@
 extends StaticBody2D
 class_name Statue
 
-@export var IsCurrent : bool = false
-
 var CanInput = false
 
 @onready var UI = get_tree().get_first_node_in_group("Player").get_node("Player UI")
@@ -12,6 +10,7 @@ func _ready():
 
 func _process(delta):
 	if CanInput == true && Input.is_action_just_pressed("Interact"):
+		GameSettings.RespawnPoint = self.position
 		UI.ToggleStatueMenu()
 		
 func _on_detection_sphere_area_entered(area):
