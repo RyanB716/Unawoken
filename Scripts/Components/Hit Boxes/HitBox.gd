@@ -10,9 +10,12 @@ func _ready():
 
 func TakeDamage(Amnt : int):
 	SelfRef.CurrentHealth -= Amnt
+
+func PlaySFX():
 	var RNG = RandomNumberGenerator.new()
 	var index = RNG.randi_range(0, ImpactSFX.size() - 1)
 	var NewPlayer = AudioStreamPlayer.new()
+	NewPlayer.PROCESS_MODE_ALWAYS
 	add_child(NewPlayer)
 	NewPlayer.stream = ImpactSFX[index]
 	NewPlayer.play()

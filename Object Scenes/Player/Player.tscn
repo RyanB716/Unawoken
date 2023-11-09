@@ -1,4 +1,4 @@
-[gd_scene load_steps=47 format=3 uid="uid://dxprot5svswbe"]
+[gd_scene load_steps=49 format=3 uid="uid://dxprot5svswbe"]
 
 [ext_resource type="Script" path="res://Scripts/Player/Player.gd" id="1_2gr55"]
 [ext_resource type="Texture2D" uid="uid://bi38invhap0t" path="res://Visual Assets/SpriteSheets/player.png" id="2_w50ld"]
@@ -20,7 +20,9 @@
 [ext_resource type="Script" path="res://Scripts/Player/States/Player_Move.gd" id="14_votbp"]
 [ext_resource type="Script" path="res://Scripts/Player/States/Player_Attack.gd" id="15_8a7nj"]
 [ext_resource type="Script" path="res://Scripts/Player/States/Roll.gd" id="16_d2gd4"]
+[ext_resource type="Script" path="res://Object Scenes/Player/Player UI.gd" id="17_k3vfi"]
 [ext_resource type="Script" path="res://Scripts/Components/Hurt Boxes/SwordArea.gd" id="19_8it4o"]
+[ext_resource type="PackedScene" uid="uid://bah6bwn6do5bj" path="res://Object Scenes/Player/Statue Menu.tscn" id="19_nq3nm"]
 [ext_resource type="Script" path="res://Scripts/Components/Hit Boxes/PlayerHitBox.gd" id="19_pcv0g"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_8v8gj"]
@@ -1160,7 +1162,9 @@ one_shot = true
 [node name="SFXtimer" type="Timer" parent="Timers"]
 one_shot = true
 
-[node name="Player UI" type="CanvasLayer" parent="."]
+[node name="Player UI" type="CanvasLayer" parent="." node_paths=PackedStringArray("StatueMenu")]
+script = ExtResource("17_k3vfi")
+StatueMenu = NodePath("StatueMenu")
 
 [node name="Health Bar" parent="Player UI" instance=ExtResource("10_1g6mq")]
 
@@ -1168,6 +1172,8 @@ one_shot = true
 offset_top = 85.0
 offset_bottom = 165.0
 theme_override_constants/separation = 35
+
+[node name="StatueMenu" parent="Player UI" instance=ExtResource("19_nq3nm")]
 
 [node name="SwordArea" type="Area2D" parent="." node_paths=PackedStringArray("SelfReference")]
 script = ExtResource("19_8it4o")

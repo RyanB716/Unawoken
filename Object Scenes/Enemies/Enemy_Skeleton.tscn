@@ -894,9 +894,9 @@ MaxHealth = 300
 DamageOutput = 75
 BaseSpeed = 25.0
 TopSpeed = 75.0
-DetectionRange = 75.0
-DisengagementRange = 100.0
-AttackRange = 25.0
+DetectionRange = 100.0
+DisengagementRange = 200.0
+AttackRange = 50.0
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture_filter = 1
