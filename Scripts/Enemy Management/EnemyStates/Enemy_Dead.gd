@@ -10,3 +10,4 @@ func OnEnter():
 	SelfRef.HealthBar.visible = false
 	SelfRef.HitBoxCollider.disabled = true
 	SelfRef.EnvironmentCollider.disabled = true
+	SelfRef.HurtBoxCollider.disabled = true

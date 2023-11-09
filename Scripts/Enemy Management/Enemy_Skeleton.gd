@@ -9,6 +9,7 @@ extends BasicEnemy
 
 @onready var EnvironmentCollider = $EnvironmentCollider
 @onready var HitBoxCollider = $HitBox/HitCollider
+@onready var HurtBoxCollider = $HurtBox/HurtCollider
 
 var PlayerTarget : Player
 
