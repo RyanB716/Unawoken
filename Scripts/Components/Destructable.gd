@@ -17,6 +17,7 @@ func _ready():
 
 func Destroy():
 	self.get_parent().visible = false
+	call_deferred("DisableColliders")
 	RNG.randomize()
 	var index = RNG.randi_range(1, BreakSFX.size())
 	var NewPlayer = AudioStreamPlayer.new()
@@ -25,6 +26,10 @@ func Destroy():
 	NewPlayer.play()
 	await NewPlayer.finished
 	self.get_parent().queue_free()
+	
+func DisableColliders():
+	get_child(0).disabled = true
+	get_parent().find_child("CollisionShape2D").disabled = true
 
 func PlayHitSFX():
 	RNG.randomize()
