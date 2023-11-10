@@ -11,7 +11,7 @@ func _ready():
 
 func _process(_delta):
 	if PlayerRef.CurrentHealth <= 0:
-		get_tree().reload_current_scene()d
+		get_tree().reload_current_scene()
 
 func HitStop(EffectTime : float):
 	get_tree().paused = true
