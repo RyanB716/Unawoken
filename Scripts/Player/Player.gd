@@ -46,6 +46,7 @@ var CurrentStaminaActions : int
 var AnimState = null
 
 var IsRolling = false
+var IsDead = false
 
 func _ready():
 	CurrentDirection = DirectionStates.Down
@@ -55,12 +56,18 @@ func _ready():
 	
 	UI.get_node("StaminaContainer").SetMaxIcons(MaxStaminaMoves)
 	
-
+func _process(_delta):
+	if CurrentHealth <= 0 && $Timers/DeathTimer.is_stopped():
+		IsDead = true
+		$Timers/DeathTimer.one_shot = true
+		$Timers/DeathTimer.start(5)
+	
 func _physics_process(_delta):
 	
-	IsMoving = Input.is_action_pressed("Run_Up") || Input.is_action_pressed("Run_Down") || Input.is_action_pressed("Run_Left") || Input.is_action_pressed("Run_Right")
+	if IsDead == false:
+		IsMoving = Input.is_action_pressed("Run_Up") || Input.is_action_pressed("Run_Down") || Input.is_action_pressed("Run_Left") || Input.is_action_pressed("Run_Right")
 	
-	if IsRolling == false:
+	if IsRolling == false && IsMoving:
 		if Input.is_action_pressed("Run_Up"):
 			CurrentDirection = DirectionStates.Up
 			Direction = Vector2.UP
@@ -106,3 +113,6 @@ func ResetStamina(Amnt : int):
 			UI.get_node("StaminaContainer").UpdateIcons(CurrentStaminaActions)
 		else:
 			print_debug('ERROR @ ResetStamina(): CurrentStaminaActions += 1 would EXCEED MaxStamina variable')
+
+func Respawn():
+	get_tree().reload_current_scene()

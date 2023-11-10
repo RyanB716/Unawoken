@@ -5,11 +5,14 @@ var CanInput = false
 
 @onready var UI = get_tree().get_first_node_in_group("Player").get_node("Player UI")
 
+signal Rested()
+
 func _ready():
 	$Label.visible = false
 
 func _process(_delta):
 	if CanInput == true && Input.is_action_just_pressed("Interact"):
+		Rested.emit()
 		GameSettings.RespawnPoint = self.position
 		UI.ToggleStatueMenu()
 		

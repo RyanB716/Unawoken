@@ -15,7 +15,7 @@ func _on_visibility_changed():
 		$HBoxContainer/Yes.grab_focus()
 
 func _on_yes_pressed():
-	pass
+	get_tree().reload_current_scene()
 
 func _on_no_pressed():
 	self.visible = false

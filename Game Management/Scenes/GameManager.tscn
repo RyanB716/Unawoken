@@ -18,4 +18,4 @@ CamSpeed = 1.25
 
 [node name="Player" parent="." instance=ExtResource("2_t5728")]
 process_mode = 1
-position = Vector2(-665, 514)
+position = Vector2(-667, 517)
