@@ -28,6 +28,6 @@ func _physics_process(_delta):
 	
 	if velocity.length() > 0:
 		if velocity.x >= 0.01:
-			AnimPlayer.play("Skeleton_Walk_R")
+			AnimPlayer.play("Walk_R")
 		else:
-			AnimPlayer.play("Skeleton_Walk_L")
+			AnimPlayer.play("Walk_L")

@@ -36,5 +36,3 @@ func RandomizeTime():
 	else:
 		MoveDirection = Vector2(RNG.randf_range(-1, 1), RNG.randf_range(-1, 1)).normalized()
 		WanderTime = RNG.randf_range(0.5, 3.0)
-		
-		SelfRef.velocity = MoveDirection * SelfRef.BaseSpeed

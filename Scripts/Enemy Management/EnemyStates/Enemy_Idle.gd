@@ -12,9 +12,9 @@ func Update(delta : float):
 	
 	if SelfRef.AnimPlayer:
 		if Direction.x > 0:
-			SelfRef.AnimPlayer.play("Skeleton_Idle_R")
+			SelfRef.AnimPlayer.play("Idle_R")
 		elif Direction.x < 0:
-			SelfRef.AnimPlayer.play("Skeleton_Idle_L")
+			SelfRef.AnimPlayer.play("Idle_L")
 		
 	if ChangeTime > 0:
 		ChangeTime -= delta

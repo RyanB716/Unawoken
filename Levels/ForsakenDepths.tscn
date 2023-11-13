@@ -1,11 +1,10 @@
-[gd_scene load_steps=14 format=3 uid="uid://c4oy4c3d46qb4"]
+[gd_scene load_steps=13 format=3 uid="uid://c4oy4c3d46qb4"]
 
 [ext_resource type="Texture2D" uid="uid://dij84ijwq0tae" path="res://Visual Assets/TileSets/Tiles.png" id="1_ocd84"]
 [ext_resource type="Script" path="res://Scripts/Level Controllers/ForsakenDepths.gd" id="1_u4b3h"]
 [ext_resource type="Texture2D" uid="uid://dgmg5rdrhnbnq" path="res://Visual Assets/TileSets/Props.png" id="2_87l2t"]
 [ext_resource type="AudioStream" uid="uid://3r8k50onxhr6" path="res://Audio/SFX/Level SFX/18566_1464794295.mp3" id="4_xhi55"]
 [ext_resource type="AudioStream" uid="uid://dp5kawtmj2jip" path="res://Audio/SFX/Level SFX/Ambiance_Cave_Drips_Loop_Stereo.wav" id="5_ucqvd"]
-[ext_resource type="PackedScene" uid="uid://coi4vvrt6aof5" path="res://Object Scenes/Enemies/Enemy_Skeleton.tscn" id="6_067pe"]
 [ext_resource type="PackedScene" uid="uid://1vl2wudjscly" path="res://Object Scenes/Door_Wood.tscn" id="6_q7vls"]
 [ext_resource type="PackedScene" uid="uid://bkee3pqvgv4x1" path="res://Object Scenes/Pot.tscn" id="7_auceg"]
 [ext_resource type="PackedScene" uid="uid://wvlasq770v6g" path="res://Object Scenes/Statue.tscn" id="9_kcsy4"]
@@ -1562,15 +1561,6 @@ position = Vector2(-591, 495)
 [node name="Pot" parent="." instance=ExtResource("7_auceg")]
 position = Vector2(-582, 551)
 
-[node name="Enemy_Skeleton2" parent="." instance=ExtResource("6_067pe")]
-position = Vector2(53, 62)
-
-[node name="Enemy_Skeleton3" parent="." instance=ExtResource("6_067pe")]
-position = Vector2(227, 180)
-
-[node name="Enemy_Skeleton4" parent="." instance=ExtResource("6_067pe")]
-position = Vector2(133, 119)
-
 [node name="Statue" parent="." instance=ExtResource("9_kcsy4")]
 position = Vector2(-634, 509)
 
@@ -1590,4 +1580,4 @@ position = Vector2(-240, 168)
 position = Vector2(-216, 168)
 
 [node name="Moblin" parent="." instance=ExtResource("10_2i63u")]
-position = Vector2(-587, 325)
+position = Vector2(-587, 326)

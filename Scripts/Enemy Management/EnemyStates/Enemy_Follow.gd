@@ -4,7 +4,7 @@ class_name Enemy_Follow
 @export var SelfRef : BasicEnemy
 
 var Direction
-	
+
 func Update(_delta : float):
 	if SelfRef.CurrentHealth <= 0:
 		Transitioned.emit("Dead")
