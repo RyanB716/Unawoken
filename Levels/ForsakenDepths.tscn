@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://c4oy4c3d46qb4"]
+[gd_scene load_steps=14 format=3 uid="uid://c4oy4c3d46qb4"]
 
 [ext_resource type="Texture2D" uid="uid://dij84ijwq0tae" path="res://Visual Assets/TileSets/Tiles.png" id="1_ocd84"]
 [ext_resource type="Script" path="res://Scripts/Level Controllers/ForsakenDepths.gd" id="1_u4b3h"]
@@ -9,6 +9,7 @@
 [ext_resource type="PackedScene" uid="uid://1vl2wudjscly" path="res://Object Scenes/Door_Wood.tscn" id="6_q7vls"]
 [ext_resource type="PackedScene" uid="uid://bkee3pqvgv4x1" path="res://Object Scenes/Pot.tscn" id="7_auceg"]
 [ext_resource type="PackedScene" uid="uid://wvlasq770v6g" path="res://Object Scenes/Statue.tscn" id="9_kcsy4"]
+[ext_resource type="PackedScene" uid="uid://cnww1xsx7uypm" path="res://Object Scenes/Enemies/Enemy_Moblin.tscn" id="10_2i63u"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_j2tg3"]
 texture = ExtResource("1_ocd84")
@@ -1561,14 +1562,6 @@ position = Vector2(-591, 495)
 [node name="Pot" parent="." instance=ExtResource("7_auceg")]
 position = Vector2(-582, 551)
 
-[node name="Enemy_Skeleton" parent="." instance=ExtResource("6_067pe")]
-position = Vector2(-591, 317)
-BaseSpeed = 15.0
-TopSpeed = 25.0
-DetectionRange = 85.0
-DisengagementRange = 150.0
-AttackRange = 35.0
-
 [node name="Enemy_Skeleton2" parent="." instance=ExtResource("6_067pe")]
 position = Vector2(53, 62)
 
@@ -1595,3 +1588,6 @@ position = Vector2(-240, 168)
 
 [node name="Pot5" parent="." instance=ExtResource("7_auceg")]
 position = Vector2(-216, 168)
+
+[node name="Moblin" parent="." instance=ExtResource("10_2i63u")]
+position = Vector2(-587, 325)

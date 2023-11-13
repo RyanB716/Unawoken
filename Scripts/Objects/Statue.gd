@@ -3,6 +3,7 @@ class_name Statue
 
 var CanInput = false
 
+@onready var PlayerRef = get_tree().get_first_node_in_group("Player")
 @onready var UI = get_tree().get_first_node_in_group("Player").get_node("Player UI")
 
 signal Rested()
@@ -12,8 +13,8 @@ func _ready():
 
 func _process(_delta):
 	if CanInput == true && Input.is_action_just_pressed("Interact"):
-		Rested.emit()
 		GameSettings.RespawnPoint = self.position
+		PlayerRef.RegainFULLHealth()
 		UI.ToggleStatueMenu()
 		
 func _on_detection_sphere_area_entered(area):

@@ -114,5 +114,13 @@ func ResetStamina(Amnt : int):
 		else:
 			print_debug('ERROR @ ResetStamina(): CurrentStaminaActions += 1 would EXCEED MaxStamina variable')
 
+func RegainHealth(Amount : int):
+	var HealthTween = get_tree().create_tween()
+	HealthTween.tween_property(self, "CurrentHealth", (CurrentHealth + Amount), 2)
+	
+func RegainFULLHealth():
+	var HealthTween = get_tree().create_tween()
+	HealthTween.tween_property(self, "CurrentHealth", MaxHealth, 1.5)
+
 func Respawn():
 	get_tree().reload_current_scene()

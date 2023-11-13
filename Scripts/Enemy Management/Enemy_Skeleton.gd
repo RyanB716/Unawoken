@@ -1,4 +1,5 @@
 extends BasicEnemy
+class_name Skeleton
 
 @onready var AnimPlayer = $AnimationPlayer
 @onready var sprite = $Sprite2D

@@ -1,0 +1,45 @@
+[gd_scene load_steps=7 format=3 uid="uid://cnww1xsx7uypm"]
+
+[ext_resource type="Script" path="res://Object Scenes/Enemies/Enemy_Moblin.gd" id="1_a8vwv"]
+[ext_resource type="Texture2D" uid="uid://dtf21kcxeo5tm" path="res://Visual Assets/SpriteSheets/Enemies/spritesheets/8 idle.png" id="2_lwft6"]
+[ext_resource type="Script" path="res://Scripts/Components/FSM/StateMachine.gd" id="3_iqqfo"]
+[ext_resource type="Script" path="res://Scripts/Enemy Management/EnemyStates/Enemy_Idle.gd" id="4_w3tq8"]
+[ext_resource type="Script" path="res://Scripts/Enemy Management/EnemyStates/Enemy_Wander.gd" id="5_uuo3t"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_yetj8"]
+size = Vector2(12, 4)
+
+[node name="Moblin" type="CharacterBody2D"]
+texture_filter = 2
+script = ExtResource("1_a8vwv")
+MaxHealth = 250
+DamageOutput = 25
+BaseSpeed = 25.0
+TopSpeed = 50.0
+DetectionRange = 150.0
+DisengagementRange = 250.0
+AttackRange = 15.0
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture_filter = 1
+texture = ExtResource("2_lwft6")
+hframes = 3
+vframes = 2
+
+[node name="EnvironmentCollider" type="CollisionShape2D" parent="."]
+position = Vector2(0, 6)
+shape = SubResource("RectangleShape2D_yetj8")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+
+[node name="StateMachine" type="Node" parent="." node_paths=PackedStringArray("InitialState")]
+script = ExtResource("3_iqqfo")
+InitialState = NodePath("Enemy_Idle")
+
+[node name="Enemy_Idle" type="Node" parent="StateMachine" node_paths=PackedStringArray("SelfRef")]
+script = ExtResource("4_w3tq8")
+SelfRef = NodePath("../..")
+
+[node name="Enemy_Wander" type="Node" parent="StateMachine" node_paths=PackedStringArray("SelfRef")]
+script = ExtResource("5_uuo3t")
+SelfRef = NodePath("../..")
