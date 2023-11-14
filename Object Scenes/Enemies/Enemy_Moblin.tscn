@@ -1023,7 +1023,7 @@ MaxHealth = 250
 DamageOutput = 25
 BaseSpeed = 25.0
 TopSpeed = 50.0
-DetectionRange = 50.0
+DetectionRange = 35.0
 DisengagementRange = 100.0
 AttackRange = 15.0
 

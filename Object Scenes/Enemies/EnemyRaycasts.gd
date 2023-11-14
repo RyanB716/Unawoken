@@ -14,7 +14,6 @@ func ready():
 	RC_Right.target_position = Vector2(ParentRef.DetectionRange, 0)
 
 func SendRaycasts():
-	print("Raycasting")
 	$RayTimer.start(0.5)
 	for i in self.get_child_count() - 1:
 		pass

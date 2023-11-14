@@ -9,12 +9,6 @@ func OnEnter():
 
 func Update(delta : float):
 	var Direction = SelfRef.PlayerTarget.global_position - SelfRef.global_position
-	
-	if SelfRef.AnimPlayer:
-		if Direction.x > 0:
-			SelfRef.AnimPlayer.play("Idle_R")
-		elif Direction.x < 0:
-			SelfRef.AnimPlayer.play("Idle_L")
 		
 	if ChangeTime > 0:
 		ChangeTime -= delta

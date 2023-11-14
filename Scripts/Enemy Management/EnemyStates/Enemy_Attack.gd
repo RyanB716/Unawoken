@@ -11,6 +11,14 @@ func OnEnter():
 	var Distance = SelfRef.global_position - SelfRef.PlayerTarget.global_position
 	print(Distance)
 	
+	var ZeroDistanceX = 0 - Distance.x
+	var ZeroDistanceY = 0 - Distance.y
+	print(str(ZeroDistanceX) + ", " + str(ZeroDistanceY))
+	if ZeroDistanceX < ZeroDistanceY:
+		print('Attacking Horizontally')
+	else:
+		print('Attacking vertically')
+	
 	#await SelfRef.AnimPlayer.animation_finished
 	
 	if SelfRef.CurrentHealth >= 1:

@@ -34,5 +34,19 @@ func RandomizeTime():
 		SelfRef.velocity = Vector2.ZERO
 		Transitioned.emit("Idle")
 	else:
-		MoveDirection = Vector2(RNG.randf_range(-1, 1), RNG.randf_range(-1, 1)).normalized()
+		var newDirection = RNG.randi_range(0, 3)
+		match newDirection:
+			0:
+				SelfRef.CurrentDirection = SelfRef.DirectionStates.Up
+				MoveDirection = Vector2.UP
+			1:
+				SelfRef.CurrentDirection = SelfRef.DirectionStates.Down
+				MoveDirection = Vector2.DOWN
+			2:
+				SelfRef.CurrentDirection = SelfRef.DirectionStates.Left
+				MoveDirection = Vector2.LEFT
+			3:
+				SelfRef.CurrentDirection = SelfRef.DirectionStates.Right
+				MoveDirection = Vector2.RIGHT
+				
 		WanderTime = RNG.randf_range(0.5, 3.0)

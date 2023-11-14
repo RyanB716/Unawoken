@@ -42,3 +42,13 @@ func _physics_process(_delta):
 				AnimPlayer.play("Walk_L")
 			3:
 				AnimPlayer.play("Walk_R")
+	else:
+		match CurrentDirection:
+			0:
+				AnimPlayer.play("Idle_U")
+			1:
+				AnimPlayer.play("Idle_D")
+			2:
+				AnimPlayer.play("Idle_L")
+			3:
+				AnimPlayer.play("Idle_R")
