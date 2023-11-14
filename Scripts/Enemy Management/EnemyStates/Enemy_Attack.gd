@@ -8,17 +8,13 @@ var Direction
 func OnEnter():
 	SelfRef.velocity = Vector2.ZERO
 	
-	Direction = SelfRef.PlayerTarget.global_position - SelfRef.global_position
-	print(Direction)
-	if Direction.x > Direction.y:
-		print("Attacking Horrizontally")
-	else:
-		print("Attacking Vertically")
-		
+	var Distance = SelfRef.global_position - SelfRef.PlayerTarget.global_position
+	print(Distance)
+	
 	#await SelfRef.AnimPlayer.animation_finished
 	
 	if SelfRef.CurrentHealth >= 1:
-		if Direction.length() <= SelfRef.DetectionRange:
+		if Distance.length() <= SelfRef.DetectionRange:
 			Transitioned.emit("Follow")
 		else:
 			Transitioned.emit("Idle")

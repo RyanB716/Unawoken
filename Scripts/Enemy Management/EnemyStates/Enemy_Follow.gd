@@ -10,21 +10,20 @@ func Update(_delta : float):
 		Transitioned.emit("Dead")
 	
 func PhysicsUpdate(_deta : float):
-	if SelfRef.PlayerTarget != null:
-		Direction = SelfRef.PlayerTarget.global_position - SelfRef.global_position
+	Direction = SelfRef.PlayerTarget.global_position - SelfRef.global_position
 	
-		if Direction.length() > SelfRef.AttackRange:
-			SelfRef.velocity = Direction.normalized() * SelfRef.TopSpeed
-		else:
-			Transitioned.emit("Attack")
+	if Direction.length() > SelfRef.AttackRange:
+		SelfRef.velocity = Direction.normalized() * SelfRef.TopSpeed
+	else:
+		Transitioned.emit("Attack")
 			
-		if Direction.length() > SelfRef.DisengagementRange:
-			Transitioned.emit("Idle")
+	if Direction.length() > SelfRef.DisengagementRange:
+		Transitioned.emit("Idle")
 			
-		if Direction.y > -0.1:
-			SelfRef.z_index = 0
-		else:
-			SelfRef.z_index = 2
+	if Direction.y > -0.1:
+		SelfRef.z_index = 0
+	else:
+		SelfRef.z_index = 2
 
 func DecideToAttack():
 	var RNG = RandomNumberGenerator.new()

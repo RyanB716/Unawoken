@@ -1,4 +1,4 @@
-[gd_scene load_steps=36 format=3 uid="uid://cnww1xsx7uypm"]
+[gd_scene load_steps=37 format=3 uid="uid://cnww1xsx7uypm"]
 
 [ext_resource type="Script" path="res://Object Scenes/Enemies/Enemy_Moblin.gd" id="1_a8vwv"]
 [ext_resource type="Texture2D" uid="uid://dtf21kcxeo5tm" path="res://Visual Assets/SpriteSheets/Enemies/spritesheets/8 idle.png" id="2_lwft6"]
@@ -15,6 +15,7 @@
 [ext_resource type="AudioStream" uid="uid://ee4gr04chvry" path="res://Audio/SFX/Enemy/body_hit_large_32.wav" id="9_q7i35"]
 [ext_resource type="AudioStream" uid="uid://vysptgw3gs4d" path="res://Audio/SFX/Enemy/body_hit_large_76.wav" id="10_da7hs"]
 [ext_resource type="Script" path="res://Scripts/Components/Hurt Boxes/EnemyHurtBox.gd" id="11_56ax1"]
+[ext_resource type="Script" path="res://Object Scenes/Enemies/EnemyRaycasts.gd" id="16_15dgd"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_yetj8"]
 size = Vector2(12, 4)
@@ -1045,7 +1046,7 @@ libraries = {
 
 [node name="StateMachine" type="Node" parent="." node_paths=PackedStringArray("InitialState")]
 script = ExtResource("3_iqqfo")
-InitialState = NodePath("Wander")
+InitialState = NodePath("Idle")
 
 [node name="Idle" type="Node" parent="StateMachine" node_paths=PackedStringArray("SelfRef")]
 script = ExtResource("4_w3tq8")
@@ -1100,5 +1101,23 @@ SelfReference = NodePath("..")
 
 [node name="HurtCollider" type="CollisionShape2D" parent="HurtBox"]
 shape = SubResource("RectangleShape2D_rvl78")
+
+[node name="Raycasts" type="Node2D" parent="."]
+script = ExtResource("16_15dgd")
+
+[node name="RC_Up" type="RayCast2D" parent="Raycasts"]
+target_position = Vector2(0, 0)
+
+[node name="RayCast2D" type="RayCast2D" parent="Raycasts"]
+target_position = Vector2(0, 0)
+
+[node name="RC_Left" type="RayCast2D" parent="Raycasts"]
+target_position = Vector2(0, 0)
+
+[node name="RC_Right" type="RayCast2D" parent="Raycasts"]
+target_position = Vector2(0, 0)
+
+[node name="RayTimer" type="Timer" parent="Raycasts"]
+one_shot = true
 
 [connection signal="area_entered" from="HurtBox" to="HurtBox" method="WeaponHit"]
