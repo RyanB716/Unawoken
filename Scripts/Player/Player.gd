@@ -85,12 +85,13 @@ func _physics_process(_delta):
 			CurrentDirection = DirectionStates.Left
 			Direction = Vector2.LEFT
 	
-	if IsMoving:
-		CurrentSpeed = TopSpeed
-	elif IsRolling:
-		CurrentSpeed = TopSpeed + 25
-	else:
-		CurrentSpeed = 0
+	if IsDead == false:
+		if IsMoving:
+			CurrentSpeed = TopSpeed
+		elif IsRolling:
+			CurrentSpeed = TopSpeed + 25
+		else:
+			CurrentSpeed = 0
 	
 	velocity = (Direction * CurrentSpeed)
 	move_and_slide()
