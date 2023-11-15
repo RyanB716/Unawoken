@@ -24,23 +24,24 @@ func _process(_delta):
 func _physics_process(_delta):
 	move_and_slide()
 	
-	if velocity.length() > 0:
+	if velocity.length() > 0 && IsAttacking == false:
 		match CurrentDirection:
 			0:
-				AnimPlayer.play("Walk_U")
+				AnimPlayer.play("Walk/Walk_U")
 			1:
-				AnimPlayer.play("Walk_D")
+				AnimPlayer.play("Walk/Walk_D")
 			2:
-				AnimPlayer.play("Walk_L")
+				AnimPlayer.play("Walk/Walk_L")
 			3:
-				AnimPlayer.play("Walk_R")
+				AnimPlayer.play("Walk/Walk_R")
 	else:
-		match CurrentDirection:
-			0:
-				AnimPlayer.play("Idle_U")
-			1:
-				AnimPlayer.play("Idle_D")
-			2:
-				AnimPlayer.play("Idle_L")
-			3:
-				AnimPlayer.play("Idle_R")
+		if IsAttacking == false:
+			match CurrentDirection:
+				0:
+					AnimPlayer.play("Idle/Idle_U")
+				1:
+					AnimPlayer.play("Idle/Idle_D")
+				2:
+					AnimPlayer.play("Idle/Idle_L")
+				3:
+					AnimPlayer.play("Idle/Idle_R")

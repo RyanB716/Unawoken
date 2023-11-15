@@ -1581,3 +1581,15 @@ position = Vector2(-216, 168)
 
 [node name="Moblin" parent="." instance=ExtResource("10_2i63u")]
 position = Vector2(-587, 326)
+
+[node name="Moblin2" parent="." instance=ExtResource("10_2i63u")]
+position = Vector2(44, 49)
+
+[node name="Moblin3" parent="." instance=ExtResource("10_2i63u")]
+position = Vector2(232, 56)
+
+[node name="Moblin4" parent="." instance=ExtResource("10_2i63u")]
+position = Vector2(43, 193)
+
+[node name="Moblin5" parent="." instance=ExtResource("10_2i63u")]
+position = Vector2(227, 197)

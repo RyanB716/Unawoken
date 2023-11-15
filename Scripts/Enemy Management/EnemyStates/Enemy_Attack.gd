@@ -4,41 +4,26 @@ class_name Enemy_Attack
 @export var SelfRef : BasicEnemy
 
 var Direction
+var Distance
 
 func OnEnter():
+	SelfRef.IsAttacking = true
 	SelfRef.velocity = Vector2.ZERO
-	
-	var Distance = SelfRef.global_position - SelfRef.PlayerTarget.global_position
 	
 	match SelfRef.CurrentDirection:
 		0:
-			SelfRef.AnimPlayer.play("Attack_U")
-			if SelfRef.AnimPlayer.is_playing():
-				print("Up")
+			SelfRef.AnimPlayer.play("Attack/Attack_U")
 		1:
-			SelfRef.AnimPlayer.play("Attack_D")
-			if SelfRef.AnimPlayer.is_playing():
-				print("Down")
+			SelfRef.AnimPlayer.play("Attack/Attack_D")
 		2:
-			SelfRef.AnimPlayer.play("Attack_L")
-			if SelfRef.AnimPlayer.is_playing():
-				print("Left")
+			SelfRef.AnimPlayer.play("Attack/Attack_L")
 		3:
-			SelfRef.AnimPlayer.play("Attack_R")
-			if SelfRef.AnimPlayer.is_playing():
-				print("Right")
+			SelfRef.AnimPlayer.play("Attack/Attack_R")
 	
-	#await get_tree().create_timer(0.25).timeout
 	await SelfRef.AnimPlayer.animation_finished
-	print("Attack finished!")
-	
-	if SelfRef.CurrentHealth >= 1:
-		if Distance.length() <= SelfRef.DetectionRange:
-			Transitioned.emit("Follow")
-		else:
-			Transitioned.emit("Idle")
+	SelfRef.IsAttacking = false
+	Transitioned.emit("Follow")
 			
 func Update(_delta : float):
 	if SelfRef.CurrentHealth <= 0:
 		Transitioned.emit("Dead")
-	

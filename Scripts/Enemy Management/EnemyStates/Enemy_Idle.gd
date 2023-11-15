@@ -8,8 +8,6 @@ func OnEnter():
 	ChangeTime = 3.0
 
 func Update(delta : float):
-	var Direction = SelfRef.PlayerTarget.global_position - SelfRef.global_position
-		
 	if ChangeTime > 0:
 		ChangeTime -= delta
 	else:

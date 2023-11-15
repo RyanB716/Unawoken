@@ -18,6 +18,7 @@ var CurrentHealth : int
 
 var PlayerTarget : Player
 var AnimPlayer : AnimationPlayer
+var IsAttacking : bool = false
 enum DirectionStates {Up, Down, Left, Right}
 var CurrentDirection : int
 
