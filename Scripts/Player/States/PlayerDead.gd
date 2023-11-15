@@ -4,5 +4,6 @@ class_name PlayerDead
 @export var PlayerRef : Player
 
 func OnEnter():
-	PlayerRef.IsDead = false
-	print("Player is dead, reloading...")
+	print("YOU ARE DEAD...")
+	PlayerRef.EnvColl.disabled = true
+	PlayerRef.HitColl.disabled = true

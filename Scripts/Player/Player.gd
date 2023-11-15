@@ -12,6 +12,9 @@ class_name Player
 
 @onready var UI = $"Player UI"
 
+@onready var EnvColl = $"Environment Collision"
+@onready var HitColl = $HitBox/CollisionShape2D
+
 enum DirectionStates {Up, Down, Left, Right}
 
 var CurrentDirection : int
@@ -58,9 +61,10 @@ func _ready():
 	
 func _process(_delta):
 	if CurrentHealth <= 0 && $Timers/DeathTimer.is_stopped():
+		$StateMachine.CurrentState.Transitioned.emit("Dead")
 		IsDead = true
 		$Timers/DeathTimer.one_shot = true
-		$Timers/DeathTimer.start(5)
+		$Timers/DeathTimer.start(3)
 	
 func _physics_process(_delta):
 	
@@ -123,4 +127,5 @@ func RegainFULLHealth():
 	HealthTween.tween_property(self, "CurrentHealth", MaxHealth, 1.5)
 
 func Respawn():
+	print("Reloading...")
 	get_tree().reload_current_scene()

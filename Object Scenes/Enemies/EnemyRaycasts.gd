@@ -2,27 +2,38 @@ extends Node2D
 
 @export var ParentRef : BasicEnemy
 
-@onready var RC_Up = $RC_Up
-@onready var RC_Down = $RayCast2D
-@onready var RC_Left = $RC_Left
-@onready var RC_Right = $RC_Right
+@onready var North = $RC_N
+@onready var South = $RC_S
+@onready var West = $RC_W
+@onready var East = $RC_E
+
+@onready var NorthEast = $RC_NE
+@onready var NorthWest = $RC_NW
+@onready var SouthEast = $RC_SE
+@onready var SouthWest = $RC_SW
 
 func _ready():
-	RC_Up.target_position = Vector2(0, ParentRef.DetectionRange)
-	RC_Down.target_position = Vector2(0, -ParentRef.DetectionRange)
-	RC_Left.target_position = Vector2(ParentRef.DetectionRange, 0)
-	RC_Right.target_position = Vector2(-ParentRef.DetectionRange, 0)
+	North.target_position = Vector2(0, ParentRef.DetectionRange)
+	South.target_position = Vector2(0, -ParentRef.DetectionRange)
+	West.target_position = Vector2(ParentRef.DetectionRange, 0)
+	East.target_position = Vector2(-ParentRef.DetectionRange, 0)
+	
+	NorthEast.target_position = Vector2(ParentRef.DetectionRange, 0)
+	NorthWest.target_position = Vector2(-ParentRef.DetectionRange, 0)
+	SouthEast.target_position = Vector2(0, ParentRef.DetectionRange)
+	SouthWest.target_position = Vector2(0, ParentRef.DetectionRange)
 	
 func _physics_process(delta):
-	if RC_Up.is_colliding():
-		if RC_Up.get_collider() is Player:
+	if North.is_colliding():
+		if North.get_collider() is Player:
 			ParentRef.CurrentDirection = ParentRef.DirectionStates.Down
-	if RC_Down.is_colliding():
-		if RC_Down.get_collider() is Player:
+	elif South.is_colliding():
+		if South.get_collider() is Player:
 			ParentRef.CurrentDirection = ParentRef.DirectionStates.Up
-	if RC_Left.is_colliding():
-		if RC_Left.get_collider() is Player:
+			
+	elif West.is_colliding() or SouthEast.is_colliding() or NorthEast.is_colliding():
+		if East.get_collider() is Player or SouthEast.get_collider() is Player or NorthEast.get_collider() is Player:
 			ParentRef.CurrentDirection = ParentRef.DirectionStates.Right
-	if RC_Right.is_colliding():
-		if RC_Right.get_collider() is Player:
+	elif East.is_colliding() or NorthWest.is_colliding() or SouthWest.is_colliding():
+		if West.get_collider() is Player or NorthWest.get_collider() is Player or SouthWest.get_collider() is Player:
 			ParentRef.CurrentDirection = ParentRef.DirectionStates.Left

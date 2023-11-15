@@ -884,27 +884,27 @@ border_color = Color(1, 1, 1, 1)
 size = Vector2(12, 15)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_rvl78"]
-size = Vector2(12, 13)
+size = Vector2(9, 8.5)
 
 [node name="Moblin" type="CharacterBody2D"]
 texture_filter = 2
 collision_layer = 2
 collision_mask = 4
 script = ExtResource("1_a8vwv")
-MaxHealth = 250
-DamageOutput = 25
-BaseSpeed = 25.0
-TopSpeed = 50.0
+MaxHealth = 175
+DamageOutput = 75
+BaseSpeed = 15.0
+TopSpeed = 30.0
 DetectionRange = 35.0
 DisengagementRange = 100.0
-AttackRange = 10.0
+AttackRange = 20.0
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture_filter = 1
-texture = ExtResource("2_lwft6")
+texture = ExtResource("4_5t830")
 hframes = 3
-vframes = 2
-frame = 1
+vframes = 4
+frame = 2
 
 [node name="EnvironmentCollider" type="CollisionShape2D" parent="."]
 position = Vector2(0, 6)
@@ -972,11 +972,12 @@ shape = SubResource("RectangleShape2D_xdjfl")
 debug_color = Color(1, 0.00784314, 0.0470588, 0.419608)
 
 [node name="HurtBox" type="Area2D" parent="." node_paths=PackedStringArray("SelfReference")]
-position = Vector2(-3, 6)
+position = Vector2(11, 1)
 script = ExtResource("11_56ax1")
 SelfReference = NodePath("..")
 
 [node name="HurtCollider" type="CollisionShape2D" parent="HurtBox"]
+position = Vector2(1.5, 2.25)
 shape = SubResource("RectangleShape2D_rvl78")
 disabled = true
 
@@ -984,17 +985,33 @@ disabled = true
 script = ExtResource("16_15dgd")
 ParentRef = NodePath("..")
 
-[node name="RC_Up" type="RayCast2D" parent="Raycasts"]
-target_position = Vector2(0, 0)
+[node name="RC_N" type="RayCast2D" parent="Raycasts"]
+target_position = Vector2(0, -35)
 
-[node name="RayCast2D" type="RayCast2D" parent="Raycasts"]
-target_position = Vector2(0, 0)
+[node name="RC_S" type="RayCast2D" parent="Raycasts"]
+target_position = Vector2(0, 35)
 
-[node name="RC_Left" type="RayCast2D" parent="Raycasts"]
-target_position = Vector2(0, 0)
+[node name="RC_W" type="RayCast2D" parent="Raycasts"]
+target_position = Vector2(-35, 0)
 
-[node name="RC_Right" type="RayCast2D" parent="Raycasts"]
-target_position = Vector2(0, 0)
+[node name="RC_E" type="RayCast2D" parent="Raycasts"]
+target_position = Vector2(35, 0)
+
+[node name="RC_NE" type="RayCast2D" parent="Raycasts"]
+rotation = -0.698132
+target_position = Vector2(35, 0)
+
+[node name="RC_NW" type="RayCast2D" parent="Raycasts"]
+rotation = 0.698132
+target_position = Vector2(-35, 0)
+
+[node name="RC_SE" type="RayCast2D" parent="Raycasts"]
+rotation = -0.698132
+target_position = Vector2(0, 35)
+
+[node name="RC_SW" type="RayCast2D" parent="Raycasts"]
+rotation = 0.698132
+target_position = Vector2(0, 35)
 
 [node name="RayTimer" type="Timer" parent="Raycasts"]
 one_shot = true

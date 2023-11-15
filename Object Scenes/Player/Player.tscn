@@ -1,7 +1,8 @@
-[gd_scene load_steps=49 format=3 uid="uid://dxprot5svswbe"]
+[gd_scene load_steps=50 format=3 uid="uid://dxprot5svswbe"]
 
 [ext_resource type="Script" path="res://Scripts/Player/Player.gd" id="1_2gr55"]
 [ext_resource type="Texture2D" uid="uid://bi38invhap0t" path="res://Visual Assets/SpriteSheets/player.png" id="2_w50ld"]
+[ext_resource type="Script" path="res://Scripts/Player/States/PlayerDead.gd" id="7_snygb"]
 [ext_resource type="Script" path="res://Scripts/Components/Audio Controllers/BodyAudioPlayer.gd" id="8_syxxs"]
 [ext_resource type="AudioStream" uid="uid://d0iijvcalr7qr" path="res://Audio/SFX/Player/attack1.wav" id="9_pigyr"]
 [ext_resource type="PackedScene" uid="uid://cvlh1usf2hwre" path="res://Object Scenes/Player/HealthBar.tscn" id="10_1g6mq"]
@@ -808,6 +809,10 @@ script = ExtResource("16_d2gd4")
 PlayerRef = NodePath("../..")
 AnimPlayer = NodePath("../../AnimationPlayer")
 BodyAudio = NodePath("../../Audio/BodyAudio")
+
+[node name="Dead" type="Node" parent="StateMachine" node_paths=PackedStringArray("PlayerRef")]
+script = ExtResource("7_snygb")
+PlayerRef = NodePath("../..")
 
 [node name="Sprite" type="Sprite2D" parent="."]
 texture_filter = 1
