@@ -1,7 +1,6 @@
 extends BasicEnemy
 class_name Moblin
 
-@onready var AnimPlayer = $AnimationPlayer
 @onready var sprite = $Sprite2D
 
 @onready var AttackSFX = $AudioStreamPlayer
@@ -12,13 +11,9 @@ class_name Moblin
 @onready var HitBoxCollider = $HitBox/HitCollider
 @onready var HurtBoxCollider = $HurtBox/HurtCollider
 
-var PlayerTarget : Player
-
-enum DirectionStates {Up, Down, Left, Right}
-var CurrentDirection : int
-
 func _ready():
 	PlayerTarget = get_tree().get_first_node_in_group("Player")
+	AnimPlayer = $AnimationPlayer
 	CurrentDirection = DirectionStates.Down
 	CurrentHealth = MaxHealth
 	HealthBar.max_value = MaxHealth
@@ -28,9 +23,6 @@ func _process(_delta):
 
 func _physics_process(_delta):
 	move_and_slide()
-	
-	if $Raycasts/RayTimer.is_stopped():
-		$Raycasts.SendRaycasts()
 	
 	if velocity.length() > 0:
 		match CurrentDirection:

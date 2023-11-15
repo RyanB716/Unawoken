@@ -16,6 +16,11 @@ var CurrentHealth : int
 @export var DisengagementRange : float
 @export var AttackRange : float
 
+var PlayerTarget : Player
+var AnimPlayer : AnimationPlayer
+enum DirectionStates {Up, Down, Left, Right}
+var CurrentDirection : int
+
 func _ready():
 	CurrentHealth = MaxHealth
 

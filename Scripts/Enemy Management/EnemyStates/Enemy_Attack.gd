@@ -9,17 +9,28 @@ func OnEnter():
 	SelfRef.velocity = Vector2.ZERO
 	
 	var Distance = SelfRef.global_position - SelfRef.PlayerTarget.global_position
-	print(Distance)
 	
-	var ZeroDistanceX = 0 - Distance.x
-	var ZeroDistanceY = 0 - Distance.y
-	print(str(ZeroDistanceX) + ", " + str(ZeroDistanceY))
-	if ZeroDistanceX < ZeroDistanceY:
-		print('Attacking Horizontally')
-	else:
-		print('Attacking vertically')
+	match SelfRef.CurrentDirection:
+		0:
+			SelfRef.AnimPlayer.play("Attack_U")
+			if SelfRef.AnimPlayer.is_playing():
+				print("Up")
+		1:
+			SelfRef.AnimPlayer.play("Attack_D")
+			if SelfRef.AnimPlayer.is_playing():
+				print("Down")
+		2:
+			SelfRef.AnimPlayer.play("Attack_L")
+			if SelfRef.AnimPlayer.is_playing():
+				print("Left")
+		3:
+			SelfRef.AnimPlayer.play("Attack_R")
+			if SelfRef.AnimPlayer.is_playing():
+				print("Right")
 	
-	#await SelfRef.AnimPlayer.animation_finished
+	#await get_tree().create_timer(0.25).timeout
+	await SelfRef.AnimPlayer.animation_finished
+	print("Attack finished!")
 	
 	if SelfRef.CurrentHealth >= 1:
 		if Distance.length() <= SelfRef.DetectionRange:

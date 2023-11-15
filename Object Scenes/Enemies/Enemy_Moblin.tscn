@@ -1025,7 +1025,7 @@ BaseSpeed = 25.0
 TopSpeed = 50.0
 DetectionRange = 35.0
 DisengagementRange = 100.0
-AttackRange = 15.0
+AttackRange = 10.0
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture_filter = 1
@@ -1040,6 +1040,7 @@ position = Vector2(0, 6)
 shape = SubResource("RectangleShape2D_yetj8")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+method_call_mode = 1
 libraries = {
 "": SubResource("AnimationLibrary_4rrxf")
 }
@@ -1102,8 +1103,9 @@ SelfReference = NodePath("..")
 [node name="HurtCollider" type="CollisionShape2D" parent="HurtBox"]
 shape = SubResource("RectangleShape2D_rvl78")
 
-[node name="Raycasts" type="Node2D" parent="."]
+[node name="Raycasts" type="Node2D" parent="." node_paths=PackedStringArray("ParentRef")]
 script = ExtResource("16_15dgd")
+ParentRef = NodePath("..")
 
 [node name="RC_Up" type="RayCast2D" parent="Raycasts"]
 target_position = Vector2(0, 0)
