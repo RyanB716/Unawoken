@@ -1,4 +1,4 @@
-[gd_scene load_steps=38 format=3 uid="uid://cnww1xsx7uypm"]
+[gd_scene load_steps=40 format=3 uid="uid://cnww1xsx7uypm"]
 
 [ext_resource type="Script" path="res://Object Scenes/Enemies/Enemy_Moblin.gd" id="1_a8vwv"]
 [ext_resource type="Texture2D" uid="uid://dtf21kcxeo5tm" path="res://Visual Assets/SpriteSheets/Enemies/spritesheets/8 idle.png" id="2_lwft6"]
@@ -19,6 +19,26 @@
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_yetj8"]
 size = Vector2(12, 4)
+
+[sub_resource type="Animation" id="Animation_dgcj6"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("HurtBox:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(-11, 3)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_ik4cy"]
+_data = {
+"RESET": SubResource("Animation_dgcj6")
+}
 
 [sub_resource type="Animation" id="Animation_kjixi"]
 resource_name = "Attack_D"
@@ -169,7 +189,7 @@ tracks/4/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [Vector2(-11, 1)]
+"values": [Vector2(-11, 3)]
 }
 tracks/5/type = "value"
 tracks/5/imported = false
@@ -257,7 +277,7 @@ tracks/4/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [Vector2(11, 1)]
+"values": [Vector2(9, 3)]
 }
 tracks/5/type = "value"
 tracks/5/imported = false
@@ -883,7 +903,7 @@ border_color = Color(1, 1, 1, 1)
 size = Vector2(12, 15)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_rvl78"]
-size = Vector2(9, 8.5)
+size = Vector2(9, 6)
 
 [node name="Moblin" type="CharacterBody2D"]
 texture_filter = 2
@@ -903,7 +923,7 @@ texture_filter = 1
 texture = ExtResource("4_5t830")
 hframes = 3
 vframes = 4
-frame = 2
+frame = 1
 
 [node name="EnvironmentCollider" type="CollisionShape2D" parent="."]
 position = Vector2(0, 6)
@@ -912,6 +932,7 @@ shape = SubResource("RectangleShape2D_yetj8")
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 method_call_mode = 1
 libraries = {
+"": SubResource("AnimationLibrary_ik4cy"),
 "Attack": SubResource("AnimationLibrary_mclnn"),
 "Idle": SubResource("AnimationLibrary_54eey"),
 "Walk": SubResource("AnimationLibrary_hutbm")
@@ -971,16 +992,17 @@ shape = SubResource("RectangleShape2D_xdjfl")
 debug_color = Color(1, 0.00784314, 0.0470588, 0.419608)
 
 [node name="HurtBox" type="Area2D" parent="." node_paths=PackedStringArray("SelfReference")]
-position = Vector2(11, 1)
+position = Vector2(-11, 3)
 script = ExtResource("11_56ax1")
 SelfReference = NodePath("..")
 
 [node name="HurtCollider" type="CollisionShape2D" parent="HurtBox"]
-position = Vector2(1.5, 2.25)
+position = Vector2(1.5, 1)
 shape = SubResource("RectangleShape2D_rvl78")
 disabled = true
 
 [node name="Raycasts" type="Node2D" parent="." node_paths=PackedStringArray("ParentRef")]
+visible = false
 script = ExtResource("16_15dgd")
 ParentRef = NodePath("..")
 

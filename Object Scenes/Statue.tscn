@@ -1,8 +1,9 @@
-[gd_scene load_steps=6 format=3 uid="uid://wvlasq770v6g"]
+[gd_scene load_steps=7 format=3 uid="uid://wvlasq770v6g"]
 
 [ext_resource type="Texture2D" uid="uid://dtvpq5rbt1lpm" path="res://Visual Assets/TileSets/Zelda-like/TX Props.png" id="1_11yca"]
 [ext_resource type="Script" path="res://Scripts/Objects/Statue.gd" id="1_nni3r"]
 [ext_resource type="FontFile" uid="uid://w047wortuabd" path="res://Visual Assets/Fonts/Ancient Medium.ttf" id="3_d6bs0"]
+[ext_resource type="Texture2D" uid="uid://b7kyjf5pv8ne" path="res://Visual Assets/UI/icons_ps4_animated_buttons1.png" id="3_i80m2"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_tu3hc"]
 size = Vector2(26, 39)
@@ -29,13 +30,31 @@ shape = SubResource("RectangleShape2D_tu3hc")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Detection Sphere"]
 shape = SubResource("CircleShape2D_2k2o0")
 
-[node name="Label" type="Label" parent="."]
+[node name="Label" type="Control" parent="."]
+z_index = 5
+custom_minimum_size = Vector2(50, 25)
+layout_mode = 3
+anchors_preset = 0
+offset_left = -14.0
+offset_top = -44.0
+offset_right = 36.0
+offset_bottom = -19.0
+
+[node name="Sprite2D" type="Sprite2D" parent="Label"]
+texture_filter = 1
+position = Vector2(-6, 11)
+texture = ExtResource("3_i80m2")
+region_enabled = true
+region_rect = Rect2(0, 0, 16, 16)
+
+[node name="LabelText" type="Label" parent="Label"]
 texture_filter = 1
 custom_minimum_size = Vector2(50, 25)
-offset_left = -24.0
-offset_top = -46.0
-offset_right = 26.0
-offset_bottom = -21.0
+layout_mode = 2
+offset_left = 1.0
+offset_top = -1.0
+offset_right = 51.0
+offset_bottom = 24.0
 theme_override_fonts/font = ExtResource("3_d6bs0")
 theme_override_font_sizes/font_size = 15
 text = "Interact"
