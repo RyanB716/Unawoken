@@ -1,4 +1,4 @@
-[gd_scene load_steps=39 format=3 uid="uid://cnww1xsx7uypm"]
+[gd_scene load_steps=38 format=3 uid="uid://cnww1xsx7uypm"]
 
 [ext_resource type="Script" path="res://Object Scenes/Enemies/Enemy_Moblin.gd" id="1_a8vwv"]
 [ext_resource type="Texture2D" uid="uid://dtf21kcxeo5tm" path="res://Visual Assets/SpriteSheets/Enemies/spritesheets/8 idle.png" id="2_lwft6"]
@@ -10,12 +10,11 @@
 [ext_resource type="AudioStream" uid="uid://nj05r1o16v2k" path="res://Audio/SFX/Player/07_human_atk_sword_2.wav" id="6_eceev"]
 [ext_resource type="Script" path="res://Scripts/Enemy Management/EnemyStates/Enemy_Follow.gd" id="7_jf6sm"]
 [ext_resource type="Script" path="res://Scripts/Components/Hit Boxes/EnemyHitBox.gd" id="7_m4fes"]
-[ext_resource type="AudioStream" uid="uid://wxjdu8j2vlgm" path="res://Audio/SFX/Enemy/block_large_59.wav" id="8_3q4wq"]
 [ext_resource type="Script" path="res://Scripts/Enemy Management/EnemyStates/Enemy_Attack.gd" id="8_paxsg"]
-[ext_resource type="AudioStream" uid="uid://ee4gr04chvry" path="res://Audio/SFX/Enemy/body_hit_large_32.wav" id="9_q7i35"]
 [ext_resource type="Script" path="res://Scripts/Enemy Management/EnemyStates/Enemy_Dead.gd" id="10_7twa1"]
-[ext_resource type="AudioStream" uid="uid://vysptgw3gs4d" path="res://Audio/SFX/Enemy/body_hit_large_76.wav" id="10_da7hs"]
 [ext_resource type="Script" path="res://Scripts/Components/Hurt Boxes/EnemyHurtBox.gd" id="11_56ax1"]
+[ext_resource type="AudioStream" uid="uid://dlnsrugki0emv" path="res://Audio/SFX/Player/blade_hit_07.wav" id="13_76tfd"]
+[ext_resource type="AudioStream" uid="uid://b1u7ihusdosr8" path="res://Audio/SFX/Player/blade_hit_08.wav" id="14_lwed1"]
 [ext_resource type="Script" path="res://Object Scenes/Enemies/EnemyRaycasts.gd" id="16_15dgd"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_yetj8"]
@@ -964,7 +963,7 @@ show_percentage = false
 position = Vector2(-1, 9)
 script = ExtResource("7_m4fes")
 SelfRef = NodePath("..")
-ImpactSFX = [ExtResource("8_3q4wq"), ExtResource("9_q7i35"), ExtResource("10_da7hs")]
+ImpactSFX = [ExtResource("13_76tfd"), ExtResource("14_lwed1")]
 
 [node name="HitCollider" type="CollisionShape2D" parent="HitBox"]
 position = Vector2(1, -8.5)
