@@ -92,6 +92,8 @@ func _physics_process(_delta):
 			CurrentSpeed = TopSpeed + 25
 		else:
 			CurrentSpeed = 0
+	else:
+		CurrentSpeed = 0
 	
 	velocity = (Direction * CurrentSpeed)
 	move_and_slide()
