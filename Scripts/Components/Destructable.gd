@@ -18,7 +18,7 @@ func _ready():
 	CurrentHits = 0
 
 func Destroy():
-	if XPAmount > 0:
+	if XPAmount > 0 or ItemDrops.size() > -1:
 		GiveItem()
 	self.get_parent().visible = false
 	call_deferred("DisableColliders")
@@ -53,5 +53,7 @@ func GiveItem():
 		if XPAmount > 0:
 			print('Dropping XP!')
 			get_tree().get_first_node_in_group("Player").AddXP(XPAmount)
+		elif ItemDrops.size() > -1:
+			print('Dropping Item!')
 		else:
 			print_debug("ERROR: No function call for Destructable Drop!")
