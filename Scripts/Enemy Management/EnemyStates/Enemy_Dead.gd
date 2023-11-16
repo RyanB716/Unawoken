@@ -11,5 +11,5 @@ func OnEnter():
 	SelfRef.HitBoxCollider.disabled = true
 	SelfRef.EnvironmentCollider.disabled = true
 	SelfRef.HurtBoxCollider.disabled = true
-	await get_tree().create_timer(1.5).timeout
+	await get_tree().create_timer(0.5).timeout
 	SelfRef.sprite.visible = false
