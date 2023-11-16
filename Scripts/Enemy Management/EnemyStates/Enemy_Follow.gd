@@ -4,10 +4,6 @@ class_name Enemy_Follow
 @export var SelfRef : BasicEnemy
 
 var Direction
-
-func Update(_delta : float):
-	if SelfRef.CurrentHealth <= 0:
-		Transitioned.emit("Dead")
 	
 func PhysicsUpdate(_deta : float):
 	Direction = SelfRef.PlayerTarget.global_position - SelfRef.global_position

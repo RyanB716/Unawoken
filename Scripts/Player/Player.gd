@@ -27,6 +27,7 @@ var IsMoving = false
 @export var MaxStaminaMoves : int
 @export var StaminaRefillTime : float
 @export var CurrentXP : int
+var AddedXP : int
 
 @export_category("Movement Stats")
 @export var TopSpeed = 0
@@ -60,6 +61,8 @@ func _ready():
 	
 	UI.get_node("StaminaContainer").SetMaxIcons(MaxStaminaMoves)
 	
+	$"Player UI/XpLabel/Amount Label".visible = false
+	
 func _process(_delta):
 	if CurrentHealth <= 0 && $Timers/DeathTimer.is_stopped():
 		$StateMachine.CurrentState.Transitioned.emit("Dead")
@@ -68,6 +71,7 @@ func _process(_delta):
 		$Timers/DeathTimer.start(3)
 		
 	$"Player UI/XpLabel".text = ("XP: " + str(CurrentXP))
+	$"Player UI/XpLabel/Amount Label".text = ("+" + str(AddedXP))
 	
 func _physics_process(_delta):
 	
@@ -137,5 +141,14 @@ func Respawn():
 	get_tree().reload_current_scene()
 	
 func AddXP(Amount : int):
+	AddedXP = Amount
+	$"Player UI/XpLabel/Amount Label".visible = true
+	await get_tree().create_timer(1).timeout
 	var XPTween = get_tree().create_tween()
+	var AmountTween = get_tree().create_tween()
 	XPTween.tween_property(self, "CurrentXP", (CurrentXP + Amount), 1.25)
+	AmountTween.tween_property(self, "AddedXP", 0, 1.25)
+	await XPTween.finished
+	await AmountTween.finished
+	await get_tree().create_timer(1).timeout
+	$"Player UI/XpLabel/Amount Label".visible = false
