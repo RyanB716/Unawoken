@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://c4oy4c3d46qb4"]
+[gd_scene load_steps=14 format=3 uid="uid://c4oy4c3d46qb4"]
 
 [ext_resource type="Texture2D" uid="uid://dij84ijwq0tae" path="res://Visual Assets/TileSets/Tiles.png" id="1_ocd84"]
 [ext_resource type="Script" path="res://Scripts/Level Controllers/ForsakenDepths.gd" id="1_u4b3h"]
@@ -9,6 +9,7 @@
 [ext_resource type="PackedScene" uid="uid://bkee3pqvgv4x1" path="res://Object Scenes/Pot.tscn" id="7_auceg"]
 [ext_resource type="PackedScene" uid="uid://wvlasq770v6g" path="res://Object Scenes/Statue.tscn" id="9_kcsy4"]
 [ext_resource type="PackedScene" uid="uid://cnww1xsx7uypm" path="res://Object Scenes/Enemies/Enemy_Moblin.tscn" id="10_2i63u"]
+[ext_resource type="PackedScene" uid="uid://jxarx6uqoibj" path="res://Note_Object.tscn" id="10_clkcy"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_j2tg3"]
 texture = ExtResource("1_ocd84")
@@ -1593,3 +1594,21 @@ position = Vector2(43, 193)
 
 [node name="Moblin5" parent="." instance=ExtResource("10_2i63u")]
 position = Vector2(227, 197)
+
+[node name="Note Object" parent="." instance=ExtResource("10_clkcy")]
+position = Vector2(-609, 546)
+
+[node name="Label" parent="Note Object/CanvasLayer/Scroll" index="0"]
+text = "Hey there mate.
+
+Don’t mean to pry, but couldn’t help to hear your sobbing down there.
+If you have the means; learn to use that sword, if you can call it that.
+
+Chainbreaker. Gonna need something like that for what’s down there with you.
+They call it the Forsaken Depths for a reason.
+
+
+See you topside, straggler
+~ A friend"
+
+[editable path="Note Object"]

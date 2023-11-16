@@ -31,17 +31,17 @@ shape = SubResource("CircleShape2D_2k2o0")
 
 [node name="Label" type="Control" parent="."]
 z_index = 5
-custom_minimum_size = Vector2(50, 25)
 layout_mode = 3
 anchors_preset = 0
 offset_left = -14.0
-offset_top = -44.0
-offset_right = 36.0
-offset_bottom = -19.0
+offset_top = -60.0
+offset_right = -14.0
+offset_bottom = -60.0
 
 [node name="Sprite2D" type="Sprite2D" parent="Label"]
 texture_filter = 1
 position = Vector2(14, 11)
+scale = Vector2(1.5, 1.5)
 texture = ExtResource("3_i80m2")
 region_enabled = true
 region_rect = Rect2(0, 0, 16, 16)
