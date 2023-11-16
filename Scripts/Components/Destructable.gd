@@ -46,7 +46,6 @@ func PlayHitSFX():
 	NewPlayer.queue_free()
 
 func GiveItem():
-	var RNG = RandomNumberGenerator.new()
 	RNG.randomize()
 	var value = RNG.randi_range(0, 100)
 	if value <= 75:

@@ -20,7 +20,7 @@ func PhysicsUpdate(_delta : float):
 	if SelfRef.PlayerTarget != null:
 		var Direction = SelfRef.PlayerTarget.global_position - SelfRef.global_position
 	
-		if Direction.length() < SelfRef.DetectionRange:
+		if Direction.length() < SelfRef.DetectionRange && SelfRef.IsDead == false:
 			Transitioned.emit("Follow")
 	
 func ChangeToWander():

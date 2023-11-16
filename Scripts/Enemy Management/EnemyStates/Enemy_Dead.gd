@@ -7,7 +7,7 @@ func OnEnter():
 	print(str(SelfRef.name) + " is DEAD")
 	SelfRef.velocity = Vector2.ZERO
 	SelfRef.z_index = 0
-	#SelfRef.AnimPlayer.play("Death")
+	SelfRef.AnimPlayer.play("Idle/Idle_D")
 	SelfRef.HealthBar.visible = false
 	SelfRef.HitBoxCollider.disabled = true
 	SelfRef.EnvironmentCollider.disabled = true

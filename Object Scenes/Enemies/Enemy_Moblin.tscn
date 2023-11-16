@@ -1003,7 +1003,6 @@ shape = SubResource("RectangleShape2D_rvl78")
 disabled = true
 
 [node name="Raycasts" type="Node2D" parent="." node_paths=PackedStringArray("ParentRef")]
-visible = false
 script = ExtResource("16_15dgd")
 ParentRef = NodePath("..")
 
