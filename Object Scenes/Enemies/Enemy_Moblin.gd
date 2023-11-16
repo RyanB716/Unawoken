@@ -20,6 +20,10 @@ func _ready():
 	
 func _process(_delta):
 	HealthBar.value = CurrentHealth
+	
+	if CurrentHealth <= 0 && IsDead == false:
+		IsDead = true
+		$StateMachine.CurrentState.Transitioned.emit("Dead")
 
 func _physics_process(_delta):
 	move_and_slide()

@@ -23,7 +23,3 @@ func OnEnter():
 	await SelfRef.AnimPlayer.animation_finished
 	SelfRef.IsAttacking = false
 	Transitioned.emit("Follow")
-			
-func Update(_delta : float):
-	if SelfRef.CurrentHealth <= 0:
-		Transitioned.emit("Dead")

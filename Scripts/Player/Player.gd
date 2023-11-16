@@ -26,6 +26,7 @@ var IsMoving = false
 @export var MaxHealth : int
 @export var MaxStaminaMoves : int
 @export var StaminaRefillTime : float
+@export var CurrentXP : int
 
 @export_category("Movement Stats")
 @export var TopSpeed = 0
@@ -65,6 +66,8 @@ func _process(_delta):
 		IsDead = true
 		$Timers/DeathTimer.one_shot = true
 		$Timers/DeathTimer.start(3)
+		
+	$"Player UI/XpLabel".text = ("XP: " + str(CurrentXP))
 	
 func _physics_process(_delta):
 	
@@ -132,3 +135,7 @@ func RegainFULLHealth():
 func Respawn():
 	print("Reloading...")
 	get_tree().reload_current_scene()
+	
+func AddXP(Amount : int):
+	var XPTween = get_tree().create_tween()
+	XPTween.tween_property(self, "CurrentXP", (CurrentXP + Amount), 1.25)

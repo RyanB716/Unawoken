@@ -13,9 +13,6 @@ func Update(delta : float):
 	else:
 		ChangeToWander()
 		
-	if SelfRef.CurrentHealth <= 0:
-		Transitioned.emit("Dead")
-		
 func PhysicsUpdate(_delta : float):
 	
 	SelfRef.velocity = Vector2.ZERO

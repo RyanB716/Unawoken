@@ -911,6 +911,7 @@ collision_layer = 2
 collision_mask = 4
 script = ExtResource("1_a8vwv")
 MaxHealth = 175
+XpAmount = 250
 DamageOutput = 75
 BaseSpeed = 15.0
 TopSpeed = 30.0

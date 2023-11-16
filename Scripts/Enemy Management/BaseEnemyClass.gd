@@ -1,8 +1,11 @@
 extends CharacterBody2D
 class_name BasicEnemy
 
-@export_category("Combat Stats")
+@export_category("General Stats")
 @export var MaxHealth : int
+@export var XpAmount : int
+
+@export_category("Combat Stats")
 var CurrentHealth : int
 @export var NumberOfAttacks : int
 @export var DamageOutput : int
@@ -19,6 +22,7 @@ var CurrentHealth : int
 var PlayerTarget : Player
 var AnimPlayer : AnimationPlayer
 var IsAttacking : bool = false
+var IsDead : bool = false
 enum DirectionStates {Up, Down, Left, Right}
 var CurrentDirection : int
 

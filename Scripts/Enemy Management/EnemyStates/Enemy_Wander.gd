@@ -13,9 +13,6 @@ func Update(delta : float):
 	else:
 		RandomizeTime()
 		
-	if SelfRef.CurrentHealth <= 0:
-		Transitioned.emit("Dead")
-		
 func PhysicsUpdate(_delta : float):
 	if SelfRef:
 		SelfRef.velocity = (MoveDirection * SelfRef.BaseSpeed)

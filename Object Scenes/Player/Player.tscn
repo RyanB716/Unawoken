@@ -1,4 +1,4 @@
-[gd_scene load_steps=50 format=3 uid="uid://dxprot5svswbe"]
+[gd_scene load_steps=51 format=3 uid="uid://dxprot5svswbe"]
 
 [ext_resource type="Script" path="res://Scripts/Player/Player.gd" id="1_2gr55"]
 [ext_resource type="Texture2D" uid="uid://bi38invhap0t" path="res://Visual Assets/SpriteSheets/player.png" id="2_w50ld"]
@@ -23,6 +23,7 @@
 [ext_resource type="Script" path="res://Scripts/Components/Hurt Boxes/SwordArea.gd" id="19_8it4o"]
 [ext_resource type="PackedScene" uid="uid://bah6bwn6do5bj" path="res://Object Scenes/Player/Statue Menu.tscn" id="19_nq3nm"]
 [ext_resource type="Script" path="res://Scripts/Components/Hit Boxes/PlayerHitBox.gd" id="19_pcv0g"]
+[ext_resource type="FontFile" uid="uid://dlulxm5dxb804" path="res://Visual Assets/Fonts/Seagram tfb.ttf" id="22_lpgic"]
 [ext_resource type="AudioStream" uid="uid://dlnsrugki0emv" path="res://Audio/SFX/Player/blade_hit_07.wav" id="23_4lgdd"]
 [ext_resource type="AudioStream" uid="uid://b1u7ihusdosr8" path="res://Audio/SFX/Player/blade_hit_08.wav" id="24_pwdi1"]
 
@@ -871,6 +872,17 @@ theme_override_constants/separation = 35
 
 [node name="StatueMenu" parent="Player UI" instance=ExtResource("19_nq3nm")]
 visible = false
+
+[node name="XpLabel" type="Label" parent="Player UI"]
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -40.0
+offset_bottom = 23.0
+grow_horizontal = 0
+theme_override_fonts/font = ExtResource("22_lpgic")
+theme_override_font_sizes/font_size = 50
+text = "XP: 000000"
 
 [node name="SwordArea" type="Area2D" parent="." node_paths=PackedStringArray("SelfReference")]
 position = Vector2(1, 4)
