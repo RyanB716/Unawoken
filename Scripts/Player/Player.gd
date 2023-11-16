@@ -142,14 +142,17 @@ func Respawn():
 	get_tree().reload_current_scene()
 	
 func AddXP(Amount : int):
-	AddedXP = Amount
+	AddedXP += Amount
+	print(AddedXP)
 	$"Player UI/XpLabel/Amount Label".visible = true
-	await get_tree().create_timer(1).timeout
+	await get_tree().create_timer(2.5).timeout
+	DisplayXP()
+	
+func DisplayXP():
 	var XPTween = get_tree().create_tween()
 	var AmountTween = get_tree().create_tween()
-	XPTween.tween_property(self, "CurrentXP", (CurrentXP + Amount), 1.25)
+	XPTween.tween_property(self, "CurrentXP", (CurrentXP + AddedXP), 1.25)
 	AmountTween.tween_property(self, "AddedXP", 0, 1.25)
 	await XPTween.finished
 	await AmountTween.finished
-	await get_tree().create_timer(1).timeout
 	$"Player UI/XpLabel/Amount Label".visible = false
