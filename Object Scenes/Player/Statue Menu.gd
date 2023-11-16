@@ -15,6 +15,8 @@ func _on_visibility_changed():
 		$HBoxContainer/Yes.grab_focus()
 
 func _on_yes_pressed():
+	GameSettings.CurrentPlayerXP = get_tree().get_first_node_in_group('Player').CurrentXP
+	get_tree().get_first_node_in_group('Player').RegainFULLHealth()
 	get_tree().reload_current_scene()
 
 func _on_no_pressed():

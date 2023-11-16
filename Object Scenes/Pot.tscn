@@ -27,6 +27,7 @@ shape = SubResource("RectangleShape2D_kphhi")
 [node name="Area2D" type="Area2D" parent="."]
 script = ExtResource("2_csvlt")
 NeededHits = 1
+XPAmount = 25
 BreakSFX = [ExtResource("3_btva7"), ExtResource("4_by31x"), ExtResource("5_3x7ta")]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]

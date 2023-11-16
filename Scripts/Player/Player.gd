@@ -26,7 +26,7 @@ var IsMoving = false
 @export var MaxHealth : int
 @export var MaxStaminaMoves : int
 @export var StaminaRefillTime : float
-@export var CurrentXP : int
+var CurrentXP : int
 var AddedXP : int
 
 @export_category("Movement Stats")
@@ -62,6 +62,7 @@ func _ready():
 	UI.get_node("StaminaContainer").SetMaxIcons(MaxStaminaMoves)
 	
 	$"Player UI/XpLabel/Amount Label".visible = false
+	CurrentXP = GameSettings.CurrentPlayerXP
 	
 func _process(_delta):
 	if CurrentHealth <= 0 && $Timers/DeathTimer.is_stopped():

@@ -3,6 +3,8 @@ class_name DestructableObject
 
 @export_category("Data Variables")
 @export var NeededHits : int
+@export var ItemDrops = []
+@export var XPAmount : int
 
 @export_category("Aesthetic Variables")
 @export var HitSFX = []
@@ -16,6 +18,8 @@ func _ready():
 	CurrentHits = 0
 
 func Destroy():
+	if XPAmount > 0:
+		GiveItem()
 	self.get_parent().visible = false
 	call_deferred("DisableColliders")
 	RNG.randomize()
@@ -40,3 +44,14 @@ func PlayHitSFX():
 	NewPlayer.play()
 	await NewPlayer.finished
 	NewPlayer.queue_free()
+
+func GiveItem():
+	var RNG = RandomNumberGenerator.new()
+	RNG.randomize()
+	var value = RNG.randi_range(0, 100)
+	if value <= 75:
+		if XPAmount > 0:
+			print('Dropping XP!')
+			get_tree().get_first_node_in_group("Player").AddXP(XPAmount)
+		else:
+			print_debug("ERROR: No function call for Destructable Drop!")
