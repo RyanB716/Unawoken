@@ -859,6 +859,9 @@ one_shot = true
 [node name="SFXtimer" type="Timer" parent="Timers"]
 one_shot = true
 
+[node name="XPTimer" type="Timer" parent="Timers"]
+one_shot = true
+
 [node name="Player UI" type="CanvasLayer" parent="." node_paths=PackedStringArray("StatueMenu")]
 script = ExtResource("17_k3vfi")
 StatueMenu = NodePath("StatueMenu")

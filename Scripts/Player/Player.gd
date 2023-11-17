@@ -142,10 +142,12 @@ func Respawn():
 	get_tree().reload_current_scene()
 	
 func AddXP(Amount : int):
+	if $Timers/XPTimer.time_left > 0:
+		$Timers/XPTimer.stop()
+	$Timers/XPTimer.start(3)
 	AddedXP += Amount
-	print(AddedXP)
 	$"Player UI/XpLabel/Amount Label".visible = true
-	await get_tree().create_timer(2.5).timeout
+	await $Timers/XPTimer.timeout
 	DisplayXP()
 	
 func DisplayXP():
