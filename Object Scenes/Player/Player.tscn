@@ -1,4 +1,4 @@
-[gd_scene load_steps=51 format=3 uid="uid://dxprot5svswbe"]
+[gd_scene load_steps=52 format=3 uid="uid://dxprot5svswbe"]
 
 [ext_resource type="Script" path="res://Scripts/Player/Player.gd" id="1_2gr55"]
 [ext_resource type="Texture2D" uid="uid://bi38invhap0t" path="res://Visual Assets/SpriteSheets/player.png" id="2_w50ld"]
@@ -772,6 +772,19 @@ height = 24.0
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_cw0ta"]
 size = Vector2(11, 16)
 
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_esr54"]
+lifetime_randomness = 0.42
+emission_shape = 1
+emission_sphere_radius = 10.0
+particle_flag_disable_z = true
+spread = 180.0
+gravity = Vector3(0, 98, 0)
+initial_velocity_min = 25.0
+initial_velocity_max = 25.0
+orbit_velocity_min = 0.0
+orbit_velocity_max = 0.0
+color = Color(1, 0, 0, 1)
+
 [node name="Player" type="CharacterBody2D" groups=["Player"]]
 z_index = 1
 collision_mask = 7
@@ -825,6 +838,7 @@ vframes = 10
 frame = 39
 
 [node name="Environment Collision" type="CollisionShape2D" parent="."]
+visible = false
 position = Vector2(0, 2)
 shape = SubResource("RectangleShape2D_8v8gj")
 
@@ -911,6 +925,7 @@ horizontal_alignment = 2
 vertical_alignment = 1
 
 [node name="SwordArea" type="Area2D" parent="." node_paths=PackedStringArray("SelfReference")]
+visible = false
 position = Vector2(1, 4)
 script = ExtResource("19_8it4o")
 SelfReference = NodePath("..")
@@ -920,6 +935,7 @@ rotation = 1.5708
 shape = SubResource("CapsuleShape2D_dv778")
 
 [node name="HitBox" type="Area2D" parent="." node_paths=PackedStringArray("SelfRef")]
+visible = false
 position = Vector2(1, -2)
 script = ExtResource("19_pcv0g")
 SelfRef = NodePath("..")
@@ -928,6 +944,13 @@ ImpactSFX = [ExtResource("23_4lgdd"), ExtResource("24_pwdi1")]
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HitBox"]
 shape = SubResource("RectangleShape2D_cw0ta")
 disabled = true
+
+[node name="GPUParticles2D" type="GPUParticles2D" parent="."]
+emitting = false
+amount = 100
+process_material = SubResource("ParticleProcessMaterial_esr54")
+one_shot = true
+explosiveness = 1.0
 
 [connection signal="timeout" from="Timers/DeathTimer" to="." method="Respawn"]
 [connection signal="timeout" from="Timers/AttackStateTimer" to="." method="_on_attack_state_timer_timeout"]
