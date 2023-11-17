@@ -1595,10 +1595,10 @@ position = Vector2(43, 193)
 [node name="Moblin5" parent="." instance=ExtResource("10_2i63u")]
 position = Vector2(227, 197)
 
-[node name="Note Object" parent="." instance=ExtResource("10_clkcy")]
+[node name="1st Note" parent="." instance=ExtResource("10_clkcy")]
 position = Vector2(-609, 546)
 
-[node name="Label" parent="Note Object/CanvasLayer/Scroll" index="0"]
+[node name="Label" parent="1st Note/CanvasLayer/Scroll" index="0"]
 text = "Hey there mate.
 
 Don’t mean to pry, but couldn’t help to hear your sobbing down there.
@@ -1611,4 +1611,18 @@ They call it the Forsaken Depths for a reason.
 See you topside, straggler
 ~ A friend"
 
-[editable path="Note Object"]
+[node name="Prayer Note" parent="." instance=ExtResource("10_clkcy")]
+position = Vector2(367, 112)
+
+[node name="Label" parent="Prayer Note/CanvasLayer/Scroll" index="0"]
+text = "If anyone reads this they locked us in here they told us we were guarding something important its just that miserable beast in the basement but he is killing us all
+
+I never bought this trite shit but here goes
+
+\"I may not believe in the gold-glittered way.
+But if it stands to save my soul then I shall proclaim,
+Reverance to the most high, every night and day.
+Glory, to the Beloved Moon, forever in my name.\""
+
+[editable path="1st Note"]
+[editable path="Prayer Note"]
