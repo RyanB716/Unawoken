@@ -915,7 +915,7 @@ XpAmount = 250
 DamageOutput = 75
 BaseSpeed = 15.0
 TopSpeed = 30.0
-DetectionRange = 35.0
+DetectionRange = 50.0
 DisengagementRange = 100.0
 AttackRange = 20.0
 
