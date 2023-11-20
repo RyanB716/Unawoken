@@ -1,4 +1,5 @@
 extends Node
+class_name GameManager
 
 @onready var PlayerRef : Player
 
