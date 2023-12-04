@@ -1,0 +1,17 @@
+[gd_scene load_steps=3 format=3 uid="uid://bhwylgab67dw0"]
+
+[ext_resource type="Script" path="res://ItemPickup.gd" id="1_dm47t"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_awv2t"]
+
+[node name="ItemPickup" type="Area2D"]
+texture_filter = 1
+script = ExtResource("1_dm47t")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_awv2t")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+region_rect = Rect2(5, 291, 22, 26)
+
+[connection signal="body_entered" from="." to="." method="OnPickup"]

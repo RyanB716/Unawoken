@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3 uid="uid://c4oy4c3d46qb4"]
+[gd_scene load_steps=17 format=3 uid="uid://c4oy4c3d46qb4"]
 
 [ext_resource type="Texture2D" uid="uid://dij84ijwq0tae" path="res://Visual Assets/TileSets/Tiles.png" id="1_ocd84"]
 [ext_resource type="Script" path="res://Scripts/Level Controllers/ForsakenDepths.gd" id="1_u4b3h"]
@@ -10,6 +10,9 @@
 [ext_resource type="PackedScene" uid="uid://wvlasq770v6g" path="res://Object Scenes/Statue.tscn" id="9_kcsy4"]
 [ext_resource type="PackedScene" uid="uid://cnww1xsx7uypm" path="res://Object Scenes/Enemies/Enemy_Moblin.tscn" id="10_2i63u"]
 [ext_resource type="PackedScene" uid="uid://jxarx6uqoibj" path="res://Note_Object.tscn" id="10_clkcy"]
+[ext_resource type="PackedScene" uid="uid://bhwylgab67dw0" path="res://ItemPickup.tscn" id="11_kmbc6"]
+[ext_resource type="Resource" uid="uid://c8m3us0sxsy1l" path="res://LiteElixir.tres" id="12_pscv5"]
+[ext_resource type="Resource" uid="uid://bylvhawsitwpb" path="res://Med_Elixir.tres" id="13_0vicu"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_j2tg3"]
 texture = ExtResource("1_ocd84")
@@ -1623,6 +1626,26 @@ I never bought this trite shit but here goes
 But if it stands to save my soul then I shall proclaim,
 Reverance to the most high, every night and day.
 Glory, to the Beloved Moon, forever in my name.\""
+
+[node name="ItemPickup" parent="." instance=ExtResource("11_kmbc6")]
+position = Vector2(-590, 427)
+resource = ExtResource("12_pscv5")
+
+[node name="ItemPickup2" parent="." instance=ExtResource("11_kmbc6")]
+position = Vector2(-595, 397)
+resource = ExtResource("12_pscv5")
+
+[node name="ItemPickup3" parent="." instance=ExtResource("11_kmbc6")]
+position = Vector2(-517, 304)
+resource = ExtResource("13_0vicu")
+
+[node name="ItemPickup4" parent="." instance=ExtResource("11_kmbc6")]
+position = Vector2(-513, 347)
+resource = ExtResource("13_0vicu")
+
+[node name="ItemPickup5" parent="." instance=ExtResource("11_kmbc6")]
+position = Vector2(-544, 325)
+resource = ExtResource("13_0vicu")
 
 [editable path="1st Note"]
 [editable path="Prayer Note"]

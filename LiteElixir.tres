@@ -1,0 +1,17 @@
+[gd_resource type="Resource" script_class="UsableItemResource" load_steps=4 format=3 uid="uid://c8m3us0sxsy1l"]
+
+[ext_resource type="Script" path="res://UsableItemResource.gd" id="1_5s6ka"]
+[ext_resource type="Texture2D" uid="uid://dj74u6uom340b" path="res://#1 - Transparent Icons.png" id="1_djb87"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0w6jd"]
+atlas = ExtResource("1_djb87")
+region = Rect2(0, 288, 32, 32)
+
+[resource]
+script = ExtResource("1_5s6ka")
+Name = "Lite Elixir"
+StatType = 1
+AmountInPercent = 15
+Icon = SubResource("AtlasTexture_0w6jd")
+SpriteScale = Vector2(0.5, 0.5)
+CollisionScale = Vector2(0, 0)

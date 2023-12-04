@@ -1,9 +1,11 @@
-[gd_scene load_steps=52 format=3 uid="uid://dxprot5svswbe"]
+[gd_scene load_steps=56 format=3 uid="uid://dxprot5svswbe"]
 
 [ext_resource type="Script" path="res://Scripts/Player/Player.gd" id="1_2gr55"]
 [ext_resource type="Texture2D" uid="uid://bi38invhap0t" path="res://Visual Assets/SpriteSheets/player.png" id="2_w50ld"]
 [ext_resource type="Script" path="res://Scripts/Player/States/PlayerDead.gd" id="7_snygb"]
+[ext_resource type="Script" path="res://Object Scenes/Player/Inventory.gd" id="8_nbgbr"]
 [ext_resource type="Script" path="res://Scripts/Components/Audio Controllers/BodyAudioPlayer.gd" id="8_syxxs"]
+[ext_resource type="Resource" uid="uid://c8m3us0sxsy1l" path="res://LiteElixir.tres" id="9_hrk3n"]
 [ext_resource type="AudioStream" uid="uid://d0iijvcalr7qr" path="res://Audio/SFX/Player/attack1.wav" id="9_pigyr"]
 [ext_resource type="PackedScene" uid="uid://cvlh1usf2hwre" path="res://Object Scenes/Player/HealthBar.tscn" id="10_1g6mq"]
 [ext_resource type="AudioStream" uid="uid://cdla8hf16tqfv" path="res://Audio/SFX/Player/attack2.wav" id="10_1yyqr"]
@@ -26,6 +28,14 @@
 [ext_resource type="FontFile" uid="uid://dlulxm5dxb804" path="res://Visual Assets/Fonts/Seagram tfb.ttf" id="22_lpgic"]
 [ext_resource type="AudioStream" uid="uid://dlnsrugki0emv" path="res://Audio/SFX/Player/blade_hit_07.wav" id="23_4lgdd"]
 [ext_resource type="AudioStream" uid="uid://b1u7ihusdosr8" path="res://Audio/SFX/Player/blade_hit_08.wav" id="24_pwdi1"]
+[ext_resource type="FontFile" uid="uid://ba0gbrsq1d1dv" path="res://Visual Assets/Fonts/OldLondon.ttf" id="29_samax"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_dv778"]
+radius = 4.0
+height = 24.0
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_cw0ta"]
+size = Vector2(11, 16)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_8v8gj"]
 size = Vector2(9.5, 4)
@@ -765,27 +775,14 @@ _data = {
 "Attack_2_Up": SubResource("Animation_gwqxn")
 }
 
-[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_dv778"]
-radius = 4.0
-height = 24.0
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ji28p"]
+bg_color = Color(1, 1, 1, 1)
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_cw0ta"]
-size = Vector2(11, 16)
+[sub_resource type="LabelSettings" id="LabelSettings_qcd8h"]
+font = ExtResource("29_samax")
+font_size = 25
 
-[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_esr54"]
-lifetime_randomness = 0.42
-emission_shape = 1
-emission_sphere_radius = 10.0
-particle_flag_disable_z = true
-spread = 180.0
-gravity = Vector3(0, 98, 0)
-initial_velocity_min = 25.0
-initial_velocity_max = 25.0
-orbit_velocity_min = 0.0
-orbit_velocity_max = 0.0
-color = Color(1, 0, 0, 1)
-
-[node name="Player" type="CharacterBody2D" groups=["Player"]]
+[node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("InventoryRef") groups=["Player"]]
 z_index = 1
 collision_mask = 7
 platform_floor_layers = 0
@@ -800,6 +797,7 @@ DamageOutput = 50
 AttackTime = 0.25
 CooldownTime = 1.5
 InputBufferAmnt = 0.13
+InventoryRef = NodePath("Inventory")
 
 [node name="StateMachine" type="Node" parent="." node_paths=PackedStringArray("InitialState")]
 script = ExtResource("12_lsmi8")
@@ -828,6 +826,10 @@ BodyAudio = NodePath("../../Audio/BodyAudio")
 script = ExtResource("7_snygb")
 PlayerRef = NodePath("../..")
 
+[node name="Inventory" type="Node2D" parent="."]
+script = ExtResource("8_nbgbr")
+Elixirs = Array[Resource("res://UsableItemResource.gd")]([ExtResource("9_hrk3n")])
+
 [node name="Sprite" type="Sprite2D" parent="."]
 texture_filter = 1
 position = Vector2(1, -13)
@@ -836,6 +838,27 @@ flip_h = true
 hframes = 6
 vframes = 10
 frame = 39
+
+[node name="SwordArea" type="Area2D" parent="." node_paths=PackedStringArray("SelfReference")]
+visible = false
+position = Vector2(1, 4)
+script = ExtResource("19_8it4o")
+SelfReference = NodePath("..")
+
+[node name="SwordCollision" type="CollisionShape2D" parent="SwordArea"]
+rotation = 1.5708
+shape = SubResource("CapsuleShape2D_dv778")
+
+[node name="HitBox" type="Area2D" parent="." node_paths=PackedStringArray("SelfRef")]
+visible = false
+position = Vector2(1, -2)
+script = ExtResource("19_pcv0g")
+SelfRef = NodePath("..")
+ImpactSFX = [ExtResource("23_4lgdd"), ExtResource("24_pwdi1")]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HitBox"]
+shape = SubResource("RectangleShape2D_cw0ta")
+disabled = true
 
 [node name="Environment Collision" type="CollisionShape2D" parent="."]
 visible = false
@@ -876,8 +899,9 @@ one_shot = true
 [node name="XPTimer" type="Timer" parent="Timers"]
 one_shot = true
 
-[node name="Player UI" type="CanvasLayer" parent="." node_paths=PackedStringArray("StatueMenu")]
+[node name="Player UI" type="CanvasLayer" parent="." node_paths=PackedStringArray("player", "StatueMenu")]
 script = ExtResource("17_k3vfi")
+player = NodePath("..")
 StatueMenu = NodePath("StatueMenu")
 
 [node name="Health Bar" parent="Player UI" instance=ExtResource("10_1g6mq")]
@@ -924,34 +948,42 @@ text = "+00000"
 horizontal_alignment = 2
 vertical_alignment = 1
 
-[node name="SwordArea" type="Area2D" parent="." node_paths=PackedStringArray("SelfReference")]
-visible = false
-position = Vector2(1, 4)
-script = ExtResource("19_8it4o")
-SelfReference = NodePath("..")
+[node name="CurrentItem" type="Panel" parent="Player UI"]
+custom_minimum_size = Vector2(50, 50)
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 13.0
+offset_top = -50.0
+offset_right = 53.0
+offset_bottom = -10.0
+grow_vertical = 0
+theme_override_styles/panel = SubResource("StyleBoxFlat_ji28p")
 
-[node name="SwordCollision" type="CollisionShape2D" parent="SwordArea"]
-rotation = 1.5708
-shape = SubResource("CapsuleShape2D_dv778")
+[node name="TextureRect" type="TextureRect" parent="Player UI/CurrentItem"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -20.0
+offset_right = 20.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
 
-[node name="HitBox" type="Area2D" parent="." node_paths=PackedStringArray("SelfRef")]
-visible = false
-position = Vector2(1, -2)
-script = ExtResource("19_pcv0g")
-SelfRef = NodePath("..")
-ImpactSFX = [ExtResource("23_4lgdd"), ExtResource("24_pwdi1")]
+[node name="Label" type="Label" parent="Player UI/CurrentItem"]
+texture_filter = 1
+layout_mode = 0
+offset_left = 56.0
+offset_top = 27.0
+offset_right = 96.0
+offset_bottom = 50.0
+label_settings = SubResource("LabelSettings_qcd8h")
+vertical_alignment = 2
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="HitBox"]
-shape = SubResource("RectangleShape2D_cw0ta")
-disabled = true
-
-[node name="GPUParticles2D" type="GPUParticles2D" parent="."]
-emitting = false
-amount = 100
-process_material = SubResource("ParticleProcessMaterial_esr54")
-one_shot = true
-explosiveness = 1.0
-
+[connection signal="area_entered" from="SwordArea" to="SwordArea" method="WeaponHit"]
 [connection signal="timeout" from="Timers/DeathTimer" to="." method="Respawn"]
 [connection signal="timeout" from="Timers/AttackStateTimer" to="." method="_on_attack_state_timer_timeout"]
-[connection signal="area_entered" from="SwordArea" to="SwordArea" method="WeaponHit"]

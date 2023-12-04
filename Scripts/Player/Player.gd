@@ -40,6 +40,9 @@ var AddedXP : int
 @export var CooldownTime : float
 @export var InputBufferAmnt : float
 
+@export_category("Internal References")
+@export var InventoryRef : Inventory
+
 var CurrentSpeed = 0
 var HorizontalInput = 0
 var VerticalInput = 0
@@ -135,7 +138,7 @@ func RegainHealth(Amount : int):
 	
 func RegainFULLHealth():
 	var HealthTween = get_tree().create_tween()
-	HealthTween.tween_property(self, "CurrentHealth", MaxHealth, 1.5)
+	HealthTween.tween_property(self, "CurrentHealth", MaxHealth, 0.5)
 
 func Respawn():
 	print("Reloading...")
