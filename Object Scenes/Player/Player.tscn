@@ -1,4 +1,4 @@
-[gd_scene load_steps=56 format=3 uid="uid://dxprot5svswbe"]
+[gd_scene load_steps=57 format=3 uid="uid://dxprot5svswbe"]
 
 [ext_resource type="Script" path="res://Scripts/Player/Player.gd" id="1_2gr55"]
 [ext_resource type="Texture2D" uid="uid://bi38invhap0t" path="res://Visual Assets/SpriteSheets/player.png" id="2_w50ld"]
@@ -782,6 +782,10 @@ bg_color = Color(1, 1, 1, 1)
 font = ExtResource("29_samax")
 font_size = 25
 
+[sub_resource type="LabelSettings" id="LabelSettings_buh0n"]
+font = ExtResource("22_lpgic")
+font_size = 30
+
 [node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("InventoryRef") groups=["Player"]]
 z_index = 1
 collision_mask = 7
@@ -983,6 +987,22 @@ offset_right = 96.0
 offset_bottom = 50.0
 label_settings = SubResource("LabelSettings_qcd8h")
 vertical_alignment = 2
+
+[node name="Coin Amount" type="Label" parent="Player UI"]
+texture_filter = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -93.0
+offset_top = -55.0
+offset_right = -11.0
+offset_bottom = -13.0
+grow_horizontal = 0
+grow_vertical = 0
+text = "$: 100"
+label_settings = SubResource("LabelSettings_buh0n")
 
 [connection signal="area_entered" from="SwordArea" to="SwordArea" method="WeaponHit"]
 [connection signal="timeout" from="Timers/DeathTimer" to="." method="Respawn"]

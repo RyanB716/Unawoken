@@ -21,6 +21,7 @@ var CurrentDirection : int
 @onready var CurrentAttackIndex : int = 1
 
 var IsMoving = false
+var IsHealing = false
 
 @export_category("PlayerStats")
 @export var MaxHealth : int
@@ -76,6 +77,9 @@ func _process(_delta):
 		
 	$"Player UI/XpLabel".text = ("XP: " + str(CurrentXP))
 	$"Player UI/XpLabel/Amount Label".text = ("+" + str(AddedXP))
+	
+	if CurrentHealth >= MaxHealth:
+		CurrentHealth = MaxHealth
 	
 func _physics_process(_delta):
 	
@@ -133,12 +137,21 @@ func ResetStamina(Amnt : int):
 			print_debug('ERROR @ ResetStamina(): CurrentStaminaActions += 1 would EXCEED MaxStamina variable')
 
 func RegainHealth(Amount : int):
-	var HealthTween = get_tree().create_tween()
-	HealthTween.tween_property(self, "CurrentHealth", (CurrentHealth + Amount), 2)
+	if IsHealing == false:
+		print("Healing: " + str(Amount) + " points!")
+		IsHealing = true
+		var HealthTween = get_tree().create_tween()
+		HealthTween.tween_property(self, "CurrentHealth", (CurrentHealth + Amount), 0.5)
+		await HealthTween.finished
+		IsHealing = false
 	
 func RegainFULLHealth():
-	var HealthTween = get_tree().create_tween()
-	HealthTween.tween_property(self, "CurrentHealth", MaxHealth, 0.5)
+	if IsHealing == false:
+		IsHealing = true
+		var HealthTween = get_tree().create_tween()
+		HealthTween.tween_property(self, "CurrentHealth", MaxHealth, 0.5)
+		await HealthTween.finished
+		IsHealing = false
 
 func Respawn():
 	print("Reloading...")

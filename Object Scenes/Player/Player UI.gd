@@ -7,12 +7,16 @@ func _ready():
 	pass
 	
 func _process(delta):
-	if player.InventoryRef.CurrentElixir.NumberHeld > 0:
+	if player.InventoryRef.CurrentElixir:
+		$CurrentItem.visible = true
 		$CurrentItem/TextureRect.texture = player.InventoryRef.CurrentElixir.Icon
 		$CurrentItem/Label.text = str(player.InventoryRef.CurrentElixir.NumberHeld)
 	else:
+		$CurrentItem.visible = false
 		$CurrentItem/TextureRect.texture = null
 		$CurrentItem/Label.text = ""
+		
+	$"Coin Amount".text = ("$:" + str(player.InventoryRef.CoinCount))
 
 
 func ToggleStatueMenu():
