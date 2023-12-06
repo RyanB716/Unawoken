@@ -8,7 +8,7 @@ class_name Inventory
 
 @onready var CoinCount : int = 0
 
-func _process(delta):
+func _process(_delta):
 	if Elixirs[0].Amount > 0:
 		CurrentElixir = Elixirs[ElixirIndex]
 	

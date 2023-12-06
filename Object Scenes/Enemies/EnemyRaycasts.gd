@@ -23,7 +23,7 @@ func _ready():
 	SouthEast.target_position = Vector2(0, ParentRef.DetectionRange)
 	SouthWest.target_position = Vector2(0, ParentRef.DetectionRange)
 	
-func _physics_process(delta):
+func _physics_process(_delta):
 	if North.is_colliding():
 		if North.get_collider() is Player:
 			ParentRef.CurrentDirection = ParentRef.DirectionStates.Down

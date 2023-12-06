@@ -6,7 +6,7 @@ extends CanvasLayer
 func _ready():
 	pass
 	
-func _process(delta):
+func _process(_delta):
 	if player.InventoryRef.CurrentElixir:
 		$CurrentItem.visible = true
 		$CurrentItem/TextureRect.texture = player.InventoryRef.CurrentElixir.Item.Icon

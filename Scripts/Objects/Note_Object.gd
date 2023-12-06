@@ -7,7 +7,7 @@ var CanOpen : bool = false
 func _ready():
 	$Prompt.visible = false
 	
-func _process(delta):
+func _process(_delta):
 	if CanOpen && Input.is_action_just_pressed("Interact"):
 		if NoteScroll.visible == true:
 			NoteScroll.visible = false
@@ -19,7 +19,7 @@ func _on_area_entered(area):
 		CanOpen = true
 		$Prompt.visible = true
 
-func _on_area_exited(area):
+func _on_area_exited(_area):
 	$Prompt.visible = false
 	CanOpen = false
 	NoteScroll.visible = false

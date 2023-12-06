@@ -1,7 +1,7 @@
 [gd_scene load_steps=8 format=3 uid="uid://bkee3pqvgv4x1"]
 
 [ext_resource type="Texture2D" uid="uid://dgmg5rdrhnbnq" path="res://Visual Assets/TileSets/Props.png" id="1_p62lq"]
-[ext_resource type="Script" path="res://Scripts/Objects/Pot.gd" id="2_csvlt"]
+[ext_resource type="Script" path="res://Scripts/Components/Destructable.gd" id="2_csvlt"]
 [ext_resource type="AudioStream" uid="uid://c7kbw80rtwobm" path="res://Audio/SFX/Object/14741_1460058298.mp3" id="3_btva7"]
 [ext_resource type="AudioStream" uid="uid://lo61e6j68t6u" path="res://Audio/SFX/Object/14742_1460058298.mp3" id="4_by31x"]
 [ext_resource type="AudioStream" uid="uid://bawa6dujwc040" path="res://Audio/SFX/Object/14743_1460058298.mp3" id="5_3x7ta"]
