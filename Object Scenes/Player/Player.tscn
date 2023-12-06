@@ -1,14 +1,15 @@
-[gd_scene load_steps=57 format=3 uid="uid://dxprot5svswbe"]
+[gd_scene load_steps=59 format=3 uid="uid://dxprot5svswbe"]
 
 [ext_resource type="Script" path="res://Scripts/Player/Player.gd" id="1_2gr55"]
 [ext_resource type="Texture2D" uid="uid://bi38invhap0t" path="res://Visual Assets/SpriteSheets/player.png" id="2_w50ld"]
 [ext_resource type="Script" path="res://Scripts/Player/States/PlayerDead.gd" id="7_snygb"]
 [ext_resource type="Script" path="res://Object Scenes/Player/Inventory.gd" id="8_nbgbr"]
 [ext_resource type="Script" path="res://Scripts/Components/Audio Controllers/BodyAudioPlayer.gd" id="8_syxxs"]
-[ext_resource type="Resource" uid="uid://c8m3us0sxsy1l" path="res://LiteElixir.tres" id="9_hrk3n"]
 [ext_resource type="AudioStream" uid="uid://d0iijvcalr7qr" path="res://Audio/SFX/Player/attack1.wav" id="9_pigyr"]
+[ext_resource type="Resource" uid="uid://c8m3us0sxsy1l" path="res://LiteElixir.tres" id="9_s48do"]
 [ext_resource type="PackedScene" uid="uid://cvlh1usf2hwre" path="res://Object Scenes/Player/HealthBar.tscn" id="10_1g6mq"]
 [ext_resource type="AudioStream" uid="uid://cdla8hf16tqfv" path="res://Audio/SFX/Player/attack2.wav" id="10_1yyqr"]
+[ext_resource type="Script" path="res://InventorySlotResource.gd" id="10_2rcg1"]
 [ext_resource type="PackedScene" uid="uid://b8dv2qk331bb" path="res://Object Scenes/Player/StaminaContainer.tscn" id="11_0842j"]
 [ext_resource type="AudioStream" uid="uid://tky2sadciuix" path="res://Audio/SFX/Player/attack3.wav" id="11_e46q2"]
 [ext_resource type="Script" path="res://Scripts/Components/FSM/StateMachine.gd" id="12_lsmi8"]
@@ -29,6 +30,11 @@
 [ext_resource type="AudioStream" uid="uid://dlnsrugki0emv" path="res://Audio/SFX/Player/blade_hit_07.wav" id="23_4lgdd"]
 [ext_resource type="AudioStream" uid="uid://b1u7ihusdosr8" path="res://Audio/SFX/Player/blade_hit_08.wav" id="24_pwdi1"]
 [ext_resource type="FontFile" uid="uid://ba0gbrsq1d1dv" path="res://Visual Assets/Fonts/OldLondon.ttf" id="29_samax"]
+
+[sub_resource type="Resource" id="Resource_4xkb4"]
+script = ExtResource("10_2rcg1")
+Item = ExtResource("9_s48do")
+Amount = 0
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_dv778"]
 radius = 4.0
@@ -832,7 +838,7 @@ PlayerRef = NodePath("../..")
 
 [node name="Inventory" type="Node2D" parent="."]
 script = ExtResource("8_nbgbr")
-Elixirs = Array[Resource("res://UsableItemResource.gd")]([ExtResource("9_hrk3n")])
+Elixirs = Array[ExtResource("10_2rcg1")]([SubResource("Resource_4xkb4")])
 
 [node name="Sprite" type="Sprite2D" parent="."]
 texture_filter = 1

@@ -1,15 +1,15 @@
 extends Node2D
 class_name Inventory
 
-@export var Elixirs : Array[UsableItemResource]
+@export var Elixirs : Array[InventorySlot]
 
-@onready var CurrentElixir : UsableItemResource
+@onready var CurrentElixir : InventorySlot
 @onready var ElixirIndex : int = 0
 
 @onready var CoinCount : int = 0
 
 func _process(delta):
-	if Elixirs[ElixirIndex] && Elixirs[ElixirIndex].NumberHeld > 0:
+	if Elixirs[0].Amount > 0:
 		CurrentElixir = Elixirs[ElixirIndex]
 	
 	if Input.is_action_just_pressed("UseItem"):
@@ -20,33 +20,35 @@ func _process(delta):
 
 func AddElixir(item : UsableItemResource):
 	for i in Elixirs.size():
-		if Elixirs[i].Name == item.Name:
+		if Elixirs[i].Item.Name == item.Name:
 			print("\nMatches!")
 			print("Adding to Number Held")
-			Elixirs[i].NumberHeld += 1
+			Elixirs[i].Amount += 1
 			break
 		else:
 			if i == Elixirs.size() - 1:
 				print("\nDoes not match!")
 				print("Adding new item")
-				Elixirs.append(item)
-				item.NumberHeld += 1
+				var newSlot = InventorySlot.new()
+				newSlot.Item = item
+				newSlot.Amount = 1
+				Elixirs.append(newSlot)
 				if CurrentElixir == null:
 					CurrentElixir = Elixirs[i]
 				break
 		
 	print("\nElixirs Contents:")
 	for i in Elixirs.size():
-		print(str(i) + "/" + str(Elixirs.size() - 1) + ": " + str(Elixirs[i].Name) + ", " + str(Elixirs[i].NumberHeld))
+		print(str(i) + "/" + str(Elixirs.size() - 1) + ": " + str(Elixirs[i].Item.Name) + ", " + str(Elixirs[i].Amount))
 
 func UseCurrentItem():
-	if CurrentElixir.NumberHeld > 0:
+	if CurrentElixir.Amount> 0:
 		var player = get_parent()
 		if player is Player:
-			if player.CurrentHealth < player.MaxHealth && player.IsHealing == false:
-				CurrentElixir.NumberHeld -= 1
-				if CurrentElixir.StatType == CurrentElixir.StatTypes.Health:
-					var AmntToAdd : int = int(player.MaxHealth * (CurrentElixir.AmountInPercent * 0.01))
+			if CurrentElixir.StatType == CurrentElixir.StatTypes.Health:
+				if player.CurrentHealth < player.MaxHealth && player.IsHealing == false:
+					CurrentElixir.NumberHeld -= 1
+					var AmntToAdd : int = int(player.MaxHealth * (CurrentElixir.Item.AmountInPercent * 0.01))
 					player.RegainHealth(AmntToAdd)
 					
 

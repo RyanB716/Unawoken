@@ -9,8 +9,8 @@ func _ready():
 func _process(delta):
 	if player.InventoryRef.CurrentElixir:
 		$CurrentItem.visible = true
-		$CurrentItem/TextureRect.texture = player.InventoryRef.CurrentElixir.Icon
-		$CurrentItem/Label.text = str(player.InventoryRef.CurrentElixir.NumberHeld)
+		$CurrentItem/TextureRect.texture = player.InventoryRef.CurrentElixir.Item.Icon
+		$CurrentItem/Label.text = str(player.InventoryRef.CurrentElixir.Amount)
 	else:
 		$CurrentItem.visible = false
 		$CurrentItem/TextureRect.texture = null
