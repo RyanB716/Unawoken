@@ -16,7 +16,7 @@ var CoinAmount : int
 var CurrentHits : int
 
 @onready var PickupScene = preload("res://Object Scenes/World Items/ItemPickup.tscn")
-@onready var CoinScene = preload("res://Object Scenes/World Items/CoinPickup.tscn")
+@onready var CoinScene = preload("res://Object Scenes/World Items/Coin.tscn")
 @onready var RNG = RandomNumberGenerator.new()
 
 func _ready():

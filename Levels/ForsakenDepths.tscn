@@ -1590,8 +1590,8 @@ position = Vector2(-591, 495)
 [node name="Pot" parent="." instance=ExtResource("7_auceg")]
 position = Vector2(-582, 551)
 ItemDrops = Array[ExtResource("9_5pegd")]([SubResource("Resource_3u8gi")])
-Min_CoinAmount = 3
-Max_CoinAmount = 7
+Min_CoinAmount = 5
+Max_CoinAmount = 5
 
 [node name="Statue" parent="." instance=ExtResource("9_kcsy4")]
 position = Vector2(-634, 509)

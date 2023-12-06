@@ -1,6 +1,5 @@
-[gd_scene load_steps=4 format=3 uid="uid://ccm6vy3qmi5gu"]
+[gd_scene load_steps=3 format=3 uid="uid://ckqfkxtyc0itw"]
 
-[ext_resource type="Script" path="res://Scripts/Objects/CoinPickup.gd" id="1_kpo4l"]
 [ext_resource type="Texture2D" uid="uid://3ljpgjh07u2u" path="res://Visual Assets/Coin.png" id="1_vll28"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_usdfu"]
@@ -8,7 +7,6 @@
 [node name="Coin" type="Area2D"]
 texture_filter = 1
 scale = Vector2(0.25, 0.25)
-script = ExtResource("1_kpo4l")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_usdfu")
