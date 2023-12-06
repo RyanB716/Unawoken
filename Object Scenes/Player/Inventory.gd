@@ -50,7 +50,6 @@ func UseCurrentItem():
 					CurrentElixir.Amount -= 1
 					var AmntToAdd : int = int(player.MaxHealth * (CurrentElixir.Item.AmountInPercent * 0.01))
 					player.RegainHealth(AmntToAdd)
-					
 
 func CycleElixir():
 	if CurrentElixir != null:
