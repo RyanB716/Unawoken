@@ -45,9 +45,9 @@ func UseCurrentItem():
 	if CurrentElixir.Amount> 0:
 		var player = get_parent()
 		if player is Player:
-			if CurrentElixir.StatType == CurrentElixir.StatTypes.Health:
+			if CurrentElixir.Item.StatType == CurrentElixir.Item.StatTypes.Health:
 				if player.CurrentHealth < player.MaxHealth && player.IsHealing == false:
-					CurrentElixir.NumberHeld -= 1
+					CurrentElixir.Amount -= 1
 					var AmntToAdd : int = int(player.MaxHealth * (CurrentElixir.Item.AmountInPercent * 0.01))
 					player.RegainHealth(AmntToAdd)
 					
