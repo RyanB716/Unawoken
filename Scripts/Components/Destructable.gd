@@ -1,41 +1,33 @@
-extends Area2D
+extends StaticBody2D
 class_name DestructableObject
 
 @export_category("Data Variables")
+@export var Area : Area2D
 @export var NeededHits : int
-@export var ItemDrops = []
-@export var XPAmount : int
+@export var ItemDrops : Array[InventorySlot]
+@export var Min_CoinAmount : int
+@export var Max_CoinAmount : int
+var CoinAmount : int
 
 @export_category("Aesthetic Variables")
-@export var HitSFX = []
-@export var BreakSFX = []
+@export var HitSFX : Array[AudioStream]
+@export var BreakSFX : Array[AudioStream]
 
 var CurrentHits : int
 
+@onready var PickupScene = preload("res://Object Scenes/World Items/ItemPickup.tscn")
+@onready var CoinScene = preload("res://Object Scenes/World Items/CoinPickup.tscn")
 @onready var RNG = RandomNumberGenerator.new()
 
 func _ready():
 	CurrentHits = 0
+	RNG.randomize()
+	CoinAmount = RNG.randi_range(Min_CoinAmount, Max_CoinAmount)
 
 #If the current hit will meet the NeededHits variable, then executes feedback commands, then deletes itself
 func Destroy():
-	if XPAmount > 0 or ItemDrops.size() > 1:
-		GiveItem()
-	self.get_parent().visible = false
-	call_deferred("DisableColliders")
-	RNG.randomize()
-	var index = RNG.randi_range(1, BreakSFX.size())
-	var NewPlayer = AudioStreamPlayer.new()
-	add_child(NewPlayer)
-	NewPlayer.stream = BreakSFX[index - 1]
-	NewPlayer.play()
-	await NewPlayer.finished
-	self.get_parent().queue_free()
-
-#Disables Colliders
-func DisableColliders():
-	get_child(0).disabled = true
-	get_parent().find_child("CollisionShape2D").disabled = true
+	Area.queue_free()
+	GiveReward()
 
 #plays a random sfx
 func PlayHitSFX():
@@ -47,16 +39,33 @@ func PlayHitSFX():
 	NewPlayer.play()
 	await NewPlayer.finished
 	NewPlayer.queue_free()
+	
+func PlayBreakSFX():
+	RNG.randomize()
+	var index = RNG.randi_range(1, BreakSFX.size())
+	var NewPlayer = AudioStreamPlayer.new()
+	add_child(NewPlayer)
+	NewPlayer.stream = BreakSFX[index - 1]
+	NewPlayer.play()
+	await NewPlayer.finished
+	NewPlayer.queue_free()
 
 #Decide on wether or not to give XP, or Items & Coins, then generate a random selection from provided data
-func GiveItem():
-	RNG.randomize()
-	var value = RNG.randi_range(0, 100)
-	if value <= 75:
-		if XPAmount > 0:
-			print('Dropping XP!')
-			get_tree().get_first_node_in_group("Player").AddXP(XPAmount)
-		elif ItemDrops.size() > -1:
-			print('Dropping Item!')
-		else:
-			print_debug("ERROR: No function call for Destructable Drop!")
+func GiveReward():
+	GiveItems()
+	self.queue_free()
+
+func GiveItems():
+	print("Spawning items")
+	if ItemDrops.size() >= 1:
+		for i in ItemDrops.size():
+			var newItem = PickupScene.instantiate()
+			if newItem is ItemPickup:
+				newItem.resource = ItemDrops[i].Item
+				get_tree().current_scene.call_deferred("add_child", newItem)
+				newItem.position = self.position
+	
+	for i in CoinAmount:
+		var newCoin = CoinScene.instantiate()
+		get_tree().current_scene.call_deferred("add_child", newCoin)
+		newCoin.position = self.position

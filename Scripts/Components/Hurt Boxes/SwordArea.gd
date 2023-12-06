@@ -16,12 +16,13 @@ func WeaponHit(target : Area2D):
 			get_tree().get_first_node_in_group("GameManager").HitStop(0.5)
 			GameCamera.ApplyShake(2.5, 0.75)
 
-	if target is DestructableObject:
-		if target.CurrentHits + 1 >= target.NeededHits:
+	elif target.get_parent() is DestructableObject:
+		var object = target.get_parent()
+		if object.CurrentHits + 1 >= object.NeededHits:
 			GameCamera.ApplyShake(1.5, 0.25)
-			target.Destroy()
+			object.Destroy()
 		else:
 			GameCamera.ApplyShake(0.75, 0.15)
-			target.PlayHitSFX()
+			object.PlayHitSFX()
 			
-		target.CurrentHits += 1
+		object.CurrentHits += 1
