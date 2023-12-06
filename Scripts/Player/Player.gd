@@ -125,6 +125,7 @@ func ReduceStamina(Amnt : int):
 	CurrentStaminaActions -= Amnt
 	UI.get_node("StaminaContainer").UpdateIcons(CurrentStaminaActions)
 
+#Resets stamina circles 1-by-1
 func ResetStamina(Amnt : int):
 	for i in range(Amnt):
 		
@@ -136,6 +137,7 @@ func ResetStamina(Amnt : int):
 		else:
 			print_debug('ERROR @ ResetStamina(): CurrentStaminaActions += 1 would EXCEED MaxStamina variable')
 
+#Regains a variable amount of health
 func RegainHealth(Amount : int):
 	if IsHealing == false:
 		print("Healing: " + str(Amount) + " points!")
@@ -144,7 +146,8 @@ func RegainHealth(Amount : int):
 		HealthTween.tween_property(self, "CurrentHealth", (CurrentHealth + Amount), 0.5)
 		await HealthTween.finished
 		IsHealing = false
-	
+
+#Regains MaxHealth
 func RegainFULLHealth():
 	if IsHealing == false:
 		IsHealing = true
@@ -153,10 +156,12 @@ func RegainFULLHealth():
 		await HealthTween.finished
 		IsHealing = false
 
+#Reloads the current level
 func Respawn():
 	print("Reloading...")
 	get_tree().reload_current_scene()
-	
+
+#Add to the amount of XP to then be added to the total count
 func AddXP(Amount : int):
 	if $Timers/XPTimer.time_left > 0:
 		$Timers/XPTimer.stop()
@@ -165,7 +170,8 @@ func AddXP(Amount : int):
 	$"Player UI/XpLabel/Amount Label".visible = true
 	await $Timers/XPTimer.timeout
 	DisplayXP()
-	
+
+#Aesthetically display the addition of XP
 func DisplayXP():
 	var XPTween = get_tree().create_tween()
 	var AmountTween = get_tree().create_tween()

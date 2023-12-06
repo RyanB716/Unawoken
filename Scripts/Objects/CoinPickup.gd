@@ -3,7 +3,8 @@ class_name Coin
 
 func _ready():
 	TimeDestroy()
-	
+
+#If coin is not picked up by the end of its random lifespan; delete and add 1 to coin count
 func TimeDestroy():
 	var RNG = RandomNumberGenerator.new()
 	RNG.randomize()
@@ -15,6 +16,7 @@ func TimeDestroy():
 			player.InventoryRef.CoinCount += 1
 		self.queue_free()
 
+#Add to coin count on collision
 func OnPickup(body : Node2D):
 	if body is Player:
 		body.InventoryRef.CoinCount += 1

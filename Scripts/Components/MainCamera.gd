@@ -19,6 +19,7 @@ func _physics_process(delta):
 		ShakeStrength = lerp(ShakeStrength, 0.0, ShakeTime * delta)
 		self.offset = GetRandomVector()
 
+#Applies variables to create shake effect
 func ApplyShake(Strength : float, Duration : float):
 	IsShaking = true
 	ShakeStrength = Strength
@@ -26,6 +27,7 @@ func ApplyShake(Strength : float, Duration : float):
 	await get_tree().create_timer(Duration).timeout
 	IsShaking = false
 
+#Generates a random Vector2
 func GetRandomVector() -> Vector2:
 	var newOffset : Vector2 = Vector2.ZERO
 	newOffset.x = RNG.randf_range(-ShakeStrength, ShakeStrength)

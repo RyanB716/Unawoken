@@ -18,6 +18,7 @@ func _process(delta):
 	if Input.is_action_just_pressed("CycleElixir"):
 		CycleElixir()
 
+#Adds a new Elixir item to proper inventory
 func AddElixir(item : UsableItemResource):
 	for i in Elixirs.size():
 		if Elixirs[i].Item.Name == item.Name:
@@ -41,6 +42,7 @@ func AddElixir(item : UsableItemResource):
 	for i in Elixirs.size():
 		print(str(i) + "/" + str(Elixirs.size() - 1) + ": " + str(Elixirs[i].Item.Name) + ", " + str(Elixirs[i].Amount))
 
+#Uses the current item
 func UseCurrentItem():
 	if CurrentElixir.Amount> 0:
 		var player = get_parent()
@@ -51,6 +53,7 @@ func UseCurrentItem():
 					var AmntToAdd : int = int(player.MaxHealth * (CurrentElixir.Item.AmountInPercent * 0.01))
 					player.RegainHealth(AmntToAdd)
 
+#Cycles the Elixir inventory upward
 func CycleElixir():
 	if CurrentElixir != null:
 		if (ElixirIndex + 1) > Elixirs.size() - 1:

@@ -10,6 +10,7 @@ func _ready():
 	else:
 		print_debug("ERROR @ ItemPickup _ready(): 'resource' NOT SET")
 
+#Adds item to inventory
 func OnPickup(body : Node2D):
 	if body is Player:
 		body.InventoryRef.AddElixir(resource)

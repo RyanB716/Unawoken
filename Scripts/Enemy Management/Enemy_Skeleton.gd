@@ -1,7 +1,6 @@
 extends BasicEnemy
 class_name Skeleton
 
-@onready var AnimPlayer = $AnimationPlayer
 @onready var sprite = $Sprite2D
 
 @onready var AttackSFX = $AudioStreamPlayer
@@ -11,8 +10,6 @@ class_name Skeleton
 @onready var EnvironmentCollider = $EnvironmentCollider
 @onready var HitBoxCollider = $HitBox/HitCollider
 @onready var HurtBoxCollider = $HurtBox/HurtCollider
-
-var PlayerTarget : Player
 
 func _ready():
 	PlayerTarget = get_tree().get_first_node_in_group("Player")

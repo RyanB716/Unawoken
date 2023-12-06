@@ -18,7 +18,7 @@ func _process(delta):
 		
 	$"Coin Amount".text = ("$:" + str(player.InventoryRef.CoinCount))
 
-
+#Toggles the visibility of the Statue Menu node
 func ToggleStatueMenu():
 	if StatueMenu.visible == true:
 		StatueMenu.visible = false
