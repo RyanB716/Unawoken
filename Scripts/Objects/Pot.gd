@@ -1,2 +1,0 @@
-extends DestructableObject
-class_name Pot

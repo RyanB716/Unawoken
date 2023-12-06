@@ -3,10 +3,9 @@ class_name WeaponAudioPlayer
 
 @export var AttackTrackArray = []
 
-#SFX : AudioStream
-
 var RNG = RandomNumberGenerator.new()
 
+#Play a random sfx when attacking
 func PlaySFX():
 	var index = RNG.randi_range(0, AttackTrackArray.size() - 1)
 	self.stream = AttackTrackArray[index]

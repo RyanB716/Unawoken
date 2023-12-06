@@ -1,7 +1,7 @@
 [gd_scene load_steps=4 format=3 uid="uid://ccm6vy3qmi5gu"]
 
-[ext_resource type="Script" path="res://CoinPickup.gd" id="1_kpo4l"]
-[ext_resource type="Texture2D" uid="uid://3ljpgjh07u2u" path="res://Coin.png" id="1_vll28"]
+[ext_resource type="Script" path="res://Scripts/Objects/CoinPickup.gd" id="1_kpo4l"]
+[ext_resource type="Texture2D" uid="uid://3ljpgjh07u2u" path="res://Visual Assets/Coin.png" id="1_vll28"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_usdfu"]
 

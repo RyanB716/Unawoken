@@ -1,7 +1,7 @@
 [gd_scene load_steps=7 format=3 uid="uid://jxarx6uqoibj"]
 
 [ext_resource type="Texture2D" uid="uid://1uarnvruolxg" path="res://Visual Assets/#1 - Transparent Icons.png" id="1_i2lwh"]
-[ext_resource type="Script" path="res://Note_Object.gd" id="1_i51pc"]
+[ext_resource type="Script" path="res://Scripts/Objects/Note_Object.gd" id="1_i51pc"]
 [ext_resource type="Texture2D" uid="uid://b7kyjf5pv8ne" path="res://Visual Assets/UI/icons_ps4_animated_buttons1.png" id="2_q4smn"]
 [ext_resource type="Texture2D" uid="uid://cxx1aknnglpab" path="res://Visual Assets/UI/Note.png" id="4_fqqn3"]
 [ext_resource type="FontFile" uid="uid://dlulxm5dxb804" path="res://Visual Assets/Fonts/Seagram tfb.ttf" id="5_r2o18"]

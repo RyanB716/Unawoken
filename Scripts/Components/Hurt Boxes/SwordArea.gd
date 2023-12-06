@@ -3,6 +3,7 @@ class_name PlayerSwordBox
 
 @export var SelfReference : Player
 
+#checks if object is an enemy or an object, and executes context specific commands
 func WeaponHit(target : Area2D):
 	if target is EnemyHitBox:
 		target.PlaySFX()

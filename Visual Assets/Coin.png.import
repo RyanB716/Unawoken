@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dj74u6uom340b"
-path="res://.godot/imported/#1 - Transparent Icons.png-4538bde5e729a128e02f988f7f967aae.ctex"
+uid="uid://3ljpgjh07u2u"
+path="res://.godot/imported/Coin.png-450a3578e18e3b96cad44374884ba8fe.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://#1 - Transparent Icons.png"
-dest_files=["res://.godot/imported/#1 - Transparent Icons.png-4538bde5e729a128e02f988f7f967aae.ctex"]
+source_file="res://Visual Assets/Coin.png"
+dest_files=["res://.godot/imported/Coin.png-450a3578e18e3b96cad44374884ba8fe.ctex"]
 
 [params]
 

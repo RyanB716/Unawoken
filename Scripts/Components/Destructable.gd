@@ -17,8 +17,9 @@ var CurrentHits : int
 func _ready():
 	CurrentHits = 0
 
+#If the current hit will meet the NeededHits variable, then executes feedback commands, then deletes itself
 func Destroy():
-	if XPAmount > 0 or ItemDrops.size() > -1:
+	if XPAmount > 0 or ItemDrops.size() > 1:
 		GiveItem()
 	self.get_parent().visible = false
 	call_deferred("DisableColliders")
@@ -30,11 +31,13 @@ func Destroy():
 	NewPlayer.play()
 	await NewPlayer.finished
 	self.get_parent().queue_free()
-	
+
+#Disables Colliders
 func DisableColliders():
 	get_child(0).disabled = true
 	get_parent().find_child("CollisionShape2D").disabled = true
 
+#plays a random sfx
 func PlayHitSFX():
 	RNG.randomize()
 	var index = RNG.randi_range(1, HitSFX.size())
@@ -45,6 +48,7 @@ func PlayHitSFX():
 	await NewPlayer.finished
 	NewPlayer.queue_free()
 
+#Decide on wether or not to give XP, or Items & Coins, then generate a random selection from provided data
 func GiveItem():
 	RNG.randomize()
 	var value = RNG.randi_range(0, 100)

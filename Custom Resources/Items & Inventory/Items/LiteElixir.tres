@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="UsableItemResource" load_steps=4 format=3 uid="uid://c8m3us0sxsy1l"]
+
+[ext_resource type="Script" path="res://Custom Resources/Items & Inventory/Scripts/UsableItemResource.gd" id="1_0qf8t"]
+[ext_resource type="Texture2D" uid="uid://1uarnvruolxg" path="res://Visual Assets/#1 - Transparent Icons.png" id="1_dgew6"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ynil2"]
+atlas = ExtResource("1_dgew6")
+region = Rect2(5, 290, 22, 27)
+
+[resource]
+script = ExtResource("1_0qf8t")
+Name = "Lite Elixir"
+StatType = 1
+AmountInPercent = 15
+Icon = SubResource("AtlasTexture_ynil2")
