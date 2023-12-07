@@ -20,7 +20,7 @@ physics_material_override = SubResource("PhysicsMaterial_vftsd")
 max_contacts_reported = 100
 contact_monitor = true
 script = ExtResource("1_6ks4o")
-Velocity = 500.0
+Velocity = 350.0
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 scale = Vector2(0.063, 0.063)
@@ -37,7 +37,6 @@ shape = SubResource("CircleShape2D_yanyd")
 
 [node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("3_wki0x")
-volume_db = 10.0
 
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]
 [connection signal="body_entered" from="Area2D" to="." method="OnPickup"]

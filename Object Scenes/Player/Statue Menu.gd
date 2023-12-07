@@ -23,18 +23,10 @@ func _on_yes_pressed():
 	GameSettings.CurrentCoins = player.InventoryRef.CoinCount
 	print("-Coins set")
 	
-	for i in player.InventoryRef.Elixirs.size():
-		var newSlot = InventorySlot.new()
-		newSlot.Item = player.InventoryRef.Elixirs[i].Item
-		newSlot.Amount = player.InventoryRef.Elixirs[i].Amount
-		GameSettings.PlayerInventory.append(newSlot)
-	
-	print("-Inventory set")
-	for i in GameSettings.PlayerInventory.size():
-		print("-New Slot @ Index " + str(i) + " :" + str(GameSettings.PlayerInventory[i].Item.Name) + ", #: " + str(GameSettings.PlayerInventory[i].Amount))
+	GameSettings.UpdateInventory()
 	
 	await get_tree().create_timer(3.0).timeout
-		
+	
 	get_tree().get_first_node_in_group('Player').RegainFULLHealth()
 	get_tree().reload_current_scene()
 
