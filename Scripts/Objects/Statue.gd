@@ -11,7 +11,9 @@ func _ready():
 
 func _process(_delta):
 	if CanInput == true && Input.is_action_just_pressed("Interact"):
-		GameSettings.RespawnPoint = self.position
+		print("\nSpawn Point UPDATED!!!\n")
+		GameSettings.RespawnPoint = self.global_position
+		print(GameSettings.RespawnPoint)
 		UI.ToggleStatueMenu()
 		
 func _on_detection_sphere_area_entered(area):

@@ -2,7 +2,6 @@ extends StaticBody2D
 class_name DestructableObject
 
 @export_category("Data Variables")
-@export var Area : Area2D
 @export var NeededHits : int
 @export var ItemDrops : Array[InventorySlot]
 @export var Min_CoinAmount : int
@@ -17,6 +16,7 @@ var CurrentHits : int
 
 @onready var PickupScene = preload("res://Object Scenes/World Items/ItemPickup.tscn")
 @onready var CoinScene = preload("res://Object Scenes/World Items/Coin.tscn")
+@onready var Area = self.get_child(0)
 @onready var RNG = RandomNumberGenerator.new()
 
 func _ready():

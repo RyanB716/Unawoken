@@ -9,6 +9,7 @@ func _ready():
 	
 	if GameSettings.RespawnPoint != Vector2.ZERO:
 		PlayerRef.position = Vector2(GameSettings.RespawnPoint.x, (GameSettings.RespawnPoint.y + 25))
+		print("Spawn Position: " + str(PlayerRef.position))
 		get_tree().get_first_node_in_group("Cameras").position = PlayerRef.position
 
 func HitStop(EffectTime : float):

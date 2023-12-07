@@ -73,7 +73,7 @@ func _process(_delta):
 		$StateMachine.CurrentState.Transitioned.emit("Dead")
 		IsDead = true
 		$Timers/DeathTimer.one_shot = true
-		$Timers/DeathTimer.start(3)
+		$Timers/DeathTimer.start(8)
 		
 	$"Player UI/XpLabel".text = ("XP: " + str(CurrentXP))
 	$"Player UI/XpLabel/Amount Label".text = ("+" + str(AddedXP))

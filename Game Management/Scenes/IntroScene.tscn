@@ -7,7 +7,7 @@
 [ext_resource type="PackedScene" uid="uid://dtgqca3e0gt6j" path="res://Object Scenes/Shaders/NodeShake.tscn" id="4_g7m72"]
 [ext_resource type="PackedScene" uid="uid://hjgr02ppy2rv" path="res://Object Scenes/Shaders/Color Rects/FilmGrain.tscn" id="4_tvdif"]
 [ext_resource type="PackedScene" uid="uid://dukgowli70ket" path="res://Object Scenes/Shaders/Color Rects/ChromaticAbberation.tscn" id="5_caxtv"]
-[ext_resource type="AudioStream" uid="uid://dp5kawtmj2jip" path="res://Audio/SFX/Ambiance_Cave_Drips_Loop_Stereo.wav" id="8_04orw"]
+[ext_resource type="AudioStream" uid="uid://dp5kawtmj2jip" path="res://Audio/SFX/Level SFX/Ambiance_Cave_Drips_Loop_Stereo.wav" id="8_04orw"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_5tcly"]
 bg_color = Color(0, 0, 0, 1)

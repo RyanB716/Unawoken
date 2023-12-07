@@ -5,18 +5,22 @@
 [ext_resource type="AudioStream" uid="uid://bawa6dujwc040" path="res://Audio/SFX/Object/14743_1460058298.mp3" id="2_i2mjb"]
 [ext_resource type="AudioStream" uid="uid://dc5w2hst7asji" path="res://Audio/SFX/Object/19059_WoodCrashImpactBi_PE1056805.mp3" id="6_ctg8n"]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_brt2u"]
-size = Vector2(34, 34)
-
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_sbyvc"]
 size = Vector2(32, 32)
 
-[node name="Door_Wood" type="StaticBody2D" node_paths=PackedStringArray("Area")]
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_brt2u"]
+size = Vector2(34, 34)
+
+[node name="Door_Wood" type="StaticBody2D"]
 script = ExtResource("2_1620b")
-Area = NodePath("Area2D")
 NeededHits = 3
 HitSFX = Array[AudioStream]([ExtResource("2_i2mjb")])
 BreakSFX = Array[AudioStream]([ExtResource("6_ctg8n")])
+
+[node name="Area2D" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource("RectangleShape2D_sbyvc")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture_filter = 1
@@ -26,8 +30,3 @@ region_rect = Rect2(112, 128, 32, 32)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_brt2u")
-
-[node name="Area2D" type="Area2D" parent="."]
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
-shape = SubResource("RectangleShape2D_sbyvc")

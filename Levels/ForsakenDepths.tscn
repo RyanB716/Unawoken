@@ -1524,7 +1524,7 @@ Amount = 3
 
 [sub_resource type="Resource" id="Resource_xyppq"]
 script = ExtResource("9_5pegd")
-Item = ExtResource("12_pscv5")
+Item = ExtResource("13_0vicu")
 Amount = 1
 
 [sub_resource type="Resource" id="Resource_aon5x"]
@@ -1584,45 +1584,6 @@ stream = ExtResource("4_xhi55")
 process_mode = 3
 stream = ExtResource("5_ucqvd")
 
-[node name="Door_Wood" parent="." instance=ExtResource("6_q7vls")]
-position = Vector2(-591, 495)
-
-[node name="Pot" parent="." instance=ExtResource("7_auceg")]
-position = Vector2(-582, 551)
-ItemDrops = Array[ExtResource("9_5pegd")]([SubResource("Resource_3u8gi")])
-Min_CoinAmount = 5
-Max_CoinAmount = 5
-
-[node name="Statue" parent="." instance=ExtResource("9_kcsy4")]
-position = Vector2(-634, 509)
-
-[node name="Statue2" parent="." instance=ExtResource("9_kcsy4")]
-position = Vector2(344, 61)
-
-[node name="Pot2" parent="." instance=ExtResource("7_auceg")]
-position = Vector2(-192, 168)
-ItemDrops = Array[ExtResource("9_5pegd")]([SubResource("Resource_xyppq")])
-Min_CoinAmount = 2
-Max_CoinAmount = 5
-
-[node name="Pot3" parent="." instance=ExtResource("7_auceg")]
-position = Vector2(-264, 168)
-ItemDrops = Array[ExtResource("9_5pegd")]([SubResource("Resource_aon5x")])
-Min_CoinAmount = 2
-Max_CoinAmount = 5
-
-[node name="Pot4" parent="." instance=ExtResource("7_auceg")]
-position = Vector2(-240, 168)
-ItemDrops = Array[ExtResource("9_5pegd")]([SubResource("Resource_1mc4b")])
-Min_CoinAmount = 2
-Max_CoinAmount = 5
-
-[node name="Pot5" parent="." instance=ExtResource("7_auceg")]
-position = Vector2(-216, 168)
-ItemDrops = Array[ExtResource("9_5pegd")]([SubResource("Resource_j586s")])
-Min_CoinAmount = 3
-Max_CoinAmount = 7
-
 [node name="Moblin" parent="." instance=ExtResource("10_2i63u")]
 position = Vector2(-587, 326)
 
@@ -1666,6 +1627,88 @@ I never bought this trite shit but here goes
 But if it stands to save my soul then I shall proclaim,
 Reverance to the most high, every night and day.
 Glory, to the Beloved Moon, forever in my name.\""
+
+[node name="Statues" type="Node2D" parent="."]
+position = Vector2(-634, 509)
+scale = Vector2(0.5, 0.5)
+
+[node name="Statue" parent="Statues" instance=ExtResource("9_kcsy4")]
+scale = Vector2(1, 1)
+
+[node name="Statue2" parent="Statues" instance=ExtResource("9_kcsy4")]
+position = Vector2(1956, -896)
+scale = Vector2(1, 1)
+
+[node name="Destructables" type="Node2D" parent="."]
+
+[node name="Door_Wood" parent="Destructables" instance=ExtResource("6_q7vls")]
+position = Vector2(-591, 495)
+
+[node name="Pot" parent="Destructables" instance=ExtResource("7_auceg")]
+position = Vector2(-582, 551)
+ItemDrops = Array[ExtResource("9_5pegd")]([SubResource("Resource_3u8gi")])
+Min_CoinAmount = 5
+Max_CoinAmount = 5
+
+[node name="Pot2" parent="Destructables" instance=ExtResource("7_auceg")]
+position = Vector2(-192, 168)
+ItemDrops = Array[ExtResource("9_5pegd")]([SubResource("Resource_xyppq")])
+Min_CoinAmount = 2
+Max_CoinAmount = 5
+
+[node name="Pot3" parent="Destructables" instance=ExtResource("7_auceg")]
+position = Vector2(-264, 168)
+ItemDrops = Array[ExtResource("9_5pegd")]([SubResource("Resource_aon5x")])
+Min_CoinAmount = 2
+Max_CoinAmount = 5
+
+[node name="Pot4" parent="Destructables" instance=ExtResource("7_auceg")]
+position = Vector2(-240, 168)
+ItemDrops = Array[ExtResource("9_5pegd")]([SubResource("Resource_1mc4b")])
+Min_CoinAmount = 2
+Max_CoinAmount = 5
+
+[node name="Pot5" parent="Destructables" instance=ExtResource("7_auceg")]
+position = Vector2(-216, 168)
+ItemDrops = Array[ExtResource("9_5pegd")]([SubResource("Resource_j586s")])
+Min_CoinAmount = 3
+Max_CoinAmount = 7
+
+[node name="Pot6" parent="Destructables" instance=ExtResource("7_auceg")]
+position = Vector2(-507, 374)
+ItemDrops = Array[ExtResource("9_5pegd")]([SubResource("Resource_xyppq")])
+Min_CoinAmount = 2
+Max_CoinAmount = 5
+
+[node name="Pot7" parent="Destructables" instance=ExtResource("7_auceg")]
+position = Vector2(-555, 374)
+Min_CoinAmount = 2
+Max_CoinAmount = 5
+
+[node name="Pot8" parent="Destructables" instance=ExtResource("7_auceg")]
+position = Vector2(-531, 374)
+Min_CoinAmount = 3
+Max_CoinAmount = 7
+
+[node name="Pot9" parent="Destructables" instance=ExtResource("7_auceg")]
+position = Vector2(-608, 290)
+Min_CoinAmount = 2
+Max_CoinAmount = 5
+
+[node name="Pot10" parent="Destructables" instance=ExtResource("7_auceg")]
+position = Vector2(-680, 290)
+Min_CoinAmount = 2
+Max_CoinAmount = 5
+
+[node name="Pot11" parent="Destructables" instance=ExtResource("7_auceg")]
+position = Vector2(-656, 290)
+Min_CoinAmount = 2
+Max_CoinAmount = 5
+
+[node name="Pot12" parent="Destructables" instance=ExtResource("7_auceg")]
+position = Vector2(-632, 290)
+Min_CoinAmount = 3
+Max_CoinAmount = 7
 
 [editable path="1st Note"]
 [editable path="Prayer Note"]

@@ -11,6 +11,8 @@ extends Camera2D
 
 func _ready():
 	Target = get_tree().get_first_node_in_group("Player")
+	$CanvasLayer/ColorRect.color = Color.BLACK
+	FadeToBlack(false, 3.0)
 
 func _physics_process(delta):
 	self.position = lerp(self.position, Target.position, CamSpeed * delta)
@@ -33,3 +35,18 @@ func GetRandomVector() -> Vector2:
 	newOffset.x = RNG.randf_range(-ShakeStrength, ShakeStrength)
 	newOffset.y = RNG.randf_range(-ShakeStrength, ShakeStrength)
 	return newOffset
+
+func FadeToBlack(yes : bool, duration : float):
+	print($CanvasLayer/ColorRect.color)
+	if yes:
+		print("Fading TO black")
+		$CanvasLayer/ColorRect.color = Color(0, 0, 0, 0)
+		var newColor = Color(0, 0, 0, 1)
+		var newTween = get_tree().create_tween()
+		newTween.tween_property($CanvasLayer/ColorRect, "color", newColor, duration)
+	else:
+		print("Fading FROM black")
+		$CanvasLayer/ColorRect.color = Color(0, 0, 0, 1)
+		var newColor = Color(0, 0, 0, 0)
+		var newTween = get_tree().create_tween()
+		newTween.tween_property($CanvasLayer/ColorRect, "color", newColor, duration)

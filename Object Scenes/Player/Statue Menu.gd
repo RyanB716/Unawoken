@@ -7,6 +7,7 @@ var CurrentStatue : Statue
 @export var OutSFX : AudioStream
 @export var Click : AudioStream
 
+@onready var player : Player = get_tree().get_first_node_in_group('Player')
 func _on_visibility_changed():
 	if visible == true:
 		$AudioStreamPlayer.stream = InSFX
@@ -15,7 +16,25 @@ func _on_visibility_changed():
 		$HBoxContainer/Yes.grab_focus()
 
 func _on_yes_pressed():
-	GameSettings.CurrentPlayerXP = get_tree().get_first_node_in_group('Player').CurrentXP
+	get_tree().get_first_node_in_group('Cameras').FadeToBlack(true, 3.0)
+	print("Beginning respawn!")
+	GameSettings.CurrentPlayerXP = player.CurrentXP
+	print("-XP set")
+	GameSettings.CurrentCoins = player.InventoryRef.CoinCount
+	print("-Coins set")
+	
+	for i in player.InventoryRef.Elixirs.size():
+		var newSlot = InventorySlot.new()
+		newSlot.Item = player.InventoryRef.Elixirs[i].Item
+		newSlot.Amount = player.InventoryRef.Elixirs[i].Amount
+		GameSettings.PlayerInventory.append(newSlot)
+	
+	print("-Inventory set")
+	for i in GameSettings.PlayerInventory.size():
+		print("-New Slot @ Index " + str(i) + " :" + str(GameSettings.PlayerInventory[i].Item.Name) + ", #: " + str(GameSettings.PlayerInventory[i].Amount))
+	
+	await get_tree().create_timer(3.0).timeout
+		
 	get_tree().get_first_node_in_group('Player').RegainFULLHealth()
 	get_tree().reload_current_scene()
 

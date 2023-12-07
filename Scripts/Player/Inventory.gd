@@ -8,9 +8,24 @@ class_name Inventory
 
 @onready var CoinCount : int = 0
 
+func _ready():
+	CoinCount = GameSettings.CurrentCoins
+	
+	if !GameSettings.PlayerInventory.is_empty():
+		print("\nLoading Inventory..." + " (" + str(GameSettings.PlayerInventory.size()) + " items)")
+		Elixirs.clear()
+		for i in GameSettings.PlayerInventory.size():
+			#print("-Index: " + str(i) + "/" + str(GameSettings.PlayerInventory.size()) + " is: " + str(GameSettings.PlayerInventory[i].Item.Name) + " #:" + str(GameSettings.PlayerInventory[i].Amount))
+			var newSlot = InventorySlot.new()
+			newSlot.Item = GameSettings.PlayerInventory[i].Item
+			newSlot.Amount = GameSettings.PlayerInventory[i].Amount
+			Elixirs.append(newSlot)
+			print("-Index: " + str(i) + ": " + str(Elixirs[i].Item.Name) + ", " + str(Elixirs[i].Amount))
+	else:
+		print("Global Inventory is not populated")
+
 func _process(_delta):
-	if Elixirs[0].Amount > 0:
-		CurrentElixir = Elixirs[ElixirIndex]
+	CurrentElixir = Elixirs[ElixirIndex]
 	
 	if Input.is_action_just_pressed("UseItem"):
 		UseCurrentItem()
@@ -41,6 +56,7 @@ func AddElixir(item : UsableItemResource):
 	print("\nElixirs Contents:")
 	for i in Elixirs.size():
 		print(str(i) + "/" + str(Elixirs.size() - 1) + ": " + str(Elixirs[i].Item.Name) + ", " + str(Elixirs[i].Amount))
+	print("\n")
 
 #Uses the current item
 func UseCurrentItem():
@@ -52,11 +68,12 @@ func UseCurrentItem():
 					CurrentElixir.Amount -= 1
 					var AmntToAdd : int = int(player.MaxHealth * (CurrentElixir.Item.AmountInPercent * 0.01))
 					player.RegainHealth(AmntToAdd)
+					if CurrentElixir.Amount == 0:
+						CycleElixir()
 
 #Cycles the Elixir inventory upward
 func CycleElixir():
-	if CurrentElixir != null:
-		if (ElixirIndex + 1) > Elixirs.size() - 1:
-				ElixirIndex = 0
-		else:
-			ElixirIndex += 1
+	if (ElixirIndex + 1) > Elixirs.size() - 1:
+			ElixirIndex = 0
+	else:
+		ElixirIndex += 1

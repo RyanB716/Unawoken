@@ -26,7 +26,7 @@ func _ready():
 	SouthEast.target_position = Vector2(0, ParentRef.DetectionRange)
 	SouthWest.target_position = Vector2(0, ParentRef.DetectionRange)
 	
-func _process(delta):
+func _process(_delta):
 	CheckCollisions()
 	
 func _physics_process(_delta):

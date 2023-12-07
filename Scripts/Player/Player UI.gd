@@ -7,7 +7,7 @@ func _ready():
 	pass
 	
 func _process(_delta):
-	if player.InventoryRef.CurrentElixir:
+	if player.InventoryRef.CurrentElixir.Amount > 0:
 		$CurrentItem.visible = true
 		$CurrentItem/TextureRect.texture = player.InventoryRef.CurrentElixir.Item.Icon
 		$CurrentItem/Label.text = str(player.InventoryRef.CurrentElixir.Amount)
