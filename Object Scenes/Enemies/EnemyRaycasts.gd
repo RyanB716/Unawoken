@@ -13,6 +13,9 @@ extends Node2D
 @onready var SouthWest = $RC_SW
 
 func _ready():
+	for i in self.get_child_count():
+		self.get_child(i).enabled = false
+
 	North.target_position = Vector2(0, ParentRef.DetectionRange)
 	South.target_position = Vector2(0, -ParentRef.DetectionRange)
 	West.target_position = Vector2(ParentRef.DetectionRange, 0)
@@ -23,7 +26,17 @@ func _ready():
 	SouthEast.target_position = Vector2(0, ParentRef.DetectionRange)
 	SouthWest.target_position = Vector2(0, ParentRef.DetectionRange)
 	
+func _process(delta):
+	CheckCollisions()
+	
 func _physics_process(_delta):
+	SendRaycasts()
+
+func SendRaycasts():
+	for i in self.get_child_count():
+		self.get_child(i).enabled = true
+
+func CheckCollisions():
 	if North.is_colliding():
 		if North.get_collider() is Player:
 			ParentRef.CurrentDirection = ParentRef.DirectionStates.Down

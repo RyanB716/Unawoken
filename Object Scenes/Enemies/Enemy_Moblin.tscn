@@ -1034,7 +1034,4 @@ target_position = Vector2(0, 35)
 rotation = 0.698132
 target_position = Vector2(0, 35)
 
-[node name="RayTimer" type="Timer" parent="Raycasts"]
-one_shot = true
-
 [connection signal="area_entered" from="HurtBox" to="HurtBox" method="WeaponHit"]
