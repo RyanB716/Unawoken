@@ -9,3 +9,5 @@ enum StatTypes {Stamina, Health}
 
 @export_category("Aesthetics")
 @export var Icon : Texture2D
+@export var PickupSFX : AudioStream
+@export var UseSFX : AudioStream

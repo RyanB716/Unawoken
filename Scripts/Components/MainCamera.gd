@@ -37,15 +37,12 @@ func GetRandomVector() -> Vector2:
 	return newOffset
 
 func FadeToBlack(yes : bool, duration : float):
-	print($CanvasLayer/ColorRect.color)
 	if yes:
-		print("Fading TO black")
 		$CanvasLayer/ColorRect.color = Color(0, 0, 0, 0)
 		var newColor = Color(0, 0, 0, 1)
 		var newTween = get_tree().create_tween()
 		newTween.tween_property($CanvasLayer/ColorRect, "color", newColor, duration)
 	else:
-		print("Fading FROM black")
 		$CanvasLayer/ColorRect.color = Color(0, 0, 0, 1)
 		var newColor = Color(0, 0, 0, 0)
 		var newTween = get_tree().create_tween()

@@ -1,7 +1,9 @@
-[gd_resource type="Resource" script_class="UsableItemResource" load_steps=4 format=3 uid="uid://bylvhawsitwpb"]
+[gd_resource type="Resource" script_class="UsableItemResource" load_steps=6 format=3 uid="uid://bylvhawsitwpb"]
 
 [ext_resource type="Texture2D" uid="uid://blynd8ah63k13" path="res://Visual Assets/#2 - Transparent Icons & Drop Shadow.png" id="1_wip8b"]
+[ext_resource type="AudioStream" uid="uid://mfvj3l3wr3co" path="res://Audio/SFX/Object/Potion_Pickup.mp3" id="2_8xt2e"]
 [ext_resource type="Script" path="res://Custom Resources/Items & Inventory/Scripts/UsableItemResource.gd" id="2_uv11y"]
+[ext_resource type="AudioStream" uid="uid://b5v5a034hje1m" path="res://Audio/SFX/Object/Potion_use.mp3" id="3_yai0w"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_qyqfg"]
 atlas = ExtResource("1_wip8b")
@@ -13,3 +15,5 @@ Name = "Mild Elixir"
 StatType = 1
 AmountInPercent = 25
 Icon = SubResource("AtlasTexture_qyqfg")
+PickupSFX = ExtResource("2_8xt2e")
+UseSFX = ExtResource("3_yai0w")

@@ -1,4 +1,4 @@
-[gd_scene load_steps=59 format=3 uid="uid://dxprot5svswbe"]
+[gd_scene load_steps=60 format=3 uid="uid://dxprot5svswbe"]
 
 [ext_resource type="Script" path="res://Scripts/Player/Player.gd" id="1_2gr55"]
 [ext_resource type="Texture2D" uid="uid://bi38invhap0t" path="res://Visual Assets/SpriteSheets/player.png" id="2_w50ld"]
@@ -12,6 +12,7 @@
 [ext_resource type="Script" path="res://Custom Resources/Items & Inventory/Scripts/InventorySlotResource.gd" id="10_2rcg1"]
 [ext_resource type="PackedScene" uid="uid://b8dv2qk331bb" path="res://Object Scenes/Player/StaminaContainer.tscn" id="11_0842j"]
 [ext_resource type="AudioStream" uid="uid://tky2sadciuix" path="res://Audio/SFX/Player/attack3.wav" id="11_e46q2"]
+[ext_resource type="AudioStream" uid="uid://r0ar1gqr6dni" path="res://Audio/SFX/Object/Coin_Add.mp3" id="11_w3b4d"]
 [ext_resource type="Script" path="res://Scripts/Components/FSM/StateMachine.gd" id="12_lsmi8"]
 [ext_resource type="AudioStream" uid="uid://dfg2itgn13nbu" path="res://Audio/SFX/Player/16_human_walk_stone_1.wav" id="12_x7l6c"]
 [ext_resource type="Script" path="res://Scripts/Player/States/Player_Idle.gd" id="13_pcoj7"]
@@ -839,6 +840,12 @@ PlayerRef = NodePath("../..")
 [node name="Inventory" type="Node2D" parent="."]
 script = ExtResource("8_nbgbr")
 Elixirs = Array[ExtResource("10_2rcg1")]([SubResource("Resource_4xkb4")])
+
+[node name="InventoryAudio" type="AudioStreamPlayer" parent="Inventory"]
+
+[node name="CoinAudio" type="AudioStreamPlayer" parent="Inventory"]
+stream = ExtResource("11_w3b4d")
+volume_db = -15.0
 
 [node name="Sprite" type="Sprite2D" parent="."]
 texture_filter = 1

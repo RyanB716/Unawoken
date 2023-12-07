@@ -1,9 +1,10 @@
-[gd_scene load_steps=7 format=3 uid="uid://bkee3pqvgv4x1"]
+[gd_scene load_steps=8 format=3 uid="uid://bkee3pqvgv4x1"]
 
 [ext_resource type="Script" path="res://Scripts/Components/Destructable.gd" id="1_7pkaf"]
 [ext_resource type="Texture2D" uid="uid://dgmg5rdrhnbnq" path="res://Visual Assets/TileSets/Props.png" id="1_p62lq"]
-[ext_resource type="AudioStream" uid="uid://c7kbw80rtwobm" path="res://Audio/SFX/Object/14741_1460058298.mp3" id="2_gnvo5"]
-[ext_resource type="AudioStream" uid="uid://lo61e6j68t6u" path="res://Audio/SFX/Object/14742_1460058298.mp3" id="3_0maen"]
+[ext_resource type="AudioStream" uid="uid://c7kbw80rtwobm" path="res://Audio/SFX/Object/Glass_1.mp3" id="2_dwv04"]
+[ext_resource type="AudioStream" uid="uid://lo61e6j68t6u" path="res://Audio/SFX/Object/Glass_3.mp3" id="3_1xgnj"]
+[ext_resource type="AudioStream" uid="uid://bawa6dujwc040" path="res://Audio/SFX/Object/Glass_2.mp3" id="4_jcogi"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_rmudn"]
 size = Vector2(16, 18)
@@ -14,8 +15,7 @@ size = Vector2(13, 15)
 [node name="Pot" type="StaticBody2D"]
 script = ExtResource("1_7pkaf")
 NeededHits = 1
-HitSFX = Array[AudioStream]([ExtResource("2_gnvo5")])
-BreakSFX = Array[AudioStream]([ExtResource("3_0maen")])
+BreakSFX = Array[AudioStream]([ExtResource("2_dwv04"), ExtResource("3_1xgnj"), ExtResource("4_jcogi")])
 
 [node name="Area2D" type="Area2D" parent="."]
 

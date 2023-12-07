@@ -35,6 +35,8 @@ func _process(_delta):
 
 #Adds a new Elixir item to proper inventory
 func AddElixir(item : UsableItemResource):
+	$InventoryAudio.stream = item.PickupSFX
+	$InventoryAudio.play()
 	for i in Elixirs.size():
 		if Elixirs[i].Item.Name == item.Name:
 			print("\nMatches!")
@@ -49,7 +51,7 @@ func AddElixir(item : UsableItemResource):
 				newSlot.Item = item
 				newSlot.Amount = 1
 				Elixirs.append(newSlot)
-				if CurrentElixir == null:
+				if CurrentElixir.Amount == 0:
 					CurrentElixir = Elixirs[i]
 				break
 		
@@ -60,6 +62,8 @@ func AddElixir(item : UsableItemResource):
 
 #Uses the current item
 func UseCurrentItem():
+	$InventoryAudio.stream = CurrentElixir.Item.UseSFX
+	$InventoryAudio.play()
 	if CurrentElixir.Amount> 0:
 		var player = get_parent()
 		if player is Player:
@@ -77,3 +81,7 @@ func CycleElixir():
 			ElixirIndex = 0
 	else:
 		ElixirIndex += 1
+
+func AddCoin():
+	CoinCount += 1
+	$CoinAudio.play()

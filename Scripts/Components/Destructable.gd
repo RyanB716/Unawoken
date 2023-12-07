@@ -26,8 +26,13 @@ func _ready():
 
 #If the current hit will meet the NeededHits variable, then executes feedback commands, then deletes itself
 func Destroy():
+	PlayBreakSFX()
 	Area.queue_free()
-	GiveReward()
+	$CollisionShape2D.queue_free()
+	$Sprite2D.visible = false
+	GiveItems()
+	await get_tree().create_timer(1).timeout
+	self.queue_free()
 
 #plays a random sfx
 func PlayHitSFX():
@@ -48,12 +53,6 @@ func PlayBreakSFX():
 	NewPlayer.stream = BreakSFX[index - 1]
 	NewPlayer.play()
 	await NewPlayer.finished
-	NewPlayer.queue_free()
-
-#Decide on wether or not to give XP, or Items & Coins, then generate a random selection from provided data
-func GiveReward():
-	GiveItems()
-	self.queue_free()
 
 func GiveItems():
 	print("Spawning items")
