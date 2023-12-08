@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://bhvpudy3rhqqu"]
+[gd_scene load_steps=9 format=3 uid="uid://bhvpudy3rhqqu"]
 
 [ext_resource type="Script" path="res://Object Scenes/NPCS/Merchants/Ware_Slot.gd" id="1_mb27y"]
 [ext_resource type="FontFile" uid="uid://dlulxm5dxb804" path="res://Visual Assets/Fonts/Seagram tfb.ttf" id="1_vvl3e"]
@@ -21,6 +21,9 @@ font_size = 25
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_6tu8l"]
 bg_color = Color(0, 0, 0, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_r2ux5"]
+bg_color = Color(1, 1, 1, 1)
 
 [node name="Ware_Slot" type="Control" node_paths=PackedStringArray("BuyButton")]
 custom_minimum_size = Vector2(350, 500)
@@ -122,7 +125,12 @@ offset_right = 125.0
 offset_bottom = 79.0
 grow_horizontal = 2
 grow_vertical = 0
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_focus_color = Color(0, 0, 0, 1)
 theme_override_fonts/font = ExtResource("1_vvl3e")
 theme_override_font_sizes/font_size = 50
 theme_override_styles/normal = SubResource("StyleBoxFlat_6tu8l")
+theme_override_styles/focus = SubResource("StyleBoxFlat_r2ux5")
 text = "Buy"
+
+[connection signal="pressed" from="Button" to="." method="_on_button_pressed"]

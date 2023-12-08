@@ -33,5 +33,5 @@ func _on_area_exited(area):
 	UI.StatueMenu.visible = false
 
 func RepopulateDialogue():
-	for i in SpokenLines.size() - 1:
+	for i in SpokenLines.size():
 		Dialogue.append(SpokenLines[i])

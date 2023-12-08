@@ -9,7 +9,7 @@
 
 [sub_resource type="Resource" id="Resource_d7216"]
 script = ExtResource("3_wd581")
-Cost = 35
+Cost = 15
 Item = ExtResource("2_a00j8")
 Amount = 10
 

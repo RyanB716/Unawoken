@@ -1,6 +1,8 @@
 extends Panel
 class_name ShopMenu
 
+@export var DialogueBox : RichTextLabel
+
 @onready var player = get_parent().player
 
 @onready var SlotScene = preload("res://Object Scenes/NPCS/Merchants/Ware_Slot.tscn")
@@ -9,7 +11,7 @@ var Buttons : Array[Button]
 
 var NPC : Merchant
 
-var CanUpdate : bool = true
+var newText : String
 
 func _ready():
 	self.visible = false
@@ -21,15 +23,14 @@ func _process(delta):
 		get_tree().paused = false
 		
 	if Input.is_action_just_pressed("CycleElixir"):
-		if CanUpdate:
-			var RNG = RandomNumberGenerator.new()
-			RNG.randomize()
-			var Index = RNG.randi_range(0, NPC.Dialogue.size() - 1)
-			UpdateText(NPC.Dialogue[Index])
-			NPC.SpokenLines.append(NPC.Dialogue[Index])
-			NPC.Dialogue.remove_at(Index)
-			if NPC.Dialogue.size() == 1:
-				NPC.RepopulateDialogue()
+		var RNG = RandomNumberGenerator.new()
+		RNG.randomize()
+		var Index = RNG.randi_range(0, NPC.Dialogue.size() - 1)
+		UpdateText(NPC.Dialogue[Index])
+		NPC.SpokenLines.append(NPC.Dialogue[Index])
+		NPC.Dialogue.remove_at(Index)
+		if NPC.Dialogue.size() <= 1:
+			NPC.RepopulateDialogue()
 	
 func OpenMenu(npc : Merchant):
 	NPC = npc
@@ -47,6 +48,7 @@ func OpenMenu(npc : Merchant):
 			
 	$Portrait.texture = NPC.Portrait
 	UpdateText(NPC.Greeting)
+	await get_tree().create_timer(0.25).timeout
 	Buttons[0].grab_focus()
 
 func ClearMenu():
@@ -55,12 +57,15 @@ func ClearMenu():
 		$HBoxContainer.get_child(i).queue_free()
 
 func UpdateText(message : String):
-	CanUpdate = false
-	var newText = message
-	$"Dialogue Shadow/Dialogue Box".text = ""
+	DialogueBox.text = ""
+	
+	if newText != "":
+		newText = ""
+	newText = message
 	
 	for i in newText.length():
-		$"Dialogue Shadow/Dialogue Box".text += newText[i]
-		await get_tree().create_timer(0.025).timeout
-		
-	CanUpdate = true
+		if newText == message:
+			DialogueBox.text += message[i]
+			await get_tree().create_timer(0.05).timeout
+		else:
+			break

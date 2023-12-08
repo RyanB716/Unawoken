@@ -33,7 +33,7 @@
 [ext_resource type="FontFile" uid="uid://ba0gbrsq1d1dv" path="res://Visual Assets/Fonts/OldLondon.ttf" id="29_samax"]
 [ext_resource type="Script" path="res://Object Scenes/Player/ShopMenu.gd" id="32_d61sc"]
 [ext_resource type="PackedScene" uid="uid://bhvpudy3rhqqu" path="res://Object Scenes/NPCS/Merchants/Ware_Slot.tscn" id="33_v2grb"]
-[ext_resource type="FontFile" uid="uid://bs6libyxfwgc" path="res://Visual Assets/Fonts/MorrisRomanBlack.ttf" id="34_o6p6c"]
+[ext_resource type="FontFile" uid="uid://bs6libyxfwgc" path="res://Visual Assets/Fonts/MorrisRomanBlack.ttf" id="34_opvei"]
 
 [sub_resource type="Resource" id="Resource_4xkb4"]
 script = ExtResource("10_2rcg1")
@@ -851,6 +851,7 @@ script = ExtResource("7_snygb")
 PlayerRef = NodePath("../..")
 
 [node name="Inventory" type="Node2D" parent="."]
+process_mode = 3
 script = ExtResource("8_nbgbr")
 Elixirs = Array[ExtResource("10_2rcg1")]([SubResource("Resource_4xkb4")])
 
@@ -930,6 +931,7 @@ one_shot = true
 one_shot = true
 
 [node name="Player UI" type="CanvasLayer" parent="." node_paths=PackedStringArray("player", "StatueMenu", "Shop")]
+process_mode = 3
 script = ExtResource("17_k3vfi")
 player = NodePath("..")
 StatueMenu = NodePath("StatueMenu")
@@ -1031,7 +1033,7 @@ grow_vertical = 0
 text = "$: 100"
 label_settings = SubResource("LabelSettings_buh0n")
 
-[node name="ShopPanel" type="Panel" parent="Player UI"]
+[node name="ShopPanel" type="Panel" parent="Player UI" node_paths=PackedStringArray("DialogueBox")]
 process_mode = 3
 custom_minimum_size = Vector2(1250, 700)
 anchors_preset = 8
@@ -1047,6 +1049,7 @@ grow_horizontal = 2
 grow_vertical = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_xpyy5")
 script = ExtResource("32_d61sc")
+DialogueBox = NodePath("Dialogue Shadow/DialogueBox")
 
 [node name="HBoxContainer" type="HBoxContainer" parent="Player UI/ShopPanel"]
 texture_filter = 1
@@ -1092,21 +1095,22 @@ offset_right = 1253.0
 offset_bottom = 900.0
 theme_override_styles/panel = SubResource("StyleBoxFlat_xjesi")
 
-[node name="Dialogue Box" type="RichTextLabel" parent="Player UI/ShopPanel/Dialogue Shadow"]
+[node name="DialogueBox" type="RichTextLabel" parent="Player UI/ShopPanel/Dialogue Shadow"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = 13.0
-offset_top = 9.0
-offset_right = -13.0
-offset_bottom = -10.0
+offset_left = 16.0
+offset_top = 8.0
+offset_right = -24.0
+offset_bottom = -9.0
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_fonts/normal_font = ExtResource("34_o6p6c")
+theme_override_fonts/normal_font = ExtResource("34_opvei")
 theme_override_font_sizes/normal_font_size = 50
-text = "Greetings friend!"
 fit_content = true
+scroll_active = false
+text_direction = 1
 
 [connection signal="area_entered" from="SwordArea" to="SwordArea" method="WeaponHit"]
 [connection signal="timeout" from="Timers/DeathTimer" to="." method="Respawn"]
