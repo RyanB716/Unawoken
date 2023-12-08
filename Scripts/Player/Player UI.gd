@@ -2,6 +2,7 @@ extends CanvasLayer
 
 @export var player : Player
 @export var StatueMenu : Statue_Menu
+@export var Shop : ShopMenu
 
 func _ready():
 	pass

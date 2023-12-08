@@ -55,7 +55,6 @@ func PlayBreakSFX():
 	await NewPlayer.finished
 
 func GiveItems():
-	print("Spawning items")
 	if ItemDrops.size() >= 1:
 		for i in ItemDrops.size():
 			var newItem = PickupScene.instantiate()

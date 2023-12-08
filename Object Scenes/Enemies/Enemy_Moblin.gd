@@ -10,6 +10,7 @@ class_name Moblin
 @onready var EnvironmentCollider = $EnvironmentCollider
 @onready var HitBoxCollider = $HitBox/HitCollider
 @onready var HurtBoxCollider = $HurtBox/HurtCollider
+@onready var Raycasts = $Raycasts
 
 func _ready():
 	PlayerTarget = get_tree().get_first_node_in_group("Player")

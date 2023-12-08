@@ -10,6 +10,8 @@ func OnEnter():
 	SelfRef.IsAttacking = true
 	SelfRef.velocity = Vector2.ZERO
 	
+	SelfRef.Raycasts.CheckCollisions()
+	
 	match SelfRef.CurrentDirection:
 		0:
 			SelfRef.AnimPlayer.play("Attack/Attack_U")

@@ -17,3 +17,4 @@ AmountInPercent = 15
 Icon = SubResource("AtlasTexture_ynil2")
 PickupSFX = ExtResource("2_bs0iu")
 UseSFX = ExtResource("3_mp8dl")
+Description = "A thick and bitter fluid. Restores some health."

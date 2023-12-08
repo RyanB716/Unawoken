@@ -1,4 +1,4 @@
-[gd_scene load_steps=60 format=3 uid="uid://dxprot5svswbe"]
+[gd_scene load_steps=65 format=3 uid="uid://dxprot5svswbe"]
 
 [ext_resource type="Script" path="res://Scripts/Player/Player.gd" id="1_2gr55"]
 [ext_resource type="Texture2D" uid="uid://bi38invhap0t" path="res://Visual Assets/SpriteSheets/player.png" id="2_w50ld"]
@@ -31,6 +31,9 @@
 [ext_resource type="AudioStream" uid="uid://dlnsrugki0emv" path="res://Audio/SFX/Player/blade_hit_07.wav" id="23_4lgdd"]
 [ext_resource type="AudioStream" uid="uid://b1u7ihusdosr8" path="res://Audio/SFX/Player/blade_hit_08.wav" id="24_pwdi1"]
 [ext_resource type="FontFile" uid="uid://ba0gbrsq1d1dv" path="res://Visual Assets/Fonts/OldLondon.ttf" id="29_samax"]
+[ext_resource type="Script" path="res://Object Scenes/Player/ShopMenu.gd" id="32_d61sc"]
+[ext_resource type="PackedScene" uid="uid://bhvpudy3rhqqu" path="res://Object Scenes/NPCS/Merchants/Ware_Slot.tscn" id="33_v2grb"]
+[ext_resource type="FontFile" uid="uid://bs6libyxfwgc" path="res://Visual Assets/Fonts/MorrisRomanBlack.ttf" id="34_o6p6c"]
 
 [sub_resource type="Resource" id="Resource_4xkb4"]
 script = ExtResource("10_2rcg1")
@@ -793,6 +796,16 @@ font_size = 25
 font = ExtResource("22_lpgic")
 font_size = 30
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_xpyy5"]
+bg_color = Color(1, 1, 1, 0.705882)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_xjesi"]
+bg_color = Color(0, 0, 0, 0.917647)
+corner_radius_top_left = 15
+corner_radius_top_right = 15
+corner_radius_bottom_right = 15
+corner_radius_bottom_left = 15
+
 [node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("InventoryRef") groups=["Player"]]
 z_index = 1
 collision_mask = 7
@@ -916,10 +929,11 @@ one_shot = true
 [node name="XPTimer" type="Timer" parent="Timers"]
 one_shot = true
 
-[node name="Player UI" type="CanvasLayer" parent="." node_paths=PackedStringArray("player", "StatueMenu")]
+[node name="Player UI" type="CanvasLayer" parent="." node_paths=PackedStringArray("player", "StatueMenu", "Shop")]
 script = ExtResource("17_k3vfi")
 player = NodePath("..")
 StatueMenu = NodePath("StatueMenu")
+Shop = NodePath("ShopPanel")
 
 [node name="Health Bar" parent="Player UI" instance=ExtResource("10_1g6mq")]
 
@@ -1016,6 +1030,83 @@ grow_horizontal = 0
 grow_vertical = 0
 text = "$: 100"
 label_settings = SubResource("LabelSettings_buh0n")
+
+[node name="ShopPanel" type="Panel" parent="Player UI"]
+process_mode = 3
+custom_minimum_size = Vector2(1250, 700)
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -625.0
+offset_top = -399.0
+offset_right = 625.0
+offset_bottom = 301.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_xpyy5")
+script = ExtResource("32_d61sc")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Player UI/ShopPanel"]
+texture_filter = 1
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -20.0
+offset_right = 20.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 50
+
+[node name="Ware_Slot" parent="Player UI/ShopPanel/HBoxContainer" instance=ExtResource("33_v2grb")]
+layout_mode = 2
+
+[node name="Ware_Slot2" parent="Player UI/ShopPanel/HBoxContainer" instance=ExtResource("33_v2grb")]
+layout_mode = 2
+
+[node name="Ware_Slot3" parent="Player UI/ShopPanel/HBoxContainer" instance=ExtResource("33_v2grb")]
+layout_mode = 2
+
+[node name="Portrait" type="TextureRect" parent="Player UI/ShopPanel"]
+texture_filter = 1
+custom_minimum_size = Vector2(175, 175)
+layout_mode = 0
+offset_left = 7.0
+offset_top = 730.0
+offset_right = 182.0
+offset_bottom = 905.0
+expand_mode = 1
+
+[node name="Dialogue Shadow" type="Panel" parent="Player UI/ShopPanel"]
+custom_minimum_size = Vector2(1000, 150)
+layout_mode = 0
+offset_left = 253.0
+offset_top = 750.0
+offset_right = 1253.0
+offset_bottom = 900.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_xjesi")
+
+[node name="Dialogue Box" type="RichTextLabel" parent="Player UI/ShopPanel/Dialogue Shadow"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 13.0
+offset_top = 9.0
+offset_right = -13.0
+offset_bottom = -10.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_fonts/normal_font = ExtResource("34_o6p6c")
+theme_override_font_sizes/normal_font_size = 50
+text = "Greetings friend!"
+fit_content = true
 
 [connection signal="area_entered" from="SwordArea" to="SwordArea" method="WeaponHit"]
 [connection signal="timeout" from="Timers/DeathTimer" to="." method="Respawn"]

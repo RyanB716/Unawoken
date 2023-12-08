@@ -19,12 +19,8 @@ func SendAway():
 func TimeDestroy():
 	var RNG = RandomNumberGenerator.new()
 	RNG.randomize()
-	#var newTime = RNG.randf_range(5.0, 10.0)
-	await get_tree().create_timer(20.0).timeout
+	await get_tree().create_timer(30.0).timeout
 	if self.is_inside_tree():
-		#var player = get_tree().get_first_node_in_group("Player")
-		#if player is Player:
-			#player.InventoryRef.CoinCount += 1
 		self.queue_free()
 
 #Add to coin count on collision

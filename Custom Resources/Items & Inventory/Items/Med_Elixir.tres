@@ -17,3 +17,4 @@ AmountInPercent = 25
 Icon = SubResource("AtlasTexture_qyqfg")
 PickupSFX = ExtResource("2_8xt2e")
 UseSFX = ExtResource("3_yai0w")
+Description = "Acidic and carbonated. Restores a moderate amount of health."

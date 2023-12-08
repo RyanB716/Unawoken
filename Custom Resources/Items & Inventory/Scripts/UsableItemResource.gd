@@ -11,3 +11,4 @@ enum StatTypes {Stamina, Health}
 @export var Icon : Texture2D
 @export var PickupSFX : AudioStream
 @export var UseSFX : AudioStream
+@export var Description : String
