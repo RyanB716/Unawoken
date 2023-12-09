@@ -6,7 +6,7 @@ class_name Player_Attack
 func OnEnter():
 	print("Index: " + str(PlayerRef.CurrentAttackIndex))
 	print("Index after attack: " + str(PlayerRef.CurrentAttackIndex + 1))
-	PlayerRef.UI.AttackIcons.TakeAwayIndicators(1)
+	
 	if !PlayerRef.AttackTimer.is_stopped():
 			PlayerRef.AttackTimer.stop()
 			
@@ -63,6 +63,8 @@ func OnEnter():
 	
 	elif PlayerRef.CurrentAttackIndex < PlayerRef.MaxAttackNumber:
 		PlayerRef.AttackTimer.start(PlayerRef.AttackTime)
+		
+	PlayerRef.UI.AttackIcons.TakeAwayIndicators(1)
 	
 	PlayerRef.CurrentAttackIndex += 1
 	Transitioned.emit("Player_Idle")

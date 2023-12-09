@@ -13,6 +13,7 @@ config_version=5
 config/name="Unawoken"
 run/main_scene="res://Game Management/Scenes/MainMenu.tscn"
 config/features=PackedStringArray("4.1", "Forward Plus")
+boot_splash/bg_color=Color(0, 0, 0, 1)
 config/icon="res://icon.svg"
 
 [autoload]
@@ -23,7 +24,6 @@ GameSettings="*res://Custom Resources/Globals/GameSettings.gd"
 
 window/size/viewport_width=1920
 window/size/viewport_height=1080
-window/size/mode=3
 window/stretch/mode="viewport"
 window/stretch/aspect="ignore"
 
@@ -156,4 +156,4 @@ CycleElixir={
 
 [rendering]
 
-environment/defaults/default_clear_color=Color(0.078125, 0.078125, 0.0703125, 1)
+environment/defaults/default_clear_color=Color(0, 0, 0, 1)

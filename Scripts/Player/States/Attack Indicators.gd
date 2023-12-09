@@ -5,6 +5,9 @@ class_name AttackIndicators
 @export var player : Player
 
 func SetMaxIcons():
+	for i in self.get_child_count():
+		get_child(i).queue_free()
+		
 	for i in player.MaxAttackNumber:
 		var newIcon = Icon.instantiate()
 		add_child(newIcon)
@@ -12,8 +15,3 @@ func SetMaxIcons():
 func TakeAwayIndicators(amount : int):
 	for i in amount:
 		get_child(i).queue_free()
-		
-func AddIndicator(amount : int):
-	for i in amount:
-		var newIcon = Icon.instantiate()
-		add_child(newIcon)

@@ -1,7 +1,7 @@
 [gd_scene load_steps=13 format=3 uid="uid://cff6578t7mr7b"]
 
+[ext_resource type="Script" path="res://Game Management/Scripts/ControlsList.gd" id="1_0jj32"]
 [ext_resource type="PackedScene" uid="uid://dukgowli70ket" path="res://Object Scenes/Shaders/Color Rects/ChromaticAbberation.tscn" id="1_634pt"]
-[ext_resource type="Script" path="res://Game Management/Scenes/ControlsList.gd" id="1_yt5xw"]
 [ext_resource type="PackedScene" uid="uid://hjgr02ppy2rv" path="res://Object Scenes/Shaders/Color Rects/FilmGrain.tscn" id="2_2mpqd"]
 [ext_resource type="Texture2D" uid="uid://bgo40yttp5ce2" path="res://Visual Assets/UI/Control Icons/Left Stick.png" id="3_gm3vp"]
 [ext_resource type="FontFile" uid="uid://dlulxm5dxb804" path="res://Visual Assets/Fonts/Seagram tfb.ttf" id="4_kk75e"]
@@ -26,7 +26,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-script = ExtResource("1_yt5xw")
+script = ExtResource("1_0jj32")
 
 [node name="Panel" type="Panel" parent="."]
 layout_mode = 1

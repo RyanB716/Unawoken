@@ -1,6 +1,6 @@
 [gd_scene load_steps=9 format=3 uid="uid://bhvpudy3rhqqu"]
 
-[ext_resource type="Script" path="res://Object Scenes/NPCS/Merchants/Ware_Slot.gd" id="1_mb27y"]
+[ext_resource type="Script" path="res://Custom Resources/Items & Inventory/Scripts/Ware_Slot.gd" id="1_mb27y"]
 [ext_resource type="FontFile" uid="uid://dlulxm5dxb804" path="res://Visual Assets/Fonts/Seagram tfb.ttf" id="1_vvl3e"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ohq8j"]

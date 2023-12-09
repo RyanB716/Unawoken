@@ -3,17 +3,24 @@ class_name Statue_Menu
 
 var CurrentStatue : Statue
 
+@export_category("Audio")
+@export var Audio : AudioStreamPlayer
+
 @export var InSFX : AudioStream
 @export var OutSFX : AudioStream
 @export var Click : AudioStream
 
+@export_category("Buttons")
+@export var YesBtn : Button
+@export var NoBtn : Button
+
 @onready var player : Player = get_tree().get_first_node_in_group('Player')
 func _on_visibility_changed():
 	if visible == true:
-		$AudioStreamPlayer.stream = InSFX
-		$AudioStreamPlayer.play()
+		Audio.stream = InSFX
+		Audio.play()
 		await get_tree().create_timer(0.25).timeout
-		$HBoxContainer/Yes.grab_focus()
+		YesBtn.grab_focus()
 
 func _on_yes_pressed():
 	get_tree().get_first_node_in_group('Cameras').FadeToBlack(true, 3.0)
@@ -30,9 +37,9 @@ func _on_yes_pressed():
 
 func _on_no_pressed():
 	self.visible = false
-	$AudioStreamPlayer.stream = OutSFX
-	$AudioStreamPlayer.play()
+	Audio.stream = OutSFX
+	Audio.play()
 
 func PlayClick():
-	$AudioStreamPlayer.stream = Click
-	$AudioStreamPlayer.play()
+	Audio.stream = Click
+	Audio.play()

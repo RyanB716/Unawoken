@@ -1,7 +1,7 @@
 [gd_scene load_steps=10 format=3 uid="uid://bah6bwn6do5bj"]
 
 [ext_resource type="FontFile" uid="uid://bs6libyxfwgc" path="res://Visual Assets/Fonts/MorrisRomanBlack.ttf" id="1_5ft2k"]
-[ext_resource type="Script" path="res://Object Scenes/Player/Statue Menu.gd" id="1_febv6"]
+[ext_resource type="Script" path="res://Scripts/Player/States/Statue Menu.gd" id="1_x1mes"]
 [ext_resource type="AudioStream" uid="uid://e6lc4du0uqfn" path="res://Audio/SFX/UI/Menu_In.mp3" id="2_ljwb3"]
 [ext_resource type="AudioStream" uid="uid://70y0whjphl5c" path="res://Audio/SFX/UI/Menu_Out.mp3" id="3_p7qaj"]
 [ext_resource type="AudioStream" uid="uid://05r4hhm2yxwl" path="res://Audio/SFX/UI/16461_1460643357.mp3" id="4_cgium"]
@@ -27,7 +27,7 @@ border_width_right = 5
 border_width_bottom = 5
 border_color = Color(0, 0, 0, 1)
 
-[node name="StatueMenu" type="Panel"]
+[node name="StatueMenu" type="Panel" node_paths=PackedStringArray("Audio", "YesBtn", "NoBtn")]
 custom_minimum_size = Vector2(750, 375)
 anchors_preset = 8
 anchor_left = 0.5
@@ -41,10 +41,13 @@ offset_bottom = 539.0
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_kh83s")
-script = ExtResource("1_febv6")
+script = ExtResource("1_x1mes")
+Audio = NodePath("AudioStreamPlayer")
 InSFX = ExtResource("2_ljwb3")
 OutSFX = ExtResource("3_p7qaj")
 Click = ExtResource("4_cgium")
+YesBtn = NodePath("HBoxContainer/Yes")
+NoBtn = NodePath("HBoxContainer/No")
 
 [node name="Label" type="Label" parent="."]
 layout_mode = 1

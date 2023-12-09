@@ -1,6 +1,6 @@
 [gd_scene load_steps=17 format=3 uid="uid://b1e2vsd1485iw"]
 
-[ext_resource type="Script" path="res://Object Scenes/NPCS/Merchants/MerchantClass.gd" id="1_ebl6r"]
+[ext_resource type="Script" path="res://Scripts/NPcs/MerchantClass.gd" id="1_ebl6r"]
 [ext_resource type="Texture2D" uid="uid://y3mr7qen2b04" path="res://Visual Assets/SpriteSheets/NPCs/Merchants/crow_idle.png" id="1_i64by"]
 [ext_resource type="Texture2D" uid="uid://b7kyjf5pv8ne" path="res://Visual Assets/UI/icons_ps4_animated_buttons1.png" id="2_4sdru"]
 [ext_resource type="Resource" uid="uid://c8m3us0sxsy1l" path="res://Custom Resources/Items & Inventory/Items/LiteElixir.tres" id="2_a00j8"]
