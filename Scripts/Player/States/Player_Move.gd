@@ -26,5 +26,5 @@ func Update(_delta : float):
 	if Input.is_action_just_pressed("Attack") && PlayerRef.CooldownTimer.is_stopped():
 		Transitioned.emit("Player_Attack")
 		
-	if Input.is_action_just_pressed("Roll") && (PlayerRef.CurrentStaminaActions - 2 >= 0):
+	if Input.is_action_just_pressed("Roll") && (PlayerRef.CurrentStaminaActions - 1 > 0):
 		Transitioned.emit("Roll")

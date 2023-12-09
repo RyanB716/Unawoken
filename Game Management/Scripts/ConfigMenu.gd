@@ -8,9 +8,15 @@ func _ready():
 		
 	$VBoxContainer/BackButton.grab_focus()
 
-func CheckIntro():
+func _process(delta):
+	if Input.is_action_just_pressed("ui_cancel"):
+		get_tree().change_scene_to_file("res://Game Management/Scenes/MainMenu.tscn")
+
+func SetIntro():
 	GameSettings.PlayIntro = !GameSettings.PlayIntro
-	print(GameSettings.PlayIntro)
 	
 func GoBack():
 	get_tree().change_scene_to_file("res://Game Management/Scenes/MainMenu.tscn")
+
+func OpenControls():
+	get_tree().change_scene_to_file("res://Game Management/Scenes/ControlsList.tscn")

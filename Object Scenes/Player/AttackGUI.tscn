@@ -1,0 +1,18 @@
+[gd_scene load_steps=3 format=3 uid="uid://dn1nfb6pxmd20"]
+
+[ext_resource type="Texture2D" uid="uid://1uarnvruolxg" path="res://Visual Assets/#1 - Transparent Icons.png" id="1_bxj34"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_rtq75"]
+atlas = ExtResource("1_bxj34")
+region = Rect2(64, 160, 32, 32)
+
+[node name="Attack Indicator" type="Control"]
+texture_filter = 1
+layout_mode = 3
+anchors_preset = 0
+
+[node name="TextureRect" type="TextureRect" parent="."]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+texture = SubResource("AtlasTexture_rtq75")

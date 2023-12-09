@@ -4,6 +4,9 @@ class_name Player_Attack
 @export var PlayerRef : Player
 
 func OnEnter():
+	print("Index: " + str(PlayerRef.CurrentAttackIndex))
+	print("Index after attack: " + str(PlayerRef.CurrentAttackIndex + 1))
+	PlayerRef.UI.AttackIcons.TakeAwayIndicators(1)
 	if !PlayerRef.AttackTimer.is_stopped():
 			PlayerRef.AttackTimer.stop()
 			
@@ -24,10 +27,7 @@ func OnEnter():
 			3:
 				PlayerRef.AnimPlayer.play("Attack_1/Attack_1_Right")
 		
-		PlayerRef.CurrentAttackIndex = 2
-		
 	else:
-		
 		match PlayerRef.CurrentAttackIndex:
 			2:
 				match PlayerRef.CurrentDirection:
@@ -39,9 +39,7 @@ func OnEnter():
 						PlayerRef.AnimPlayer.play("Attack_2/Attack_2_Left")
 					3:
 						PlayerRef.AnimPlayer.play("Attack_2/Attack_2_Right")
-						
-				PlayerRef.CurrentAttackIndex = 3
-			
+		
 			3:
 				match PlayerRef.CurrentDirection:
 					0:
@@ -52,16 +50,19 @@ func OnEnter():
 						PlayerRef.AnimPlayer.play("Attack_1/Attack_1_Left")
 					3:
 						PlayerRef.AnimPlayer.play("Attack_1/Attack_1_Right")
-						
-				PlayerRef.AttackCooldown()
-	
 	
 	PlayerRef.WeaponAudio.PlaySFX()
 	await PlayerRef.AnimPlayer.animation_finished
 	
 	PlayerRef.TopSpeed = PreviousSpeed
 	
-	if PlayerRef.CurrentAttackIndex < 3:
+	if PlayerRef.CurrentAttackIndex == PlayerRef.MaxAttackNumber:
+		PlayerRef.AttackCooldown()
+		PlayerRef.ReduceStamina(1)
+		PlayerRef.ResetStamina(1)
+	
+	elif PlayerRef.CurrentAttackIndex < PlayerRef.MaxAttackNumber:
 		PlayerRef.AttackTimer.start(PlayerRef.AttackTime)
 	
+	PlayerRef.CurrentAttackIndex += 1
 	Transitioned.emit("Player_Idle")

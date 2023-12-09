@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=3 uid="uid://bmrv0ur1rwq74"]
+[gd_scene load_steps=18 format=3 uid="uid://bmrv0ur1rwq74"]
 
 [ext_resource type="Script" path="res://Game Management/Scripts/ConfigMenu.gd" id="1_iyanm"]
 [ext_resource type="FontFile" uid="uid://dlulxm5dxb804" path="res://Visual Assets/Fonts/Seagram tfb.ttf" id="1_prdbe"]
@@ -7,16 +7,14 @@
 [ext_resource type="Script" path="res://Scripts/Components/Audio Controllers/MenuAudio.gd" id="5_dc1un"]
 [ext_resource type="AudioStream" uid="uid://wxdkvn5k7u4q" path="res://Audio/SFX/UI/Fantasy_UI (57).wav" id="6_ccb6k"]
 [ext_resource type="AudioStream" uid="uid://05r4hhm2yxwl" path="res://Audio/SFX/UI/16461_1460643357.mp3" id="7_rpqoa"]
+[ext_resource type="PackedScene" uid="uid://dukgowli70ket" path="res://Object Scenes/Shaders/Color Rects/ChromaticAbberation.tscn" id="8_4x57r"]
+[ext_resource type="PackedScene" uid="uid://hjgr02ppy2rv" path="res://Object Scenes/Shaders/Color Rects/FilmGrain.tscn" id="9_ng8m1"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_4hcfq"]
 bg_color = Color(0, 0, 0, 1)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_qvgct"]
 bg_color = Color(0, 0, 0, 1)
-border_width_left = 2
-border_width_top = 2
-border_width_right = 2
-border_width_bottom = 2
 border_color = Color(1, 1, 1, 1)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_t1yu6"]
@@ -82,6 +80,16 @@ theme_override_styles/focus = SubResource("StyleBoxFlat_jlyip")
 text = "Play Intro"
 alignment = 2
 
+[node name="Controls" type="Button" parent="VBoxContainer"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("1_prdbe")
+theme_override_font_sizes/font_size = 75
+theme_override_styles/normal = SubResource("StyleBoxFlat_e64d2")
+theme_override_styles/hover = SubResource("StyleBoxFlat_irvya")
+theme_override_styles/focus = SubResource("StyleBoxFlat_imya3")
+text = "Controls
+"
+
 [node name="BackButton" type="Button" parent="VBoxContainer"]
 layout_mode = 2
 theme_override_fonts/font = ExtResource("1_prdbe")
@@ -98,9 +106,21 @@ script = ExtResource("5_dc1un")
 NewGameSFX = ExtResource("6_ccb6k")
 Tick = ExtResource("7_rpqoa")
 
+[node name="ChromaticAbberation" parent="." instance=ExtResource("8_4x57r")]
+z_index = 1
+layout_mode = 1
+mouse_filter = 1
+
+[node name="FilmGrain" parent="." instance=ExtResource("9_ng8m1")]
+z_index = 1
+layout_mode = 1
+
 [connection signal="focus_entered" from="VBoxContainer/CheckIntro" to="AudioStreamPlayer" method="PlayTick"]
 [connection signal="mouse_entered" from="VBoxContainer/CheckIntro" to="AudioStreamPlayer" method="PlayTick"]
-[connection signal="pressed" from="VBoxContainer/CheckIntro" to="." method="CheckIntro"]
+[connection signal="pressed" from="VBoxContainer/CheckIntro" to="." method="SetIntro"]
+[connection signal="focus_entered" from="VBoxContainer/Controls" to="AudioStreamPlayer" method="PlayTick"]
+[connection signal="mouse_entered" from="VBoxContainer/Controls" to="AudioStreamPlayer" method="PlayTick"]
+[connection signal="pressed" from="VBoxContainer/Controls" to="." method="OpenControls"]
 [connection signal="focus_entered" from="VBoxContainer/BackButton" to="AudioStreamPlayer" method="PlayTick"]
 [connection signal="mouse_entered" from="VBoxContainer/BackButton" to="AudioStreamPlayer" method="PlayTick"]
 [connection signal="pressed" from="VBoxContainer/BackButton" to="." method="GoBack"]

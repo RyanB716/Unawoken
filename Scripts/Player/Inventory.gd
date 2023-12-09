@@ -21,6 +21,7 @@ func _ready():
 			newSlot.Amount = GameSettings.PlayerInventory[i].Amount
 			Elixirs.append(newSlot)
 			print("-Index: " + str(i) + ": " + str(Elixirs[i].Item.Name) + ", " + str(Elixirs[i].Amount))
+			print("\n")
 	else:
 		print("Global Inventory is not populated")
 

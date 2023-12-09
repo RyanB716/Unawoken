@@ -1,4 +1,4 @@
-[gd_scene load_steps=65 format=3 uid="uid://dxprot5svswbe"]
+[gd_scene load_steps=74 format=3 uid="uid://dxprot5svswbe"]
 
 [ext_resource type="Script" path="res://Scripts/Player/Player.gd" id="1_2gr55"]
 [ext_resource type="Texture2D" uid="uid://bi38invhap0t" path="res://Visual Assets/SpriteSheets/player.png" id="2_w50ld"]
@@ -30,10 +30,16 @@
 [ext_resource type="FontFile" uid="uid://dlulxm5dxb804" path="res://Visual Assets/Fonts/Seagram tfb.ttf" id="22_lpgic"]
 [ext_resource type="AudioStream" uid="uid://dlnsrugki0emv" path="res://Audio/SFX/Player/blade_hit_07.wav" id="23_4lgdd"]
 [ext_resource type="AudioStream" uid="uid://b1u7ihusdosr8" path="res://Audio/SFX/Player/blade_hit_08.wav" id="24_pwdi1"]
+[ext_resource type="Script" path="res://Object Scenes/Player/Attack Indicators.gd" id="29_hnyj4"]
 [ext_resource type="FontFile" uid="uid://ba0gbrsq1d1dv" path="res://Visual Assets/Fonts/OldLondon.ttf" id="29_samax"]
+[ext_resource type="PackedScene" uid="uid://dn1nfb6pxmd20" path="res://Object Scenes/Player/AttackGUI.tscn" id="30_keeyv"]
 [ext_resource type="Script" path="res://Object Scenes/Player/ShopMenu.gd" id="32_d61sc"]
 [ext_resource type="PackedScene" uid="uid://bhvpudy3rhqqu" path="res://Object Scenes/NPCS/Merchants/Ware_Slot.tscn" id="33_v2grb"]
+[ext_resource type="Texture2D" uid="uid://y3mr7qen2b04" path="res://Visual Assets/SpriteSheets/NPCs/Merchants/crow_idle.png" id="34_jswdi"]
 [ext_resource type="FontFile" uid="uid://bs6libyxfwgc" path="res://Visual Assets/Fonts/MorrisRomanBlack.ttf" id="34_opvei"]
+[ext_resource type="Texture2D" uid="uid://bprrge2q0voom" path="res://Visual Assets/UI/Control Icons/Left_Btn.png" id="35_xj5sg"]
+[ext_resource type="Texture2D" uid="uid://jsox6faslw2p" path="res://Visual Assets/UI/Control Icons/Bottom_Btn.png" id="36_wmbi7"]
+[ext_resource type="Texture2D" uid="uid://c8pepqaqfdgu8" path="res://Visual Assets/UI/Control Icons/Right_Btn.png" id="37_72n2g"]
 
 [sub_resource type="Resource" id="Resource_4xkb4"]
 script = ExtResource("10_2rcg1")
@@ -799,6 +805,10 @@ font_size = 30
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_xpyy5"]
 bg_color = Color(1, 1, 1, 0.705882)
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_8k6sa"]
+atlas = ExtResource("34_jswdi")
+region = Rect2(16, 16, 32, 32)
+
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_xjesi"]
 bg_color = Color(0, 0, 0, 0.917647)
 corner_radius_top_left = 15
@@ -806,7 +816,14 @@ corner_radius_top_right = 15
 corner_radius_bottom_right = 15
 corner_radius_bottom_left = 15
 
-[node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("InventoryRef") groups=["Player"]]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_j5wt0"]
+bg_color = Color(0, 0, 0, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_di70h"]
+font = ExtResource("22_lpgic")
+font_size = 30
+
+[node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("InventoryRef", "UI") groups=["Player"]]
 z_index = 1
 collision_mask = 7
 platform_floor_layers = 0
@@ -817,11 +834,13 @@ StaminaRefillTime = 3.5
 TopSpeed = 85
 Acceleration = 1.5
 Deceleration = 10.0
+MaxAttackNumber = 3
 DamageOutput = 50
 AttackTime = 0.25
 CooldownTime = 1.5
 InputBufferAmnt = 0.13
 InventoryRef = NodePath("Inventory")
+UI = NodePath("Player UI")
 
 [node name="StateMachine" type="Node" parent="." node_paths=PackedStringArray("InitialState")]
 script = ExtResource("12_lsmi8")
@@ -907,7 +926,7 @@ libraries = {
 
 [node name="BodyAudio" type="AudioStreamPlayer" parent="Audio"]
 script = ExtResource("8_syxxs")
-VoiceTrackArray = [ExtResource("9_pigyr"), ExtResource("10_1yyqr"), ExtResource("11_e46q2"), null]
+VoiceTrackArray = [ExtResource("9_pigyr"), ExtResource("10_1yyqr"), ExtResource("11_e46q2")]
 FootSFX = ExtResource("12_x7l6c")
 
 [node name="WeaponAudio" type="AudioStreamPlayer" parent="Audio"]
@@ -930,12 +949,13 @@ one_shot = true
 [node name="XPTimer" type="Timer" parent="Timers"]
 one_shot = true
 
-[node name="Player UI" type="CanvasLayer" parent="." node_paths=PackedStringArray("player", "StatueMenu", "Shop")]
+[node name="Player UI" type="CanvasLayer" parent="." node_paths=PackedStringArray("player", "StatueMenu", "Shop", "AttackIcons")]
 process_mode = 3
 script = ExtResource("17_k3vfi")
 player = NodePath("..")
 StatueMenu = NodePath("StatueMenu")
 Shop = NodePath("ShopPanel")
+AttackIcons = NodePath("AttackIndicators")
 
 [node name="Health Bar" parent="Player UI" instance=ExtResource("10_1g6mq")]
 
@@ -943,6 +963,16 @@ Shop = NodePath("ShopPanel")
 offset_top = 85.0
 offset_bottom = 165.0
 theme_override_constants/separation = 35
+
+[node name="AttackIndicators" type="HBoxContainer" parent="Player UI" node_paths=PackedStringArray("player")]
+offset_left = 34.0
+offset_top = 160.0
+offset_right = 134.0
+offset_bottom = 200.0
+theme_override_constants/separation = 50
+script = ExtResource("29_hnyj4")
+Icon = ExtResource("30_keeyv")
+player = NodePath("../..")
 
 [node name="StatueMenu" parent="Player UI" instance=ExtResource("19_nq3nm")]
 visible = false
@@ -1035,23 +1065,25 @@ label_settings = SubResource("LabelSettings_buh0n")
 
 [node name="ShopPanel" type="Panel" parent="Player UI" node_paths=PackedStringArray("DialogueBox")]
 process_mode = 3
-custom_minimum_size = Vector2(1250, 700)
+custom_minimum_size = Vector2(1250, 600)
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
 offset_left = -625.0
-offset_top = -399.0
+offset_top = -433.0
 offset_right = 625.0
-offset_bottom = 301.0
+offset_bottom = 167.0
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_xpyy5")
 script = ExtResource("32_d61sc")
-DialogueBox = NodePath("Dialogue Shadow/DialogueBox")
+DialogueBox = NodePath("Dialogue Nodes/Dialogue Shadow/DialogueBox")
 
-[node name="HBoxContainer" type="HBoxContainer" parent="Player UI/ShopPanel"]
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="Player UI/ShopPanel"]
+
+[node name="ItemPanels" type="HBoxContainer" parent="Player UI/ShopPanel"]
 texture_filter = 1
 layout_mode = 1
 anchors_preset = 8
@@ -1059,61 +1091,171 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -20.0
-offset_top = -20.0
-offset_right = 20.0
-offset_bottom = 20.0
+offset_left = -175.0
+offset_top = -287.0
+offset_right = 175.0
+offset_bottom = 213.0
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_constants/separation = 50
 
-[node name="Ware_Slot" parent="Player UI/ShopPanel/HBoxContainer" instance=ExtResource("33_v2grb")]
+[node name="Ware_Slot" parent="Player UI/ShopPanel/ItemPanels" instance=ExtResource("33_v2grb")]
 layout_mode = 2
 
-[node name="Ware_Slot2" parent="Player UI/ShopPanel/HBoxContainer" instance=ExtResource("33_v2grb")]
-layout_mode = 2
+[node name="Dialogue Nodes" type="HBoxContainer" parent="Player UI/ShopPanel"]
+layout_mode = 0
+offset_top = 651.0
+offset_right = 1250.0
+offset_bottom = 826.0
+theme_override_constants/separation = 75
 
-[node name="Ware_Slot3" parent="Player UI/ShopPanel/HBoxContainer" instance=ExtResource("33_v2grb")]
-layout_mode = 2
-
-[node name="Portrait" type="TextureRect" parent="Player UI/ShopPanel"]
+[node name="Portrait" type="TextureRect" parent="Player UI/ShopPanel/Dialogue Nodes"]
 texture_filter = 1
 custom_minimum_size = Vector2(175, 175)
-layout_mode = 0
-offset_left = 7.0
-offset_top = 730.0
-offset_right = 182.0
-offset_bottom = 905.0
+layout_mode = 2
+texture = SubResource("AtlasTexture_8k6sa")
 expand_mode = 1
 
-[node name="Dialogue Shadow" type="Panel" parent="Player UI/ShopPanel"]
+[node name="Dialogue Shadow" type="Panel" parent="Player UI/ShopPanel/Dialogue Nodes"]
 custom_minimum_size = Vector2(1000, 150)
-layout_mode = 0
-offset_left = 253.0
-offset_top = 750.0
-offset_right = 1253.0
-offset_bottom = 900.0
+layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_xjesi")
 
-[node name="DialogueBox" type="RichTextLabel" parent="Player UI/ShopPanel/Dialogue Shadow"]
+[node name="DialogueBox" type="RichTextLabel" parent="Player UI/ShopPanel/Dialogue Nodes/Dialogue Shadow"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = 16.0
-offset_top = 8.0
-offset_right = -24.0
-offset_bottom = -9.0
+offset_left = 12.0
+offset_top = 11.0
+offset_right = -13.0
+offset_bottom = -14.0
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_fonts/normal_font = ExtResource("34_opvei")
 theme_override_font_sizes/normal_font_size = 50
-fit_content = true
 scroll_active = false
-text_direction = 1
 
-[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="Player UI/ShopPanel"]
+[node name="Control Prompts" type="HBoxContainer" parent="Player UI/ShopPanel"]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -250.0
+offset_top = 278.0
+offset_right = 450.0
+offset_bottom = 363.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_constants/separation = 50
+
+[node name="Talk Icon" type="Panel" parent="Player UI/ShopPanel/Control Prompts"]
+texture_filter = 1
+custom_minimum_size = Vector2(200, 50)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_j5wt0")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Player UI/ShopPanel/Control Prompts/Talk Icon"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -100.0
+offset_top = -37.5
+offset_right = 100.0
+offset_bottom = 37.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 20
+
+[node name="Icon" type="TextureRect" parent="Player UI/ShopPanel/Control Prompts/Talk Icon/HBoxContainer"]
+custom_minimum_size = Vector2(75, 75)
+layout_mode = 2
+texture = ExtResource("35_xj5sg")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Label" type="Label" parent="Player UI/ShopPanel/Control Prompts/Talk Icon/HBoxContainer"]
+layout_mode = 2
+text = "- Talk"
+label_settings = SubResource("LabelSettings_di70h")
+horizontal_alignment = 2
+vertical_alignment = 1
+
+[node name="Buy Icon" type="Panel" parent="Player UI/ShopPanel/Control Prompts"]
+texture_filter = 1
+custom_minimum_size = Vector2(200, 50)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_j5wt0")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Player UI/ShopPanel/Control Prompts/Buy Icon"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -100.0
+offset_top = -37.5
+offset_right = 100.0
+offset_bottom = 37.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 20
+
+[node name="Icon" type="TextureRect" parent="Player UI/ShopPanel/Control Prompts/Buy Icon/HBoxContainer"]
+custom_minimum_size = Vector2(75, 75)
+layout_mode = 2
+texture = ExtResource("36_wmbi7")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Label" type="Label" parent="Player UI/ShopPanel/Control Prompts/Buy Icon/HBoxContainer"]
+layout_mode = 2
+text = "- Buy"
+label_settings = SubResource("LabelSettings_di70h")
+horizontal_alignment = 2
+vertical_alignment = 1
+
+[node name="Exit Icon" type="Panel" parent="Player UI/ShopPanel/Control Prompts"]
+texture_filter = 1
+custom_minimum_size = Vector2(200, 50)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_j5wt0")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Player UI/ShopPanel/Control Prompts/Exit Icon"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -100.0
+offset_top = -37.5
+offset_right = 100.0
+offset_bottom = 37.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 20
+
+[node name="Icon" type="TextureRect" parent="Player UI/ShopPanel/Control Prompts/Exit Icon/HBoxContainer"]
+custom_minimum_size = Vector2(75, 75)
+layout_mode = 2
+texture = ExtResource("37_72n2g")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Label" type="Label" parent="Player UI/ShopPanel/Control Prompts/Exit Icon/HBoxContainer"]
+layout_mode = 2
+text = "- Exit"
+label_settings = SubResource("LabelSettings_di70h")
+horizontal_alignment = 2
+vertical_alignment = 1
 
 [connection signal="area_entered" from="SwordArea" to="SwordArea" method="WeaponHit"]
 [connection signal="timeout" from="Timers/DeathTimer" to="." method="Respawn"]
-[connection signal="timeout" from="Timers/AttackStateTimer" to="." method="_on_attack_state_timer_timeout"]
+[connection signal="timeout" from="Timers/AttackStateTimer" to="." method="ResetAttackIndex"]

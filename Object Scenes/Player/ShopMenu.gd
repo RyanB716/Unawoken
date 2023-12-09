@@ -7,6 +7,7 @@ class_name ShopMenu
 
 @onready var SlotScene = preload("res://Object Scenes/NPCS/Merchants/Ware_Slot.tscn")
 
+
 var Buttons : Array[Button]
 
 var NPC : Merchant
@@ -40,18 +41,18 @@ func OpenMenu(npc : Merchant):
 		if newPanel is Ware_Slot:
 			newPanel.AssignData(NPC.Wares[i])
 			newPanel.controller = self
-			$HBoxContainer.add_child(newPanel)
+			$ItemPanels.add_child(newPanel)
 			Buttons.append(newPanel.BuyButton)
 			
-	$Portrait.texture = NPC.Portrait
+	$"Dialogue Nodes/Portrait".texture = NPC.Portrait
 	UpdateText(NPC.Greeting)
 	await get_tree().create_timer(0.25).timeout
 	Buttons[0].grab_focus()
 
 func ClearMenu():
 	Buttons.clear()
-	for i in $HBoxContainer.get_child_count():
-		$HBoxContainer.get_child(i).queue_free()
+	for i in $ItemPanels.get_child_count():
+		$ItemPanels.get_child(i).queue_free()
 		
 func ChooseDialogue(array : Array[String], pullArray):
 	var RNG = RandomNumberGenerator.new()
@@ -75,7 +76,7 @@ func UpdateText(message : String):
 			var RNG = RandomNumberGenerator.new()
 			RNG.randomize()
 			var value = RNG.randf_range(0, 100)
-			if value <= 15 or i == 0 && newText[i] != "." && newText[i] != " ":
+			if value <= 10 or i == 0 && newText[i] != "." && newText[i] != " ":
 				var newPoint = RNG.randf_range(0.1, NPC.voice.get_length())
 				$AudioStreamPlayer.play(newPoint)
 			DialogueBox.text += newText[i]

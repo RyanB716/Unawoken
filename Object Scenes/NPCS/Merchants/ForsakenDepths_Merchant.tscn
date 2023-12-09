@@ -70,9 +70,9 @@ Wares = Array[ExtResource("3_wd581")]([SubResource("Resource_d7216"), SubResourc
 voice = ExtResource("5_7mvxt")
 Portrait = SubResource("AtlasTexture_jepu6")
 Greeting = "Ai-siwame! Welcome friend."
-Dialogue = Array[String](["Should you be out on this night? ... So young?", "We have a saying in my family. 'Have your fun, but know when to stop.'", "You look...familar siwame.", "Glory to the highest, forever in our name...yes?"])
-PurchaseLines = Array[String](["Ah thank you siwame!", "Let me wrap that for you friend.", "Tell your friends that are left, yes?"])
-FailLines = Array[String](["I'm afraid I can't do that.", "No shame friend. We've all been to the poor house.", "Please come back with more coin siwame."])
+Dialogue = Array[String](["Should you be out on this night? ... So young?", "We have a saying in my family. 'Have your fun, but know when to stop.'", "You look ...f amilar siwame.", "Glory to the highest, forever in our name ... yes?"])
+PurchaseLines = Array[String](["Ah thank you siwame!", "Let me wrap that for you friend.", "Tell your friends that are left, yes?", "Thank you for your support in such ... unique circumstances."])
+FailLines = Array[String](["I'm afraid I can't do that.", "No shame friend. We've all been to the poor house now haven't we?", "Please come back with more coin siwame.", "These troubled times will end ..."])
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_2q3bj")

@@ -1,11 +1,13 @@
 extends CanvasLayer
+class_name PlayerUI
 
 @export var player : Player
 @export var StatueMenu : Statue_Menu
 @export var Shop : ShopMenu
+@export var AttackIcons : AttackIndicators
 
 func _ready():
-	pass
+	AttackIcons.SetMaxIcons()
 	
 func _process(_delta):
 	if player.InventoryRef.CurrentElixir.Amount > 0:

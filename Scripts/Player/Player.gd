@@ -10,8 +10,6 @@ class_name Player
 @onready var BodyAudio = $Audio/BodyAudio
 @onready var WeaponAudio = $Audio/WeaponAudio
 
-@onready var UI = $"Player UI"
-
 @onready var EnvColl = $"Environment Collision"
 @onready var HitColl = $HitBox/CollisionShape2D
 
@@ -36,6 +34,7 @@ var AddedXP : int
 @export var Deceleration = 0.0
 
 @export_category("Attack Stats")
+@export var MaxAttackNumber : int
 @export var DamageOutput : int
 @export var AttackTime : float
 @export var CooldownTime : float
@@ -43,6 +42,7 @@ var AddedXP : int
 
 @export_category("Internal References")
 @export var InventoryRef : Inventory
+@export var UI : PlayerUI
 
 var CurrentSpeed = 0
 var HorizontalInput = 0
@@ -114,13 +114,15 @@ func _physics_process(_delta):
 	velocity = (Direction * CurrentSpeed)
 	move_and_slide()
 
-func _on_attack_state_timer_timeout():
+func ResetAttackIndex():
 	CurrentAttackIndex = 1
+	UI.AttackIcons.AddIndicator(1)
 
 func AttackCooldown():
 	CooldownTimer.start(CooldownTime)
 	await CooldownTimer.timeout
 	CurrentAttackIndex = 1
+	UI.AttackIcons.AddIndicator(MaxAttackNumber)
 
 func ReduceStamina(Amnt : int):
 	CurrentStaminaActions -= Amnt
