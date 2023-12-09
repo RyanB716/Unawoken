@@ -1,4 +1,4 @@
-[gd_scene load_steps=40 format=3 uid="uid://cnww1xsx7uypm"]
+[gd_scene load_steps=41 format=3 uid="uid://cnww1xsx7uypm"]
 
 [ext_resource type="Script" path="res://Object Scenes/Enemies/Enemy_Moblin.gd" id="1_a8vwv"]
 [ext_resource type="Texture2D" uid="uid://dtf21kcxeo5tm" path="res://Visual Assets/SpriteSheets/Enemies/spritesheets/8 idle.png" id="2_lwft6"]
@@ -7,6 +7,7 @@
 [ext_resource type="Texture2D" uid="uid://bhmwx62weh4xo" path="res://Visual Assets/SpriteSheets/Enemies/spritesheets/8 punch.png" id="4_5t830"]
 [ext_resource type="Script" path="res://Scripts/Enemy Management/EnemyStates/Enemy_Idle.gd" id="4_w3tq8"]
 [ext_resource type="Script" path="res://Scripts/Enemy Management/EnemyStates/Enemy_Wander.gd" id="5_uuo3t"]
+[ext_resource type="Script" path="res://Scripts/Enemy Management/EnemyStates/KnockBack.gd" id="6_bgljg"]
 [ext_resource type="AudioStream" uid="uid://nj05r1o16v2k" path="res://Audio/SFX/Player/07_human_atk_sword_2.wav" id="6_eceev"]
 [ext_resource type="Script" path="res://Scripts/Enemy Management/EnemyStates/Enemy_Follow.gd" id="7_jf6sm"]
 [ext_resource type="Script" path="res://Scripts/Components/Hit Boxes/EnemyHitBox.gd" id="7_m4fes"]
@@ -905,11 +906,13 @@ size = Vector2(12, 15)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_rvl78"]
 size = Vector2(9, 6)
 
-[node name="Moblin" type="CharacterBody2D"]
+[node name="Moblin" type="CharacterBody2D" node_paths=PackedStringArray("FSM")]
+z_index = 1
 texture_filter = 2
 collision_layer = 2
 collision_mask = 4
 script = ExtResource("1_a8vwv")
+FSM = NodePath("StateMachine")
 MaxHealth = 175
 XpAmount = 250
 DamageOutput = 75
@@ -942,6 +945,10 @@ libraries = {
 [node name="StateMachine" type="Node" parent="." node_paths=PackedStringArray("InitialState")]
 script = ExtResource("3_iqqfo")
 InitialState = NodePath("Idle")
+
+[node name="KnockBack" type="Node" parent="StateMachine" node_paths=PackedStringArray("SelfRef")]
+script = ExtResource("6_bgljg")
+SelfRef = NodePath("../..")
 
 [node name="Idle" type="Node" parent="StateMachine" node_paths=PackedStringArray("SelfRef")]
 script = ExtResource("4_w3tq8")
@@ -1034,4 +1041,5 @@ target_position = Vector2(0, 35)
 rotation = 0.698132
 target_position = Vector2(0, 35)
 
+[connection signal="body_entered" from="HitBox" to="." method="BreakItems"]
 [connection signal="area_entered" from="HurtBox" to="HurtBox" method="WeaponHit"]

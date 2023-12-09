@@ -6,6 +6,20 @@ class_name PlayerSwordBox
 #checks if object is an enemy or an object, and executes context specific commands
 func WeaponHit(target : Area2D):
 	if target is EnemyHitBox:
+		
+		var kbDir : Vector2
+		match SelfReference.CurrentDirection:
+			0:
+				kbDir = Vector2.UP
+			1:
+				kbDir = Vector2.DOWN
+			2:
+				kbDir = Vector2.LEFT
+			3:
+				kbDir = Vector2.RIGHT
+				
+		target.SelfRef.SetKnockBack(150, 0.25, kbDir)
+		
 		target.PlaySFX()
 		if target.get_parent().CurrentHealth - SelfReference.DamageOutput >= 1:
 			target.TakeDamage(SelfReference.DamageOutput)

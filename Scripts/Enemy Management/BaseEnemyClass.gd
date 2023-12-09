@@ -1,6 +1,8 @@
 extends CharacterBody2D
 class_name BasicEnemy
 
+@export var FSM : StateMachine
+
 @export_category("General Stats")
 @export var MaxHealth : int
 @export var XpAmount : int

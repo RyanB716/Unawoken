@@ -4,8 +4,8 @@ class_name Player_Attack
 @export var PlayerRef : Player
 
 func OnEnter():
-	print("Index: " + str(PlayerRef.CurrentAttackIndex))
-	print("Index after attack: " + str(PlayerRef.CurrentAttackIndex + 1))
+	#print("Index: " + str(PlayerRef.CurrentAttackIndex))
+	#print("Index after attack: " + str(PlayerRef.CurrentAttackIndex + 1))
 	
 	if !PlayerRef.AttackTimer.is_stopped():
 			PlayerRef.AttackTimer.stop()

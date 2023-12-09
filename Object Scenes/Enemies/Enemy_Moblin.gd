@@ -12,6 +12,11 @@ class_name Moblin
 @onready var HurtBoxCollider = $HurtBox/HurtCollider
 @onready var Raycasts = $Raycasts
 
+@onready var IsKnockedBack : bool = false
+@onready var KB_scale : float
+@onready var KB_time : float
+@onready var KB_dir : Vector2
+
 func _ready():
 	PlayerTarget = get_tree().get_first_node_in_group("Player")
 	AnimPlayer = $AnimationPlayer
@@ -25,6 +30,9 @@ func _process(_delta):
 	if CurrentHealth <= 0 && IsDead == false:
 		IsDead = true
 		$StateMachine.CurrentState.Transitioned.emit("Dead")
+		
+	if velocity.length() > 0:
+		print(velocity.length())
 
 func _physics_process(_delta):
 	move_and_slide()
@@ -50,3 +58,13 @@ func _physics_process(_delta):
 					AnimPlayer.play("Idle/Idle_L")
 				3:
 					AnimPlayer.play("Idle/Idle_R")
+
+func SetKnockBack(scale : float, setTime : float, dir : Vector2):
+	KB_scale = scale
+	KB_time = setTime
+	KB_dir = dir
+	FSM.CurrentState.emit_signal("Transitioned", "KnockBack")
+
+func BreakItems(item : Node2D):
+	if velocity.length() > TopSpeed && item is DestructableObject:
+		item.Destroy()
