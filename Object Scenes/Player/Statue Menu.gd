@@ -20,8 +20,6 @@ func _on_yes_pressed():
 	print("Beginning respawn!")
 	GameSettings.CurrentPlayerXP = player.CurrentXP
 	print("-XP set")
-	GameSettings.CurrentCoins = player.InventoryRef.CoinCount
-	print("-Coins set")
 	
 	GameSettings.UpdateInventory()
 	

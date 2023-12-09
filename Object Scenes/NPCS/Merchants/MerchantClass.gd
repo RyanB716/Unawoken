@@ -1,12 +1,21 @@
 extends Area2D
 class_name Merchant
 
+@export_category("Data")
 @export var Wares : Array[WareSlot]
-
+@export var voice : AudioStream
 @export var Portrait : Texture
+
+@export_category("Aesthetics")
 @export var Greeting : String
+
 @export var Dialogue : Array[String]
-var SpokenLines : Array[String]
+@export var PurchaseLines : Array[String]
+@export var FailLines : Array[String]
+
+var SpokenDialogue : Array[String]
+var SpokenPurchaseLines : Array[String]
+var  SpokenFailLines : Array[String]
 
 var CanInput = false
 
@@ -32,6 +41,6 @@ func _on_area_exited(area):
 	CanInput = false
 	UI.StatueMenu.visible = false
 
-func RepopulateDialogue():
-	for i in SpokenLines.size():
-		Dialogue.append(SpokenLines[i])
+func RepopulateDialogue(PopArray : Array[String], PullArray : Array[String]):
+	for i in PullArray.size():
+		PopArray.append(PullArray[i])

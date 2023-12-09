@@ -18,24 +18,20 @@ func _ready():
 	
 func _process(delta):
 	if Input.is_action_just_pressed("ui_cancel"):
+		player.IsInMenu = false
 		print("Closing Menu...")
 		self.visible = false
 		get_tree().paused = false
 		
-	if Input.is_action_just_pressed("CycleElixir"):
-		var RNG = RandomNumberGenerator.new()
-		RNG.randomize()
-		var Index = RNG.randi_range(0, NPC.Dialogue.size() - 1)
-		UpdateText(NPC.Dialogue[Index])
-		NPC.SpokenLines.append(NPC.Dialogue[Index])
-		NPC.Dialogue.remove_at(Index)
-		if NPC.Dialogue.size() <= 1:
-			NPC.RepopulateDialogue()
+	if Input.is_action_just_pressed("Attack") && self.visible:
+		ChooseDialogue(NPC.Dialogue, NPC.SpokenDialogue)
 	
 func OpenMenu(npc : Merchant):
+	player.IsInMenu = true
 	NPC = npc
 	ClearMenu()
 	print("Opening Menu...")
+	$AudioStreamPlayer.stream = NPC.voice
 	self.visible = true
 	get_tree().paused = true
 	
@@ -43,6 +39,7 @@ func OpenMenu(npc : Merchant):
 		var newPanel = SlotScene.instantiate()
 		if newPanel is Ware_Slot:
 			newPanel.AssignData(NPC.Wares[i])
+			newPanel.controller = self
 			$HBoxContainer.add_child(newPanel)
 			Buttons.append(newPanel.BuyButton)
 			
@@ -55,6 +52,16 @@ func ClearMenu():
 	Buttons.clear()
 	for i in $HBoxContainer.get_child_count():
 		$HBoxContainer.get_child(i).queue_free()
+		
+func ChooseDialogue(array : Array[String], pullArray):
+	var RNG = RandomNumberGenerator.new()
+	RNG.randomize()
+	var Index = RNG.randi_range(0, array.size() - 1)
+	UpdateText(array[Index])
+	pullArray.append(array[Index])
+	array.remove_at(Index)
+	if array.size() <= 1:
+		NPC.RepopulateDialogue(array, pullArray)
 
 func UpdateText(message : String):
 	DialogueBox.text = ""
@@ -65,7 +72,14 @@ func UpdateText(message : String):
 	
 	for i in newText.length():
 		if newText == message:
-			DialogueBox.text += message[i]
-			await get_tree().create_timer(0.05).timeout
+			var RNG = RandomNumberGenerator.new()
+			RNG.randomize()
+			var value = RNG.randf_range(0, 100)
+			if value <= 15 or i == 0 && newText[i] != "." && newText[i] != " ":
+				var newPoint = RNG.randf_range(0.1, NPC.voice.get_length())
+				$AudioStreamPlayer.play(newPoint)
+			DialogueBox.text += newText[i]
+			await get_tree().create_timer(0.025).timeout
 		else:
 			break
+	$AudioStreamPlayer.stop()

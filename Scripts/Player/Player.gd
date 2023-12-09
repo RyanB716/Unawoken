@@ -54,6 +54,7 @@ var CurrentStaminaActions : int
 
 var AnimState = null
 
+var IsInMenu = false
 var IsRolling = false
 var IsDead = false
 

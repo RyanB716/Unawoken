@@ -1112,6 +1112,8 @@ fit_content = true
 scroll_active = false
 text_direction = 1
 
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="Player UI/ShopPanel"]
+
 [connection signal="area_entered" from="SwordArea" to="SwordArea" method="WeaponHit"]
 [connection signal="timeout" from="Timers/DeathTimer" to="." method="Respawn"]
 [connection signal="timeout" from="Timers/AttackStateTimer" to="." method="_on_attack_state_timer_timeout"]
