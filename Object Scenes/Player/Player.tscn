@@ -1,8 +1,7 @@
-[gd_scene load_steps=75 format=3 uid="uid://dxprot5svswbe"]
+[gd_scene load_steps=69 format=3 uid="uid://dxprot5svswbe"]
 
 [ext_resource type="Script" path="res://Scripts/Player/Player.gd" id="1_2gr55"]
 [ext_resource type="Texture2D" uid="uid://bi38invhap0t" path="res://Visual Assets/SpriteSheets/player.png" id="2_w50ld"]
-[ext_resource type="Script" path="res://Scripts/Player/States/PlayerDead.gd" id="7_snygb"]
 [ext_resource type="Script" path="res://Scripts/Player/Inventory.gd" id="8_nbgbr"]
 [ext_resource type="Script" path="res://Scripts/Components/Audio Controllers/BodyAudioPlayer.gd" id="8_syxxs"]
 [ext_resource type="AudioStream" uid="uid://d0iijvcalr7qr" path="res://Audio/SFX/Player/attack1.wav" id="9_pigyr"]
@@ -13,15 +12,10 @@
 [ext_resource type="PackedScene" uid="uid://b8dv2qk331bb" path="res://Object Scenes/Player/StaminaContainer.tscn" id="11_0842j"]
 [ext_resource type="AudioStream" uid="uid://tky2sadciuix" path="res://Audio/SFX/Player/attack3.wav" id="11_e46q2"]
 [ext_resource type="AudioStream" uid="uid://r0ar1gqr6dni" path="res://Audio/SFX/Object/Coin_Add.mp3" id="11_w3b4d"]
-[ext_resource type="Script" path="res://Scripts/Components/FSM/StateMachine.gd" id="12_lsmi8"]
 [ext_resource type="AudioStream" uid="uid://dfg2itgn13nbu" path="res://Audio/SFX/Player/16_human_walk_stone_1.wav" id="12_x7l6c"]
-[ext_resource type="Script" path="res://Scripts/Player/States/Player_Idle.gd" id="13_pcoj7"]
 [ext_resource type="Script" path="res://Scripts/Components/Audio Controllers/WeaponAudio.gd" id="13_vyl8c"]
 [ext_resource type="AudioStream" uid="uid://d33remjia4oc1" path="res://Audio/SFX/Player/07_human_atk_sword_1.wav" id="14_lowa5"]
-[ext_resource type="Script" path="res://Scripts/Player/States/Player_Move.gd" id="14_votbp"]
-[ext_resource type="Script" path="res://Scripts/Player/States/Player_Attack.gd" id="15_8a7nj"]
 [ext_resource type="AudioStream" uid="uid://nj05r1o16v2k" path="res://Audio/SFX/Player/07_human_atk_sword_2.wav" id="15_pj7e2"]
-[ext_resource type="Script" path="res://Scripts/Player/States/Roll.gd" id="16_d2gd4"]
 [ext_resource type="AudioStream" uid="uid://c5quaak31hhg6" path="res://Audio/SFX/Player/07_human_atk_sword_3.wav" id="16_nt7aq"]
 [ext_resource type="Script" path="res://Scripts/Player/Player UI.gd" id="17_k3vfi"]
 [ext_resource type="Script" path="res://Scripts/Components/Hurt Boxes/SwordArea.gd" id="19_8it4o"]
@@ -824,7 +818,7 @@ bg_color = Color(0, 0, 0, 1)
 font = ExtResource("22_lpgic")
 font_size = 30
 
-[node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("FSM", "InventoryRef", "UI", "EnvColl", "HitColl", "BodyAudio", "WeaponAudio", "DeathTimer", "AttackTimer", "CooldownTimer", "SFXtime", "XPtime", "AnimPlayer") groups=["Player"]]
+[node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("InventoryRef", "UI", "EnvColl", "HitColl", "BodyAudio", "WeaponAudio", "DeathTimer", "AttackTimer", "CooldownTimer", "SFXtime", "XPtime", "AnimPlayer") groups=["Player"]]
 z_index = 1
 collision_mask = 7
 platform_floor_layers = 0
@@ -840,7 +834,6 @@ DamageOutput = 50
 AttackTime = 0.25
 CooldownTime = 1.5
 InputBufferAmnt = 0.13
-FSM = NodePath("StateMachine")
 InventoryRef = NodePath("Inventory")
 UI = NodePath("Player UI")
 EnvColl = NodePath("Environment Collision")
@@ -848,38 +841,11 @@ HitColl = NodePath("HitBox/HitCollision")
 BodyAudio = NodePath("Audio/BodyAudio")
 WeaponAudio = NodePath("Audio/WeaponAudio")
 DeathTimer = NodePath("Timers/DeathTimer")
-AttackTimer = NodePath("Timers/AttackStateTimer")
-CooldownTimer = NodePath("Timers/CoolDown")
+AttackTimer = NodePath("")
+CooldownTimer = NodePath("Timers/AttackTimer")
 SFXtime = NodePath("Timers/SFXtimer")
 XPtime = NodePath("Timers/XPTimer")
 AnimPlayer = NodePath("AnimationPlayer")
-
-[node name="StateMachine" type="Node" parent="." node_paths=PackedStringArray("InitialState")]
-script = ExtResource("12_lsmi8")
-InitialState = NodePath("Player_Idle")
-
-[node name="Player_Idle" type="Node" parent="StateMachine" node_paths=PackedStringArray("PlayerRef")]
-script = ExtResource("13_pcoj7")
-PlayerRef = NodePath("../..")
-
-[node name="Player_Move" type="Node" parent="StateMachine" node_paths=PackedStringArray("PlayerRef", "AnimPlayer")]
-script = ExtResource("14_votbp")
-PlayerRef = NodePath("../..")
-AnimPlayer = NodePath("../../AnimationPlayer")
-
-[node name="Player_Attack" type="Node" parent="StateMachine" node_paths=PackedStringArray("PlayerRef")]
-script = ExtResource("15_8a7nj")
-PlayerRef = NodePath("../..")
-
-[node name="Roll" type="Node" parent="StateMachine" node_paths=PackedStringArray("PlayerRef", "AnimPlayer", "BodyAudio")]
-script = ExtResource("16_d2gd4")
-PlayerRef = NodePath("../..")
-AnimPlayer = NodePath("../../AnimationPlayer")
-BodyAudio = NodePath("../../Audio/BodyAudio")
-
-[node name="Dead" type="Node" parent="StateMachine" node_paths=PackedStringArray("PlayerRef")]
-script = ExtResource("7_snygb")
-PlayerRef = NodePath("../..")
 
 [node name="Inventory" type="Node2D" parent="."]
 process_mode = 3
@@ -936,8 +902,9 @@ libraries = {
 
 [node name="Audio" type="Node" parent="."]
 
-[node name="BodyAudio" type="AudioStreamPlayer" parent="Audio"]
+[node name="BodyAudio" type="AudioStreamPlayer" parent="Audio" node_paths=PackedStringArray("player")]
 script = ExtResource("8_syxxs")
+player = NodePath("../..")
 VoiceTrackArray = [ExtResource("9_pigyr"), ExtResource("10_1yyqr"), ExtResource("11_e46q2")]
 FootSFX = ExtResource("12_x7l6c")
 
@@ -949,10 +916,7 @@ AttackTrackArray = [ExtResource("14_lowa5"), ExtResource("15_pj7e2"), ExtResourc
 
 [node name="DeathTimer" type="Timer" parent="Timers"]
 
-[node name="AttackStateTimer" type="Timer" parent="Timers"]
-one_shot = true
-
-[node name="CoolDown" type="Timer" parent="Timers"]
+[node name="AttackTimer" type="Timer" parent="Timers"]
 one_shot = true
 
 [node name="SFXtimer" type="Timer" parent="Timers"]
@@ -1282,4 +1246,3 @@ vertical_alignment = 1
 
 [connection signal="area_entered" from="SwordArea" to="SwordArea" method="WeaponHit"]
 [connection signal="timeout" from="Timers/DeathTimer" to="." method="Respawn"]
-[connection signal="timeout" from="Timers/AttackStateTimer" to="." method="ResetAttackIndex"]

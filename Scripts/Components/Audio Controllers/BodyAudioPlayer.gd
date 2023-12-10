@@ -1,6 +1,7 @@
 extends AudioStreamPlayer
 class_name BodyAudioPlayer
 
+@export var player : Player
 @export var VoiceTrackArray = []
 
 @export var FootSFX : AudioStream
@@ -15,6 +16,8 @@ func PlaySFX():
 
 #Play the sfx at a random pitch
 func PlayStep():
-	stream = FootSFX
-	pitch_scale = RNG.randf_range(0.9, 1.1)
-	play()
+	if player.SFXtime.time_left <= 0 && player.velocity.length() > 0.01:
+		player.SFXtime.start(0.45)
+		self.stream = FootSFX
+		self.pitch_scale = RNG.randf_range(0.9, 1.1)
+		self.play()

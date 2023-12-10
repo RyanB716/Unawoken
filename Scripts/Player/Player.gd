@@ -1,3 +1,8 @@
+#This class is responsible for handling input and output for the player's character
+#Utilizing a 'KISS'-forward state machine, inputs will be handled
+#This class contains necessary data for child objects to pull from ie Health, XP, Stamina, Damage, etc
+#Various signals are created to avoid altering or calling data directly in child objects
+
 extends CharacterBody2D
 class_name Player
 
@@ -22,7 +27,6 @@ var AddedXP : int
 @export var InputBufferAmnt : float
 
 @export_category("Components")
-@export var FSM : StateMachine
 @export var InventoryRef : Inventory
 @export var UI : PlayerUI
 @export var EnvColl = CollisionShape2D
@@ -72,7 +76,7 @@ func _ready():
 	
 func _process(_delta):
 	if CurrentHealth <= 0 && DeathTimer.is_stopped():
-		FSM.CurrentState.Transitioned.emit("Dead")
+		#FSM.CurrentState.Transitioned.emit("Dead")
 		IsDead = true
 		DeathTimer.one_shot = true
 		DeathTimer.start(8)
@@ -113,6 +117,8 @@ func _physics_process(_delta):
 	move_and_slide()
 
 func ResetAttackIndex():
+	AttackTimer.start(AttackTime)
+	await AttackTimer.timeout
 	CurrentAttackIndex = 1
 	UI.AttackIcons.SetMaxIcons()
 

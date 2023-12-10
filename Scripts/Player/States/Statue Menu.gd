@@ -15,6 +15,7 @@ var CurrentStatue : Statue
 @export var NoBtn : Button
 
 @onready var player : Player = get_tree().get_first_node_in_group('Player')
+
 func _on_visibility_changed():
 	if visible == true:
 		Audio.stream = InSFX
