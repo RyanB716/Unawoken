@@ -12,9 +12,13 @@ class_name PlayerUI
 
 func _ready():
 	AttackIcons.SetMaxIcons()
+	XpAmount.visible = false
 	
 func _process(_delta):
 	CoinLabel.text = ("$:" + str(player.InventoryRef.CoinCount))
+	
+	XPLabel.text = ("XP: " + str(player.CurrentXP))
+	XpAmount.text = ("+" + str(player.AddedXP))
 
 #Toggles the visibility of the Statue Menu node
 func ToggleStatueMenu():

@@ -68,7 +68,6 @@ func _ready():
 	
 	UI.get_node("StaminaContainer").SetMaxIcons(MaxStaminaMoves)
 	
-	UI.XpAmount.visible = false
 	CurrentXP = GameSettings.CurrentPlayerXP
 	
 func _process(_delta):
@@ -77,9 +76,6 @@ func _process(_delta):
 		IsDead = true
 		DeathTimer.one_shot = true
 		DeathTimer.start(8)
-		
-	UI.XPLabel.text = ("XP: " + str(CurrentXP))
-	UI.XPLabel.text = ("+" + str(AddedXP))
 	
 	if CurrentHealth >= MaxHealth:
 		CurrentHealth = MaxHealth
