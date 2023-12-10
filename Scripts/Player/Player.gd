@@ -81,8 +81,11 @@ func _process(_delta):
 		CurrentHealth = MaxHealth
 	
 func _physics_process(_delta):
-	
-	if IsDead == false:
+	if IsDead:
+		CurrentSpeed = 0
+		velocity = Vector2.ZERO
+		return
+	else:
 		IsMoving = Input.is_action_pressed("Run_Up") || Input.is_action_pressed("Run_Down") || Input.is_action_pressed("Run_Left") || Input.is_action_pressed("Run_Right")
 	
 	if IsRolling == false && IsMoving:
@@ -99,13 +102,10 @@ func _physics_process(_delta):
 			CurrentDirection = DirectionStates.Left
 			Direction = Vector2.LEFT
 	
-	if IsDead == false:
-		if IsMoving:
-			CurrentSpeed = TopSpeed
-		elif IsRolling:
-			CurrentSpeed = TopSpeed + 25
-		else:
-			CurrentSpeed = 0
+	if IsMoving:
+		CurrentSpeed = TopSpeed
+	elif IsRolling:
+		CurrentSpeed = TopSpeed + 25
 	else:
 		CurrentSpeed = 0
 	
