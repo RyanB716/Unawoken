@@ -7,9 +7,13 @@ func OnEnter():
 	#print("Enemy is knocked back!")
 	SelfRef.IsKnockedBack = true
 	SelfRef.velocity = SelfRef.KB_dir * SelfRef.KB_scale
-	await get_tree().create_timer(SelfRef.KB_scale).timeout
+	await get_tree().create_timer(SelfRef.KB_time).timeout
 	
 	Transitioned.emit("Idle")
+
+func Update(_delta):
+	#print("Knocked back!")
+	pass
 
 func OnExit():
 	#print("Leaving KB state")

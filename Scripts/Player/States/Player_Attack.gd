@@ -7,7 +7,7 @@ func OnEnter():
 	#print("Index: " + str(PlayerRef.CurrentAttackIndex))
 	#print("Index after attack: " + str(PlayerRef.CurrentAttackIndex + 1))
 	
-	if !PlayerRef.AttackTimer.is_stopped():
+	if !PlayerRef.AttackTimer.time_left > 0.0:
 			PlayerRef.AttackTimer.stop()
 			
 	PlayerRef.BodyAudio.PlaySFX()

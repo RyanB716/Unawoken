@@ -112,11 +112,9 @@ func _physics_process(_delta):
 	velocity = (Direction * CurrentSpeed)
 	move_and_slide()
 
-func ResetAttackIndex():
-	CurrentAttackIndex = 1
-	UI.AttackIcons.AddIndicator(1)
-
 func AttackCooldown(timeAmnt : float):
+	if AttackTimer.time_left > 0.0:
+		AttackTimer.stop()
 	AttackTimer.start(timeAmnt)
 	await AttackTimer.timeout
 	CurrentAttackIndex = 1

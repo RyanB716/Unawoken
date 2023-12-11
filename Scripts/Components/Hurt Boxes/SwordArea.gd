@@ -18,7 +18,7 @@ func WeaponHit(target : Area2D):
 			3:
 				kbDir = Vector2.RIGHT
 				
-		target.SelfRef.SetKnockBack(150, 0.25, kbDir)
+		target.SelfRef.SetKnockBack(100, 0.5, kbDir)
 		
 		target.PlaySFX()
 		if target.get_parent().CurrentHealth - SelfReference.DamageOutput >= 1:

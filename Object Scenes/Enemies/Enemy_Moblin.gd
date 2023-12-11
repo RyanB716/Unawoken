@@ -30,9 +30,6 @@ func _process(_delta):
 	if CurrentHealth <= 0 && IsDead == false:
 		IsDead = true
 		$StateMachine.CurrentState.Transitioned.emit("Dead")
-		
-	if velocity.length() > 0:
-		print(velocity.length())
 
 func _physics_process(_delta):
 	move_and_slide()
