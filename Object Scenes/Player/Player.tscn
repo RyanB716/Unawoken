@@ -824,7 +824,7 @@ bg_color = Color(0, 0, 0, 1)
 font = ExtResource("22_lpgic")
 font_size = 30
 
-[node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("InventoryRef", "UI") groups=["Player"]]
+[node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("InventoryRef", "UI", "FSM") groups=["Player"]]
 z_index = 1
 collision_mask = 7
 platform_floor_layers = 0
@@ -840,6 +840,7 @@ CooldownTime = 2.5
 InputBufferAmnt = 0.15
 InventoryRef = NodePath("Inventory")
 UI = NodePath("Player UI")
+FSM = NodePath("StateMachine")
 
 [node name="StateMachine" type="Node" parent="." node_paths=PackedStringArray("InitialState")]
 script = ExtResource("2_ilcql")

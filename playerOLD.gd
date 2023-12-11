@@ -40,6 +40,7 @@ var AddedXP : int
 @export_category("Internal References")
 @export var InventoryRef : Inventory
 @export var UI : PlayerUI
+@export var FSM : StateMachine
 
 var CurrentSpeed = 0
 var HorizontalInput = 0
@@ -62,7 +63,6 @@ func _ready():
 	CurrentStaminaActions = MaxStaminaMoves
 	
 	UI.Stamina_Icons.SetMaxIcons(MaxStaminaMoves)
-	#UI.Stamina_Icons.SetMaxIcons(MaxStaminaMoves)
 	
 	$"Player UI/XpLabel/Amount Label".visible = false
 	CurrentXP = GameSettings.CurrentPlayerXP
@@ -179,3 +179,7 @@ func DisplayXP():
 	await XPTween.finished
 	await AmountTween.finished
 	$"Player UI/XpLabel/Amount Label".visible = false
+
+func Die():
+	IsDead = true
+	FSM.CurrentState.Transitioned.emit("PlayerDead")

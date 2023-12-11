@@ -1736,18 +1736,28 @@ ItemDrops = Array[ExtResource("9_5pegd")]([SubResource("Resource_7i06v")])
 
 [node name="Pot15" parent="Destructables" instance=ExtResource("7_auceg")]
 position = Vector2(201, -303)
+Min_CoinAmount = 1
+Max_CoinAmount = 3
 
 [node name="Pot16" parent="Destructables" instance=ExtResource("7_auceg")]
 position = Vector2(201, -288)
+Min_CoinAmount = 1
+Max_CoinAmount = 3
 
 [node name="Pot17" parent="Destructables" instance=ExtResource("7_auceg")]
 position = Vector2(217, -317)
+Min_CoinAmount = 1
+Max_CoinAmount = 3
 
 [node name="Pot18" parent="Destructables" instance=ExtResource("7_auceg")]
 position = Vector2(217, -303)
+Min_CoinAmount = 1
+Max_CoinAmount = 3
 
 [node name="Pot19" parent="Destructables" instance=ExtResource("7_auceg")]
 position = Vector2(217, -288)
+Min_CoinAmount = 1
+Max_CoinAmount = 3
 
 [node name="ForsakenDepths_Merchant" parent="." instance=ExtResource("14_78g7w")]
 position = Vector2(265, -326)
