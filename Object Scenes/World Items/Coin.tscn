@@ -16,13 +16,13 @@ radius = 4.0
 
 [node name="Coin" type="RigidBody2D"]
 texture_filter = 1
-collision_layer = 5
 collision_mask = 5
 physics_material_override = SubResource("PhysicsMaterial_vftsd")
 continuous_cd = 2
 max_contacts_reported = 100
 contact_monitor = true
 can_sleep = false
+linear_damp = 3.5
 script = ExtResource("1_6ks4o")
 Velocity = 350.0
 
