@@ -9,27 +9,19 @@
 
 [node name="StateMachine" type="Node" node_paths=PackedStringArray("InitialState")]
 script = ExtResource("1_wj6rb")
-InitialState = NodePath("")
+InitialState = NodePath("Player_Idle")
 
-[node name="Player_Idle" type="Node" parent="." node_paths=PackedStringArray("PlayerRef")]
+[node name="Player_Idle" type="Node" parent="."]
 script = ExtResource("2_rxqn6")
-PlayerRef = NodePath("")
 
-[node name="Player_Move" type="Node" parent="." node_paths=PackedStringArray("PlayerRef", "AnimPlayer")]
+[node name="Player_Move" type="Node" parent="."]
 script = ExtResource("3_olj6s")
-PlayerRef = NodePath("")
-AnimPlayer = NodePath("")
 
-[node name="Player_Attack" type="Node" parent="." node_paths=PackedStringArray("PlayerRef")]
+[node name="Player_Attack" type="Node" parent="."]
 script = ExtResource("4_m0tod")
-PlayerRef = NodePath("")
 
-[node name="Roll" type="Node" parent="." node_paths=PackedStringArray("PlayerRef", "AnimPlayer", "BodyAudio")]
+[node name="Roll" type="Node" parent="."]
 script = ExtResource("5_2dk5y")
-PlayerRef = NodePath("")
-AnimPlayer = NodePath("")
-BodyAudio = NodePath("")
 
-[node name="Dead" type="Node" parent="." node_paths=PackedStringArray("PlayerRef")]
+[node name="Dead" type="Node" parent="."]
 script = ExtResource("6_m448x")
-PlayerRef = NodePath("")

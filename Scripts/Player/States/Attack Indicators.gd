@@ -1,5 +1,5 @@
 extends HBoxContainer
-class_name AttackIndicators
+class_name Attack_Indicators
 
 @export var Icon : PackedScene
 @export var player : Player

@@ -4,7 +4,8 @@ class_name PlayerUI
 @export var player : Player
 @export var StatueMenu : Statue_Menu
 @export var Shop : ShopMenu
-@export var AttackIcons : AttackIndicators
+@export var Stamina_Icons : StaminaContainer
+@export var AttackIcons : Attack_Indicators
 @export var XPLabel : Label
 @export var XpAmount : Label
 @export var CurrentItem : Current_Item

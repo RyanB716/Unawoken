@@ -1,10 +1,24 @@
-#This class is responsible for handling input and output for the player's character
-#Utilizing a 'KISS'-forward state machine, inputs will be handled
-#This class contains necessary data for child objects to pull from ie Health, XP, Stamina, Damage, etc
-#Various signals are created to avoid altering or calling data directly in child objects
-
 extends CharacterBody2D
-#class_name Player
+class_name Player
+
+@onready var AnimPlayer = $AnimationPlayer
+
+@onready var AttackTimer = $Timers/AttackTimer
+@onready var SFXtime = $Timers/SFXtimer
+
+@onready var BodyAudio = $Audio/BodyAudio
+@onready var WeaponAudio = $Audio/WeaponAudio
+
+@onready var EnvColl = $"Environment Collision"
+@onready var HitColl = $HitBox/HitCollision
+
+enum DirectionStates {Up, Down, Left, Right}
+
+var CurrentDirection : int
+@onready var CurrentAttackIndex : int = 1
+
+var IsMoving = false
+var IsHealing = false
 
 @export_category("PlayerStats")
 @export var MaxHealth : int
@@ -15,34 +29,17 @@ var AddedXP : int
 
 @export_category("Movement Stats")
 @export var TopSpeed = 0
-@export var Acceleration = 0.0
-@export var Deceleration = 0.0
 
 @export_category("Attack Stats")
 @export var MaxAttackNumber : int
-@onready var CurrentAttackIndex : int = 1
 @export var DamageOutput : int
 @export var AttackTime : float
 @export var CooldownTime : float
 @export var InputBufferAmnt : float
 
-@export_category("Components")
+@export_category("Internal References")
 @export var InventoryRef : Inventory
 @export var UI : PlayerUI
-@export var EnvColl = CollisionShape2D
-@export var HitColl = CollisionShape2D
-@export var BodyAudio : BodyAudioPlayer
-@export var WeaponAudio : WeaponAudioPlayer
-
-@export_category("Timers")
-@export var DeathTimer : Timer
-@export var AttackTimer : Timer
-@export var CooldownTimer : Timer
-@export var SFXtime : Timer
-@export var XPtime : Timer
-
-@export_category("Nodes")
-@export var AnimPlayer : AnimationPlayer
 
 var CurrentSpeed = 0
 var HorizontalInput = 0
@@ -58,38 +55,34 @@ var IsInMenu = false
 var IsRolling = false
 var IsDead = false
 
-enum DirectionStates {Up, Down, Left, Right}
-var CurrentDirection : int
-
-var IsMoving = false
-var IsHealing = false
-
 func _ready():
 	CurrentDirection = DirectionStates.Down
 	
 	CurrentHealth = MaxHealth
 	CurrentStaminaActions = MaxStaminaMoves
 	
-	UI.get_node("StaminaContainer").SetMaxIcons(MaxStaminaMoves)
+	UI.Stamina_Icons.SetMaxIcons(MaxStaminaMoves)
+	#UI.Stamina_Icons.SetMaxIcons(MaxStaminaMoves)
 	
+	$"Player UI/XpLabel/Amount Label".visible = false
 	CurrentXP = GameSettings.CurrentPlayerXP
 	
 func _process(_delta):
-	if CurrentHealth <= 0 && DeathTimer.is_stopped():
-		#FSM.CurrentState.Transitioned.emit("Dead")
+	if CurrentHealth <= 0 && $Timers/DeathTimer.is_stopped():
+		$StateMachine.CurrentState.Transitioned.emit("Dead")
 		IsDead = true
-		DeathTimer.one_shot = true
-		DeathTimer.start(8)
+		$Timers/DeathTimer.one_shot = true
+		$Timers/DeathTimer.start(8)
+		
+	$"Player UI/XpLabel".text = ("XP: " + str(CurrentXP))
+	$"Player UI/XpLabel/Amount Label".text = ("+" + str(AddedXP))
 	
 	if CurrentHealth >= MaxHealth:
 		CurrentHealth = MaxHealth
 	
 func _physics_process(_delta):
-	if IsDead:
-		CurrentSpeed = 0
-		velocity = Vector2.ZERO
-		return
-	else:
+	
+	if IsDead == false:
 		IsMoving = Input.is_action_pressed("Run_Up") || Input.is_action_pressed("Run_Down") || Input.is_action_pressed("Run_Left") || Input.is_action_pressed("Run_Right")
 	
 	if IsRolling == false && IsMoving:
@@ -106,10 +99,13 @@ func _physics_process(_delta):
 			CurrentDirection = DirectionStates.Left
 			Direction = Vector2.LEFT
 	
-	if IsMoving:
-		CurrentSpeed = TopSpeed
-	elif IsRolling:
-		CurrentSpeed = TopSpeed + 25
+	if IsDead == false:
+		if IsMoving:
+			CurrentSpeed = TopSpeed
+		elif IsRolling:
+			CurrentSpeed = TopSpeed + 25
+		else:
+			CurrentSpeed = 0
 	else:
 		CurrentSpeed = 0
 	
@@ -117,14 +113,12 @@ func _physics_process(_delta):
 	move_and_slide()
 
 func ResetAttackIndex():
-	AttackTimer.start(AttackTime)
-	await AttackTimer.timeout
 	CurrentAttackIndex = 1
-	UI.AttackIcons.SetMaxIcons()
+	UI.AttackIcons.AddIndicator(1)
 
-func AttackCooldown():
-	CooldownTimer.start(CooldownTime)
-	await CooldownTimer.timeout
+func AttackCooldown(timeAmnt : float):
+	AttackTimer.start(timeAmnt)
+	await AttackTimer.timeout
 	CurrentAttackIndex = 1
 	UI.AttackIcons.SetMaxIcons()
 
@@ -170,12 +164,12 @@ func Respawn():
 
 #Add to the amount of XP to then be added to the total count
 func AddXP(Amount : int):
-	if XPtime.time_left > 0:
-		XPtime.stop()
-	XPtime.start(3)
+	if $Timers/XPTimer.time_left > 0:
+		$Timers/XPTimer.stop()
+	$Timers/XPTimer.start(3)
 	AddedXP += Amount
-	UI.XpAmount.visible = true
-	await XPtime.timeout
+	$"Player UI/XpLabel/Amount Label".visible = true
+	await $Timers/XPTimer.timeout
 	DisplayXP()
 
 #Aesthetically display the addition of XP
@@ -186,4 +180,4 @@ func DisplayXP():
 	AmountTween.tween_property(self, "AddedXP", 0, 1.25)
 	await XPTween.finished
 	await AmountTween.finished
-	UI.XpAmount.visible = false
+	$"Player UI/XpLabel/Amount Label".visible = false

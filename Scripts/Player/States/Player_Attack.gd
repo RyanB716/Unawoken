@@ -57,12 +57,12 @@ func OnEnter():
 	PlayerRef.TopSpeed = PreviousSpeed
 	
 	if PlayerRef.CurrentAttackIndex == PlayerRef.MaxAttackNumber:
-		PlayerRef.AttackCooldown()
+		PlayerRef.AttackCooldown(PlayerRef.CooldownTime)
 		PlayerRef.ReduceStamina(1)
 		PlayerRef.ResetStamina(1)
 	
 	elif PlayerRef.CurrentAttackIndex < PlayerRef.MaxAttackNumber:
-		PlayerRef.AttackTimer.start(PlayerRef.AttackTime)
+		PlayerRef.AttackCooldown(PlayerRef.AttackTime)
 		
 	PlayerRef.UI.AttackIcons.TakeAwayIndicators(1)
 	

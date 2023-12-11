@@ -1,7 +1,13 @@
-[gd_scene load_steps=69 format=3 uid="uid://dxprot5svswbe"]
+[gd_scene load_steps=75 format=3 uid="uid://dxprot5svswbe"]
 
-[ext_resource type="Script" path="res://Scripts/Player/Player.gd" id="1_2gr55"]
+[ext_resource type="Script" path="res://playerOLD.gd" id="1_lu7lu"]
+[ext_resource type="Script" path="res://Scripts/Components/FSM/StateMachine.gd" id="2_ilcql"]
 [ext_resource type="Texture2D" uid="uid://bi38invhap0t" path="res://Visual Assets/SpriteSheets/player.png" id="2_w50ld"]
+[ext_resource type="Script" path="res://Scripts/Player/States/Player_Idle.gd" id="3_numh2"]
+[ext_resource type="Script" path="res://Scripts/Player/States/Player_Move.gd" id="4_qyqi4"]
+[ext_resource type="Script" path="res://Scripts/Player/States/Player_Attack.gd" id="5_8u676"]
+[ext_resource type="Script" path="res://Scripts/Player/States/Roll.gd" id="6_l1w5e"]
+[ext_resource type="Script" path="res://Scripts/Player/States/PlayerDead.gd" id="7_od7fb"]
 [ext_resource type="Script" path="res://Scripts/Player/Inventory.gd" id="8_nbgbr"]
 [ext_resource type="Script" path="res://Scripts/Components/Audio Controllers/BodyAudioPlayer.gd" id="8_syxxs"]
 [ext_resource type="AudioStream" uid="uid://d0iijvcalr7qr" path="res://Audio/SFX/Player/attack1.wav" id="9_pigyr"]
@@ -818,34 +824,49 @@ bg_color = Color(0, 0, 0, 1)
 font = ExtResource("22_lpgic")
 font_size = 30
 
-[node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("InventoryRef", "UI", "EnvColl", "HitColl", "BodyAudio", "WeaponAudio", "DeathTimer", "AttackTimer", "CooldownTimer", "SFXtime", "XPtime", "AnimPlayer") groups=["Player"]]
+[node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("InventoryRef", "UI") groups=["Player"]]
 z_index = 1
 collision_mask = 7
 platform_floor_layers = 0
-script = ExtResource("1_2gr55")
+script = ExtResource("1_lu7lu")
 MaxHealth = 250
 MaxStaminaMoves = 3
-StaminaRefillTime = 3.5
-TopSpeed = 85
-Acceleration = 1.5
-Deceleration = 10.0
+StaminaRefillTime = 2.5
+TopSpeed = 75
 MaxAttackNumber = 3
-DamageOutput = 50
-AttackTime = 0.25
-CooldownTime = 1.5
-InputBufferAmnt = 0.13
+DamageOutput = 25
+AttackTime = 1.0
+CooldownTime = 3.5
+InputBufferAmnt = 0.15
 InventoryRef = NodePath("Inventory")
 UI = NodePath("Player UI")
-EnvColl = NodePath("Environment Collision")
-HitColl = NodePath("HitBox/HitCollision")
-BodyAudio = NodePath("Audio/BodyAudio")
-WeaponAudio = NodePath("Audio/WeaponAudio")
-DeathTimer = NodePath("Timers/DeathTimer")
-AttackTimer = NodePath("")
-CooldownTimer = NodePath("Timers/AttackTimer")
-SFXtime = NodePath("Timers/SFXtimer")
-XPtime = NodePath("Timers/XPTimer")
-AnimPlayer = NodePath("AnimationPlayer")
+
+[node name="StateMachine" type="Node" parent="." node_paths=PackedStringArray("InitialState")]
+script = ExtResource("2_ilcql")
+InitialState = NodePath("Player_Idle")
+
+[node name="Player_Idle" type="Node" parent="StateMachine" node_paths=PackedStringArray("PlayerRef")]
+script = ExtResource("3_numh2")
+PlayerRef = NodePath("../..")
+
+[node name="Player_Move" type="Node" parent="StateMachine" node_paths=PackedStringArray("PlayerRef", "AnimPlayer")]
+script = ExtResource("4_qyqi4")
+PlayerRef = NodePath("../..")
+AnimPlayer = NodePath("../../AnimationPlayer")
+
+[node name="Player_Attack" type="Node" parent="StateMachine" node_paths=PackedStringArray("PlayerRef")]
+script = ExtResource("5_8u676")
+PlayerRef = NodePath("../..")
+
+[node name="Roll" type="Node" parent="StateMachine" node_paths=PackedStringArray("PlayerRef", "AnimPlayer", "BodyAudio")]
+script = ExtResource("6_l1w5e")
+PlayerRef = NodePath("../..")
+AnimPlayer = NodePath("../../AnimationPlayer")
+BodyAudio = NodePath("../../Audio/BodyAudio")
+
+[node name="PlayerDead" type="Node" parent="StateMachine" node_paths=PackedStringArray("PlayerRef")]
+script = ExtResource("7_od7fb")
+PlayerRef = NodePath("../..")
 
 [node name="Inventory" type="Node2D" parent="."]
 process_mode = 3
@@ -925,12 +946,13 @@ one_shot = true
 [node name="XPTimer" type="Timer" parent="Timers"]
 one_shot = true
 
-[node name="Player UI" type="CanvasLayer" parent="." node_paths=PackedStringArray("player", "StatueMenu", "Shop", "AttackIcons", "XPLabel", "XpAmount", "CurrentItem", "CoinLabel")]
+[node name="Player UI" type="CanvasLayer" parent="." node_paths=PackedStringArray("player", "StatueMenu", "Shop", "Stamina_Icons", "AttackIcons", "XPLabel", "XpAmount", "CurrentItem", "CoinLabel")]
 process_mode = 3
 script = ExtResource("17_k3vfi")
 player = NodePath("..")
 StatueMenu = NodePath("StatueMenu")
 Shop = NodePath("ShopPanel")
+Stamina_Icons = NodePath("StaminaContainer")
 AttackIcons = NodePath("AttackIndicators")
 XPLabel = NodePath("XpLabel")
 XpAmount = NodePath("XpLabel/Amount Label")
