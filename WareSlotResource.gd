@@ -1,5 +1,5 @@
 extends Resource
-class_name InventorySlot
+class_name WareSlotData
 
 @export var Item : InventoryItem
-@export var Amount : int
+@export var Cost : int

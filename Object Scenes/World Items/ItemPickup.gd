@@ -1,7 +1,7 @@
 extends Area2D
 class_name ItemPickup
 
-@export var resource : UsableItemResource
+@export var resource : InventoryItem
 
 func _ready():
 	if resource != null:
@@ -13,5 +13,5 @@ func _ready():
 #Adds item to inventory
 func OnPickup(body : Node2D):
 	if body is Player:
-		body.InventoryRef.AddElixir(resource)
+		body.InventoryRef.AddItem(resource)
 		self.queue_free()

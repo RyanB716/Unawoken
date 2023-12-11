@@ -1,4 +1,4 @@
-[gd_scene load_steps=24 format=3 uid="uid://c4oy4c3d46qb4"]
+[gd_scene load_steps=25 format=3 uid="uid://c4oy4c3d46qb4"]
 
 [ext_resource type="Texture2D" uid="uid://dij84ijwq0tae" path="res://Visual Assets/TileSets/Tiles.png" id="1_ocd84"]
 [ext_resource type="Script" path="res://Scripts/Level Controllers/ForsakenDepths.gd" id="1_u4b3h"]
@@ -11,9 +11,11 @@
 [ext_resource type="PackedScene" uid="uid://wvlasq770v6g" path="res://Object Scenes/World Items/Statue.tscn" id="9_kcsy4"]
 [ext_resource type="PackedScene" uid="uid://cnww1xsx7uypm" path="res://Object Scenes/Enemies/Enemy_Moblin.tscn" id="10_2i63u"]
 [ext_resource type="PackedScene" uid="uid://jxarx6uqoibj" path="res://Object Scenes/World Items/Note_Object.tscn" id="10_clkcy"]
-[ext_resource type="Resource" uid="uid://c8m3us0sxsy1l" path="res://Custom Resources/Items & Inventory/Items/LiteElixir.tres" id="12_pscv5"]
-[ext_resource type="Resource" uid="uid://bylvhawsitwpb" path="res://Custom Resources/Items & Inventory/Items/Med_Elixir.tres" id="13_0vicu"]
+[ext_resource type="Resource" uid="uid://xcxif0nh2xr1" path="res://Custom Resources/Items & Inventory/Items/Healing Items/LiteElixir.tres" id="12_pscv5"]
+[ext_resource type="Resource" uid="uid://djo5mayfmsoct" path="res://Custom Resources/Items & Inventory/Items/Healing Items/MedElixir.tres" id="13_0vicu"]
+[ext_resource type="Resource" uid="uid://dcnarwww73wqb" path="res://Custom Resources/Items & Inventory/Items/Healing Items/BluePowder.tres" id="14_8ctq4"]
 [ext_resource type="PackedScene" uid="uid://b1e2vsd1485iw" path="res://Object Scenes/NPCS/Merchants/ForsakenDepths_Merchant.tscn" id="14_78g7w"]
+[ext_resource type="Resource" uid="uid://suaachk0sbkl" path="res://Custom Resources/Items & Inventory/Items/KeyItem.tres" id="14_mj1xj"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_j2tg3"]
 texture = ExtResource("1_ocd84")
@@ -1528,31 +1530,26 @@ sources/1 = SubResource("TileSetAtlasSource_wk6tw")
 [sub_resource type="Resource" id="Resource_3u8gi"]
 script = ExtResource("9_5pegd")
 Item = ExtResource("12_pscv5")
+Amount = 1
+
+[sub_resource type="Resource" id="Resource_b8nvc"]
+script = ExtResource("9_5pegd")
+Item = ExtResource("13_0vicu")
+Amount = 1
+
+[sub_resource type="Resource" id="Resource_lgu3x"]
+script = ExtResource("9_5pegd")
+Item = ExtResource("14_8ctq4")
 Amount = 3
 
 [sub_resource type="Resource" id="Resource_xyppq"]
 script = ExtResource("9_5pegd")
-Item = ExtResource("12_pscv5")
-Amount = 1
-
-[sub_resource type="Resource" id="Resource_aon5x"]
-script = ExtResource("9_5pegd")
-Item = ExtResource("12_pscv5")
-Amount = 1
-
-[sub_resource type="Resource" id="Resource_1mc4b"]
-script = ExtResource("9_5pegd")
-Item = ExtResource("13_0vicu")
-Amount = 1
-
-[sub_resource type="Resource" id="Resource_j586s"]
-script = ExtResource("9_5pegd")
-Item = ExtResource("13_0vicu")
+Item = ExtResource("14_mj1xj")
 Amount = 1
 
 [sub_resource type="Resource" id="Resource_7i06v"]
 script = ExtResource("9_5pegd")
-Item = ExtResource("13_0vicu")
+Item = ExtResource("14_mj1xj")
 Amount = 1
 
 [node name="Forsaken Depths" type="Node2D"]
@@ -1666,31 +1663,28 @@ Max_CoinAmount = 5
 
 [node name="Pot2" parent="Destructables" instance=ExtResource("7_auceg")]
 position = Vector2(-192, 168)
-ItemDrops = Array[ExtResource("9_5pegd")]([SubResource("Resource_xyppq")])
 Min_CoinAmount = 2
 Max_CoinAmount = 5
 
 [node name="Pot3" parent="Destructables" instance=ExtResource("7_auceg")]
 position = Vector2(-264, 168)
-ItemDrops = Array[ExtResource("9_5pegd")]([SubResource("Resource_aon5x")])
 Min_CoinAmount = 2
 Max_CoinAmount = 5
 
 [node name="Pot4" parent="Destructables" instance=ExtResource("7_auceg")]
 position = Vector2(-240, 168)
-ItemDrops = Array[ExtResource("9_5pegd")]([SubResource("Resource_1mc4b")])
 Min_CoinAmount = 2
 Max_CoinAmount = 5
 
 [node name="Pot5" parent="Destructables" instance=ExtResource("7_auceg")]
 position = Vector2(-216, 168)
-ItemDrops = Array[ExtResource("9_5pegd")]([SubResource("Resource_j586s")])
+ItemDrops = Array[ExtResource("9_5pegd")]([SubResource("Resource_b8nvc")])
 Min_CoinAmount = 3
 Max_CoinAmount = 7
 
 [node name="Pot6" parent="Destructables" instance=ExtResource("7_auceg")]
 position = Vector2(-536, 346)
-ItemDrops = Array[ExtResource("9_5pegd")]([SubResource("Resource_xyppq")])
+ItemDrops = Array[ExtResource("9_5pegd")]([SubResource("Resource_lgu3x")])
 Min_CoinAmount = 2
 Max_CoinAmount = 5
 

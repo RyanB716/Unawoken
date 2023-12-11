@@ -8,7 +8,8 @@ class_name PlayerUI
 @export var AttackIcons : Attack_Indicators
 @export var XPLabel : Label
 @export var XpAmount : Label
-@export var CurrentItem : Current_Item
+@export var ElixirGUI : ItemGUI
+@export var PowderGUI : ItemGUI
 @export var CoinLabel : Label
 
 func _ready():

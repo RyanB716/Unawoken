@@ -1,4 +1,4 @@
-[gd_scene load_steps=75 format=3 uid="uid://dxprot5svswbe"]
+[gd_scene load_steps=73 format=3 uid="uid://dxprot5svswbe"]
 
 [ext_resource type="Script" path="res://playerOLD.gd" id="1_lu7lu"]
 [ext_resource type="Script" path="res://Scripts/Components/FSM/StateMachine.gd" id="2_ilcql"]
@@ -11,10 +11,9 @@
 [ext_resource type="Script" path="res://Scripts/Player/Inventory.gd" id="8_nbgbr"]
 [ext_resource type="Script" path="res://Scripts/Components/Audio Controllers/BodyAudioPlayer.gd" id="8_syxxs"]
 [ext_resource type="AudioStream" uid="uid://d0iijvcalr7qr" path="res://Audio/SFX/Player/attack1.wav" id="9_pigyr"]
-[ext_resource type="Resource" uid="uid://c8m3us0sxsy1l" path="res://Custom Resources/Items & Inventory/Items/LiteElixir.tres" id="9_s48do"]
+[ext_resource type="Resource" uid="uid://xcxif0nh2xr1" path="res://Custom Resources/Items & Inventory/Items/Healing Items/LiteElixir.tres" id="9_s48do"]
 [ext_resource type="PackedScene" uid="uid://cvlh1usf2hwre" path="res://Object Scenes/Player/HealthBar.tscn" id="10_1g6mq"]
 [ext_resource type="AudioStream" uid="uid://cdla8hf16tqfv" path="res://Audio/SFX/Player/attack2.wav" id="10_1yyqr"]
-[ext_resource type="Script" path="res://Custom Resources/Items & Inventory/Scripts/InventorySlotResource.gd" id="10_2rcg1"]
 [ext_resource type="PackedScene" uid="uid://b8dv2qk331bb" path="res://Object Scenes/Player/StaminaContainer.tscn" id="11_0842j"]
 [ext_resource type="AudioStream" uid="uid://tky2sadciuix" path="res://Audio/SFX/Player/attack3.wav" id="11_e46q2"]
 [ext_resource type="AudioStream" uid="uid://r0ar1gqr6dni" path="res://Audio/SFX/Object/Coin_Add.mp3" id="11_w3b4d"]
@@ -33,7 +32,7 @@
 [ext_resource type="Script" path="res://Scripts/Player/States/Attack Indicators.gd" id="29_53msn"]
 [ext_resource type="FontFile" uid="uid://ba0gbrsq1d1dv" path="res://Visual Assets/Fonts/OldLondon.ttf" id="29_samax"]
 [ext_resource type="PackedScene" uid="uid://dn1nfb6pxmd20" path="res://Object Scenes/Player/AttackGUI.tscn" id="30_keeyv"]
-[ext_resource type="Script" path="res://Scripts/Player/States/CurrentItem.gd" id="33_h81sy"]
+[ext_resource type="Script" path="res://Scripts/Player/States/Item_GUI.gd" id="32_6a2ib"]
 [ext_resource type="PackedScene" uid="uid://bhvpudy3rhqqu" path="res://Object Scenes/NPCS/Merchants/Ware_Slot.tscn" id="33_v2grb"]
 [ext_resource type="Texture2D" uid="uid://y3mr7qen2b04" path="res://Visual Assets/SpriteSheets/NPCs/Merchants/crow_idle.png" id="34_jswdi"]
 [ext_resource type="FontFile" uid="uid://bs6libyxfwgc" path="res://Visual Assets/Fonts/MorrisRomanBlack.ttf" id="34_opvei"]
@@ -41,11 +40,6 @@
 [ext_resource type="Texture2D" uid="uid://bprrge2q0voom" path="res://Visual Assets/UI/Control Icons/Left_Btn.png" id="35_xj5sg"]
 [ext_resource type="Texture2D" uid="uid://jsox6faslw2p" path="res://Visual Assets/UI/Control Icons/Bottom_Btn.png" id="36_wmbi7"]
 [ext_resource type="Texture2D" uid="uid://c8pepqaqfdgu8" path="res://Visual Assets/UI/Control Icons/Right_Btn.png" id="37_72n2g"]
-
-[sub_resource type="Resource" id="Resource_4xkb4"]
-script = ExtResource("10_2rcg1")
-Item = ExtResource("9_s48do")
-Amount = 0
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_dv778"]
 radius = 4.0
@@ -872,7 +866,7 @@ PlayerRef = NodePath("../..")
 [node name="Inventory" type="Node2D" parent="."]
 process_mode = 3
 script = ExtResource("8_nbgbr")
-Elixirs = Array[ExtResource("10_2rcg1")]([SubResource("Resource_4xkb4")])
+Elixirs = Array[Resource("res://Custom Resources/Items & Inventory/Scripts/ElixirResource.gd")]([ExtResource("9_s48do")])
 
 [node name="InventoryAudio" type="AudioStreamPlayer" parent="Inventory"]
 
@@ -947,7 +941,7 @@ one_shot = true
 [node name="XPTimer" type="Timer" parent="Timers"]
 one_shot = true
 
-[node name="Player UI" type="CanvasLayer" parent="." node_paths=PackedStringArray("player", "StatueMenu", "Shop", "Stamina_Icons", "AttackIcons", "XPLabel", "XpAmount", "CurrentItem", "CoinLabel")]
+[node name="Player UI" type="CanvasLayer" parent="." node_paths=PackedStringArray("player", "StatueMenu", "Shop", "Stamina_Icons", "AttackIcons", "XPLabel", "XpAmount", "ElixirGUI", "PowderGUI", "CoinLabel")]
 process_mode = 3
 script = ExtResource("17_k3vfi")
 player = NodePath("..")
@@ -957,7 +951,8 @@ Stamina_Icons = NodePath("StaminaContainer")
 AttackIcons = NodePath("AttackIndicators")
 XPLabel = NodePath("XpLabel")
 XpAmount = NodePath("XpLabel/Amount Label")
-CurrentItem = NodePath("CurrentItem")
+ElixirGUI = NodePath("Elixir Gui")
+PowderGUI = NodePath("Powder GUI")
 CoinLabel = NodePath("Coin Amount")
 
 [node name="Health Bar" parent="Player UI" node_paths=PackedStringArray("player") instance=ExtResource("10_1g6mq")]
@@ -1015,23 +1010,23 @@ text = "+00000"
 horizontal_alignment = 2
 vertical_alignment = 1
 
-[node name="CurrentItem" type="Panel" parent="Player UI" node_paths=PackedStringArray("Controller", "image", "Count")]
+[node name="Elixir Gui" type="Panel" parent="Player UI" node_paths=PackedStringArray("Controller", "image", "Count")]
 custom_minimum_size = Vector2(50, 50)
 anchors_preset = 2
 anchor_top = 1.0
 anchor_bottom = 1.0
-offset_left = 13.0
-offset_top = -50.0
-offset_right = 53.0
+offset_left = 59.0
+offset_top = -60.0
+offset_right = 109.0
 offset_bottom = -10.0
 grow_vertical = 0
 theme_override_styles/panel = SubResource("StyleBoxFlat_ji28p")
-script = ExtResource("33_h81sy")
+script = ExtResource("32_6a2ib")
 Controller = NodePath("..")
 image = NodePath("TextureRect")
 Count = NodePath("Label")
 
-[node name="TextureRect" type="TextureRect" parent="Player UI/CurrentItem"]
+[node name="TextureRect" type="TextureRect" parent="Player UI/Elixir Gui"]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -1045,7 +1040,47 @@ offset_bottom = 20.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="Label" type="Label" parent="Player UI/CurrentItem"]
+[node name="Label" type="Label" parent="Player UI/Elixir Gui"]
+texture_filter = 1
+layout_mode = 0
+offset_left = 56.0
+offset_top = 27.0
+offset_right = 96.0
+offset_bottom = 50.0
+label_settings = SubResource("LabelSettings_qcd8h")
+vertical_alignment = 2
+
+[node name="Powder GUI" type="Panel" parent="Player UI" node_paths=PackedStringArray("Controller", "image", "Count")]
+custom_minimum_size = Vector2(50, 50)
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 12.0
+offset_top = -125.0
+offset_right = 62.0
+offset_bottom = -75.0
+grow_vertical = 0
+theme_override_styles/panel = SubResource("StyleBoxFlat_ji28p")
+script = ExtResource("32_6a2ib")
+Controller = NodePath("..")
+image = NodePath("../Elixir Gui/TextureRect")
+Count = NodePath("../Elixir Gui/Label")
+
+[node name="TextureRect" type="TextureRect" parent="Player UI/Powder GUI"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -20.0
+offset_right = 20.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Label" type="Label" parent="Player UI/Powder GUI"]
 texture_filter = 1
 layout_mode = 0
 offset_left = 56.0

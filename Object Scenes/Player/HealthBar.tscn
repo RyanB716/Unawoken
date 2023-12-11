@@ -3,7 +3,7 @@
 [ext_resource type="Script" path="res://Scripts/Player/PlayerHealthBar.gd" id="1_awxw2"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_jue0w"]
-bg_color = Color(0, 0, 0, 1)
+bg_color = Color(1, 1, 1, 1)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ra43m"]
 bg_color = Color(1, 0, 0, 1)

@@ -5,11 +5,11 @@ class_name Ware_Slot
 
 @onready var playerInventory = get_tree().get_first_node_in_group("Player").InventoryRef
 
-var item : WareSlot
+var item : WareSlotData
 
 var controller : ShopMenu
 
-func AssignData(slot : WareSlot):
+func AssignData(slot : WareSlotData):
 	item = slot
 	$Name.text = item.Item.Name
 	$TextureRect.texture = item.Item.Icon

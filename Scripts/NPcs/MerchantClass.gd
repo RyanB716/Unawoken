@@ -2,7 +2,7 @@ extends Area2D
 class_name Merchant
 
 @export_category("Data")
-@export var Wares : Array[WareSlot]
+@export var Wares : Array[WareSlotData]
 @export var voice : AudioStream
 @export var Portrait : Texture
 
