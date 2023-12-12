@@ -15,22 +15,30 @@ class_name Inventory
 
 @onready var player : Player = get_parent()
 
+func _enter_tree():
+	if !GameSettings.PlayerElixirs.is_empty():
+		print("\nLoading Elixir Inventory..." + " (" + str(GameSettings.PlayerElixirs.size()) + " items)")
+		Elixirs.clear()
+		Elixirs = GameSettings.PlayerElixirs
+		
+		for i in Elixirs.size():
+			print("-Index: " + str(i) + ": " + str(Elixirs[i].Name) + ", " + str(Elixirs[i].AmountHeld))
+	else:
+		print("Global Inventory is not populated")
+
 func _ready():
 	CoinCount = GameSettings.CurrentCoins
 	
-	if !GameSettings.PlayerInventory.is_empty():
-		print("\nLoading Inventory..." + " (" + str(GameSettings.PlayerInventory.size()) + " items)")
-		Elixirs.clear()
-		for i in GameSettings.PlayerInventory.size():
+	
+		
+		#for i in GameSettings.PlayerElixirs.size():
 			#print("-Index: " + str(i) + "/" + str(GameSettings.PlayerInventory.size()) + " is: " + str(GameSettings.PlayerInventory[i].Item.Name) + " #:" + str(GameSettings.PlayerInventory[i].Amount))
-			var newSlot = InventorySlot.new()
-			newSlot.Item = GameSettings.PlayerInventory[i].Item
-			newSlot.Amount = GameSettings.PlayerInventory[i].Amount
-			Elixirs.append(newSlot)
-			print("-Index: " + str(i) + ": " + str(Elixirs[i].Item.Name) + ", " + str(Elixirs[i].Amount))
-			print("\n")
-	else:
-		print("Global Inventory is not populated")
+			#var newSlot = InventorySlot.new()
+			#newSlot.Item = GameSettings.PlayerInventory[i].Item
+			#newSlot.Amount = GameSettings.PlayerInventory[i].Amount
+			#Elixirs.append(newSlot)
+			#print("-Index: " + str(i) + ": " + str(Elixirs[i].Item.Name) + ", " + str(Elixirs[i].Amount))
+			#print("\n")
 		
 	CurrentItem = Elixirs[0]
 

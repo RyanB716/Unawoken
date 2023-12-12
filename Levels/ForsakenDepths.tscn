@@ -1,4 +1,4 @@
-[gd_scene load_steps=29 format=3 uid="uid://c4oy4c3d46qb4"]
+[gd_scene load_steps=25 format=3 uid="uid://c4oy4c3d46qb4"]
 
 [ext_resource type="Texture2D" uid="uid://dij84ijwq0tae" path="res://Visual Assets/TileSets/Tiles.png" id="1_ocd84"]
 [ext_resource type="Script" path="res://Scripts/Level Controllers/ForsakenDepths.gd" id="1_u4b3h"]
@@ -7,16 +7,15 @@
 [ext_resource type="AudioStream" uid="uid://dp5kawtmj2jip" path="res://Audio/SFX/Level SFX/Ambiance_Cave_Drips_Loop_Stereo.wav" id="5_ucqvd"]
 [ext_resource type="PackedScene" uid="uid://1vl2wudjscly" path="res://Object Scenes/World Items/Door_Wood.tscn" id="6_q7vls"]
 [ext_resource type="PackedScene" uid="uid://bkee3pqvgv4x1" path="res://Object Scenes/World Items/Pot.tscn" id="7_auceg"]
-[ext_resource type="Script" path="res://Custom Resources/Items & Inventory/Scripts/InventorySlotResource.gd" id="9_5pegd"]
 [ext_resource type="PackedScene" uid="uid://wvlasq770v6g" path="res://Object Scenes/World Items/Statue.tscn" id="9_kcsy4"]
 [ext_resource type="PackedScene" uid="uid://cnww1xsx7uypm" path="res://Object Scenes/Enemies/Enemy_Moblin.tscn" id="10_2i63u"]
 [ext_resource type="PackedScene" uid="uid://jxarx6uqoibj" path="res://Object Scenes/World Items/Note_Object.tscn" id="10_clkcy"]
+[ext_resource type="Script" path="res://Custom Resources/Items & Inventory/Scripts/ItemDropResource.gd" id="12_nkb2o"]
 [ext_resource type="Resource" uid="uid://xcxif0nh2xr1" path="res://Custom Resources/Items & Inventory/Items/Healing Items/LiteElixir.tres" id="12_pscv5"]
 [ext_resource type="Resource" uid="uid://djo5mayfmsoct" path="res://Custom Resources/Items & Inventory/Items/Healing Items/MedElixir.tres" id="13_0vicu"]
 [ext_resource type="Resource" uid="uid://dcnarwww73wqb" path="res://Custom Resources/Items & Inventory/Items/Healing Items/BluePowder.tres" id="14_8ctq4"]
 [ext_resource type="PackedScene" uid="uid://b1e2vsd1485iw" path="res://Object Scenes/NPCS/Merchants/ForsakenDepths_Merchant.tscn" id="14_78g7w"]
 [ext_resource type="Resource" uid="uid://suaachk0sbkl" path="res://Custom Resources/Items & Inventory/Items/KeyItem.tres" id="14_mj1xj"]
-[ext_resource type="Script" path="res://WareSlotResource.gd" id="17_1cckg"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_j2tg3"]
 texture = ExtResource("1_ocd84")
@@ -1529,44 +1528,29 @@ sources/0 = SubResource("TileSetAtlasSource_j2tg3")
 sources/1 = SubResource("TileSetAtlasSource_wk6tw")
 
 [sub_resource type="Resource" id="Resource_3u8gi"]
-script = ExtResource("9_5pegd")
+script = ExtResource("12_nkb2o")
 Item = ExtResource("12_pscv5")
 Amount = 1
 
 [sub_resource type="Resource" id="Resource_b8nvc"]
-script = ExtResource("9_5pegd")
+script = ExtResource("12_nkb2o")
 Item = ExtResource("13_0vicu")
 Amount = 1
 
 [sub_resource type="Resource" id="Resource_lgu3x"]
-script = ExtResource("9_5pegd")
+script = ExtResource("12_nkb2o")
 Item = ExtResource("14_8ctq4")
 Amount = 3
 
 [sub_resource type="Resource" id="Resource_xyppq"]
-script = ExtResource("9_5pegd")
+script = ExtResource("12_nkb2o")
 Item = ExtResource("14_mj1xj")
 Amount = 1
 
 [sub_resource type="Resource" id="Resource_7i06v"]
-script = ExtResource("9_5pegd")
+script = ExtResource("12_nkb2o")
 Item = ExtResource("14_mj1xj")
 Amount = 1
-
-[sub_resource type="Resource" id="Resource_0hr4i"]
-script = ExtResource("17_1cckg")
-Item = ExtResource("12_pscv5")
-Cost = 25
-
-[sub_resource type="Resource" id="Resource_7ihey"]
-script = ExtResource("17_1cckg")
-Item = ExtResource("14_8ctq4")
-Cost = 35
-
-[sub_resource type="Resource" id="Resource_ufm4c"]
-script = ExtResource("17_1cckg")
-Item = ExtResource("14_mj1xj")
-Cost = 15
 
 [node name="Forsaken Depths" type="Node2D"]
 process_mode = 1
@@ -1673,7 +1657,7 @@ position = Vector2(-591, 495)
 
 [node name="Pot" parent="Destructables" instance=ExtResource("7_auceg")]
 position = Vector2(-582, 551)
-ItemDrops = Array[ExtResource("9_5pegd")]([SubResource("Resource_3u8gi")])
+ItemDrops = Array[ExtResource("12_nkb2o")]([SubResource("Resource_3u8gi")])
 Min_CoinAmount = 5
 Max_CoinAmount = 5
 
@@ -1694,19 +1678,19 @@ Max_CoinAmount = 5
 
 [node name="Pot5" parent="Destructables" instance=ExtResource("7_auceg")]
 position = Vector2(-216, 168)
-ItemDrops = Array[ExtResource("9_5pegd")]([SubResource("Resource_b8nvc")])
+ItemDrops = Array[ExtResource("12_nkb2o")]([SubResource("Resource_b8nvc")])
 Min_CoinAmount = 3
 Max_CoinAmount = 7
 
 [node name="Pot6" parent="Destructables" instance=ExtResource("7_auceg")]
 position = Vector2(-536, 346)
-ItemDrops = Array[ExtResource("9_5pegd")]([SubResource("Resource_lgu3x")])
+ItemDrops = Array[ExtResource("12_nkb2o")]([SubResource("Resource_lgu3x")])
 Min_CoinAmount = 2
 Max_CoinAmount = 5
 
 [node name="Pot13" parent="Destructables" instance=ExtResource("7_auceg")]
 position = Vector2(-520, 346)
-ItemDrops = Array[ExtResource("9_5pegd")]([SubResource("Resource_xyppq")])
+ItemDrops = Array[ExtResource("12_nkb2o")]([SubResource("Resource_xyppq")])
 Min_CoinAmount = 2
 Max_CoinAmount = 5
 
@@ -1742,7 +1726,7 @@ Max_CoinAmount = 7
 
 [node name="Pot14" parent="Destructables" instance=ExtResource("7_auceg")]
 position = Vector2(201, -317)
-ItemDrops = Array[ExtResource("9_5pegd")]([SubResource("Resource_7i06v")])
+ItemDrops = Array[ExtResource("12_nkb2o")]([SubResource("Resource_7i06v")])
 
 [node name="Pot15" parent="Destructables" instance=ExtResource("7_auceg")]
 position = Vector2(201, -303)
@@ -1771,8 +1755,6 @@ Max_CoinAmount = 3
 
 [node name="ForsakenDepths_Merchant" parent="." instance=ExtResource("14_78g7w")]
 position = Vector2(265, -326)
-Wares = Array[ExtResource("17_1cckg")]([SubResource("Resource_0hr4i"), SubResource("Resource_7ihey"), SubResource("Resource_ufm4c")])
-Dialogue = Array[String](["Should you be out on this night? ... So young?", "We have a saying in my family. 'Have your fun, but know when to stop.'", "You look ...familar siwame.", "Glory to the highest, forever in our name ... yes?"])
 
 [editable path="1st Note"]
 [editable path="Prayer Note"]
