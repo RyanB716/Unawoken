@@ -7,14 +7,17 @@ var RespawnPoint : Vector2 = Vector2.ZERO
 var CurrentPlayerXP : int
 var CurrentCoins : int
 
-var PlayerInventory : Array[InventorySlot]
+var PlayerElixirs : Array[Elixir]
+var PlayerPowders : Array[Powder]
+var PlayerKeys : Array[KeyItem]
 
 func UpdateInventory():
 	var player = get_tree().get_first_node_in_group("Player")
+	
 	if player is Player:
-		if PlayerInventory.is_empty() == false:
-			print("Clearing global inventory")
-			GameSettings.PlayerInventory.clear()
+		if PlayerElixirs.is_empty() == false:
+			print("Clearing global Elixirs")
+			PlayerElixirs.clear()
 			
 		for i in player.InventoryRef.Elixirs.size():
 			var newSlot = InventorySlot.new()

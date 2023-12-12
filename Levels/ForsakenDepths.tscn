@@ -1,4 +1,4 @@
-[gd_scene load_steps=25 format=3 uid="uid://c4oy4c3d46qb4"]
+[gd_scene load_steps=29 format=3 uid="uid://c4oy4c3d46qb4"]
 
 [ext_resource type="Texture2D" uid="uid://dij84ijwq0tae" path="res://Visual Assets/TileSets/Tiles.png" id="1_ocd84"]
 [ext_resource type="Script" path="res://Scripts/Level Controllers/ForsakenDepths.gd" id="1_u4b3h"]
@@ -16,6 +16,7 @@
 [ext_resource type="Resource" uid="uid://dcnarwww73wqb" path="res://Custom Resources/Items & Inventory/Items/Healing Items/BluePowder.tres" id="14_8ctq4"]
 [ext_resource type="PackedScene" uid="uid://b1e2vsd1485iw" path="res://Object Scenes/NPCS/Merchants/ForsakenDepths_Merchant.tscn" id="14_78g7w"]
 [ext_resource type="Resource" uid="uid://suaachk0sbkl" path="res://Custom Resources/Items & Inventory/Items/KeyItem.tres" id="14_mj1xj"]
+[ext_resource type="Script" path="res://WareSlotResource.gd" id="17_1cckg"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_j2tg3"]
 texture = ExtResource("1_ocd84")
@@ -1552,6 +1553,21 @@ script = ExtResource("9_5pegd")
 Item = ExtResource("14_mj1xj")
 Amount = 1
 
+[sub_resource type="Resource" id="Resource_0hr4i"]
+script = ExtResource("17_1cckg")
+Item = ExtResource("12_pscv5")
+Cost = 25
+
+[sub_resource type="Resource" id="Resource_7ihey"]
+script = ExtResource("17_1cckg")
+Item = ExtResource("14_8ctq4")
+Cost = 35
+
+[sub_resource type="Resource" id="Resource_ufm4c"]
+script = ExtResource("17_1cckg")
+Item = ExtResource("14_mj1xj")
+Cost = 15
+
 [node name="Forsaken Depths" type="Node2D"]
 process_mode = 1
 script = ExtResource("1_u4b3h")
@@ -1755,6 +1771,8 @@ Max_CoinAmount = 3
 
 [node name="ForsakenDepths_Merchant" parent="." instance=ExtResource("14_78g7w")]
 position = Vector2(265, -326)
+Wares = Array[ExtResource("17_1cckg")]([SubResource("Resource_0hr4i"), SubResource("Resource_7ihey"), SubResource("Resource_ufm4c")])
+Dialogue = Array[String](["Should you be out on this night? ... So young?", "We have a saying in my family. 'Have your fun, but know when to stop.'", "You look ...familar siwame.", "Glory to the highest, forever in our name ... yes?"])
 
 [editable path="1st Note"]
 [editable path="Prayer Note"]

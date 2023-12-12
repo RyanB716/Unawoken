@@ -21,11 +21,10 @@ func BuyItem():
 	if playerInventory is Inventory:
 		controller.ChooseDialogue(controller.NPC.PurchaseLines, controller.NPC.SpokenPurchaseLines)
 		playerInventory.CoinCount -= item.Cost
-		item.Amount -= 1
-		playerInventory.AddElixir(item.Item)
+		playerInventory.AddItem(item.Item)
 		
 func _on_button_pressed():
-	if item.Amount > 0 && playerInventory.CoinCount >= item.Cost:
+	if playerInventory.CoinCount >= item.Cost:
 		BuyItem()
 	else:
 		controller.ChooseDialogue(controller.NPC.FailLines, controller.NPC.SpokenFailLines)

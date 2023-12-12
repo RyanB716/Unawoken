@@ -21,6 +21,27 @@ func _process(_delta):
 	
 	XPLabel.text = ("XP: " + str(player.CurrentXP))
 	XpAmount.text = ("+" + str(player.AddedXP))
+	
+	if player.InventoryRef.Elixirs[player.InventoryRef.ElixirIndex].AmountHeld > 0:
+		ElixirGUI.visible = true
+		ElixirGUI.DisplayItem(player.InventoryRef.Elixirs[player.InventoryRef.ElixirIndex].Icon, 
+		player.InventoryRef.Elixirs[player.InventoryRef.ElixirIndex].AmountHeld)
+	else:
+		ElixirGUI.visible = false
+
+	if player.InventoryRef.Powders[player.InventoryRef.PowderIndex].AmountHeld > 0:
+		PowderGUI.visible = true
+		PowderGUI.DisplayItem(player.InventoryRef.Powders[player.InventoryRef.PowderIndex].Icon, 
+		player.InventoryRef.Powders[player.InventoryRef.PowderIndex].AmountHeld)
+	else:
+		PowderGUI.visible = false
+		
+	if player.InventoryRef.CurrentItem is Elixir:
+		ElixirGUI.Border.visible = true
+		PowderGUI.Border.visible = false
+	else:
+		PowderGUI.Border.visible = true
+		ElixirGUI.Border.visible = false
 
 #Toggles the visibility of the Statue Menu node
 func ToggleStatueMenu():

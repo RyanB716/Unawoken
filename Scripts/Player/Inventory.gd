@@ -12,7 +12,6 @@ class_name Inventory
 @onready var KeyIndex : int = 0
 
 @onready var CoinCount : int = 0
-@onready var KeyCount : int = 0
 
 @onready var player : Player = get_parent()
 
@@ -41,38 +40,59 @@ func _process(_delta):
 	
 	if Input.is_action_just_pressed("CycleElixir"):
 		CycleElixir()
+	
+	if Input.is_action_just_pressed("CyclePowder"):
+		CyclePowder()
+		
+	#if CurrentItem.AmountHeld >= 1:
+		#print("Current Item is: " + str(CurrentItem.Name))
 
 #Adds a new Elixir item to proper inventory
 func AddItem(item : InventoryItem):
+	var array : Array
+	var arrayName : String
 	match item.ItemType:
 		InventoryItem.eItemTypes.Elixir:
-			for i in Elixirs.size():
-				if Elixirs[i].Name == item.Name:
-					print("\nMatches!")
-					print("Adding to Number Held")
-					Elixirs[i].AmountHeld += 1
-					break
-				else:
-					if i == Elixirs.size() - 1:
-						print("\nDoes not match!")
-						print("Adding new item")
-						var newSlot = Elixir.new()
-						newSlot.Item = item
-						newSlot.AmountHeld = 1
-						Elixirs.append(newSlot)
-					if CurrentItem.AmountHeld <= 0:
-						CurrentItem = Elixirs[i]
-					break
-					
-			print("\nElixirs Contents:")
-			for i in Elixirs.size():
-				print(str(i) + "/" + str(Elixirs.size() - 1) + ": " + str(Elixirs[i].Name) + ", " + str(Elixirs[i].AmountHeld))
-			print("\n")
-			
+			array = Elixirs
+			arrayName = "Elixirs"
 		InventoryItem.eItemTypes.Powder:
-			pass
+			array = Powders
+			arrayName = "Powders"
 		InventoryItem.eItemTypes.Key:
 			pass
+	
+	for i in array.size():
+				if array[i].Name == item.Name:
+					print("\nMatches!")
+					print("Adding to Number Held")
+					array[i].AmountHeld += 1
+					break
+				else:
+					if i == array.size() - 1:
+						print("\nDoes not match!")
+						print("Adding new item")
+						var newItem : InventoryItem
+						match item.ItemType:
+							InventoryItem.eItemTypes.Elixir:
+								newItem = Elixir.new()
+								newItem.AmountInPercent = item.AmountInPercent
+							InventoryItem.eItemTypes.Powder:
+								newItem = Powder.new()
+								newItem.OverrideTime = item.OverrideTime
+							InventoryItem.eItemTypes.Key:
+								newItem = KeyItem.new()
+						newItem.Name = item.Name
+						newItem.Icon = item.Icon
+						newItem.AmountHeld = 1
+						array.append(newItem)
+					if CurrentItem.AmountHeld <= 0:
+						CurrentItem = array[i]
+					break
+					
+	print("\n" + str(arrayName) + " Contents:")
+	for i in array.size():
+		print(str(i) + "/" + str(Elixirs.size() - 1) + ": " + str(Elixirs[i].Name) + ", " + str(Elixirs[i].AmountHeld))
+	print("\n")
 	
 	$InventoryAudio.stream = item.PickupSFX
 	$InventoryAudio.play()
@@ -94,22 +114,36 @@ func UseCurrentItem():
 						CycleElixir()
 
 			InventoryItem.eItemTypes.Powder:
-				pass
+				print("Using current powder: " + str(CurrentItem.Name))
+				CurrentItem.AmountHeld -= 1
 				
 			InventoryItem.eItemTypes.Key:
 				pass
 
 #Cycles the Elixir inventory upward
 func CycleElixir():
-	if (ElixirIndex + 1) > Elixirs.size() - 1:
-			ElixirIndex = 0
-	else:
-		ElixirIndex += 1
-		
 	if !CurrentItem is Elixir:
 		CurrentItem = Elixirs[ElixirIndex]
 	else:
-		return
+		#print('Attempting to switch Elixir')
+		if (ElixirIndex + 1) > Elixirs.size() - 1:
+			ElixirIndex = 0
+		else:
+			ElixirIndex += 1
+		CurrentItem = Elixirs[ElixirIndex]
+	#print('Setting Current Item to: ' + str(CurrentItem.Name))
+		
+func CyclePowder():
+	if !CurrentItem is Powder:
+		CurrentItem = Powders[PowderIndex]
+	else:
+		#print('Attempting to switch Powder')
+		if (PowderIndex + 1) > Powders.size() - 1:
+			PowderIndex = 0
+		else:
+			PowderIndex += 1
+		CurrentItem = Powders[PowderIndex]
+	#print('Setting Current Item to: ' + str(CurrentItem.Name))
 
 func AddCoin():
 	CoinCount += 1

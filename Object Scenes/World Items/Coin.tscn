@@ -22,7 +22,7 @@ continuous_cd = 2
 max_contacts_reported = 100
 contact_monitor = true
 can_sleep = false
-linear_damp = 3.5
+angular_damp = 2.0
 script = ExtResource("1_6ks4o")
 Velocity = 350.0
 
