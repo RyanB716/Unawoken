@@ -1291,17 +1291,17 @@ theme_override_styles/panel = SubResource("StyleBoxFlat_n7co0")
 
 [node name="Portrait" type="TextureRect" parent="Player UI/ShopPanel/Dialogue Nodes/Panel"]
 texture_filter = 1
-custom_minimum_size = Vector2(200, 200)
+custom_minimum_size = Vector2(185, 185)
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -87.5
-offset_top = -87.5
-offset_right = 87.5
-offset_bottom = 87.5
+offset_left = -92.5
+offset_top = -92.5
+offset_right = 92.5
+offset_bottom = 92.5
 grow_horizontal = 2
 grow_vertical = 2
 texture = SubResource("AtlasTexture_8k6sa")

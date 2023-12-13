@@ -39,6 +39,13 @@ func _process(_delta):
 	
 	if Input.is_action_just_pressed("CyclePowder"):
 		CyclePowder()
+		
+	#print("Elixir Index " + str(ElixirIndex) + " is: " + str(Elixirs[ElixirIndex].Name))
+	match CurrentItem.ItemType:
+		InventoryItem.eItemTypes.Elixir:
+			CurrentItem = Elixirs[ElixirIndex]
+		InventoryItem.eItemTypes.Powder:
+			CurrentItem = Powders[PowderIndex]
 
 #Adds a new item to proper inventory
 func AddItem(item : InventoryItem):
@@ -54,39 +61,28 @@ func AddItem(item : InventoryItem):
 	$InventoryAudio.play()
 	
 func AddItemDelegate(item : InventoryItem, array : Array, arrayName : String, index : int):
-	for i in array.size():
-		if array[i].Name == item.Name:
-			print("\nMatches!")
-			print("Adding to Number Held")
-			array[i].AmountHeld += 1
-			index = i
-			print("Index = " + str(index))
-			break
-		elif i == array.size() - 1:
-			print("\nDoes not match!")
-			print("Adding new item")
-			var newItem : InventoryItem
-			match item.ItemType:
-					InventoryItem.eItemTypes.Elixir:
-						newItem = Elixir.new()
-						newItem.AmountInPercent = item.AmountInPercent
-						ElixirIndex = i
-								
-					InventoryItem.eItemTypes.Powder:
-						newItem = Powder.new()
-						newItem.OverrideTime = item.OverrideTime
-						PowderIndex = i
-								
-					InventoryItem.eItemTypes.Key:
-						newItem = KeyItem.new()
+	if array.has(item):
+		print(arrayName + " has item: " + str(item.Name) + ", adding to AmountHeld")
+		var element = array.find(item)
+		if array[element] is InventoryItem:
+			array[element].AmountHeld += 1
+		else:
+			print('ERROR')
+	else:
+		print(arrayName + " DOES NOT have item: " + str(item.Name) + ", appending array")
+		item.AmountHeld = 1
+		array.append(item)
+		
+	var newIndex = array.find(item)
+	match item.ItemType:
+		InventoryItem.eItemTypes.Elixir:
+			ElixirIndex = newIndex
 			
-			newItem.Name = item.Name
-			newItem.Icon = item.Icon
-			newItem.AmountHeld = 1
-			array.append(newItem)
-			index = i
-			print("Index = " + str(index))
-			break
+		InventoryItem.eItemTypes.Powder:
+			pass
+			
+		InventoryItem.eItemTypes.Key:
+			pass
 	
 	print("\n" + str(arrayName) + " Contents:")
 	for i in array.size():
