@@ -1,4 +1,4 @@
-[gd_scene load_steps=74 format=3 uid="uid://dxprot5svswbe"]
+[gd_scene load_steps=75 format=3 uid="uid://dxprot5svswbe"]
 
 [ext_resource type="Script" path="res://playerOLD.gd" id="1_lu7lu"]
 [ext_resource type="Script" path="res://Scripts/Components/FSM/StateMachine.gd" id="2_ilcql"]
@@ -792,21 +792,24 @@ bg_color = Color(1, 1, 1, 1)
 
 [sub_resource type="LabelSettings" id="LabelSettings_qcd8h"]
 font = ExtResource("29_samax")
-font_size = 25
+font_size = 35
 
 [sub_resource type="LabelSettings" id="LabelSettings_buh0n"]
 font = ExtResource("22_lpgic")
 font_size = 30
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_xpyy5"]
-bg_color = Color(1, 1, 1, 0.705882)
+bg_color = Color(1, 1, 1, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_n7co0"]
+bg_color = Color(1, 1, 1, 1)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_8k6sa"]
 atlas = ExtResource("34_jswdi")
 region = Rect2(16, 16, 32, 32)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_xjesi"]
-bg_color = Color(0, 0, 0, 0.917647)
+bg_color = Color(1, 1, 1, 0.917647)
 corner_radius_top_left = 15
 corner_radius_top_right = 15
 corner_radius_bottom_right = 15
@@ -1042,10 +1045,11 @@ grow_vertical = 2
 [node name="Label" type="Label" parent="Player UI/Elixir Gui"]
 texture_filter = 1
 layout_mode = 0
-offset_left = 56.0
-offset_top = 27.0
-offset_right = 96.0
-offset_bottom = 50.0
+offset_left = 82.0
+offset_top = 43.0
+offset_right = 107.0
+offset_bottom = 74.0
+text = "10"
 label_settings = SubResource("LabelSettings_qcd8h")
 vertical_alignment = 2
 
@@ -1143,10 +1147,11 @@ grow_vertical = 2
 [node name="Label" type="Label" parent="Player UI/Powder GUI"]
 texture_filter = 1
 layout_mode = 0
-offset_left = 56.0
-offset_top = 27.0
-offset_right = 96.0
-offset_bottom = 50.0
+offset_left = 79.0
+offset_top = 43.0
+offset_right = 104.0
+offset_bottom = 74.0
+text = "10"
 label_settings = SubResource("LabelSettings_qcd8h")
 vertical_alignment = 2
 
@@ -1248,7 +1253,7 @@ theme_override_styles/panel = SubResource("StyleBoxFlat_xpyy5")
 script = ExtResource("35_colcy")
 DialogueBox = NodePath("Dialogue Nodes/Dialogue Shadow/DialogueBox")
 ItemPanels = NodePath("ItemPanels")
-Portrait = NodePath("Dialogue Nodes/Portrait")
+Portrait = NodePath("Dialogue Nodes/Panel/Portrait")
 Audio = NodePath("AudioStreamPlayer")
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="Player UI/ShopPanel"]
@@ -1277,14 +1282,29 @@ layout_mode = 0
 offset_top = 651.0
 offset_right = 1250.0
 offset_bottom = 826.0
-theme_override_constants/separation = 75
+theme_override_constants/separation = 50
 
-[node name="Portrait" type="TextureRect" parent="Player UI/ShopPanel/Dialogue Nodes"]
-texture_filter = 1
-custom_minimum_size = Vector2(175, 175)
+[node name="Panel" type="Panel" parent="Player UI/ShopPanel/Dialogue Nodes"]
+custom_minimum_size = Vector2(200, 200)
 layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_n7co0")
+
+[node name="Portrait" type="TextureRect" parent="Player UI/ShopPanel/Dialogue Nodes/Panel"]
+texture_filter = 1
+custom_minimum_size = Vector2(200, 200)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -87.5
+offset_top = -87.5
+offset_right = 87.5
+offset_bottom = 87.5
+grow_horizontal = 2
+grow_vertical = 2
 texture = SubResource("AtlasTexture_8k6sa")
-expand_mode = 1
 
 [node name="Dialogue Shadow" type="Panel" parent="Player UI/ShopPanel/Dialogue Nodes"]
 custom_minimum_size = Vector2(1000, 150)
@@ -1302,8 +1322,10 @@ offset_right = -13.0
 offset_bottom = -14.0
 grow_horizontal = 2
 grow_vertical = 2
+theme_override_colors/default_color = Color(0, 0, 0, 1)
 theme_override_fonts/normal_font = ExtResource("34_opvei")
 theme_override_font_sizes/normal_font_size = 50
+text = "Dialogue Text"
 scroll_active = false
 
 [node name="Control Prompts" type="HBoxContainer" parent="Player UI/ShopPanel"]

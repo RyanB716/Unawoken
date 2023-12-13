@@ -23,16 +23,12 @@ func _process(_delta):
 	XpAmount.text = ("+" + str(player.AddedXP))
 	
 	if !player.InventoryRef.Elixirs.is_empty() && player.InventoryRef.Elixirs[player.InventoryRef.ElixirIndex].AmountHeld > 0:
-		ElixirGUI.visible = true
-		ElixirGUI.DisplayItem(player.InventoryRef.Elixirs[player.InventoryRef.ElixirIndex].Icon, 
-		player.InventoryRef.Elixirs[player.InventoryRef.ElixirIndex].AmountHeld)
+				ElixirGUI.DisplayItem(player.InventoryRef.Elixirs[player.InventoryRef.ElixirIndex])
 	else:
 		ElixirGUI.visible = false
 
 	if !player.InventoryRef.Powders.is_empty() && player.InventoryRef.Powders[player.InventoryRef.PowderIndex].AmountHeld > 0:
-		PowderGUI.visible = true
-		PowderGUI.DisplayItem(player.InventoryRef.Powders[player.InventoryRef.PowderIndex].Icon, 
-		player.InventoryRef.Powders[player.InventoryRef.PowderIndex].AmountHeld)
+		PowderGUI.DisplayItem(player.InventoryRef.Powders[player.InventoryRef.PowderIndex])
 	else:
 		PowderGUI.visible = false
 		

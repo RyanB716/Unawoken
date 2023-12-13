@@ -5,6 +5,8 @@ class_name ItemGUI
 @onready var Count = $Label
 @onready var Border = $Border
 
-func DisplayItem(icon : Texture, number : int):
-	image.texture = icon
-	Count.text = str(number)
+func DisplayItem(item : InventoryItem):
+	if self.visible == false:
+		self.visible = true
+	image.texture = item.Icon
+	Count.text = str(item.AmountHeld)
