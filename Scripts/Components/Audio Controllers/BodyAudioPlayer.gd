@@ -8,6 +8,9 @@ class_name BodyAudioPlayer
 
 var RNG = RandomNumberGenerator.new()
 
+func _process(delta):
+	PlayStep()
+
 #Play a random voice sfx when attacking
 func PlaySFX():
 	var index = RNG.randi_range(0, VoiceTrackArray.size() - 1)

@@ -114,7 +114,7 @@ func UseCurrentItem():
 
 #Cycles the Elixir inventory upward
 func CycleElixir():
-	if CurrentItem is Elixir:
+	if !CurrentItem is Elixir:
 		if Elixirs[ElixirIndex].AmountHeld >= 1:
 			CurrentItem = Elixirs[ElixirIndex]
 	else:
