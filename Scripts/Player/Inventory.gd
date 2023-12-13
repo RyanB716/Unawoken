@@ -139,4 +139,12 @@ func CyclePowder():
 
 func AddCoin():
 	CoinCount += 1
-	$CoinAudio.play()
+	var RNG = RandomNumberGenerator.new()
+	RNG.randomize()
+	var newSFX = AudioStreamPlayer.new()
+	newSFX.stream = load("res://Audio/SFX/Object/Coin_Hit.mp3")
+	newSFX.pitch_scale = RNG.randf_range(0.7, 1.15)
+	get_tree().current_scene.add_child(newSFX)
+	newSFX.play()
+	await newSFX.finished
+	newSFX.queue_free()

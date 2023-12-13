@@ -3,7 +3,7 @@ class_name DestructableObject
 
 @export_category("Data Variables")
 @export var NeededHits : int
-@export var ItemDrops : Array[InventorySlot]
+@export var ItemDrops : Array[ItemDrop]
 @export var Min_CoinAmount : int
 @export var Max_CoinAmount : int
 var CoinAmount : int

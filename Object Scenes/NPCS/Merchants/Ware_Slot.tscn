@@ -24,6 +24,11 @@ bg_color = Color(0, 0, 0, 1)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_r2ux5"]
 bg_color = Color(1, 1, 1, 1)
+border_width_left = 5
+border_width_top = 5
+border_width_right = 5
+border_width_bottom = 5
+border_color = Color(0, 0, 0, 1)
 
 [node name="Ware_Slot" type="Control" node_paths=PackedStringArray("BuyButton")]
 custom_minimum_size = Vector2(350, 500)
