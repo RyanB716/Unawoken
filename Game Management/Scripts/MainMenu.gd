@@ -12,7 +12,7 @@ extends Control
 
 func _ready():
 
-	Input.mouse_mode = Input.MOUSE_MODE_HIDDEN
+	Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
 	
 	if GameSettings.IsLaunched == false:
 		for i in range(TitleLetters.size()):
@@ -25,7 +25,12 @@ func _ready():
 		await get_tree().create_timer(1.5).timeout
 		TitleFX()
 	else:
-		ButtonBox.get_child(1).grab_focus()
+		if Input.mouse_mode == Input.MOUSE_MODE_HIDDEN:
+			ButtonBox.get_child(1).grab_focus()
+
+func _process(delta):
+	if Input.get_joy_name(0):
+		Input.mouse_mode = Input.MOUSE_MODE_HIDDEN
 
 func TitleFX():
 	for i in range(TitleLetters.size()):
@@ -40,7 +45,8 @@ func TitleFX():
 		await get_tree().create_timer(0.35).timeout
 		
 	GameSettings.IsLaunched = true
-	ButtonBox.get_child(1).grab_focus()
+	if Input.mouse_mode == Input.MOUSE_MODE_HIDDEN:
+			ButtonBox.get_child(1).grab_focus()
 
 func NewGame():
 	print("Starting new game...")

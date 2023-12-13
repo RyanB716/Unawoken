@@ -114,8 +114,9 @@ func UseCurrentItem():
 
 #Cycles the Elixir inventory upward
 func CycleElixir():
-	if !CurrentItem is Elixir:
-		CurrentItem = Elixirs[ElixirIndex]
+	if CurrentItem is Elixir:
+		if Elixirs[ElixirIndex].AmountHeld >= 1:
+			CurrentItem = Elixirs[ElixirIndex]
 	else:
 		#print('Attempting to switch Elixir')
 		if (ElixirIndex + 1) > Elixirs.size() - 1:
@@ -127,7 +128,8 @@ func CycleElixir():
 		
 func CyclePowder():
 	if !CurrentItem is Powder:
-		CurrentItem = Powders[PowderIndex]
+		if Powders[PowderIndex].AmountHeld >= 1:
+			CurrentItem = Powders[PowderIndex]
 	else:
 		#print('Attempting to switch Powder')
 		if (PowderIndex + 1) > Powders.size() - 1:

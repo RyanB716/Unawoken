@@ -1532,7 +1532,7 @@ script = ExtResource("12_upbej")
 Item = ExtResource("12_pscv5")
 Amount = 1
 
-[sub_resource type="Resource" id="Resource_6oqhh"]
+[sub_resource type="Resource" id="Resource_jdsly"]
 script = ExtResource("12_upbej")
 Item = ExtResource("13_0vicu")
 Amount = 1
@@ -1542,7 +1542,7 @@ script = ExtResource("12_upbej")
 Item = ExtResource("14_8ctq4")
 Amount = 3
 
-[sub_resource type="Resource" id="Resource_q4x34"]
+[sub_resource type="Resource" id="Resource_rqak6"]
 script = ExtResource("12_upbej")
 Item = ExtResource("14_mj1xj")
 Amount = 1
@@ -1658,7 +1658,6 @@ Max_CoinAmount = 5
 
 [node name="Pot2" parent="Destructables" instance=ExtResource("7_auceg")]
 position = Vector2(-192, 168)
-ItemDrops = Array[ExtResource("12_upbej")]([SubResource("Resource_6oqhh")])
 Min_CoinAmount = 1
 Max_CoinAmount = 5
 
@@ -1674,6 +1673,7 @@ Max_CoinAmount = 5
 
 [node name="Pot5" parent="Destructables" instance=ExtResource("7_auceg")]
 position = Vector2(-216, 168)
+ItemDrops = Array[ExtResource("12_upbej")]([SubResource("Resource_jdsly")])
 Min_CoinAmount = 10
 Max_CoinAmount = 10
 
@@ -1705,7 +1705,6 @@ Max_CoinAmount = 5
 
 [node name="Pot10" parent="Destructables" instance=ExtResource("7_auceg")]
 position = Vector2(-665, 329)
-ItemDrops = Array[ExtResource("12_upbej")]([SubResource("Resource_q4x34")])
 Min_CoinAmount = 1
 Max_CoinAmount = 5
 
@@ -1721,6 +1720,7 @@ Max_CoinAmount = 7
 
 [node name="Pot14" parent="Destructables" instance=ExtResource("7_auceg")]
 position = Vector2(207, -313)
+ItemDrops = Array[ExtResource("12_upbej")]([SubResource("Resource_rqak6")])
 Min_CoinAmount = 5
 Max_CoinAmount = 5
 
