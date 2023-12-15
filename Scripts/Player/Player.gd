@@ -4,7 +4,7 @@
 #Various signals are created to avoid altering or calling data directly in child objects
 
 extends CharacterBody2D
-#class_name Player
+class_name Player
 
 @export_category("PlayerStats")
 @export var MaxHealth : int
