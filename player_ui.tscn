@@ -1,0 +1,559 @@
+[gd_scene load_steps=26 format=3 uid="uid://bfpynhu5cm2nd"]
+
+[ext_resource type="Script" path="res://Scripts/Player/Player UI.gd" id="1_76dh4"]
+[ext_resource type="PackedScene" uid="uid://cvlh1usf2hwre" path="res://Object Scenes/Player/HealthBar.tscn" id="2_puqut"]
+[ext_resource type="PackedScene" uid="uid://b8dv2qk331bb" path="res://Object Scenes/Player/StaminaContainer.tscn" id="3_2ufna"]
+[ext_resource type="Script" path="res://Scripts/Player/States/Attack Indicators.gd" id="4_66u3a"]
+[ext_resource type="PackedScene" uid="uid://dn1nfb6pxmd20" path="res://Object Scenes/Player/AttackGUI.tscn" id="5_f4anb"]
+[ext_resource type="PackedScene" uid="uid://bah6bwn6do5bj" path="res://Object Scenes/Player/Statue Menu.tscn" id="6_p8lny"]
+[ext_resource type="FontFile" uid="uid://dlulxm5dxb804" path="res://Visual Assets/Fonts/Seagram tfb.ttf" id="7_mm3nr"]
+[ext_resource type="Script" path="res://Scripts/Player/States/Item_GUI.gd" id="8_7hdt0"]
+[ext_resource type="FontFile" uid="uid://ba0gbrsq1d1dv" path="res://Visual Assets/Fonts/OldLondon.ttf" id="9_uqj3r"]
+[ext_resource type="Script" path="res://Scripts/Player/States/ShopMenu.gd" id="10_cu3r1"]
+[ext_resource type="PackedScene" uid="uid://bhvpudy3rhqqu" path="res://Object Scenes/NPCS/Merchants/Ware_Slot.tscn" id="11_0fmg1"]
+[ext_resource type="Texture2D" uid="uid://y3mr7qen2b04" path="res://Visual Assets/SpriteSheets/NPCs/Merchants/crow_idle.png" id="12_m33qq"]
+[ext_resource type="FontFile" uid="uid://bs6libyxfwgc" path="res://Visual Assets/Fonts/MorrisRomanBlack.ttf" id="13_qi5lq"]
+[ext_resource type="Texture2D" uid="uid://bprrge2q0voom" path="res://Visual Assets/UI/Control Icons/Left_Btn.png" id="14_wx38k"]
+[ext_resource type="Texture2D" uid="uid://jsox6faslw2p" path="res://Visual Assets/UI/Control Icons/Bottom_Btn.png" id="15_dbp7y"]
+[ext_resource type="Texture2D" uid="uid://c8pepqaqfdgu8" path="res://Visual Assets/UI/Control Icons/Right_Btn.png" id="16_5h7wn"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ji28p"]
+bg_color = Color(1, 1, 1, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_qcd8h"]
+font = ExtResource("9_uqj3r")
+font_size = 35
+
+[sub_resource type="LabelSettings" id="LabelSettings_buh0n"]
+font = ExtResource("7_mm3nr")
+font_size = 30
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_xpyy5"]
+bg_color = Color(1, 1, 1, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_n7co0"]
+bg_color = Color(1, 1, 1, 1)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8k6sa"]
+atlas = ExtResource("12_m33qq")
+region = Rect2(16, 16, 32, 32)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_xjesi"]
+bg_color = Color(1, 1, 1, 0.917647)
+corner_radius_top_left = 15
+corner_radius_top_right = 15
+corner_radius_bottom_right = 15
+corner_radius_bottom_left = 15
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_j5wt0"]
+bg_color = Color(0, 0, 0, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_di70h"]
+font = ExtResource("7_mm3nr")
+font_size = 30
+
+[node name="Player UI" type="CanvasLayer" node_paths=PackedStringArray("player", "StatueMenu", "Shop", "Stamina_Icons", "AttackIcons", "XPLabel", "XpAmount", "ElixirGUI", "PowderGUI", "CoinLabel")]
+process_mode = 3
+script = ExtResource("1_76dh4")
+player = NodePath("")
+StatueMenu = NodePath("")
+Shop = NodePath("")
+Stamina_Icons = NodePath("")
+AttackIcons = NodePath("")
+XPLabel = NodePath("")
+XpAmount = NodePath("")
+ElixirGUI = NodePath("")
+PowderGUI = NodePath("")
+CoinLabel = NodePath("")
+
+[node name="Health Bar" parent="." node_paths=PackedStringArray("player") instance=ExtResource("2_puqut")]
+player = NodePath("")
+
+[node name="StaminaContainer" parent="." instance=ExtResource("3_2ufna")]
+offset_top = 85.0
+offset_bottom = 165.0
+theme_override_constants/separation = 35
+
+[node name="AttackIndicators" type="HBoxContainer" parent="." node_paths=PackedStringArray("player")]
+offset_left = 34.0
+offset_top = 160.0
+offset_right = 134.0
+offset_bottom = 200.0
+theme_override_constants/separation = 50
+script = ExtResource("4_66u3a")
+Icon = ExtResource("5_f4anb")
+player = NodePath("")
+
+[node name="StatueMenu" parent="." node_paths=PackedStringArray("Audio", "YesBtn", "NoBtn") instance=ExtResource("6_p8lny")]
+visible = false
+Audio = NodePath("")
+YesBtn = NodePath("")
+NoBtn = NodePath("")
+
+[node name="XpLabel" type="Label" parent="."]
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -338.0
+offset_top = 22.0
+offset_right = -36.0
+offset_bottom = 89.0
+grow_horizontal = 0
+theme_override_fonts/font = ExtResource("7_mm3nr")
+theme_override_font_sizes/font_size = 50
+text = "XP: 000000"
+horizontal_alignment = 2
+vertical_alignment = 1
+
+[node name="Amount Label" type="Label" parent="XpLabel"]
+layout_mode = 1
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -191.0
+offset_top = 28.5
+offset_right = -6.0
+offset_bottom = 95.5
+grow_horizontal = 0
+grow_vertical = 2
+theme_override_fonts/font = ExtResource("7_mm3nr")
+theme_override_font_sizes/font_size = 50
+text = "+00000"
+horizontal_alignment = 2
+vertical_alignment = 1
+
+[node name="Elixir Gui" type="Panel" parent="."]
+custom_minimum_size = Vector2(75, 75)
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 115.0
+offset_top = -82.0
+offset_right = 190.0
+offset_bottom = -7.0
+grow_vertical = 0
+theme_override_styles/panel = SubResource("StyleBoxFlat_ji28p")
+script = ExtResource("8_7hdt0")
+
+[node name="TextureRect" type="TextureRect" parent="Elixir Gui"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -20.0
+offset_right = 20.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Label" type="Label" parent="Elixir Gui"]
+texture_filter = 1
+layout_mode = 0
+offset_left = 82.0
+offset_top = 43.0
+offset_right = 107.0
+offset_bottom = 74.0
+text = "10"
+label_settings = SubResource("LabelSettings_qcd8h")
+vertical_alignment = 2
+
+[node name="Border" type="Control" parent="Elixir Gui"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -32.5
+offset_top = -32.5
+offset_right = 32.5
+offset_bottom = 32.5
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Top" type="ColorRect" parent="Elixir Gui/Border"]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_left = -5.0
+offset_top = -5.0
+offset_right = 5.0
+offset_bottom = -2.0
+grow_horizontal = 2
+color = Color(0, 1, 0, 1)
+
+[node name="Bottom" type="ColorRect" parent="Elixir Gui/Border"]
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -5.0
+offset_top = 2.0
+offset_right = 5.0
+offset_bottom = 5.0
+grow_horizontal = 2
+grow_vertical = 0
+color = Color(0, 1, 0, 1)
+
+[node name="Left" type="ColorRect" parent="Elixir Gui/Border"]
+layout_mode = 1
+anchors_preset = 9
+anchor_bottom = 1.0
+offset_left = -5.0
+offset_top = -5.0
+offset_right = -2.0
+offset_bottom = 5.0
+grow_vertical = 2
+color = Color(0, 1, 0, 1)
+
+[node name="Right" type="ColorRect" parent="Elixir Gui/Border"]
+layout_mode = 1
+anchors_preset = 11
+anchor_left = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 2.0
+offset_top = -5.0
+offset_right = 5.0
+offset_bottom = 5.0
+grow_horizontal = 0
+grow_vertical = 2
+color = Color(0, 1, 0, 1)
+
+[node name="Powder GUI" type="Panel" parent="."]
+custom_minimum_size = Vector2(75, 75)
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 25.0
+offset_top = -166.0
+offset_right = 100.0
+offset_bottom = -91.0
+grow_vertical = 0
+theme_override_styles/panel = SubResource("StyleBoxFlat_ji28p")
+script = ExtResource("8_7hdt0")
+
+[node name="TextureRect" type="TextureRect" parent="Powder GUI"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -20.0
+offset_right = 20.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Label" type="Label" parent="Powder GUI"]
+texture_filter = 1
+layout_mode = 0
+offset_left = 79.0
+offset_top = 43.0
+offset_right = 104.0
+offset_bottom = 74.0
+text = "10"
+label_settings = SubResource("LabelSettings_qcd8h")
+vertical_alignment = 2
+
+[node name="Border" type="Control" parent="Powder GUI"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -32.5
+offset_top = -32.5
+offset_right = 32.5
+offset_bottom = 32.5
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Top" type="ColorRect" parent="Powder GUI/Border"]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_left = -5.0
+offset_top = -5.0
+offset_right = 5.0
+offset_bottom = -2.0
+grow_horizontal = 2
+color = Color(0, 1, 0, 1)
+
+[node name="Bottom" type="ColorRect" parent="Powder GUI/Border"]
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -5.0
+offset_top = 2.0
+offset_right = 5.0
+offset_bottom = 5.0
+grow_horizontal = 2
+grow_vertical = 0
+color = Color(0, 1, 0, 1)
+
+[node name="Left" type="ColorRect" parent="Powder GUI/Border"]
+layout_mode = 1
+anchors_preset = 9
+anchor_bottom = 1.0
+offset_left = -5.0
+offset_top = -5.0
+offset_right = -2.0
+offset_bottom = 5.0
+grow_vertical = 2
+color = Color(0, 1, 0, 1)
+
+[node name="Right" type="ColorRect" parent="Powder GUI/Border"]
+layout_mode = 1
+anchors_preset = 11
+anchor_left = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 2.0
+offset_top = -5.0
+offset_right = 5.0
+offset_bottom = 5.0
+grow_horizontal = 0
+grow_vertical = 2
+color = Color(0, 1, 0, 1)
+
+[node name="Coin Amount" type="Label" parent="."]
+texture_filter = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -93.0
+offset_top = -55.0
+offset_right = -11.0
+offset_bottom = -13.0
+grow_horizontal = 0
+grow_vertical = 0
+text = "$: 100"
+label_settings = SubResource("LabelSettings_buh0n")
+
+[node name="ShopPanel" type="Panel" parent="." node_paths=PackedStringArray("DialogueBox", "ItemPanels", "Portrait", "Audio")]
+process_mode = 3
+custom_minimum_size = Vector2(1250, 600)
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -625.0
+offset_top = -433.0
+offset_right = 625.0
+offset_bottom = 167.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_xpyy5")
+script = ExtResource("10_cu3r1")
+DialogueBox = NodePath("")
+ItemPanels = NodePath("")
+Portrait = NodePath("")
+Audio = NodePath("")
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="ShopPanel"]
+
+[node name="ItemPanels" type="HBoxContainer" parent="ShopPanel"]
+texture_filter = 1
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -175.0
+offset_top = -287.0
+offset_right = 175.0
+offset_bottom = 213.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 50
+
+[node name="Ware_Slot" parent="ShopPanel/ItemPanels" node_paths=PackedStringArray("BuyButton") instance=ExtResource("11_0fmg1")]
+layout_mode = 2
+BuyButton = NodePath("")
+
+[node name="Dialogue Nodes" type="HBoxContainer" parent="ShopPanel"]
+layout_mode = 0
+offset_top = 651.0
+offset_right = 1250.0
+offset_bottom = 826.0
+theme_override_constants/separation = 50
+
+[node name="Panel" type="Panel" parent="ShopPanel/Dialogue Nodes"]
+custom_minimum_size = Vector2(200, 200)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_n7co0")
+
+[node name="Portrait" type="TextureRect" parent="ShopPanel/Dialogue Nodes/Panel"]
+texture_filter = 1
+custom_minimum_size = Vector2(185, 185)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -92.5
+offset_top = -92.5
+offset_right = 92.5
+offset_bottom = 92.5
+grow_horizontal = 2
+grow_vertical = 2
+texture = SubResource("AtlasTexture_8k6sa")
+
+[node name="Dialogue Shadow" type="Panel" parent="ShopPanel/Dialogue Nodes"]
+custom_minimum_size = Vector2(1000, 150)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_xjesi")
+
+[node name="DialogueBox" type="RichTextLabel" parent="ShopPanel/Dialogue Nodes/Dialogue Shadow"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 12.0
+offset_top = 11.0
+offset_right = -13.0
+offset_bottom = -14.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/default_color = Color(0, 0, 0, 1)
+theme_override_fonts/normal_font = ExtResource("13_qi5lq")
+theme_override_font_sizes/normal_font_size = 50
+text = "Dialogue Text"
+scroll_active = false
+
+[node name="Control Prompts" type="HBoxContainer" parent="ShopPanel"]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -250.0
+offset_top = 278.0
+offset_right = 450.0
+offset_bottom = 363.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_constants/separation = 50
+
+[node name="Talk Icon" type="Panel" parent="ShopPanel/Control Prompts"]
+texture_filter = 1
+custom_minimum_size = Vector2(200, 50)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_j5wt0")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="ShopPanel/Control Prompts/Talk Icon"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -100.0
+offset_top = -37.5
+offset_right = 100.0
+offset_bottom = 37.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 20
+
+[node name="Icon" type="TextureRect" parent="ShopPanel/Control Prompts/Talk Icon/HBoxContainer"]
+custom_minimum_size = Vector2(75, 75)
+layout_mode = 2
+texture = ExtResource("14_wx38k")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Label" type="Label" parent="ShopPanel/Control Prompts/Talk Icon/HBoxContainer"]
+layout_mode = 2
+text = "- Talk"
+label_settings = SubResource("LabelSettings_di70h")
+horizontal_alignment = 2
+vertical_alignment = 1
+
+[node name="Buy Icon" type="Panel" parent="ShopPanel/Control Prompts"]
+texture_filter = 1
+custom_minimum_size = Vector2(200, 50)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_j5wt0")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="ShopPanel/Control Prompts/Buy Icon"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -100.0
+offset_top = -37.5
+offset_right = 100.0
+offset_bottom = 37.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 20
+
+[node name="Icon" type="TextureRect" parent="ShopPanel/Control Prompts/Buy Icon/HBoxContainer"]
+custom_minimum_size = Vector2(75, 75)
+layout_mode = 2
+texture = ExtResource("15_dbp7y")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Label" type="Label" parent="ShopPanel/Control Prompts/Buy Icon/HBoxContainer"]
+layout_mode = 2
+text = "- Buy"
+label_settings = SubResource("LabelSettings_di70h")
+horizontal_alignment = 2
+vertical_alignment = 1
+
+[node name="Exit Icon" type="Panel" parent="ShopPanel/Control Prompts"]
+texture_filter = 1
+custom_minimum_size = Vector2(200, 50)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_j5wt0")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="ShopPanel/Control Prompts/Exit Icon"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -100.0
+offset_top = -37.5
+offset_right = 100.0
+offset_bottom = 37.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 20
+
+[node name="Icon" type="TextureRect" parent="ShopPanel/Control Prompts/Exit Icon/HBoxContainer"]
+custom_minimum_size = Vector2(75, 75)
+layout_mode = 2
+texture = ExtResource("16_5h7wn")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Label" type="Label" parent="ShopPanel/Control Prompts/Exit Icon/HBoxContainer"]
+layout_mode = 2
+text = "- Exit"
+label_settings = SubResource("LabelSettings_di70h")
+horizontal_alignment = 2
+vertical_alignment = 1

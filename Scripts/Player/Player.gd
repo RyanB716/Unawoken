@@ -6,184 +6,75 @@
 extends CharacterBody2D
 class_name Player
 
-@export_category("PlayerStats")
-@export var MaxHealth : int
-@export var MaxStaminaMoves : int
-@export var StaminaRefillTime : float
-var CurrentXP : int
-var AddedXP : int
+enum eStates {Idle, Walk, Attack, Roll, Dead}
+var CurrentState : eStates
 
-@export_category("Movement Stats")
-@export var TopSpeed = 0
-@export var Acceleration = 0.0
-@export var Deceleration = 0.0
+@export_category("Player Stats")
+@export var WalkSpeed : float
 
-@export_category("Attack Stats")
-@export var MaxAttackNumber : int
-@onready var CurrentAttackIndex : int = 1
-@export var DamageOutput : int
-@export var AttackTime : float
-@export var CooldownTime : float
-@export var InputBufferAmnt : float
-
-@export_category("Components")
-@export var InventoryRef : Inventory
-@export var UI : PlayerUI
-@export var EnvColl = CollisionShape2D
-@export var HitColl = CollisionShape2D
-@export var BodyAudio : BodyAudioPlayer
-@export var WeaponAudio : WeaponAudioPlayer
-
-@export_category("Timers")
-@export var DeathTimer : Timer
-@export var AttackTimer : Timer
-@export var CooldownTimer : Timer
-@export var SFXtime : Timer
-@export var XPtime : Timer
-
-@export_category("Nodes")
-@export var AnimPlayer : AnimationPlayer
-
-var CurrentSpeed = 0
-var HorizontalInput = 0
-var VerticalInput = 0
-var Direction = Vector2.ZERO
-
-var CurrentHealth : int
-var CurrentStaminaActions : int
-
-var AnimState = null
-
-var IsInMenu = false
-var IsRolling = false
-var IsDead = false
-
-enum DirectionStates {Up, Down, Left, Right}
-var CurrentDirection : int
-
-var IsMoving = false
-var IsHealing = false
+var CurrentSpeed : float = 0
+var Direction
+var MaxAttackNumber : int = 3
+var AttackIndex : int = 0
 
 func _ready():
-	CurrentDirection = DirectionStates.Down
+	CurrentState = eStates.Idle
 	
-	CurrentHealth = MaxHealth
-	CurrentStaminaActions = MaxStaminaMoves
-	
-	UI.get_node("StaminaContainer").SetMaxIcons(MaxStaminaMoves)
-	
-	CurrentXP = GameSettings.CurrentPlayerXP
-	
-func _process(_delta):
-	if CurrentHealth <= 0 && DeathTimer.is_stopped():
-		#FSM.CurrentState.Transitioned.emit("Dead")
-		IsDead = true
-		DeathTimer.one_shot = true
-		DeathTimer.start(8)
-	
-	if CurrentHealth >= MaxHealth:
-		CurrentHealth = MaxHealth
-	
-func _physics_process(_delta):
-	if IsDead:
-		CurrentSpeed = 0
-		velocity = Vector2.ZERO
+func _process(delta):
+	if CurrentState == eStates.Dead:
 		return
-	else:
-		IsMoving = Input.is_action_pressed("Run_Up") || Input.is_action_pressed("Run_Down") || Input.is_action_pressed("Run_Left") || Input.is_action_pressed("Run_Right")
 	
-	if IsRolling == false && IsMoving:
-		if Input.is_action_pressed("Run_Up"):
-			CurrentDirection = DirectionStates.Up
-			Direction = Vector2.UP
-		elif Input.is_action_pressed("Run_Down"):
-			CurrentDirection = DirectionStates.Down
-			Direction = Vector2.DOWN
-		elif Input.is_action_pressed("Run_Right"):
-			CurrentDirection = DirectionStates.Right
-			Direction = Vector2.RIGHT
-		elif Input.is_action_pressed("Run_Left"):
-			CurrentDirection = DirectionStates.Left
-			Direction = Vector2.LEFT
+	StateMachine()
 	
-	if IsMoving:
-		CurrentSpeed = TopSpeed
-	elif IsRolling:
-		CurrentSpeed = TopSpeed + 25
-	else:
-		CurrentSpeed = 0
-	
-	velocity = (Direction * CurrentSpeed)
+func _physics_process(delta):
+	InputManager()
 	move_and_slide()
-
-func ResetAttackIndex():
-	AttackTimer.start(AttackTime)
-	await AttackTimer.timeout
-	CurrentAttackIndex = 1
-	UI.AttackIcons.SetMaxIcons()
-
-func AttackCooldown():
-	CooldownTimer.start(CooldownTime)
-	await CooldownTimer.timeout
-	CurrentAttackIndex = 1
-	UI.AttackIcons.SetMaxIcons()
-
-func ReduceStamina(Amnt : int):
-	CurrentStaminaActions -= Amnt
-	UI.get_node("StaminaContainer").UpdateIcons(CurrentStaminaActions)
-
-#Resets stamina circles 1-by-1
-func ResetStamina(Amnt : int):
-	for i in range(Amnt):
+	
+func StateMachine():
+	match CurrentState:
+		eStates.Idle:
+			CurrentSpeed = 0
+			
+		eStates.Walk:
+			CurrentSpeed = WalkSpeed
 		
-		await get_tree().create_timer(StaminaRefillTime).timeout
+		eStates.Attack:
+			Attack()
+	
+func InputManager():
+	Direction = Input.get_vector("Run_Left", "Run_Right", "Run_Up", "Run_Down").normalized()
+	velocity = (Direction * CurrentSpeed)
+	
+	if Direction != Vector2.ZERO:
+		CurrentState = eStates.Walk
+	else:
+		CurrentState = eStates.Idle
 		
-		if CurrentStaminaActions + 1 <= MaxStaminaMoves:
-			CurrentStaminaActions += 1
-			UI.get_node("StaminaContainer").UpdateIcons(CurrentStaminaActions)
-		else:
-			print_debug('ERROR @ ResetStamina(): CurrentStaminaActions += 1 would EXCEED MaxStamina variable')
+	if Input.is_action_just_pressed("Attack"):
+		CurrentState = eStates.Attack
 
-#Regains a variable amount of health
-func RegainHealth(Amount : int):
-	if IsHealing == false:
-		print("Healing: " + str(Amount) + " points!")
-		IsHealing = true
-		var HealthTween = get_tree().create_tween()
-		HealthTween.tween_property(self, "CurrentHealth", (CurrentHealth + Amount), 0.5)
-		await HealthTween.finished
-		IsHealing = false
-
-#Regains MaxHealth
-func RegainFULLHealth():
-	if IsHealing == false:
-		IsHealing = true
-		var HealthTween = get_tree().create_tween()
-		HealthTween.tween_property(self, "CurrentHealth", MaxHealth, 0.5)
-		await HealthTween.finished
-		IsHealing = false
-
-#Reloads the current level
-func Respawn():
-	print("Reloading...")
-	get_tree().reload_current_scene()
-
-#Add to the amount of XP to then be added to the total count
-func AddXP(Amount : int):
-	if XPtime.time_left > 0:
-		XPtime.stop()
-	XPtime.start(3)
-	AddedXP += Amount
-	UI.XpAmount.visible = true
-	await XPtime.timeout
-	DisplayXP()
-
-#Aesthetically display the addition of XP
-func DisplayXP():
-	var XPTween = get_tree().create_tween()
-	var AmountTween = get_tree().create_tween()
-	XPTween.tween_property(self, "CurrentXP", (CurrentXP + AddedXP), 1.25)
-	AmountTween.tween_property(self, "AddedXP", 0, 1.25)
-	await XPTween.finished
-	await AmountTween.finished
-	UI.XpAmount.visible = false
+func Attack():
+	# Check if attack timer has no time left
+	await get_tree().create_timer(0.15).timeout
+	
+	# BODYAUDIO PLAY VOICE
+	# WEAPONAUDIO PLAY SWING SFX
+	
+	match AttackIndex:
+		0:
+			print("Attacking with 1st animation!")
+		1:
+			print("Attacking with 2nd animation!")
+		2:
+			print("Attacking with 3rd animation!")
+	
+	AttackIndex += 1
+	
+	if AttackIndex == MaxAttackNumber:
+		print("Max reached, cooling down")
+		# Start Attack Cooldown
+	else:
+		pass
+		# Start Attack Timer
+	
+	CurrentState = eStates.Idle

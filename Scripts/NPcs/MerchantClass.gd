@@ -20,7 +20,7 @@ var  SpokenFailLines : Array[String]
 var CanInput = false
 
 @onready var PlayerRef = get_tree().get_first_node_in_group("Player")
-@onready var UI = get_tree().get_first_node_in_group("Player").get_node("Player UI")
+@onready var UI #= get_tree().get_first_node_in_group("Player").get_node("Player UI")
 
 func _ready():
 	$Label.visible = false
