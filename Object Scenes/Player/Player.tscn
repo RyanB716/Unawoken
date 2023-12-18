@@ -1,14 +1,24 @@
-[gd_scene load_steps=29 format=3 uid="uid://dxprot5svswbe"]
+[gd_scene load_steps=36 format=3 uid="uid://dxprot5svswbe"]
 
 [ext_resource type="Script" path="res://Scripts/Player/Player.gd" id="1_18da1"]
 [ext_resource type="Texture2D" uid="uid://bi38invhap0t" path="res://Visual Assets/SpriteSheets/player.png" id="2_w50ld"]
+[ext_resource type="Script" path="res://Scripts/Components/Audio Controllers/BodyAudioPlayer.gd" id="7_yvwfc"]
+[ext_resource type="AudioStream" uid="uid://d0iijvcalr7qr" path="res://Audio/SFX/Player/attack1.wav" id="8_3o1p1"]
 [ext_resource type="Script" path="res://Scripts/Player/Inventory.gd" id="8_nbgbr"]
 [ext_resource type="Resource" uid="uid://xcxif0nh2xr1" path="res://Custom Resources/Items & Inventory/Items/Healing Items/LiteElixir.tres" id="9_s48do"]
+[ext_resource type="AudioStream" uid="uid://dlnsrugki0emv" path="res://Audio/SFX/Player/blade_hit_07.wav" id="9_v33nq"]
 [ext_resource type="Resource" uid="uid://dcnarwww73wqb" path="res://Custom Resources/Items & Inventory/Items/Healing Items/BluePowder.tres" id="10_110f4"]
+[ext_resource type="AudioStream" uid="uid://dfg2itgn13nbu" path="res://Audio/SFX/Player/16_human_walk_stone_1.wav" id="10_o41wl"]
+[ext_resource type="Script" path="res://Scripts/Components/Audio Controllers/WeaponAudio.gd" id="11_1xnuh"]
 [ext_resource type="AudioStream" uid="uid://r0ar1gqr6dni" path="res://Audio/SFX/Object/Coin_Add.mp3" id="11_w3b4d"]
+[ext_resource type="AudioStream" uid="uid://d33remjia4oc1" path="res://Audio/SFX/Player/07_human_atk_sword_1.wav" id="12_glkli"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_8v8gj"]
 size = Vector2(9.5, 4)
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_b8ln1"]
+radius = 5.0
+height = 16.0
 
 [sub_resource type="Animation" id="Animation_tt04w"]
 resource_name = "Idle_Down"
@@ -449,7 +459,7 @@ _data = {
 "Up": SubResource("Animation_s2vuk")
 }
 
-[node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("AnimPlayer", "AttackTimer", "CooldownTimer") groups=["Player"]]
+[node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("AnimPlayer", "AttackTimer", "CooldownTimer", "BodyAudio", "WeaponAudio") groups=["Player"]]
 z_index = 1
 collision_mask = 7
 platform_floor_layers = 0
@@ -460,6 +470,8 @@ AttackCooldown = 2.5
 AnimPlayer = NodePath("AnimationPlayer")
 AttackTimer = NodePath("Timers/AttackTimer")
 CooldownTimer = NodePath("Timers/CooldownTimer")
+BodyAudio = NodePath("Audio/BodyAudioPlayer")
+WeaponAudio = NodePath("Audio/WeaponAudioPlayer")
 
 [node name="Inventory" type="Node2D" parent="."]
 process_mode = 3
@@ -486,6 +498,14 @@ frame = 39
 position = Vector2(0, 2)
 shape = SubResource("RectangleShape2D_8v8gj")
 
+[node name="HitBox" type="Area2D" parent="."]
+position = Vector2(0.5, -6)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HitBox"]
+position = Vector2(0, 2)
+shape = SubResource("CapsuleShape2D_b8ln1")
+debug_color = Color(1, 0, 0, 0.337255)
+
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
 "": SubResource("AnimationLibrary_8gsv8"),
@@ -501,5 +521,19 @@ one_shot = true
 [node name="CooldownTimer" type="Timer" parent="Timers"]
 one_shot = true
 
+[node name="Audio" type="Node" parent="."]
+
+[node name="BodyAudioPlayer" type="AudioStreamPlayer" parent="Audio" node_paths=PackedStringArray("Parent")]
+script = ExtResource("7_yvwfc")
+Parent = NodePath("../..")
+VoiceSFX = Array[AudioStream]([ExtResource("8_3o1p1")])
+HurtSFX = Array[AudioStream]([ExtResource("9_v33nq")])
+FootSFX = ExtResource("10_o41wl")
+
+[node name="WeaponAudioPlayer" type="AudioStreamPlayer" parent="Audio"]
+script = ExtResource("11_1xnuh")
+SwingSFX = [ExtResource("12_glkli")]
+
+[connection signal="area_entered" from="HitBox" to="." method="OnHit"]
 [connection signal="timeout" from="Timers/AttackTimer" to="." method="ResetAttackIndex"]
 [connection signal="timeout" from="Timers/CooldownTimer" to="." method="ResetAttackIndex"]

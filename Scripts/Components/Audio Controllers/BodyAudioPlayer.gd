@@ -1,26 +1,44 @@
 extends AudioStreamPlayer
 class_name BodyAudioPlayer
 
-@export var player : Player
-@export var VoiceTrackArray = []
+@export var Parent : CharacterBody2D
 
+@export_category("Track Arrays")
+@export var VoiceSFX : Array[AudioStream]
+@export var HurtSFX : Array[AudioStream]
+
+@export_category("Single Tracks")
 @export var FootSFX : AudioStream
 
 var RNG = RandomNumberGenerator.new()
 
-func _process(delta):
-	PlayStep()
+var StepTimer : Timer
 
-#Play a random voice sfx when attacking
-func PlaySFX():
-	var index = RNG.randi_range(0, VoiceTrackArray.size() - 1)
-	self.stream = VoiceTrackArray[index]
-	self.play()
+func _ready():
+	if Parent is Player:
+		Parent.TakenHit.connect(PlayHitSFX)
+	
+	StepTimer = Timer.new()
+	add_child(StepTimer)
+		
+func PlayVoice():
+	RNG.randomize()
+	var index = RNG.randi_range(0, VoiceSFX.size() - 1)
+	stream = VoiceSFX[index]
+	play()
+		
+func PlayHitSFX():
+	RNG.randomize()
+	var index = RNG.randi_range(0, HurtSFX.size() - 1)
+	stream = HurtSFX[index]
+	play()
 
 #Play the sfx at a random pitch
 func PlayStep():
-	if player.SFXtime.time_left <= 0 && player.velocity.length() > 0.01:
-		player.SFXtime.start(0.45)
-		self.stream = FootSFX
-		self.pitch_scale = RNG.randf_range(0.9, 1.1)
-		self.play()
+	if StepTimer.time_left > 0.01:
+		return
+	
+	StepTimer.start(0.45)
+	stream = FootSFX
+	pitch_scale = RNG.randf_range(0.9, 1.1)
+	play()

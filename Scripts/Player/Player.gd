@@ -6,6 +6,8 @@
 extends CharacterBody2D
 class_name Player
 
+signal TakenHit()
+
 enum eStates {Idle, Walk, Attack, Roll, Dead}
 var CurrentState : eStates
 
@@ -27,6 +29,8 @@ var animID : String
 @export var AnimPlayer : AnimationPlayer
 @export var AttackTimer : Timer
 @export var CooldownTimer : Timer
+@export var BodyAudio : BodyAudioPlayer
+@export var WeaponAudio : WeaponAudioPlayer
 
 func _ready():
 	CurrentState = eStates.Idle
@@ -50,6 +54,13 @@ func StateMachine():
 			
 		eStates.Walk:
 			CurrentSpeed = WalkSpeed
+			BodyAudio.PlayStep()
+			
+		eStates.Roll:
+			pass
+			
+		eStates.Dead:
+			pass
 	
 func InputManager():
 	if CurrentState == eStates.Attack:
@@ -107,10 +118,10 @@ func Attack():
 	
 	CurrentState = eStates.Attack
 	
-	# BODYAUDIO PLAY VOICE
+	BodyAudio.PlayVoice()
 	await get_tree().create_timer(0.15).timeout
 	
-	# WEAPONAUDIO PLAY SWING SFX
+	WeaponAudio.PlaySwing()
 	
 	var library : String
 	var dir : String
@@ -152,3 +163,6 @@ func Attack():
 func ResetAttackIndex():
 	AttackIndex = 1
 	print("Attack Index RESET")
+
+func OnHit(area : Area2D):
+	TakenHit.emit()

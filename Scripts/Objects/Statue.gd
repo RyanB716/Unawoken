@@ -24,4 +24,4 @@ func _on_detection_sphere_area_entered(area):
 func _on_detection_sphere_area_exited(_area):
 	$Label.visible = false
 	CanInput = false
-	UI.StatueMenu.visible = false
+	#UI.StatueMenu.visible = false

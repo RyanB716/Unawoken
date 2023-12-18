@@ -5,7 +5,7 @@ class_name EnemyHurtBox
 
 #Checks if collided object is attached to a Player; calls take damage as well as hitstop effect
 func WeaponHit(target : Area2D):
-	if target is PlayerHitBox:
+	if target is HitBox && target.get_parent() != SelfReference:
 		var player = target.get_parent()
 		if player is Player:
 			target.TakeDamage(SelfReference.DamageOutput)
