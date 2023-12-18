@@ -162,7 +162,12 @@ func Attack():
 
 func ResetAttackIndex():
 	AttackIndex = 1
-	print("Attack Index RESET")
+	#print("Attack Index RESET")
 
 func OnHit(area : Area2D):
-	TakenHit.emit()
+	if area is HurtBox && area.get_parent() != self:
+		TakenHit.emit()
+	
+func SwordHit(area : Area2D):
+	if area is HitBox && area.get_parent() != self:
+		print("Sword has hit an object")

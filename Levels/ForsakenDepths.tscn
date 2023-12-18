@@ -8,7 +8,7 @@
 [ext_resource type="PackedScene" uid="uid://1vl2wudjscly" path="res://Object Scenes/World Items/Door_Wood.tscn" id="6_q7vls"]
 [ext_resource type="PackedScene" uid="uid://bkee3pqvgv4x1" path="res://Object Scenes/World Items/Pot.tscn" id="7_auceg"]
 [ext_resource type="PackedScene" uid="uid://wvlasq770v6g" path="res://Object Scenes/World Items/Statue.tscn" id="9_kcsy4"]
-[ext_resource type="PackedScene" uid="uid://cnww1xsx7uypm" path="res://Object Scenes/Enemies/Enemy_Moblin.tscn" id="10_2i63u"]
+[ext_resource type="PackedScene" uid="uid://8yaoqjcfdm4q" path="res://Moblin.tscn" id="10_2i63u"]
 [ext_resource type="PackedScene" uid="uid://jxarx6uqoibj" path="res://Object Scenes/World Items/Note_Object.tscn" id="10_clkcy"]
 [ext_resource type="Resource" uid="uid://xcxif0nh2xr1" path="res://Custom Resources/Items & Inventory/Items/Healing Items/LiteElixir.tres" id="12_pscv5"]
 [ext_resource type="Script" path="res://Custom Resources/Items & Inventory/Scripts/ItemDropResource.gd" id="12_upbej"]
