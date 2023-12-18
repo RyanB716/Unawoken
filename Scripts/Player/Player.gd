@@ -12,22 +12,35 @@ var CurrentState : eStates
 @export_category("Player Stats")
 @export var WalkSpeed : float
 
+@export_category("Attack Stats")
+@export var AttackTime : float
+@export var AttackCooldown : float
+@export var MaxAttackNumber : int = 3
+
 var CurrentSpeed : float = 0
 var Direction
-var MaxAttackNumber : int = 3
-var AttackIndex : int = 0
+var AttackIndex : int = 1
+var LastDirection : Vector2
+var animID : String
+
+@export_category("Internal References")
+@export var AnimPlayer : AnimationPlayer
+@export var AttackTimer : Timer
+@export var CooldownTimer : Timer
 
 func _ready():
 	CurrentState = eStates.Idle
+	LastDirection = Vector2.DOWN
 	
-func _process(delta):
+func _process(_delta):
 	if CurrentState == eStates.Dead:
 		return
 	
-	StateMachine()
-	
-func _physics_process(delta):
 	InputManager()
+	StateMachine()
+	AnimationManager()
+	
+func _physics_process(_delta):
 	move_and_slide()
 	
 func StateMachine():
@@ -37,44 +50,105 @@ func StateMachine():
 			
 		eStates.Walk:
 			CurrentSpeed = WalkSpeed
-		
-		eStates.Attack:
-			Attack()
 	
 func InputManager():
+	if CurrentState == eStates.Attack:
+		return
+	
 	Direction = Input.get_vector("Run_Left", "Run_Right", "Run_Up", "Run_Down").normalized()
 	velocity = (Direction * CurrentSpeed)
 	
 	if Direction != Vector2.ZERO:
 		CurrentState = eStates.Walk
-	else:
-		CurrentState = eStates.Idle
 		
-	if Input.is_action_just_pressed("Attack"):
-		CurrentState = eStates.Attack
+		match Direction:
+			Vector2.UP:
+				LastDirection = Vector2.UP
+			Vector2.DOWN:
+				LastDirection = Vector2.DOWN
+			Vector2.LEFT:
+				LastDirection = Vector2.LEFT
+			Vector2.RIGHT:
+				LastDirection = Vector2.RIGHT
+	
+	elif Direction == Vector2.ZERO:
+		CurrentState = eStates.Idle
+	
+	if Input.is_action_just_pressed("Attack") && CurrentState != eStates.Attack:
+		Attack()
+
+func AnimationManager():
+	match CurrentState:
+		eStates.Idle:
+			match LastDirection:
+				Vector2.RIGHT:
+					AnimPlayer.play("Idle_Right")
+				Vector2.LEFT:
+					AnimPlayer.play("Idle_Left")
+				Vector2.UP:
+					AnimPlayer.play("Idle_Up")
+				Vector2.DOWN:
+					AnimPlayer.play("Idle_Down")
+					
+		eStates.Walk:
+			match LastDirection:
+				Vector2.RIGHT:
+					AnimPlayer.play("Run_Right")
+				Vector2.LEFT:
+					AnimPlayer.play("Run_Left")
+				Vector2.UP:
+					AnimPlayer.play("Run_Up")
+				Vector2.DOWN:
+					AnimPlayer.play("Run_Down")
 
 func Attack():
-	# Check if attack timer has no time left
-	await get_tree().create_timer(0.15).timeout
+	if CooldownTimer.time_left >= 0.01:
+		return
+	
+	CurrentState = eStates.Attack
 	
 	# BODYAUDIO PLAY VOICE
+	await get_tree().create_timer(0.15).timeout
+	
 	# WEAPONAUDIO PLAY SWING SFX
 	
-	match AttackIndex:
-		0:
-			print("Attacking with 1st animation!")
-		1:
-			print("Attacking with 2nd animation!")
-		2:
-			print("Attacking with 3rd animation!")
+	var library : String
+	var dir : String
 	
-	AttackIndex += 1
+	match AttackIndex:
+		1:
+			library = "Swipe"
+		2:
+			library = "Reverse Swipe"
+		3:
+			library = "Swipe"
+	
+	match LastDirection:
+		Vector2.LEFT:
+			dir = "Left"
+		Vector2.RIGHT:
+			dir = "Right"
+		Vector2.UP:
+			dir = "Up"
+		Vector2.DOWN:
+			dir = "Down"
+	
+	animID = (library + "/" + dir)
+	AnimPlayer.play(animID)
+	
+	await AnimPlayer.animation_finished
+	CurrentState = eStates.Idle
+	
+	if AttackTimer.time_left >= 0.01:
+			AttackTimer.stop()
 	
 	if AttackIndex == MaxAttackNumber:
 		print("Max reached, cooling down")
-		# Start Attack Cooldown
+		CooldownTimer.start(AttackCooldown)
 	else:
-		pass
-		# Start Attack Timer
-	
-	CurrentState = eStates.Idle
+		AttackIndex += 1
+		AttackTimer.start(AttackTime)
+
+func ResetAttackIndex():
+	AttackIndex = 1
+	print("Attack Index RESET")

@@ -56,8 +56,8 @@ func _physics_process(_delta):
 				3:
 					AnimPlayer.play("Idle/Idle_R")
 
-func SetKnockBack(scale : float, setTime : float, dir : Vector2):
-	KB_scale = scale
+func SetKnockBack(_scale : float, setTime : float, dir : Vector2):
+	KB_scale = _scale
 	KB_time = setTime
 	KB_dir = dir
 	FSM.CurrentState.emit_signal("Transitioned", "KnockBack")

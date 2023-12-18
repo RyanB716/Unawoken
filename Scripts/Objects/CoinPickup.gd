@@ -17,7 +17,7 @@ func _ready():
 	await get_tree().create_timer(0.25).timeout
 	self.CanMove = true
 
-func _physics_process(delta):
+func _physics_process(_delta):
 	if self.CanMove == false:
 		return
 

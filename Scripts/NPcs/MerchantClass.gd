@@ -36,7 +36,7 @@ func _on_area_entered(area):
 		$Label.visible = true
 		CanInput = true
 
-func _on_area_exited(area):
+func _on_area_exited(_area):
 	$Label.visible = false
 	CanInput = false
 	UI.StatueMenu.visible = false

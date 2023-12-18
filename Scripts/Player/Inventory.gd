@@ -60,21 +60,21 @@ func AddItem(item : InventoryItem):
 	$InventoryAudio.stream = item.PickupSFX
 	$InventoryAudio.play()
 	
-func AddItemDelegate(item : InventoryItem, array : Array, arrayName : String, index : int):
-	if array.has(item):
-		print(arrayName + " has item: " + str(item.Name) + ", adding to AmountHeld")
-		var element = array.find(item)
+func AddItemDelegate(_item : InventoryItem, array : Array, arrayName : String, _index : int):
+	if array.has(_item):
+		print(arrayName + " has item: " + str(_item.Name) + ", adding to AmountHeld")
+		var element = array.find(_item)
 		if array[element] is InventoryItem:
 			array[element].AmountHeld += 1
 		else:
 			print('ERROR')
 	else:
-		print(arrayName + " DOES NOT have item: " + str(item.Name) + ", appending array")
-		item.AmountHeld = 1
-		array.append(item)
+		print(arrayName + " DOES NOT have item: " + str(_item.Name) + ", appending array")
+		_item.AmountHeld = 1
+		array.append(_item)
 		
-	var newIndex = array.find(item)
-	match item.ItemType:
+	var newIndex = array.find(_item)
+	match _item.ItemType:
 		InventoryItem.eItemTypes.Elixir:
 			ElixirIndex = newIndex
 			

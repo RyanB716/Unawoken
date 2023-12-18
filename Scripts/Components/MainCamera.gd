@@ -54,7 +54,7 @@ func FadeToBlack(yes : bool, duration : float):
 		var newTween = get_tree().create_tween()
 		newTween.tween_property(Curtain, "color", newColor, duration)
 
-func Spotlight(location : Vector2):
+func Spotlight(_location : Vector2):
 	$CanvasLayer/HBoxContainer/DeathPrompt1.visible = true
 	$CanvasLayer/HBoxContainer/DeathPrompt2.visible = true
 	Curtain.visible = false
