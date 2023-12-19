@@ -4,9 +4,13 @@
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_jue0w"]
 bg_color = Color(1, 1, 1, 1)
+corner_radius_top_left = 20
+corner_radius_bottom_right = 20
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ra43m"]
 bg_color = Color(1, 0, 0, 1)
+corner_radius_top_left = 20
+corner_radius_bottom_right = 20
 
 [node name="Health Bar" type="ProgressBar"]
 custom_minimum_size = Vector2(500, 50)

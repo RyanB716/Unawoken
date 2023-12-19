@@ -1,5 +1,5 @@
 extends CanvasLayer
-class_name PlayerUI
+class_name OLDPlayerUI
 
 @export var player : Player
 @export var StatueMenu : Statue_Menu

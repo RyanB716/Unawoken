@@ -1,4 +1,4 @@
-[gd_scene load_steps=38 format=3 uid="uid://dxprot5svswbe"]
+[gd_scene load_steps=41 format=3 uid="uid://dxprot5svswbe"]
 
 [ext_resource type="Script" path="res://Scripts/Player/Player.gd" id="1_18da1"]
 [ext_resource type="Texture2D" uid="uid://bi38invhap0t" path="res://Visual Assets/SpriteSheets/player.png" id="2_w50ld"]
@@ -14,6 +14,9 @@
 [ext_resource type="Script" path="res://Scripts/Components/Audio Controllers/WeaponAudio.gd" id="11_1xnuh"]
 [ext_resource type="AudioStream" uid="uid://r0ar1gqr6dni" path="res://Audio/SFX/Object/Coin_Add.mp3" id="11_w3b4d"]
 [ext_resource type="AudioStream" uid="uid://d33remjia4oc1" path="res://Audio/SFX/Player/07_human_atk_sword_1.wav" id="12_glkli"]
+[ext_resource type="Script" path="res://Object Scenes/Player/PlayerUI.gd" id="15_pbqi6"]
+[ext_resource type="PackedScene" uid="uid://cvlh1usf2hwre" path="res://Object Scenes/Player/HealthBar.tscn" id="16_i6jb6"]
+[ext_resource type="PackedScene" uid="uid://cna3svtiht3b2" path="res://AttackIndicators.tscn" id="17_2lead"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_8v8gj"]
 size = Vector2(9.5, 4)
@@ -702,21 +705,19 @@ _data = {
 "Up": SubResource("Animation_s2vuk")
 }
 
-[node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("AnimPlayer", "AttackTimer", "CooldownTimer", "BodyAudio", "WeaponAudio", "Hurt_Box", "Hit_Box", "InventoryRef") groups=["Player"]]
+[node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("AnimPlayer", "AttackTimer", "CooldownTimer", "BodyAudio", "WeaponAudio", "InventoryRef") groups=["Player"]]
 z_index = 1
 collision_mask = 7
 platform_floor_layers = 0
 script = ExtResource("1_18da1")
 WalkSpeed = 75.0
 AttackTime = 1.5
-AttackCooldown = 2.5
+AttackCooldown = 2.25
 AnimPlayer = NodePath("AnimationPlayer")
 AttackTimer = NodePath("Timers/AttackTimer")
 CooldownTimer = NodePath("Timers/CooldownTimer")
 BodyAudio = NodePath("Audio/BodyAudioPlayer")
 WeaponAudio = NodePath("Audio/WeaponAudioPlayer")
-Hurt_Box = NodePath("HurtBox")
-Hit_Box = NodePath("HitBox")
 InventoryRef = NodePath("Inventory")
 
 [node name="Inventory" type="Node2D" parent="."]
@@ -784,6 +785,16 @@ FootSFX = ExtResource("10_o41wl")
 [node name="WeaponAudioPlayer" type="AudioStreamPlayer" parent="Audio"]
 script = ExtResource("11_1xnuh")
 SwingSFX = Array[AudioStream]([ExtResource("12_glkli")])
+
+[node name="UI" type="CanvasLayer" parent="." node_paths=PackedStringArray("HealthBar", "AttackIndicatorBox")]
+script = ExtResource("15_pbqi6")
+HealthBar = NodePath("Health Bar")
+AttackIndicatorBox = NodePath("AttackIndicators")
+
+[node name="Health Bar" parent="UI" instance=ExtResource("16_i6jb6")]
+script = null
+
+[node name="AttackIndicators" parent="UI" instance=ExtResource("17_2lead")]
 
 [connection signal="timeout" from="Timers/AttackTimer" to="." method="ResetAttackIndex"]
 [connection signal="timeout" from="Timers/CooldownTimer" to="." method="ResetAttackIndex"]

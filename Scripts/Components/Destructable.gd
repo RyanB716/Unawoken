@@ -31,7 +31,7 @@ func _ready():
 		hitBox.Hurt.connect(TakeHit)
 
 func TakeHit(attacker : CharacterBody2D):
-	print(str(self.name) + " Hit by: " + str(attacker.name))
+	#print(str(self.name) + " Hit by: " + str(attacker.name))
 	if NeededHits - 1 > 0:
 		Hit()
 	elif NeededHits -1 == 0:

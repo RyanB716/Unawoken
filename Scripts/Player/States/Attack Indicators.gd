@@ -2,16 +2,20 @@ extends HBoxContainer
 class_name Attack_Indicators
 
 @export var Icon : PackedScene
-@export var player : Player
 
-func SetMaxIcons():
-	for i in self.get_child_count():
-		get_child(i).queue_free()
-		
-	for i in player.MaxAttackNumber:
-		var newIcon = Icon.instantiate()
-		add_child(newIcon)
+var StartingIcons = 3
 
-func TakeAwayIndicators(amount : int):
-	for i in amount:
+func _ready():
+	for i in StartingIcons:
+		AddIcon()
+
+func UpdateIcons(Amount : int):
+	for i in get_child_count():
 		get_child(i).queue_free()
+	
+	for i in Amount:
+		AddIcon()
+
+func AddIcon():
+	var newIcon = Icon.instantiate()
+	add_child(newIcon)

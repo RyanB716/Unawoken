@@ -6,11 +6,15 @@
 extends CharacterBody2D
 class_name Player
 
-enum eStates {Idle, Walk, Attack, Roll, Dead}
+enum eStates {Idle, Walk, Attack, Roll, InMenu, Dead}
 var CurrentState : eStates
+
+signal UpdateIcons(Amount : int)
 
 @export_category("Player Stats")
 @export var WalkSpeed : float
+@export var MaxHealth : int
+var CurrentHealth : int
 
 @export_category("Attack Stats")
 @export var AttackTime : float
@@ -29,8 +33,6 @@ var animID : String
 @export var CooldownTimer : Timer
 @export var BodyAudio : BodyAudioPlayer
 @export var WeaponAudio : WeaponAudioPlayer
-@export var Hurt_Box : HurtBox
-@export var Hit_Box : HitBox
 @export var InventoryRef : Inventory
 
 func _ready():
@@ -64,6 +66,9 @@ func StateMachine():
 			pass
 	
 func InputManager():
+	if CurrentState == eStates.InMenu:
+		return
+	
 	if CurrentState == eStates.Attack:
 		return
 	
@@ -151,11 +156,13 @@ func Attack():
 	await AnimPlayer.animation_finished
 	CurrentState = eStates.Idle
 	
+	UpdateIcons.emit(MaxAttackNumber - AttackIndex)
+	
 	if AttackTimer.time_left >= 0.01:
 			AttackTimer.stop()
 	
 	if AttackIndex == MaxAttackNumber:
-		print("Max reached, cooling down")
+		#print("Max reached, cooling down")
 		CooldownTimer.start(AttackCooldown)
 	else:
 		AttackIndex += 1
@@ -163,4 +170,4 @@ func Attack():
 
 func ResetAttackIndex():
 	AttackIndex = 1
-	#print("Attack Index RESET")
+	UpdateIcons.emit(MaxAttackNumber)

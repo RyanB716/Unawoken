@@ -1,10 +1,9 @@
-[gd_scene load_steps=26 format=3 uid="uid://bfpynhu5cm2nd"]
+[gd_scene load_steps=25 format=3 uid="uid://bfpynhu5cm2nd"]
 
 [ext_resource type="Script" path="res://Scripts/Player/Player UI.gd" id="1_76dh4"]
 [ext_resource type="PackedScene" uid="uid://cvlh1usf2hwre" path="res://Object Scenes/Player/HealthBar.tscn" id="2_puqut"]
 [ext_resource type="PackedScene" uid="uid://b8dv2qk331bb" path="res://Object Scenes/Player/StaminaContainer.tscn" id="3_2ufna"]
-[ext_resource type="Script" path="res://Scripts/Player/States/Attack Indicators.gd" id="4_66u3a"]
-[ext_resource type="PackedScene" uid="uid://dn1nfb6pxmd20" path="res://Object Scenes/Player/AttackGUI.tscn" id="5_f4anb"]
+[ext_resource type="PackedScene" uid="uid://cna3svtiht3b2" path="res://AttackIndicators.tscn" id="4_kdy41"]
 [ext_resource type="PackedScene" uid="uid://bah6bwn6do5bj" path="res://Object Scenes/Player/Statue Menu.tscn" id="6_p8lny"]
 [ext_resource type="FontFile" uid="uid://dlulxm5dxb804" path="res://Visual Assets/Fonts/Seagram tfb.ttf" id="7_mm3nr"]
 [ext_resource type="Script" path="res://Scripts/Player/States/Item_GUI.gd" id="8_7hdt0"]
@@ -52,43 +51,21 @@ bg_color = Color(0, 0, 0, 1)
 font = ExtResource("7_mm3nr")
 font_size = 30
 
-[node name="Player UI" type="CanvasLayer" node_paths=PackedStringArray("player", "StatueMenu", "Shop", "Stamina_Icons", "AttackIcons", "XPLabel", "XpAmount", "ElixirGUI", "PowderGUI", "CoinLabel")]
+[node name="Player UI" type="CanvasLayer"]
 process_mode = 3
 script = ExtResource("1_76dh4")
-player = NodePath("")
-StatueMenu = NodePath("")
-Shop = NodePath("")
-Stamina_Icons = NodePath("")
-AttackIcons = NodePath("")
-XPLabel = NodePath("")
-XpAmount = NodePath("")
-ElixirGUI = NodePath("")
-PowderGUI = NodePath("")
-CoinLabel = NodePath("")
 
-[node name="Health Bar" parent="." node_paths=PackedStringArray("player") instance=ExtResource("2_puqut")]
-player = NodePath("")
+[node name="Health Bar" parent="." instance=ExtResource("2_puqut")]
 
 [node name="StaminaContainer" parent="." instance=ExtResource("3_2ufna")]
 offset_top = 85.0
 offset_bottom = 165.0
 theme_override_constants/separation = 35
 
-[node name="AttackIndicators" type="HBoxContainer" parent="." node_paths=PackedStringArray("player")]
-offset_left = 34.0
-offset_top = 160.0
-offset_right = 134.0
-offset_bottom = 200.0
-theme_override_constants/separation = 50
-script = ExtResource("4_66u3a")
-Icon = ExtResource("5_f4anb")
-player = NodePath("")
+[node name="AttackIndicators" parent="." instance=ExtResource("4_kdy41")]
 
-[node name="StatueMenu" parent="." node_paths=PackedStringArray("Audio", "YesBtn", "NoBtn") instance=ExtResource("6_p8lny")]
+[node name="StatueMenu" parent="." instance=ExtResource("6_p8lny")]
 visible = false
-Audio = NodePath("")
-YesBtn = NodePath("")
-NoBtn = NodePath("")
 
 [node name="XpLabel" type="Label" parent="."]
 anchors_preset = 1
@@ -344,7 +321,7 @@ grow_vertical = 0
 text = "$: 100"
 label_settings = SubResource("LabelSettings_buh0n")
 
-[node name="ShopPanel" type="Panel" parent="." node_paths=PackedStringArray("DialogueBox", "ItemPanels", "Portrait", "Audio")]
+[node name="ShopPanel" type="Panel" parent="."]
 process_mode = 3
 custom_minimum_size = Vector2(1250, 600)
 anchors_preset = 8
@@ -360,10 +337,6 @@ grow_horizontal = 2
 grow_vertical = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_xpyy5")
 script = ExtResource("10_cu3r1")
-DialogueBox = NodePath("")
-ItemPanels = NodePath("")
-Portrait = NodePath("")
-Audio = NodePath("")
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="ShopPanel"]
 
@@ -383,9 +356,8 @@ grow_horizontal = 2
 grow_vertical = 2
 theme_override_constants/separation = 50
 
-[node name="Ware_Slot" parent="ShopPanel/ItemPanels" node_paths=PackedStringArray("BuyButton") instance=ExtResource("11_0fmg1")]
+[node name="Ware_Slot" parent="ShopPanel/ItemPanels" instance=ExtResource("11_0fmg1")]
 layout_mode = 2
-BuyButton = NodePath("")
 
 [node name="Dialogue Nodes" type="HBoxContainer" parent="ShopPanel"]
 layout_mode = 0
