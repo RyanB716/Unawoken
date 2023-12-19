@@ -19,6 +19,8 @@ var CoinAmount : int
 
 @onready var hitBox : HitBox = $HitBox
 
+signal CallScreenShake(Strength : float, Duration : float)
+
 func _ready():
 	RNG.randomize()
 	CoinAmount = RNG.randi_range(Min_CoinAmount, Max_CoinAmount)
@@ -37,9 +39,11 @@ func TakeHit(attacker : CharacterBody2D):
 		
 func Hit():
 	NeededHits -= 1
+	CallScreenShake.emit(0.75, 0.15)
 	PlayHitSFX()
 
 func Destroy():
+	CallScreenShake.emit(1.5, 0.25)
 	PlayBreakSFX()
 	Area.queue_free()
 	hitBox.queue_free()

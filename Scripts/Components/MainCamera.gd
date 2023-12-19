@@ -1,4 +1,5 @@
 extends Camera2D
+class_name MC
 
 @onready var Target : CharacterBody2D
 
