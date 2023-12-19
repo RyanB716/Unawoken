@@ -6,8 +6,6 @@
 extends CharacterBody2D
 class_name Player
 
-signal TakenHit()
-
 enum eStates {Idle, Walk, Attack, Roll, Dead}
 var CurrentState : eStates
 
@@ -31,6 +29,9 @@ var animID : String
 @export var CooldownTimer : Timer
 @export var BodyAudio : BodyAudioPlayer
 @export var WeaponAudio : WeaponAudioPlayer
+@export var Hurt_Box : HurtBox
+@export var Hit_Box : HitBox
+@export var InventoryRef : Inventory
 
 func _ready():
 	CurrentState = eStates.Idle
@@ -163,11 +164,3 @@ func Attack():
 func ResetAttackIndex():
 	AttackIndex = 1
 	#print("Attack Index RESET")
-
-func OnHit(area : Area2D):
-	if area is HurtBox && area.get_parent() != self:
-		TakenHit.emit()
-	
-func SwordHit(area : Area2D):
-	if area is HitBox && area.get_parent() != self:
-		print("Sword has hit an object")

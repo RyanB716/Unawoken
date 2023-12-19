@@ -12,22 +12,37 @@ var CoinAmount : int
 @export var HitSFX : Array[AudioStream]
 @export var BreakSFX : Array[AudioStream]
 
-var CurrentHits : int
-
 @onready var PickupScene = preload("res://Object Scenes/World Items/ItemPickup.tscn")
 @onready var CoinScene = preload("res://Object Scenes/World Items/Coin.tscn")
 @onready var Area = self.get_child(0)
 @onready var RNG = RandomNumberGenerator.new()
 
+@onready var hitBox : HitBox = $HitBox
+
 func _ready():
-	CurrentHits = 0
 	RNG.randomize()
 	CoinAmount = RNG.randi_range(Min_CoinAmount, Max_CoinAmount)
+	
+	if hitBox == null:
+		print("ERROR: DestructableObject: " + str(self.name) + " has NO HitBox!")
+	else:
+		hitBox.Hurt.connect(TakeHit)
 
-#If the current hit will meet the NeededHits variable, then executes feedback commands, then deletes itself
+func TakeHit(attacker : CharacterBody2D):
+	print(str(self.name) + " Hit by: " + str(attacker.name))
+	if NeededHits - 1 > 0:
+		Hit()
+	elif NeededHits -1 == 0:
+		Destroy()
+		
+func Hit():
+	NeededHits -= 1
+	PlayHitSFX()
+
 func Destroy():
 	PlayBreakSFX()
 	Area.queue_free()
+	hitBox.queue_free()
 	$CollisionShape2D.queue_free()
 	$Sprite2D.visible = false
 	GiveItems()

@@ -15,8 +15,6 @@ var RNG = RandomNumberGenerator.new()
 var StepTimer : Timer
 
 func _ready():
-	if Parent is Player:
-		Parent.TakenHit.connect(PlayHitSFX)
 	
 	StepTimer = Timer.new()
 	add_child(StepTimer)
