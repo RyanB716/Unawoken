@@ -3,12 +3,6 @@ class_name Attack_Indicators
 
 @export var Icon : PackedScene
 
-var StartingIcons = 3
-
-func _ready():
-	for i in StartingIcons:
-		AddIcon()
-
 func UpdateIcons(Amount : int):
 	for i in get_child_count():
 		get_child(i).queue_free()

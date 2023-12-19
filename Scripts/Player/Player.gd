@@ -39,6 +39,8 @@ func _ready():
 	CurrentState = eStates.Idle
 	LastDirection = Vector2.DOWN
 	
+	UpdateIcons.emit(MaxAttackNumber)
+	
 func _process(_delta):
 	if CurrentState == eStates.Dead:
 		return
