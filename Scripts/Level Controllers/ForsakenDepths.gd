@@ -1,16 +1,13 @@
 extends Node2D
 class_name LevelController
 
-var objects : Array[Node]
-
 var Destructables : Array[DestructableObject]
 
 func _ready():
-	objects = $Destructables.get_children()
 	
-	for i in objects.size():
-		if objects[i] is DestructableObject:
-			Destructables.append(objects[i])
+	for i in $Destructables.get_child_count():
+		if $Destructables.get_child(i) is DestructableObject:
+			Destructables.append($Destructables.get_child(i))
 
 func _process(_delta):
 	if !$"Audio/Ambient Audio 1".playing:
