@@ -1,14 +1,11 @@
-[gd_scene load_steps=9 format=3 uid="uid://bkee3pqvgv4x1"]
+[gd_scene load_steps=8 format=3 uid="uid://bkee3pqvgv4x1"]
 
 [ext_resource type="Script" path="res://Scripts/Components/Destructable.gd" id="1_7pkaf"]
 [ext_resource type="Texture2D" uid="uid://dgmg5rdrhnbnq" path="res://Visual Assets/TileSets/Props.png" id="1_p62lq"]
 [ext_resource type="AudioStream" uid="uid://c7kbw80rtwobm" path="res://Audio/SFX/Object/Glass_1.mp3" id="2_dwv04"]
 [ext_resource type="AudioStream" uid="uid://lo61e6j68t6u" path="res://Audio/SFX/Object/Glass_3.mp3" id="3_1xgnj"]
 [ext_resource type="AudioStream" uid="uid://bawa6dujwc040" path="res://Audio/SFX/Object/Glass_2.mp3" id="4_jcogi"]
-[ext_resource type="PackedScene" uid="uid://cvn673tlhbnmt" path="res://HitBoxScene.tscn" id="5_jckdt"]
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_ayvau"]
-size = Vector2(14, 15)
+[ext_resource type="PackedScene" uid="uid://7ygie5mb1fk6" path="res://Object_HitBox.tscn" id="6_16eau"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_kphhi"]
 size = Vector2(13, 15)
@@ -20,20 +17,21 @@ script = ExtResource("1_7pkaf")
 NeededHits = 1
 BreakSFX = Array[AudioStream]([ExtResource("2_dwv04"), ExtResource("3_1xgnj"), ExtResource("4_jcogi")])
 
-[node name="HitBox" parent="." instance=ExtResource("5_jckdt")]
-
-[node name="CollisionShape2D" parent="HitBox" index="0"]
-position = Vector2(-0.5, 5.5)
-shape = SubResource("RectangleShape2D_ayvau")
-
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture_filter = 1
 texture = ExtResource("1_p62lq")
 region_enabled = true
 region_rect = Rect2(32, 16, 16, 16)
 
+[node name="Object_HitBox" parent="." instance=ExtResource("6_16eau")]
+visible = false
+
+[node name="CollisionShape2D" parent="Object_HitBox" index="0"]
+position = Vector2(0, -0.5)
+
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+visible = false
 position = Vector2(0, -0.5)
 shape = SubResource("RectangleShape2D_kphhi")
 
-[editable path="HitBox"]
+[editable path="Object_HitBox"]

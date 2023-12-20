@@ -39,7 +39,7 @@ func _on_area_entered(area):
 func _on_area_exited(_area):
 	$Label.visible = false
 	CanInput = false
-	UI.StatueMenu.visible = false
+	#UI.StatueMenu.visible = false
 
 func RepopulateDialogue(PopArray : Array[String], PullArray : Array[String]):
 	for i in PullArray.size():

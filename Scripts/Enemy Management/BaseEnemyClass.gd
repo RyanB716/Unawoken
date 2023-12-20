@@ -1,16 +1,11 @@
 extends CharacterBody2D
 class_name BasicEnemy
 
-var FSM
-
 @export_category("General Stats")
 @export var MaxHealth : int
 @export var XpAmount : int
 
-@export_category("Combat Stats")
 var CurrentHealth : int
-@export var NumberOfAttacks : int
-@export var DamageOutput : int
 
 @export_category("Movement Stats")
 @export var BaseSpeed : float
@@ -21,15 +16,29 @@ var CurrentHealth : int
 @export var DisengagementRange : float
 @export var AttackRange : float
 
+@export_category("Internal References")
+@export var AnimPlayer : AnimationPlayer
+@export var Hit_Box : CharacterHitBox
+@export var HealthBar : ProgressBar
+
 var PlayerTarget : Player
-var AnimPlayer : AnimationPlayer
+
 var IsAttacking : bool = false
 var IsDead : bool = false
-enum DirectionStates {Up, Down, Left, Right}
-var CurrentDirection : int
 
 func _ready():
+	PlayerTarget = get_tree().get_first_node_in_group("Player")
+	
 	CurrentHealth = MaxHealth
+	HealthBar.max_value = MaxHealth
+	
+	Hit_Box.Hurt.connect(TakeDamage)
+	
+func _process(delta):
+	HealthBar.value = CurrentHealth
 
 func _physics_process(_delta):
 	move_and_slide()
+
+func TakeDamage(Amount : int):
+	CurrentHealth -= Amount

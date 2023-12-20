@@ -14,5 +14,3 @@ script = ExtResource("1_ff52a")
 rotation = 1.5708
 shape = SubResource("CapsuleShape2D_f8pmt")
 disabled = true
-
-[connection signal="area_entered" from="." to="." method="WeaponHit"]

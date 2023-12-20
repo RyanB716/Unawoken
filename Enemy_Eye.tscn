@@ -1,0 +1,59 @@
+[gd_scene load_steps=7 format=3 uid="uid://cd4u8ky38vqh1"]
+
+[ext_resource type="Texture2D" uid="uid://ss7uglg1de4u" path="res://Visual Assets/SpriteSheets/Enemies/Eye-Open.png" id="1_mms6f"]
+[ext_resource type="Script" path="res://Enemy_Eye.gd" id="1_pkwis"]
+[ext_resource type="PackedScene" uid="uid://cvn673tlhbnmt" path="res://Char_HitBox.tscn" id="3_wdu5u"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_qpu4u"]
+bg_color = Color(1, 1, 1, 1)
+border_color = Color(0, 0, 0, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_1odvp"]
+bg_color = Color(1, 0, 0, 1)
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_x1mha"]
+radius = 6.0
+height = 23.0
+
+[node name="Eye" type="CharacterBody2D" node_paths=PackedStringArray("Hit_Box", "HealthBar")]
+texture_filter = 1
+script = ExtResource("1_pkwis")
+MaxHealth = 125
+XpAmount = 50
+BaseSpeed = 10.0
+TopSpeed = 15.0
+DetectionRange = 75.0
+DisengagementRange = 125.0
+AttackRange = 50.0
+Hit_Box = NodePath("HitBox")
+HealthBar = NodePath("Health Bar")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+scale = Vector2(0.025, 0.025)
+texture = ExtResource("1_mms6f")
+
+[node name="Health Bar" type="ProgressBar" parent="."]
+custom_minimum_size = Vector2(20, 2)
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -10.0
+offset_top = -10.0
+offset_right = 10.0
+offset_bottom = -8.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/background = SubResource("StyleBoxFlat_qpu4u")
+theme_override_styles/fill = SubResource("StyleBoxFlat_1odvp")
+value = 25.0
+show_percentage = false
+
+[node name="HitBox" parent="." instance=ExtResource("3_wdu5u")]
+position = Vector2(-0.5, 0)
+
+[node name="CollisionShape2D" parent="HitBox" index="0"]
+position = Vector2(0, 0)
+rotation = 1.5708
+shape = SubResource("CapsuleShape2D_x1mha")
+
+[editable path="HitBox"]

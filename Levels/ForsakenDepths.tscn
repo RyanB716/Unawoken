@@ -5,17 +5,17 @@
 [ext_resource type="Texture2D" uid="uid://dgmg5rdrhnbnq" path="res://Visual Assets/TileSets/Props.png" id="2_87l2t"]
 [ext_resource type="AudioStream" uid="uid://3r8k50onxhr6" path="res://Audio/SFX/Level SFX/18566_1464794295.mp3" id="4_xhi55"]
 [ext_resource type="AudioStream" uid="uid://dp5kawtmj2jip" path="res://Audio/SFX/Level SFX/Ambiance_Cave_Drips_Loop_Stereo.wav" id="5_ucqvd"]
-[ext_resource type="PackedScene" uid="uid://1vl2wudjscly" path="res://Object Scenes/World Items/Door_Wood.tscn" id="6_q7vls"]
 [ext_resource type="PackedScene" uid="uid://bkee3pqvgv4x1" path="res://Object Scenes/World Items/Pot.tscn" id="7_auceg"]
 [ext_resource type="PackedScene" uid="uid://wvlasq770v6g" path="res://Object Scenes/World Items/Statue.tscn" id="9_kcsy4"]
-[ext_resource type="PackedScene" uid="uid://8yaoqjcfdm4q" path="res://Moblin.tscn" id="10_2i63u"]
 [ext_resource type="PackedScene" uid="uid://jxarx6uqoibj" path="res://Object Scenes/World Items/Note_Object.tscn" id="10_clkcy"]
 [ext_resource type="Resource" uid="uid://xcxif0nh2xr1" path="res://Custom Resources/Items & Inventory/Items/Healing Items/LiteElixir.tres" id="12_pscv5"]
 [ext_resource type="Script" path="res://Custom Resources/Items & Inventory/Scripts/ItemDropResource.gd" id="12_upbej"]
 [ext_resource type="Resource" uid="uid://djo5mayfmsoct" path="res://Custom Resources/Items & Inventory/Items/Healing Items/MedElixir.tres" id="13_0vicu"]
 [ext_resource type="Resource" uid="uid://dcnarwww73wqb" path="res://Custom Resources/Items & Inventory/Items/Healing Items/BluePowder.tres" id="14_8ctq4"]
 [ext_resource type="PackedScene" uid="uid://b1e2vsd1485iw" path="res://Object Scenes/NPCS/Merchants/ForsakenDepths_Merchant.tscn" id="14_78g7w"]
+[ext_resource type="PackedScene" uid="uid://1vl2wudjscly" path="res://Object Scenes/World Items/Door_Wood.tscn" id="14_awu1w"]
 [ext_resource type="Resource" uid="uid://suaachk0sbkl" path="res://Custom Resources/Items & Inventory/Items/KeyItem.tres" id="14_mj1xj"]
+[ext_resource type="PackedScene" uid="uid://cd4u8ky38vqh1" path="res://Enemy_Eye.tscn" id="17_hug4x"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_j2tg3"]
 texture = ExtResource("1_ocd84")
@@ -1590,21 +1590,6 @@ stream = ExtResource("4_xhi55")
 process_mode = 3
 stream = ExtResource("5_ucqvd")
 
-[node name="Moblin" parent="." instance=ExtResource("10_2i63u")]
-position = Vector2(-587, 326)
-
-[node name="Moblin2" parent="." instance=ExtResource("10_2i63u")]
-position = Vector2(44, 49)
-
-[node name="Moblin3" parent="." instance=ExtResource("10_2i63u")]
-position = Vector2(232, 56)
-
-[node name="Moblin4" parent="." instance=ExtResource("10_2i63u")]
-position = Vector2(43, 193)
-
-[node name="Moblin5" parent="." instance=ExtResource("10_2i63u")]
-position = Vector2(227, 197)
-
 [node name="1st Note" parent="." instance=ExtResource("10_clkcy")]
 position = Vector2(-609, 546)
 
@@ -1646,9 +1631,6 @@ position = Vector2(2244, -1624)
 scale = Vector2(1, 1)
 
 [node name="Destructables" type="Node2D" parent="."]
-
-[node name="Door_Wood" parent="Destructables" instance=ExtResource("6_q7vls")]
-position = Vector2(-591, 495)
 
 [node name="Pot" parent="Destructables" instance=ExtResource("7_auceg")]
 position = Vector2(-582, 551)
@@ -1749,8 +1731,16 @@ position = Vector2(223, -284)
 Min_CoinAmount = 5
 Max_CoinAmount = 5
 
+[node name="Door_Wood" parent="Destructables" instance=ExtResource("14_awu1w")]
+position = Vector2(-592, 496)
+
 [node name="ForsakenDepths_Merchant" parent="." instance=ExtResource("14_78g7w")]
 position = Vector2(282, -330)
+
+[node name="Enemies" type="Node" parent="."]
+
+[node name="Eye" parent="Enemies" instance=ExtResource("17_hug4x")]
+position = Vector2(-581, 332)
 
 [editable path="1st Note"]
 [editable path="Prayer Note"]

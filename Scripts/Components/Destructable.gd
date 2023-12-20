@@ -17,7 +17,7 @@ var CoinAmount : int
 @onready var Area = self.get_child(0)
 @onready var RNG = RandomNumberGenerator.new()
 
-@onready var hitBox : HitBox = $HitBox
+@onready var hitBox : ObjectHitBox = $Object_HitBox
 
 signal CallScreenShake(Strength : float, Duration : float)
 
@@ -28,10 +28,9 @@ func _ready():
 	if hitBox == null:
 		print("ERROR: DestructableObject: " + str(self.name) + " has NO HitBox!")
 	else:
-		hitBox.Hurt.connect(TakeHit)
+		hitBox.Hit.connect(TakeHit)
 
-func TakeHit(attacker : CharacterBody2D):
-	#print(str(self.name) + " Hit by: " + str(attacker.name))
+func TakeHit():
 	if NeededHits - 1 > 0:
 		Hit()
 	elif NeededHits -1 == 0:

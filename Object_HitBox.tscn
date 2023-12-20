@@ -1,0 +1,15 @@
+[gd_scene load_steps=3 format=3 uid="uid://7ygie5mb1fk6"]
+
+[ext_resource type="Script" path="res://Object Scenes/World Items/Object_HitBox.gd" id="1_b8dvn"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_lv7v7"]
+size = Vector2(14, 15)
+
+[node name="Object_HitBox" type="Area2D"]
+script = ExtResource("1_b8dvn")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_lv7v7")
+debug_color = Color(1, 0, 0, 0.419608)
+
+[connection signal="area_entered" from="." to="." method="OnHurt"]

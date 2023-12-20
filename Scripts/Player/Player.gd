@@ -21,6 +21,7 @@ var CurrentStamina : int
 @export var StaminaRefill : float
 
 @export_category("Attack Stats")
+@export var Damage : int
 @export var AttackTime : float
 @export var AttackCooldown : float
 @export var MaxAttackNumber : int = 3
@@ -34,6 +35,8 @@ var animID : String
 @export_category("Components")
 @export var InventoryRef : Inventory
 @export var UI : PlayerUI
+@export var HitBox : CharacterHitBox
+@export var Hurt_Box : HurtBox
 
 @export_category("Internal References")
 @export var AnimPlayer : AnimationPlayer

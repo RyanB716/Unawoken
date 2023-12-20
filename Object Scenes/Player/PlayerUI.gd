@@ -6,6 +6,7 @@ class_name PlayerUI
 @export var HealthBar : ProgressBar
 @export var AttackIndicatorBox : IndicatorBox
 @export var StaminaIndicatorBox : IndicatorBox
+@export var CoinLabel : Label
 
 func _ready():
 	player = get_parent()
@@ -13,6 +14,7 @@ func _ready():
 
 func _process(delta):
 	HealthBar.value = player.CurrentHealth
+	CoinLabel.text = ("$" + str(player.InventoryRef.CoinCount))
 	
 func UpdateAttackIcons(Amount : int):
 	for i in AttackIndicatorBox.get_child_count():

@@ -4,7 +4,6 @@ class_name LevelController
 var Destructables : Array[DestructableObject]
 
 func _ready():
-	
 	for i in $Destructables.get_child_count():
 		if $Destructables.get_child(i) is DestructableObject:
 			Destructables.append($Destructables.get_child(i))

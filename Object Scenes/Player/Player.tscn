@@ -1,8 +1,8 @@
-[gd_scene load_steps=42 format=3 uid="uid://dxprot5svswbe"]
+[gd_scene load_steps=44 format=3 uid="uid://dxprot5svswbe"]
 
 [ext_resource type="Script" path="res://Scripts/Player/Player.gd" id="1_18da1"]
 [ext_resource type="Texture2D" uid="uid://bi38invhap0t" path="res://Visual Assets/SpriteSheets/player.png" id="2_w50ld"]
-[ext_resource type="PackedScene" uid="uid://cvn673tlhbnmt" path="res://HitBoxScene.tscn" id="7_qeb6o"]
+[ext_resource type="PackedScene" uid="uid://cvn673tlhbnmt" path="res://Char_HitBox.tscn" id="7_qeb6o"]
 [ext_resource type="Script" path="res://Scripts/Components/Audio Controllers/BodyAudioPlayer.gd" id="7_yvwfc"]
 [ext_resource type="AudioStream" uid="uid://d0iijvcalr7qr" path="res://Audio/SFX/Player/attack1.wav" id="8_3o1p1"]
 [ext_resource type="Script" path="res://Scripts/Player/Inventory.gd" id="8_nbgbr"]
@@ -18,6 +18,7 @@
 [ext_resource type="PackedScene" uid="uid://cvlh1usf2hwre" path="res://Object Scenes/Player/HealthBar.tscn" id="16_i6jb6"]
 [ext_resource type="PackedScene" uid="uid://cna3svtiht3b2" path="res://AttackIndicators.tscn" id="17_2lead"]
 [ext_resource type="PackedScene" uid="uid://b8dv2qk331bb" path="res://Object Scenes/Player/StaminaIndicators.tscn" id="17_xn00y"]
+[ext_resource type="FontFile" uid="uid://dlulxm5dxb804" path="res://Visual Assets/Fonts/Seagram tfb.ttf" id="19_bx1h2"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_8v8gj"]
 size = Vector2(9.5, 4)
@@ -706,7 +707,11 @@ _data = {
 "Up": SubResource("Animation_s2vuk")
 }
 
-[node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("InventoryRef", "UI", "AnimPlayer", "AttackTimer", "CooldownTimer", "BodyAudio", "WeaponAudio") groups=["Player"]]
+[sub_resource type="LabelSettings" id="LabelSettings_ppayg"]
+font = ExtResource("19_bx1h2")
+font_size = 35
+
+[node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("InventoryRef", "UI", "HitBox", "Hurt_Box", "AnimPlayer", "AttackTimer", "CooldownTimer", "BodyAudio", "WeaponAudio") groups=["Player"]]
 z_index = 1
 collision_mask = 7
 platform_floor_layers = 0
@@ -715,10 +720,13 @@ WalkSpeed = 75.0
 MaxHealth = 250
 MaxStaminaActions = 3
 StaminaRefill = 2.5
+Damage = 50
 AttackTime = 1.5
 AttackCooldown = 2.25
 InventoryRef = NodePath("Inventory")
 UI = NodePath("UI")
+HitBox = NodePath("HitBox")
+Hurt_Box = NodePath("HurtBox")
 AnimPlayer = NodePath("AnimationPlayer")
 AttackTimer = NodePath("Timers/AttackTimer")
 CooldownTimer = NodePath("Timers/CooldownTimer")
@@ -752,6 +760,7 @@ position = Vector2(0, 2)
 shape = SubResource("RectangleShape2D_8v8gj")
 
 [node name="HitBox" parent="." instance=ExtResource("7_qeb6o")]
+script = null
 
 [node name="CollisionShape2D" parent="HitBox" index="0"]
 shape = SubResource("CapsuleShape2D_lfbho")
@@ -791,11 +800,12 @@ FootSFX = ExtResource("10_o41wl")
 script = ExtResource("11_1xnuh")
 SwingSFX = Array[AudioStream]([ExtResource("12_glkli")])
 
-[node name="UI" type="CanvasLayer" parent="." node_paths=PackedStringArray("HealthBar", "AttackIndicatorBox", "StaminaIndicatorBox")]
+[node name="UI" type="CanvasLayer" parent="." node_paths=PackedStringArray("HealthBar", "AttackIndicatorBox", "StaminaIndicatorBox", "CoinLabel")]
 script = ExtResource("15_pbqi6")
 HealthBar = NodePath("Top Left/Health Bar")
 AttackIndicatorBox = NodePath("Top Left/AttackIndicators")
 StaminaIndicatorBox = NodePath("Top Left/StaminaContainer")
+CoinLabel = NodePath("Coin Count")
 
 [node name="Top Left" type="VBoxContainer" parent="UI"]
 offset_left = 24.0
@@ -813,6 +823,23 @@ layout_mode = 2
 
 [node name="AttackIndicators" parent="UI/Top Left" instance=ExtResource("17_2lead")]
 layout_mode = 2
+
+[node name="Coin Count" type="Label" parent="UI"]
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -154.0
+offset_top = -84.0
+offset_right = -45.0
+offset_bottom = -36.0
+grow_horizontal = 0
+grow_vertical = 0
+text = "$1,000"
+label_settings = SubResource("LabelSettings_ppayg")
+horizontal_alignment = 1
+vertical_alignment = 1
 
 [connection signal="timeout" from="Timers/AttackTimer" to="." method="ResetAttackIndex"]
 [connection signal="timeout" from="Timers/CooldownTimer" to="." method="ResetAttackIndex"]
