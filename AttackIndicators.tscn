@@ -1,13 +1,12 @@
 [gd_scene load_steps=3 format=3 uid="uid://cna3svtiht3b2"]
 
-[ext_resource type="Script" path="res://Scripts/Player/States/Attack Indicators.gd" id="1_akqhk"]
+[ext_resource type="Script" path="res://IndicatorBox.gd" id="1_t1v83"]
 [ext_resource type="PackedScene" uid="uid://dn1nfb6pxmd20" path="res://Object Scenes/Player/AttackGUI.tscn" id="2_0q4p6"]
 
 [node name="AttackIndicators" type="HBoxContainer"]
-offset_left = 34.0
-offset_top = 160.0
-offset_right = 134.0
-offset_bottom = 200.0
+custom_minimum_size = Vector2(0, 40)
+offset_right = 100.0
+offset_bottom = 40.0
 theme_override_constants/separation = 50
-script = ExtResource("1_akqhk")
+script = ExtResource("1_t1v83")
 Icon = ExtResource("2_0q4p6")

@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" path="res://Scripts/Player/Player UI.gd" id="1_76dh4"]
 [ext_resource type="PackedScene" uid="uid://cvlh1usf2hwre" path="res://Object Scenes/Player/HealthBar.tscn" id="2_puqut"]
-[ext_resource type="PackedScene" uid="uid://b8dv2qk331bb" path="res://Object Scenes/Player/StaminaContainer.tscn" id="3_2ufna"]
+[ext_resource type="PackedScene" uid="uid://b8dv2qk331bb" path="res://Object Scenes/Player/StaminaIndicators.tscn" id="3_2ufna"]
 [ext_resource type="PackedScene" uid="uid://cna3svtiht3b2" path="res://AttackIndicators.tscn" id="4_kdy41"]
 [ext_resource type="PackedScene" uid="uid://bah6bwn6do5bj" path="res://Object Scenes/Player/Statue Menu.tscn" id="6_p8lny"]
 [ext_resource type="FontFile" uid="uid://dlulxm5dxb804" path="res://Visual Assets/Fonts/Seagram tfb.ttf" id="7_mm3nr"]

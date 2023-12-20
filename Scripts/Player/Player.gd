@@ -9,12 +9,16 @@ class_name Player
 enum eStates {Idle, Walk, Attack, Roll, InMenu, Dead}
 var CurrentState : eStates
 
-signal UpdateIcons(Amount : int)
+#signal UpdateAttackIcons(Amount : int)
+#signal UpdateStaminaIcons(Amount : int)
 
 @export_category("Player Stats")
 @export var WalkSpeed : float
 @export var MaxHealth : int
 var CurrentHealth : int
+@export var MaxStaminaActions : int
+var CurrentStamina : int
+@export var StaminaRefill : float
 
 @export_category("Attack Stats")
 @export var AttackTime : float
@@ -27,19 +31,27 @@ var AttackIndex : int = 1
 var LastDirection : Vector2
 var animID : String
 
+@export_category("Components")
+@export var InventoryRef : Inventory
+@export var UI : PlayerUI
+
 @export_category("Internal References")
 @export var AnimPlayer : AnimationPlayer
 @export var AttackTimer : Timer
 @export var CooldownTimer : Timer
 @export var BodyAudio : BodyAudioPlayer
 @export var WeaponAudio : WeaponAudioPlayer
-@export var InventoryRef : Inventory
+
 
 func _ready():
 	CurrentState = eStates.Idle
 	LastDirection = Vector2.DOWN
 	
-	UpdateIcons.emit(MaxAttackNumber)
+	UI.UpdateAttackIcons(MaxAttackNumber)
+	UI.SetStaminaIcons(MaxStaminaActions)
+	
+	CurrentHealth = MaxHealth
+	CurrentStamina = MaxStaminaActions
 	
 func _process(_delta):
 	if CurrentState == eStates.Dead:
@@ -158,13 +170,13 @@ func Attack():
 	await AnimPlayer.animation_finished
 	CurrentState = eStates.Idle
 	
-	UpdateIcons.emit(MaxAttackNumber - AttackIndex)
+	UI.UpdateAttackIcons(MaxAttackNumber - AttackIndex)
 	
 	if AttackTimer.time_left >= 0.01:
 			AttackTimer.stop()
 	
 	if AttackIndex == MaxAttackNumber:
-		#print("Max reached, cooling down")
+		ReduceStamina(1)
 		CooldownTimer.start(AttackCooldown)
 	else:
 		AttackIndex += 1
@@ -172,4 +184,13 @@ func Attack():
 
 func ResetAttackIndex():
 	AttackIndex = 1
-	UpdateIcons.emit(MaxAttackNumber)
+	UI.UpdateAttackIcons(MaxAttackNumber)
+	
+func ReduceStamina(Amount : int):
+	CurrentStamina -= Amount
+	#print(CurrentStamina)
+	UI.UpdateStaminaIcons(CurrentStamina)
+	
+	await get_tree().create_timer(StaminaRefill).timeout
+	CurrentStamina += 1
+	UI.RefillStaminaIcons(CurrentStamina)

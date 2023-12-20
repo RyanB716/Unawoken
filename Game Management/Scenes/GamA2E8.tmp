@@ -1,0 +1,24 @@
+[gd_scene load_steps=5 format=3 uid="uid://ccjctttiken65"]
+
+[ext_resource type="PackedScene" uid="uid://c4oy4c3d46qb4" path="res://Levels/ForsakenDepths.tscn" id="1_1m60y"]
+[ext_resource type="Script" path="res://Game Management/Scripts/GameManager.gd" id="1_gdgan"]
+[ext_resource type="PackedScene" uid="uid://dxprot5svswbe" path="res://Object Scenes/Player/Player.tscn" id="2_t5728"]
+[ext_resource type="PackedScene" uid="uid://bqe051788k1gi" path="res://Object Scenes/MainCamera.tscn" id="4_8fpqb"]
+
+[node name="GameManager" type="Node" groups=["GameManager"]]
+process_mode = 3
+script = ExtResource("1_gdgan")
+
+[node name="Forsaken Depths" parent="." instance=ExtResource("1_1m60y")]
+
+[node name="MainCamera" parent="." instance=ExtResource("4_8fpqb")]
+position = Vector2(-665, 514)
+zoom = Vector2(4, 4)
+CamSpeed = 1.25
+
+[node name="Player" parent="." instance=ExtResource("2_t5728")]
+process_mode = 1
+position = Vector2(-667, 517)
+MaxHealth = 0
+StaminaRefill = 0.0
+MaxAttackNumber = 3
