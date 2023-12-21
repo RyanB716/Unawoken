@@ -17,5 +17,5 @@ func _ready():
 	
 func OnHurt(hurtbox : Area2D):
 	if hurtbox is HurtBox && hurtbox.Parent != Parent:
-		var attacker = hurtbox.Parent
-		Hurt.emit(attacker.Damage)
+		print("On Hurt activated")
+		Hurt.emit(hurtbox.DamageOutput)

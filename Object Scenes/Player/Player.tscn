@@ -23,7 +23,7 @@
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_8v8gj"]
 size = Vector2(9.5, 4)
 
-[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_lfbho"]
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_35al6"]
 radius = 5.5
 height = 18.0
 
@@ -725,7 +725,7 @@ AttackTime = 1.5
 AttackCooldown = 2.25
 InventoryRef = NodePath("Inventory")
 UI = NodePath("UI")
-HitBox = NodePath("HitBox")
+HitBox = NodePath("Character HitBox")
 Hurt_Box = NodePath("HurtBox")
 AnimPlayer = NodePath("AnimationPlayer")
 AttackTimer = NodePath("Timers/AttackTimer")
@@ -759,12 +759,11 @@ visible = false
 position = Vector2(0, 2)
 shape = SubResource("RectangleShape2D_8v8gj")
 
-[node name="HitBox" parent="." instance=ExtResource("7_qeb6o")]
-script = null
+[node name="Character HitBox" parent="." instance=ExtResource("7_qeb6o")]
+position = Vector2(0.25, -6)
 
-[node name="CollisionShape2D" parent="HitBox" index="0"]
-shape = SubResource("CapsuleShape2D_lfbho")
-disabled = true
+[node name="CollisionShape2D" parent="Character HitBox" index="0"]
+shape = SubResource("CapsuleShape2D_35al6")
 
 [node name="HurtBox" parent="." instance=ExtResource("8_tyw0s")]
 position = Vector2(-10, -2)
@@ -844,5 +843,5 @@ vertical_alignment = 1
 [connection signal="timeout" from="Timers/AttackTimer" to="." method="ResetAttackIndex"]
 [connection signal="timeout" from="Timers/CooldownTimer" to="." method="ResetAttackIndex"]
 
-[editable path="HitBox"]
+[editable path="Character HitBox"]
 [editable path="HurtBox"]

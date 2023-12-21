@@ -1,7 +1,8 @@
-[gd_scene load_steps=7 format=3 uid="uid://cd4u8ky38vqh1"]
+[gd_scene load_steps=9 format=3 uid="uid://cd4u8ky38vqh1"]
 
 [ext_resource type="Texture2D" uid="uid://ss7uglg1de4u" path="res://Visual Assets/SpriteSheets/Enemies/Eye-Open.png" id="1_mms6f"]
 [ext_resource type="Script" path="res://Enemy_Eye.gd" id="1_pkwis"]
+[ext_resource type="PackedScene" uid="uid://dkdkwarkfnals" path="res://EyeGunk.tscn" id="2_hseai"]
 [ext_resource type="PackedScene" uid="uid://cvn673tlhbnmt" path="res://Char_HitBox.tscn" id="3_wdu5u"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_qpu4u"]
@@ -15,16 +16,27 @@ bg_color = Color(1, 0, 0, 1)
 radius = 6.0
 height = 23.0
 
-[node name="Eye" type="CharacterBody2D" node_paths=PackedStringArray("Hit_Box", "HealthBar")]
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_qm17t"]
+radius = 6.0
+height = 25.0
+
+[node name="Eye" type="CharacterBody2D" node_paths=PackedStringArray("ChangeTimer", "ShootTimer", "Hit_Box", "HealthBar")]
 texture_filter = 1
+collision_layer = 2
+collision_mask = 4
 script = ExtResource("1_pkwis")
+ProjectileScene = ExtResource("2_hseai")
+ChangeTimer = NodePath("Change Timer")
+ShootTimer = NodePath("Shoot Timer")
+FlyRange = 50.0
 MaxHealth = 125
 XpAmount = 50
-BaseSpeed = 10.0
-TopSpeed = 15.0
-DetectionRange = 75.0
-DisengagementRange = 125.0
-AttackRange = 50.0
+Damage = 15
+BaseSpeed = 15.0
+TopSpeed = 20.0
+DetectionRange = 125.0
+DisengagementRange = 150.0
+AttackRange = 75.0
 Hit_Box = NodePath("HitBox")
 HealthBar = NodePath("Health Bar")
 
@@ -49,11 +61,25 @@ value = 25.0
 show_percentage = false
 
 [node name="HitBox" parent="." instance=ExtResource("3_wdu5u")]
+visible = false
 position = Vector2(-0.5, 0)
 
 [node name="CollisionShape2D" parent="HitBox" index="0"]
 position = Vector2(0, 0)
 rotation = 1.5708
 shape = SubResource("CapsuleShape2D_x1mha")
+
+[node name="Enviornment Collision" type="CollisionShape2D" parent="."]
+position = Vector2(-0.5, 0)
+rotation = 1.5708
+shape = SubResource("CapsuleShape2D_qm17t")
+
+[node name="Change Timer" type="Timer" parent="."]
+one_shot = true
+
+[node name="Shoot Timer" type="Timer" parent="."]
+one_shot = true
+
+[connection signal="timeout" from="Change Timer" to="." method="ChangeState"]
 
 [editable path="HitBox"]

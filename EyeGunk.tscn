@@ -1,0 +1,41 @@
+[gd_scene load_steps=7 format=3 uid="uid://dkdkwarkfnals"]
+
+[ext_resource type="Script" path="res://Projectile.gd" id="1_f2dp3"]
+[ext_resource type="Texture2D" uid="uid://1uarnvruolxg" path="res://Visual Assets/#1 - Transparent Icons.png" id="1_t6dd0"]
+[ext_resource type="PackedScene" uid="uid://dxtedijcfgvdi" path="res://HurtBoxScene.tscn" id="3_xr4bp"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_wbs7h"]
+atlas = ExtResource("1_t6dd0")
+region = Rect2(35, 3, 26, 26)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_wqwpq"]
+radius = 3.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_61dlx"]
+radius = 4.12
+
+[node name="Eye Gunk" type="RigidBody2D"]
+texture_filter = 1
+max_contacts_reported = 1
+contact_monitor = true
+script = ExtResource("1_f2dp3")
+Speed = 75.0
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+scale = Vector2(0.25, 0.25)
+texture = SubResource("AtlasTexture_wbs7h")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_wqwpq")
+disabled = true
+
+[node name="HurtBox" parent="." instance=ExtResource("3_xr4bp")]
+position = Vector2(0, 0)
+
+[node name="CollisionShape2D" parent="HurtBox" index="0"]
+shape = SubResource("CircleShape2D_61dlx")
+disabled = false
+
+[connection signal="area_entered" from="HurtBox" to="." method="_on_body_entered"]
+
+[editable path="HurtBox"]

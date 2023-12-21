@@ -45,7 +45,6 @@ var animID : String
 @export var BodyAudio : BodyAudioPlayer
 @export var WeaponAudio : WeaponAudioPlayer
 
-
 func _ready():
 	CurrentState = eStates.Idle
 	LastDirection = Vector2.DOWN
@@ -55,6 +54,8 @@ func _ready():
 	
 	CurrentHealth = MaxHealth
 	CurrentStamina = MaxStaminaActions
+	
+	HitBox.Hurt.connect(TakeDamage)
 	
 func _process(_delta):
 	if CurrentState == eStates.Dead:
@@ -197,3 +198,7 @@ func ReduceStamina(Amount : int):
 	await get_tree().create_timer(StaminaRefill).timeout
 	CurrentStamina += 1
 	UI.RefillStaminaIcons(CurrentStamina)
+
+func TakeDamage(Amount : int):
+	print("PLAYER HIT")
+	CurrentHealth -= Amount
