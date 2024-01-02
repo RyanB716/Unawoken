@@ -78,5 +78,5 @@ func ShootProjectile():
 func Die():
 	print(str(self.name) + " has died!")
 	CurrentState = eStates.Dead
-	await get_tree().create_timer(1).timeout
+	await get_tree().create_timer(0.25).timeout
 	self.queue_free()

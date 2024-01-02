@@ -1740,7 +1740,16 @@ position = Vector2(282, -330)
 [node name="Enemies" type="Node" parent="."]
 
 [node name="Eye" parent="Enemies" instance=ExtResource("17_hug4x")]
-position = Vector2(-581, 332)
+position = Vector2(-593, 308)
+
+[node name="Eye2" parent="Enemies" instance=ExtResource("17_hug4x")]
+position = Vector2(82, 76)
+
+[node name="Eye3" parent="Enemies" instance=ExtResource("17_hug4x")]
+position = Vector2(194, 124)
+
+[node name="Eye4" parent="Enemies" instance=ExtResource("17_hug4x")]
+position = Vector2(83, 186)
 
 [editable path="1st Note"]
 [editable path="Prayer Note"]
