@@ -3,7 +3,7 @@
 [ext_resource type="Texture2D" uid="uid://ss7uglg1de4u" path="res://Visual Assets/SpriteSheets/Enemies/Eye-Open.png" id="1_mms6f"]
 [ext_resource type="Script" path="res://Enemy_Eye.gd" id="1_pkwis"]
 [ext_resource type="PackedScene" uid="uid://dkdkwarkfnals" path="res://EyeGunk.tscn" id="2_hseai"]
-[ext_resource type="PackedScene" uid="uid://cvn673tlhbnmt" path="res://Char_HitBox.tscn" id="3_wdu5u"]
+[ext_resource type="PackedScene" uid="uid://cvn673tlhbnmt" path="res://Hitbox.tscn" id="3_wdu5u"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_qpu4u"]
 bg_color = Color(1, 1, 1, 1)

@@ -1,6 +1,8 @@
 extends StaticBody2D
 class_name DestructableObject
 
+@export var hitBox : HitBox
+
 @export_category("Data Variables")
 @export var NeededHits : int
 @export var ItemDrops : Array[ItemDrop]
@@ -17,8 +19,6 @@ var CoinAmount : int
 @onready var Area = self.get_child(0)
 @onready var RNG = RandomNumberGenerator.new()
 
-@onready var hitBox : ObjectHitBox = $Object_HitBox
-
 signal CallScreenShake(Strength : float, Duration : float)
 
 func _ready():
@@ -28,16 +28,16 @@ func _ready():
 	if hitBox == null:
 		print("ERROR: DestructableObject: " + str(self.name) + " has NO HitBox!")
 	else:
-		hitBox.Hit.connect(TakeHit)
+		hitBox.HitRecieved.connect(TakeHit)
 
-func TakeHit():
-	if NeededHits - 1 > 0:
-		Hit()
+func TakeHit(amount : int):
+	if NeededHits - amount > 0:
+		Hit(amount)
 	elif NeededHits -1 == 0:
 		Destroy()
 		
-func Hit():
-	NeededHits -= 1
+func Hit(amount : int):
+	NeededHits -= amount
 	CallScreenShake.emit(0.75, 0.15)
 	PlayHitSFX()
 

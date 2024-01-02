@@ -17,7 +17,7 @@ func _ready():
 	Died.connect(Die)
 	CurrentState = eStates.Idle
 	
-func _process(delta):
+func _process(_delta):
 	Distance = PlayerTarget.position - self.position
 	
 	if Distance.length() <= DetectionRange:
@@ -31,6 +31,7 @@ func _process(delta):
 
 func StateMachine():
 	if CurrentState == eStates.Dead:
+		CurrentSpeed = 0
 		return
 		
 	match CurrentState:
@@ -68,6 +69,7 @@ func ChangeState():
 func ShootProjectile():
 	var newProjectile = ProjectileScene.instantiate()
 	if newProjectile is Projectile:
+		newProjectile.Launcher = self
 		newProjectile.Damage = self.Damage
 		newProjectile.Direction = Distance
 		add_child(newProjectile)
@@ -76,6 +78,5 @@ func ShootProjectile():
 func Die():
 	print(str(self.name) + " has died!")
 	CurrentState = eStates.Dead
-	CurrentSpeed = 0
 	await get_tree().create_timer(1).timeout
 	self.queue_free()

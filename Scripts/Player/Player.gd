@@ -9,9 +9,6 @@ class_name Player
 enum eStates {Idle, Walk, Attack, Roll, InMenu, Dead}
 var CurrentState : eStates
 
-#signal UpdateAttackIcons(Amount : int)
-#signal UpdateStaminaIcons(Amount : int)
-
 @export_category("Player Stats")
 @export var WalkSpeed : float
 @export var MaxHealth : int
@@ -35,7 +32,7 @@ var animID : String
 @export_category("Components")
 @export var InventoryRef : Inventory
 @export var UI : PlayerUI
-@export var HitBox : CharacterHitBox
+@export var HitBox : HitBox
 @export var Hurt_Box : HurtBox
 
 @export_category("Internal References")
@@ -55,7 +52,7 @@ func _ready():
 	CurrentHealth = MaxHealth
 	CurrentStamina = MaxStaminaActions
 	
-	HitBox.Hurt.connect(TakeDamage)
+	HitBox.HitRecieved.connect(TakeDamage)
 	
 func _process(_delta):
 	if CurrentState == eStates.Dead:

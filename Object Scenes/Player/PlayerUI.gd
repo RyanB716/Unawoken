@@ -12,7 +12,7 @@ func _ready():
 	player = get_parent()
 	HealthBar.max_value = player.MaxHealth
 
-func _process(delta):
+func _process(_delta):
 	HealthBar.value = player.CurrentHealth
 	CoinLabel.text = ("$" + str(player.InventoryRef.CoinCount))
 	

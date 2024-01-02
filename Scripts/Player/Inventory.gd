@@ -24,7 +24,7 @@ func _enter_tree():
 		for i in Elixirs.size():
 			print("-Index: " + str(i) + ": " + str(Elixirs[i].Name) + ", " + str(Elixirs[i].AmountHeld))
 	else:
-		print("Global Inventory is not populated")
+		print("Global Inventory is not populated\n")
 
 func _ready():
 	CoinCount = GameSettings.CurrentCoins
@@ -62,7 +62,7 @@ func AddItem(item : InventoryItem):
 	
 func AddItemDelegate(_item : InventoryItem, array : Array, arrayName : String, _index : int):
 	if array.has(_item):
-		print(arrayName + " has item: " + str(_item.Name) + ", adding to AmountHeld")
+		print("\n" + str(arrayName) + " has item: " + str(_item.Name) + ", adding to AmountHeld")
 		var element = array.find(_item)
 		if array[element] is InventoryItem:
 			array[element].AmountHeld += 1

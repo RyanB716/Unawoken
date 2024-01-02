@@ -4,11 +4,11 @@
 # The Hurt signal contains an attacker variable, in order to derive data from it later
 
 extends Area2D
-class_name CharacterHitBox
+class_name HitBox
 
-@onready var Parent : CharacterBody2D
+@onready var Parent : Node2D
 
-signal Hurt(amount : int)
+signal HitRecieved(amount : int)
 
 func _ready():
 	Parent = get_parent()
@@ -16,6 +16,13 @@ func _ready():
 		get_child(0).disabled = false
 	
 func OnHurt(hurtbox : Area2D):
-	if hurtbox is HurtBox && hurtbox.Parent != Parent:
-		print("On Hurt activated")
-		Hurt.emit(hurtbox.DamageOutput)
+	if hurtbox is HurtBox:
+		if hurtbox.Parent is Projectile:
+			if hurtbox.Parent.Launcher != self.Parent:
+				HitRecieved.emit(hurtbox.DamageOutput)
+	
+		elif hurtbox.Parent != self.Parent:
+			if Parent is DestructableObject:
+				HitRecieved.emit(1)
+			elif Parent is CharacterBody2D:
+				HitRecieved.emit(hurtbox.DamageOutput)

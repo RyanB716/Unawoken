@@ -6,7 +6,7 @@ extends Panel
 @onready var texture : TextureRect = $TextureRect
 @onready var IsFilled : bool = true
 
-func _process(delta):
+func _process(_delta):
 	if IsFilled:
 		texture.texture = FilledIcon
 	else:

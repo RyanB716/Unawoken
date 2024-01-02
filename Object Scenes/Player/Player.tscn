@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" path="res://Scripts/Player/Player.gd" id="1_18da1"]
 [ext_resource type="Texture2D" uid="uid://bi38invhap0t" path="res://Visual Assets/SpriteSheets/player.png" id="2_w50ld"]
-[ext_resource type="PackedScene" uid="uid://cvn673tlhbnmt" path="res://Char_HitBox.tscn" id="7_qeb6o"]
+[ext_resource type="PackedScene" uid="uid://cvn673tlhbnmt" path="res://Hitbox.tscn" id="7_qeb6o"]
 [ext_resource type="Script" path="res://Scripts/Components/Audio Controllers/BodyAudioPlayer.gd" id="7_yvwfc"]
 [ext_resource type="AudioStream" uid="uid://d0iijvcalr7qr" path="res://Audio/SFX/Player/attack1.wav" id="8_3o1p1"]
 [ext_resource type="Script" path="res://Scripts/Player/Inventory.gd" id="8_nbgbr"]
@@ -725,7 +725,7 @@ AttackTime = 1.5
 AttackCooldown = 2.25
 InventoryRef = NodePath("Inventory")
 UI = NodePath("UI")
-HitBox = NodePath("Character HitBox")
+HitBox = NodePath("Hitbox")
 Hurt_Box = NodePath("HurtBox")
 AnimPlayer = NodePath("AnimationPlayer")
 AttackTimer = NodePath("Timers/AttackTimer")
@@ -759,10 +759,10 @@ visible = false
 position = Vector2(0, 2)
 shape = SubResource("RectangleShape2D_8v8gj")
 
-[node name="Character HitBox" parent="." instance=ExtResource("7_qeb6o")]
+[node name="Hitbox" parent="." instance=ExtResource("7_qeb6o")]
 position = Vector2(0.25, -6)
 
-[node name="CollisionShape2D" parent="Character HitBox" index="0"]
+[node name="CollisionShape2D" parent="Hitbox" index="0"]
 shape = SubResource("CapsuleShape2D_35al6")
 
 [node name="HurtBox" parent="." instance=ExtResource("8_tyw0s")]
@@ -843,5 +843,5 @@ vertical_alignment = 1
 [connection signal="timeout" from="Timers/AttackTimer" to="." method="ResetAttackIndex"]
 [connection signal="timeout" from="Timers/CooldownTimer" to="." method="ResetAttackIndex"]
 
-[editable path="Character HitBox"]
+[editable path="Hitbox"]
 [editable path="HurtBox"]
