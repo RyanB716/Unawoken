@@ -4,8 +4,8 @@ class_name OLDPlayerUI
 @export var player : Player
 @export var StatueMenu : Statue_Menu
 @export var Shop : ShopMenu
-@export var Stamina_Icons : StaminaContainer
-@export var AttackIcons : Attack_Indicators
+@export var Stamina_Icons : IndicatorBox
+@export var AttackIcons : IndicatorBox
 @export var XPLabel : Label
 @export var XpAmount : Label
 @export var ElixirGUI : ItemGUI

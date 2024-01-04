@@ -40,7 +40,6 @@ var AddedXP : int
 @export_category("Internal References")
 @export var InventoryRef : Inventory
 @export var UI : PlayerUI
-@export var FSM : StateMachine
 
 var CurrentSpeed = 0
 var HorizontalInput = 0
@@ -182,4 +181,3 @@ func DisplayXP():
 
 func Die():
 	IsDead = true
-	FSM.CurrentState.Transitioned.emit("PlayerDead")

@@ -29,6 +29,8 @@ var AttackIndex : int = 1
 var LastDirection : Vector2
 var animID : String
 
+var IsHealing : bool = false
+
 @export_category("Components")
 @export var InventoryRef : Inventory
 @export var UI : PlayerUI
@@ -199,3 +201,13 @@ func ReduceStamina(Amount : int):
 func TakeDamage(Amount : int):
 	print("PLAYER HIT")
 	CurrentHealth -= Amount
+	
+#Regains a variable amount of health
+func RegainHealth(Amount : int):
+	if IsHealing == false:
+		print("Healing: " + str(Amount) + " points!")
+		IsHealing = true
+		var HealthTween = get_tree().create_tween()
+		HealthTween.tween_property(self, "CurrentHealth", (CurrentHealth + Amount), 0.5)
+		await HealthTween.finished
+		IsHealing = false

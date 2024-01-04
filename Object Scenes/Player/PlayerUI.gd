@@ -1,12 +1,17 @@
 extends CanvasLayer
 class_name PlayerUI
 
-@onready var player : Player
+@export_category("Data Resources")
+@export var player : Player
+@export var inventory : Inventory
 
+@export_category("Children")
 @export var HealthBar : ProgressBar
 @export var AttackIndicatorBox : IndicatorBox
 @export var StaminaIndicatorBox : IndicatorBox
 @export var CoinLabel : Label
+@export var PowderGUI : ItemGUI
+@export var ElixirGUI : ItemGUI
 
 func _ready():
 	player = get_parent()
@@ -14,7 +19,27 @@ func _ready():
 
 func _process(_delta):
 	HealthBar.value = player.CurrentHealth
-	CoinLabel.text = ("$" + str(player.InventoryRef.CoinCount))
+	CoinLabel.text = ("$" + str(inventory.CoinCount))
+	
+	if !inventory.Elixirs.is_empty():
+		ElixirGUI.DisplayItem(inventory.Elixirs[inventory.ElixirIndex])
+	else:
+		ElixirGUI.visible = false
+		
+	if !inventory.Powders.is_empty():
+		PowderGUI.DisplayItem(inventory.Powders[inventory.PowderIndex])
+	else:
+		PowderGUI.visible = false
+	
+	if inventory.CurrentItem != null:
+		match inventory.CurrentItem.ItemType:
+			InventoryItem.eItemTypes.Elixir:
+				ElixirGUI.Border.visible = true
+				PowderGUI.Border.visible = false
+		
+			InventoryItem.eItemTypes.Powder:
+				PowderGUI.Border.visible = true
+				ElixirGUI.Border.visible = false
 	
 func UpdateAttackIcons(Amount : int):
 	for i in AttackIndicatorBox.get_child_count():

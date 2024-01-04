@@ -28,10 +28,10 @@ func _enter_tree():
 
 func _ready():
 	CoinCount = GameSettings.CurrentCoins
-	CurrentItem = Elixirs[0]
+	#CurrentItem = Elixirs[0]
 
 func _process(_delta):
-	if Input.is_action_just_pressed("UseItem") && get_parent().IsInMenu == false:
+	if Input.is_action_just_pressed("UseItem"):
 		UseCurrentItem()
 	
 	if Input.is_action_just_pressed("CycleElixir"):
@@ -39,13 +39,6 @@ func _process(_delta):
 	
 	if Input.is_action_just_pressed("CyclePowder"):
 		CyclePowder()
-		
-	#print("Elixir Index " + str(ElixirIndex) + " is: " + str(Elixirs[ElixirIndex].Name))
-	match CurrentItem.ItemType:
-		InventoryItem.eItemTypes.Elixir:
-			CurrentItem = Elixirs[ElixirIndex]
-		InventoryItem.eItemTypes.Powder:
-			CurrentItem = Powders[PowderIndex]
 
 #Adds a new item to proper inventory
 func AddItem(item : InventoryItem):
@@ -77,6 +70,8 @@ func AddItemDelegate(_item : InventoryItem, array : Array, arrayName : String, _
 	match _item.ItemType:
 		InventoryItem.eItemTypes.Elixir:
 			ElixirIndex = newIndex
+			if CurrentItem == null:
+				CurrentItem = array[newIndex]
 			
 		InventoryItem.eItemTypes.Powder:
 			pass
@@ -86,28 +81,30 @@ func AddItemDelegate(_item : InventoryItem, array : Array, arrayName : String, _
 	
 	print("\n" + str(arrayName) + " Contents:")
 	for i in array.size():
-		print(str(i) + "/" + str(Elixirs.size() - 1) + ": " + str(Elixirs[i].Name) + ", #" + str(Elixirs[i].AmountHeld))
+		print(str(i) + "/" + str(array.size() - 1) + ": " + str(array[i].Name) + ", #" + str(array[i].AmountHeld))
 	print("\n")
 
 #Uses the current item
 func UseCurrentItem():
 	if CurrentItem.AmountHeld > 0:
+		CurrentItem.AmountHeld -= 1
+		
 		match CurrentItem.ItemType:
-			
 			InventoryItem.eItemTypes.Elixir:
 				if player.CurrentHealth < player.MaxHealth && player.IsHealing == false:
 					print("Using current exlixir: " + str(CurrentItem.Name))
 					$InventoryAudio.stream = CurrentItem.UseSFX
 					$InventoryAudio.play()
-					CurrentItem.AmountHeld -= 1
 					var AmntToAdd : int = int(player.MaxHealth * (CurrentItem.AmountInPercent * 0.01))
 					player.RegainHealth(AmntToAdd)
 					if CurrentItem.AmountHeld == 0:
-						CycleElixir()
+						Elixirs.remove_at(ElixirIndex)
+						CurrentItem = null
+						if !Elixirs.is_empty():
+							CycleElixir()
 
 			InventoryItem.eItemTypes.Powder:
 				print("Using current powder: " + str(CurrentItem.Name))
-				CurrentItem.AmountHeld -= 1
 				
 			InventoryItem.eItemTypes.Key:
 				pass

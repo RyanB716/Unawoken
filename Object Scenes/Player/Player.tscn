@@ -1,4 +1,4 @@
-[gd_scene load_steps=44 format=3 uid="uid://dxprot5svswbe"]
+[gd_scene load_steps=43 format=3 uid="uid://dxprot5svswbe"]
 
 [ext_resource type="Script" path="res://Scripts/Player/Player.gd" id="1_18da1"]
 [ext_resource type="Texture2D" uid="uid://bi38invhap0t" path="res://Visual Assets/SpriteSheets/player.png" id="2_w50ld"]
@@ -7,9 +7,7 @@
 [ext_resource type="AudioStream" uid="uid://d0iijvcalr7qr" path="res://Audio/SFX/Player/attack1.wav" id="8_3o1p1"]
 [ext_resource type="Script" path="res://Scripts/Player/Inventory.gd" id="8_nbgbr"]
 [ext_resource type="PackedScene" uid="uid://dxtedijcfgvdi" path="res://HurtBoxScene.tscn" id="8_tyw0s"]
-[ext_resource type="Resource" uid="uid://xcxif0nh2xr1" path="res://Custom Resources/Items & Inventory/Items/Healing Items/LiteElixir.tres" id="9_s48do"]
 [ext_resource type="AudioStream" uid="uid://dlnsrugki0emv" path="res://Audio/SFX/Player/blade_hit_07.wav" id="9_v33nq"]
-[ext_resource type="Resource" uid="uid://dcnarwww73wqb" path="res://Custom Resources/Items & Inventory/Items/Healing Items/BluePowder.tres" id="10_110f4"]
 [ext_resource type="AudioStream" uid="uid://dfg2itgn13nbu" path="res://Audio/SFX/Player/16_human_walk_stone_1.wav" id="10_o41wl"]
 [ext_resource type="Script" path="res://Scripts/Components/Audio Controllers/WeaponAudio.gd" id="11_1xnuh"]
 [ext_resource type="AudioStream" uid="uid://r0ar1gqr6dni" path="res://Audio/SFX/Object/Coin_Add.mp3" id="11_w3b4d"]
@@ -19,6 +17,7 @@
 [ext_resource type="PackedScene" uid="uid://cna3svtiht3b2" path="res://AttackIndicators.tscn" id="17_2lead"]
 [ext_resource type="PackedScene" uid="uid://b8dv2qk331bb" path="res://Object Scenes/Player/StaminaIndicators.tscn" id="17_xn00y"]
 [ext_resource type="FontFile" uid="uid://dlulxm5dxb804" path="res://Visual Assets/Fonts/Seagram tfb.ttf" id="19_bx1h2"]
+[ext_resource type="PackedScene" uid="uid://cy3usaue2r7jy" path="res://ItemGUI.tscn" id="20_lthxp"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_8v8gj"]
 size = Vector2(9.5, 4)
@@ -736,8 +735,6 @@ WeaponAudio = NodePath("Audio/WeaponAudioPlayer")
 [node name="Inventory" type="Node2D" parent="."]
 process_mode = 3
 script = ExtResource("8_nbgbr")
-Elixirs = Array[Resource("res://Custom Resources/Items & Inventory/Scripts/ElixirResource.gd")]([ExtResource("9_s48do")])
-Powders = Array[Resource("res://Custom Resources/Items & Inventory/Scripts/PowderResource.gd")]([ExtResource("10_110f4")])
 
 [node name="InventoryAudio" type="AudioStreamPlayer" parent="Inventory"]
 
@@ -799,12 +796,16 @@ FootSFX = ExtResource("10_o41wl")
 script = ExtResource("11_1xnuh")
 SwingSFX = Array[AudioStream]([ExtResource("12_glkli")])
 
-[node name="UI" type="CanvasLayer" parent="." node_paths=PackedStringArray("HealthBar", "AttackIndicatorBox", "StaminaIndicatorBox", "CoinLabel")]
+[node name="UI" type="CanvasLayer" parent="." node_paths=PackedStringArray("player", "inventory", "HealthBar", "AttackIndicatorBox", "StaminaIndicatorBox", "CoinLabel", "PowderGUI", "ElixirGUI")]
 script = ExtResource("15_pbqi6")
+player = NodePath("..")
+inventory = NodePath("../Inventory")
 HealthBar = NodePath("Top Left/Health Bar")
 AttackIndicatorBox = NodePath("Top Left/AttackIndicators")
 StaminaIndicatorBox = NodePath("Top Left/StaminaContainer")
 CoinLabel = NodePath("Coin Count")
+PowderGUI = NodePath("PowderGUI")
+ElixirGUI = NodePath("ElixirGUI")
 
 [node name="Top Left" type="VBoxContainer" parent="UI"]
 offset_left = 24.0
@@ -839,6 +840,18 @@ text = "$1,000"
 label_settings = SubResource("LabelSettings_ppayg")
 horizontal_alignment = 1
 vertical_alignment = 1
+
+[node name="PowderGUI" parent="UI" instance=ExtResource("20_lthxp")]
+offset_left = 22.0
+offset_top = 895.0
+offset_right = 97.0
+offset_bottom = 970.0
+
+[node name="ElixirGUI" parent="UI" instance=ExtResource("20_lthxp")]
+offset_left = 93.0
+offset_top = 993.0
+offset_right = 168.0
+offset_bottom = 1068.0
 
 [connection signal="timeout" from="Timers/AttackTimer" to="." method="ResetAttackIndex"]
 [connection signal="timeout" from="Timers/CooldownTimer" to="." method="ResetAttackIndex"]

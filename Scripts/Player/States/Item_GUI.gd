@@ -1,4 +1,4 @@
-extends Panel
+extends ColorRect
 class_name ItemGUI
 
 @onready var image = $TextureRect
