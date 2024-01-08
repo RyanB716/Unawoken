@@ -23,8 +23,23 @@ func _enter_tree():
 		
 		for i in Elixirs.size():
 			print("-Index: " + str(i) + ": " + str(Elixirs[i].Name) + ", " + str(Elixirs[i].AmountHeld))
+		
+		ElixirIndex = 0
+		CurrentItem = Elixirs[ElixirIndex]
 	else:
-		print("Global Inventory is not populated\n")
+		print("Global Elixirs is not populated\n")
+		
+	if !GameSettings.PlayerPowders.is_empty():
+		print("\nLoading Powder Inventory..." + " (" + str(GameSettings.PlayerPowders.size()) + " items)")
+		Powders.clear()
+		Powders = GameSettings.PlayerPowders
+		
+		for i in Powders.size():
+			print("-Index: " + str(i) + ": " + str(Powders[i].Name) + ", " + str(Powders[i].AmountHeld))
+		
+		PowderIndex = 0
+	else:
+		print("Global Powders is not populated\n")
 
 func _ready():
 	CoinCount = GameSettings.CurrentCoins
@@ -35,10 +50,12 @@ func _process(_delta):
 		UseCurrentItem()
 	
 	if Input.is_action_just_pressed("CycleElixir"):
-		CycleElixir()
+		if !Elixirs.is_empty():
+			CycleElixir()
 	
 	if Input.is_action_just_pressed("CyclePowder"):
-		CyclePowder()
+		if !Powders.is_empty():
+			CyclePowder()
 
 #Adds a new item to proper inventory
 func AddItem(item : InventoryItem):

@@ -12,6 +12,7 @@ class_name PlayerUI
 @export var CoinLabel : Label
 @export var PowderGUI : ItemGUI
 @export var ElixirGUI : ItemGUI
+@export var StatueMenu : Statue_Menu
 
 func _ready():
 	player = get_parent()
@@ -68,3 +69,6 @@ func RefillStaminaIcons(Amount : int):
 	for i in Amount:
 		if StaminaIndicatorBox.get_child(i).IsFilled == false:
 			StaminaIndicatorBox.get_child(i).IsFilled = true
+
+func ToggleMenu(Menu : Object, Choice : bool):
+	Menu.visible = Choice

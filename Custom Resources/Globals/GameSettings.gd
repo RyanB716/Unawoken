@@ -11,21 +11,37 @@ var PlayerElixirs : Array[Elixir]
 var PlayerPowders : Array[Powder]
 var PlayerKeys : Array[KeyItem]
 
-func UpdateInventory():
-	var player = get_tree().get_first_node_in_group("Player")
+@onready var player : Player = get_tree().get_first_node_in_group("Player")
+var inventory : Inventory
+
+func _process(delta):
+	if player == null:
+		player = get_tree().get_first_node_in_group("Player")
+
+func UpdateInventory(globalArray : Array, playerArray : Array, name : String): 
+	print("\nUpdating global " + str(name) + "!\n")
 	
-	print("Updating global Inventory!")
-	GameSettings.CurrentPlayerXP = player.CurrentXP
-	print("-XP set")
-	GameSettings.CurrentCoins = player.InventoryRef.CoinCount
-	print("-Coins set\n")
+	globalArray.clear()
 	
-	#if player is Player:
-		#print("Clearing global Elixirs")
-		#PlayerElixirs.clear()
-			
-		#PlayerElixirs = player.InventoryRef.Elixirs
-		
-		#print("-Inventory set")
-		#for i in GameSettings.PlayerElixirs.size():
-			#print("-New Slot @ Index " + str(i) + " :" + str(GameSettings.PlayerElixirs[i].Name) + ", #: " + str(GameSettings.PlayerElixirs[i].AmountHeld))
+	for i in playerArray.size():
+		print(str(i) + ": " + str(playerArray[i].Name))
+		globalArray.append(playerArray[i])
+	
+	for i in globalArray.size():
+		print("- Slot @ Index: " + str(i) + "/" + str(globalArray.size() - 1) + " " + 
+		str(globalArray[i].Name) + ", #: " + 
+		str(globalArray[i].AmountHeld))
+	
+	print("\n" + str(name) + " set!\n")
+
+func SaveInventories():
+	inventory = player.InventoryRef
+	
+	UpdateInventory(PlayerElixirs, inventory.Elixirs, "Elixirs")
+	UpdateInventory(PlayerPowders, inventory.Powders, "Powders")
+	
+	CurrentCoins = player.InventoryRef.CoinCount
+	print("- Coins set\n")
+	#GameSettings.CurrentPlayerXP = player.CurrentXP
+	#print("-XP set")
+	print("Inventory set!\n")

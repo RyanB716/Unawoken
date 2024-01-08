@@ -80,7 +80,7 @@ func StateMachine():
 			pass
 			
 		eStates.Dead:
-			pass
+			velocity = Vector2.ZERO
 	
 func InputManager():
 	if CurrentState == eStates.InMenu:
