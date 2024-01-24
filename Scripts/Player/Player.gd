@@ -6,7 +6,7 @@
 extends CharacterBody2D
 class_name Player
 
-enum eStates {Idle, Walk, Attack, Roll, InMenu, Dead}
+enum eStates {CanAttack, Attacking, AttackCooldown, Guard, InMenu, Dead}
 var CurrentState : eStates
 
 @export_category("Player Stats")
@@ -34,8 +34,8 @@ var IsHealing : bool = false
 @export_category("Components")
 @export var InventoryRef : Inventory
 @export var UI : PlayerUI
-@export var HitBox : HitBox
-@export var Hurt_Box : HurtBox
+@export var HitBox : Hit_Box
+@export var HurtBox : Hurt_Box
 
 @export_category("Internal References")
 @export var AnimPlayer : AnimationPlayer
@@ -45,7 +45,8 @@ var IsHealing : bool = false
 @export var WeaponAudio : WeaponAudioPlayer
 
 func _ready():
-	CurrentState = eStates.Idle
+	CurrentState = eStates.CanAttack
+	Direction = Vector2.DOWN
 	LastDirection = Vector2.DOWN
 	
 	UI.UpdateAttackIcons(MaxAttackNumber)
@@ -65,20 +66,11 @@ func _process(_delta):
 	AnimationManager()
 	
 func _physics_process(_delta):
+	velocity = (Direction * CurrentSpeed)
 	move_and_slide()
 	
 func StateMachine():
 	match CurrentState:
-		eStates.Idle:
-			CurrentSpeed = 0
-			
-		eStates.Walk:
-			CurrentSpeed = WalkSpeed
-			BodyAudio.PlayStep()
-			
-		eStates.Roll:
-			pass
-			
 		eStates.Dead:
 			velocity = Vector2.ZERO
 	
@@ -86,60 +78,53 @@ func InputManager():
 	if CurrentState == eStates.InMenu:
 		return
 	
-	if CurrentState == eStates.Attack:
-		return
-	
 	Direction = Input.get_vector("Run_Left", "Run_Right", "Run_Up", "Run_Down").normalized()
-	velocity = (Direction * CurrentSpeed)
 	
 	if Direction != Vector2.ZERO:
-		CurrentState = eStates.Walk
 		
-		match Direction:
-			Vector2.UP:
-				LastDirection = Vector2.UP
-			Vector2.DOWN:
-				LastDirection = Vector2.DOWN
-			Vector2.LEFT:
-				LastDirection = Vector2.LEFT
-			Vector2.RIGHT:
-				LastDirection = Vector2.RIGHT
+		CurrentSpeed = WalkSpeed
+		BodyAudio.PlayStep()
+		
+		if CurrentState != eStates.Attacking:
+			match Direction:
+				Vector2.UP:
+					AnimPlayer.play("Run_Up")
+					LastDirection = Vector2.UP
+				Vector2.DOWN:
+					AnimPlayer.play("Run_Down")
+					LastDirection = Vector2.DOWN
+				Vector2.LEFT:
+					AnimPlayer.play("Run_Left")
+					LastDirection = Vector2.LEFT
+				Vector2.RIGHT:
+					AnimPlayer.play("Run_Right")
+					LastDirection = Vector2.RIGHT
 	
 	elif Direction == Vector2.ZERO:
-		CurrentState = eStates.Idle
+		CurrentSpeed = 0
+		
+		if CurrentState != eStates.Attacking:
+			match LastDirection:
+					Vector2.RIGHT:
+						AnimPlayer.play("Idle_Right")
+					Vector2.LEFT:
+						AnimPlayer.play("Idle_Left")
+					Vector2.UP:
+						AnimPlayer.play("Idle_Up")
+					Vector2.DOWN:
+						AnimPlayer.play("Idle_Down")
 	
-	if Input.is_action_just_pressed("Attack") && CurrentState != eStates.Attack:
+	if Input.is_action_just_pressed("Attack") && CurrentState == eStates.CanAttack:
 		Attack()
 
 func AnimationManager():
-	match CurrentState:
-		eStates.Idle:
-			match LastDirection:
-				Vector2.RIGHT:
-					AnimPlayer.play("Idle_Right")
-				Vector2.LEFT:
-					AnimPlayer.play("Idle_Left")
-				Vector2.UP:
-					AnimPlayer.play("Idle_Up")
-				Vector2.DOWN:
-					AnimPlayer.play("Idle_Down")
-					
-		eStates.Walk:
-			match LastDirection:
-				Vector2.RIGHT:
-					AnimPlayer.play("Run_Right")
-				Vector2.LEFT:
-					AnimPlayer.play("Run_Left")
-				Vector2.UP:
-					AnimPlayer.play("Run_Up")
-				Vector2.DOWN:
-					AnimPlayer.play("Run_Down")
-
+	pass
+	
 func Attack():
 	if CooldownTimer.time_left >= 0.01:
 		return
 	
-	CurrentState = eStates.Attack
+	CurrentState = eStates.Attacking
 	
 	BodyAudio.PlayVoice()
 	await get_tree().create_timer(0.15).timeout
@@ -171,7 +156,7 @@ func Attack():
 	AnimPlayer.play(animID)
 	
 	await AnimPlayer.animation_finished
-	CurrentState = eStates.Idle
+	CurrentState = eStates.CanAttack
 	
 	UI.UpdateAttackIcons(MaxAttackNumber - AttackIndex)
 	

@@ -35,7 +35,7 @@ func _on_no_pressed():
 	self.visible = false
 	Audio.stream = OutSFX
 	Audio.play()
-	player.CurrentState = player.eStates.Idle
+	#player.CurrentState = player.eStates.Idle
 
 func PlayClick():
 	Audio.stream = Click

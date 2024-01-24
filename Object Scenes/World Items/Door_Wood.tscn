@@ -14,9 +14,9 @@ size = Vector2(32, 32)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_brt2u"]
 size = Vector2(34, 34)
 
-[node name="Door_Wood" type="StaticBody2D" node_paths=PackedStringArray("hitBox")]
+[node name="Door_Wood" type="StaticBody2D" node_paths=PackedStringArray("HitBox")]
 script = ExtResource("2_1620b")
-hitBox = NodePath("Character HitBox")
+HitBox = NodePath("Character HitBox")
 NeededHits = 3
 HitSFX = Array[AudioStream]([ExtResource("2_4u54g"), ExtResource("3_200y6"), ExtResource("4_vqq0i")])
 BreakSFX = Array[AudioStream]([ExtResource("5_bjh7i")])

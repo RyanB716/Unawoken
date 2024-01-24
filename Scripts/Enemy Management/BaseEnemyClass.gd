@@ -23,7 +23,7 @@ var Distance
 
 @export_category("Internal References")
 @export var AnimPlayer : AnimationPlayer
-@export var Hit_Box : HitBox
+@export var HitBox : Hit_Box
 @export var HealthBar : ProgressBar
 
 var PlayerTarget : Player
@@ -35,7 +35,7 @@ func _enter_tree():
 	CurrentHealth = MaxHealth
 	HealthBar.max_value = MaxHealth
 	
-	Hit_Box.HitRecieved.connect(TakeDamage)
+	HitBox.HitRecieved.connect(TakeDamage)
 
 func _physics_process(_delta):
 	HealthBar.value = CurrentHealth

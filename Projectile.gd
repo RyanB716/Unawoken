@@ -11,7 +11,7 @@ func _enter_tree():
 	self.linear_velocity = Direction.normalized() * Speed
 	
 func _on_body_entered(body):
-	if body is HitBox && body.Parent == Launcher:
+	if body is Hit_Box && body.Parent == Launcher:
 		pass
 	else:
 		self.queue_free()

@@ -1,5 +1,5 @@
 extends Area2D
-class_name HurtBox
+class_name Hurt_Box
 
 @onready var Parent
 var DamageOutput

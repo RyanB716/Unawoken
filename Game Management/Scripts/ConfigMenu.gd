@@ -6,11 +6,14 @@ func _ready():
 	else:
 		$VBoxContainer/CheckIntro.button_pressed = false
 		
-	$VBoxContainer/BackButton.grab_focus()
+	Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
 
 func _process(delta):
 	if Input.is_action_just_pressed("ui_cancel"):
 		get_tree().change_scene_to_file("res://Game Management/Scenes/MainMenu.tscn")
+		
+	if Input.get_joy_name(0):
+		Input.mouse_mode = Input.MOUSE_MODE_HIDDEN
 
 func SetIntro():
 	GameSettings.PlayIntro = !GameSettings.PlayIntro
