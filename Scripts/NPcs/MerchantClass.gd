@@ -19,10 +19,11 @@ var  SpokenFailLines : Array[String]
 
 var CanInput = false
 
-@onready var PlayerRef = get_tree().get_first_node_in_group("Player")
-@onready var UI #= get_tree().get_first_node_in_group("Player").get_node("Player UI")
+@onready var PlayerRef : Player = get_tree().get_first_node_in_group("Player")
+var UI : PlayerUI
 
 func _ready():
+	UI = PlayerRef.UI
 	$Label.visible = false
 	$AnimatedSprite2D.play("default")
 

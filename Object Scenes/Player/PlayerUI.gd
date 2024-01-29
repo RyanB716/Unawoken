@@ -13,6 +13,7 @@ class_name PlayerUI
 @export var PowderGUI : ItemGUI
 @export var ElixirGUI : ItemGUI
 @export var StatueMenu : Statue_Menu
+@export var Shop : ShopMenu
 
 func _ready():
 	player = get_parent()

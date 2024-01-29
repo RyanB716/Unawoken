@@ -123,8 +123,10 @@ func UseCurrentItem():
 					CurrentItem = null
 					Elixirs.remove_at(ElixirIndex)
 					if !Elixirs.is_empty():
+						ElixirIndex = 0
 						CycleElixir()
 					elif !Powders.is_empty():
+						PowderIndex = 0
 						CyclePowder()
 					else:
 						print("No items in inventory; CurrentItem is staying NULL")
@@ -135,8 +137,10 @@ func UseCurrentItem():
 				CurrentItem = null
 				Powders.remove_at(PowderIndex)
 				if !Powders.is_empty():
+					PowderIndex = 0
 					CyclePowder()
 				elif !Elixirs.is_empty():
+					ElixirIndex = 0
 					CycleElixir()
 				else:
 					print("No items in inventory; CurrentItem is staying NULL")
@@ -147,9 +151,7 @@ func UseCurrentItem():
 #Cycles the Elixir inventory upward
 func CycleElixir():
 	print("Cycling Elixirs...")
-	if Elixirs.size() - 1 <= ElixirIndex:
-		ElixirIndex = 0
-	
+
 	if !CurrentItem is Elixir && Elixirs[ElixirIndex] != null:
 		if Elixirs[ElixirIndex].AmountHeld >= 1:
 			CurrentItem = Elixirs[ElixirIndex]

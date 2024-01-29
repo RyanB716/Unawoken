@@ -1,4 +1,4 @@
-[gd_scene load_steps=44 format=3 uid="uid://dxprot5svswbe"]
+[gd_scene load_steps=45 format=3 uid="uid://dxprot5svswbe"]
 
 [ext_resource type="Script" path="res://Scripts/Player/Player.gd" id="1_18da1"]
 [ext_resource type="Texture2D" uid="uid://bi38invhap0t" path="res://Visual Assets/SpriteSheets/player.png" id="2_w50ld"]
@@ -19,6 +19,7 @@
 [ext_resource type="FontFile" uid="uid://dlulxm5dxb804" path="res://Visual Assets/Fonts/Seagram tfb.ttf" id="19_bx1h2"]
 [ext_resource type="PackedScene" uid="uid://bah6bwn6do5bj" path="res://Object Scenes/Player/Statue Menu.tscn" id="19_mgy6k"]
 [ext_resource type="PackedScene" uid="uid://cy3usaue2r7jy" path="res://ItemGUI.tscn" id="20_lthxp"]
+[ext_resource type="PackedScene" uid="uid://bq21xd4n7wkej" path="res://ShopMenu.tscn" id="20_y22ny"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_8v8gj"]
 size = Vector2(9.5, 4)
@@ -794,7 +795,7 @@ FootSFX = ExtResource("10_o41wl")
 script = ExtResource("11_1xnuh")
 SwingSFX = Array[AudioStream]([ExtResource("12_glkli")])
 
-[node name="UI" type="CanvasLayer" parent="." node_paths=PackedStringArray("player", "inventory", "HealthBar", "AttackIndicatorBox", "StaminaIndicatorBox", "CoinLabel", "PowderGUI", "ElixirGUI", "StatueMenu")]
+[node name="UI" type="CanvasLayer" parent="." node_paths=PackedStringArray("player", "inventory", "HealthBar", "AttackIndicatorBox", "StaminaIndicatorBox", "CoinLabel", "PowderGUI", "ElixirGUI", "StatueMenu", "Shop")]
 script = ExtResource("15_pbqi6")
 player = NodePath("..")
 inventory = NodePath("../Inventory")
@@ -805,6 +806,7 @@ CoinLabel = NodePath("Coin Count")
 PowderGUI = NodePath("PowderGUI")
 ElixirGUI = NodePath("ElixirGUI")
 StatueMenu = NodePath("StatueMenu")
+Shop = NodePath("ShopPanel")
 
 [node name="Top Left" type="VBoxContainer" parent="UI"]
 offset_left = 24.0
@@ -854,6 +856,8 @@ offset_bottom = 1068.0
 
 [node name="StatueMenu" parent="UI" instance=ExtResource("19_mgy6k")]
 visible = false
+
+[node name="ShopPanel" parent="UI" instance=ExtResource("20_y22ny")]
 
 [connection signal="timeout" from="Timers/AttackTimer" to="." method="ResetAttackIndex"]
 [connection signal="timeout" from="Timers/CooldownTimer" to="." method="ResetAttackIndex"]

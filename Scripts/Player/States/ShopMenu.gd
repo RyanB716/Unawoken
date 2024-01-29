@@ -31,7 +31,6 @@ func _process(delta):
 		ChooseDialogue(NPC.Dialogue, NPC.SpokenDialogue)
 	
 func OpenMenu(npc : Merchant):
-	player.IsInMenu = true
 	NPC = npc
 	ClearMenu()
 	print("Opening Menu...")
