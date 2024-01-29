@@ -14,8 +14,24 @@ class_name Inventory
 @onready var CoinCount : int = 0
 
 @onready var player : Player = get_parent()
+@onready var InvSFX : InventoryAudio = $InventoryAudio
 
-func _enter_tree():
+func _ready():
+	LoadInventory()
+
+func _process(_delta):
+	if Input.is_action_just_pressed("UseItem") && CurrentItem != null:
+		UseCurrentItem()
+	
+	if Input.is_action_just_pressed("CycleElixir"):
+		if !Elixirs.is_empty():
+			CycleElixir()
+	
+	if Input.is_action_just_pressed("CyclePowder"):
+		if !Powders.is_empty():
+			CyclePowder()
+			
+func LoadInventory():
 	if !GameSettings.PlayerElixirs.is_empty():
 		print("\nLoading Elixir Inventory..." + " (" + str(GameSettings.PlayerElixirs.size()) + " items)")
 		Elixirs.clear()
@@ -40,34 +56,25 @@ func _enter_tree():
 		PowderIndex = 0
 	else:
 		print("Global Powders is not populated\n")
-
-func _ready():
+		
 	CoinCount = GameSettings.CurrentCoins
-
-func _process(_delta):
-	if Input.is_action_just_pressed("UseItem") && CurrentItem != null:
-		UseCurrentItem()
-	
-	if Input.is_action_just_pressed("CycleElixir"):
-		if !Elixirs.is_empty():
-			CycleElixir()
-	
-	if Input.is_action_just_pressed("CyclePowder"):
-		if !Powders.is_empty():
-			CyclePowder()
+	print("Inventory loading COMPLETE")
 
 #Adds a new item to proper inventory
 func AddItem(item : InventoryItem):
 	match item.ItemType:
 		InventoryItem.eItemTypes.Elixir:
 			AddItemDelegate(item, Elixirs, "Elixirs", ElixirIndex)
+			if Powders.is_empty():
+				CycleElixir()
 		InventoryItem.eItemTypes.Powder:
 			AddItemDelegate(item, Powders, "Powders", PowderIndex)
+			if Elixirs.is_empty():
+				CyclePowder()
 		InventoryItem.eItemTypes.Key:
 			pass
 			
-	$InventoryAudio.stream = item.PickupSFX
-	$InventoryAudio.play()
+	InvSFX.PlaySFX(item.PickupSFX)
 	
 func AddItemDelegate(_item : InventoryItem, array : Array, arrayName : String, _index : int):
 	if array.has(_item):
@@ -102,31 +109,47 @@ func AddItemDelegate(_item : InventoryItem, array : Array, arrayName : String, _
 
 #Uses the current item
 func UseCurrentItem():
-	if CurrentItem.AmountHeld > 0:
-		CurrentItem.AmountHeld -= 1
+	InvSFX.PlaySFX(CurrentItem.UseSFX)
+	
+	CurrentItem.AmountHeld -= 1
+	
+	match CurrentItem.ItemType:
 		
-		match CurrentItem.ItemType:
-			InventoryItem.eItemTypes.Elixir:
-				if player.CurrentHealth < player.MaxHealth && player.IsHealing == false:
-					print("Using current exlixir: " + str(CurrentItem.Name))
-					$InventoryAudio.stream = CurrentItem.UseSFX
-					$InventoryAudio.play()
-					var AmntToAdd : int = int(player.MaxHealth * (CurrentItem.AmountInPercent * 0.01))
-					player.RegainHealth(AmntToAdd)
-					if CurrentItem.AmountHeld == 0:
-						Elixirs.remove_at(ElixirIndex)
-						CurrentItem = null
-						if !Elixirs.is_empty():
-							CycleElixir()
+		InventoryItem.eItemTypes.Elixir:
+			if player.CurrentHealth < player.MaxHealth && player.IsHealing == false:
+				print("Using current exlixir: " + str(CurrentItem.Name))
+				player.RegainHealth(Elixirs[ElixirIndex].AmountInPercent)
+				if CurrentItem.AmountHeld == 0:
+					CurrentItem = null
+					Elixirs.remove_at(ElixirIndex)
+					if !Elixirs.is_empty():
+						CycleElixir()
+					elif !Powders.is_empty():
+						CyclePowder()
+					else:
+						print("No items in inventory; CurrentItem is staying NULL")
 
-			InventoryItem.eItemTypes.Powder:
-				print("Using current powder: " + str(CurrentItem.Name))
+		InventoryItem.eItemTypes.Powder:
+			print("Using current powder: " + str(CurrentItem.Name))
+			if CurrentItem.AmountHeld == 0:
+				CurrentItem = null
+				Powders.remove_at(PowderIndex)
+				if !Powders.is_empty():
+					CyclePowder()
+				elif !Elixirs.is_empty():
+					CycleElixir()
+				else:
+					print("No items in inventory; CurrentItem is staying NULL")
 				
-			InventoryItem.eItemTypes.Key:
-				pass
+		InventoryItem.eItemTypes.Key:
+			pass
 
 #Cycles the Elixir inventory upward
 func CycleElixir():
+	print("Cycling Elixirs...")
+	if Elixirs.size() - 1 <= ElixirIndex:
+		ElixirIndex = 0
+	
 	if !CurrentItem is Elixir && Elixirs[ElixirIndex] != null:
 		if Elixirs[ElixirIndex].AmountHeld >= 1:
 			CurrentItem = Elixirs[ElixirIndex]
@@ -140,6 +163,7 @@ func CycleElixir():
 	#print('Setting Current Item to: ' + str(CurrentItem.Name))
 		
 func CyclePowder():
+	print("Cycling Powders...")
 	if !CurrentItem is Powder:
 		if Powders[PowderIndex].AmountHeld >= 1:
 			CurrentItem = Powders[PowderIndex]

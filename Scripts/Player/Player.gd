@@ -199,8 +199,9 @@ func Die():
 	CurrentState = eStates.Dead
 
 #Regains a variable amount of health
-func RegainHealth(Amount : int):
+func RegainHealth(AmountInPercent : float):
 	if IsHealing == false:
+		var Amount : int = int(MaxHealth * (AmountInPercent * 0.01))
 		print("Healing: " + str(Amount) + " points!")
 		IsHealing = true
 		var HealthTween = get_tree().create_tween()
