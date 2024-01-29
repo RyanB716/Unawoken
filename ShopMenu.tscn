@@ -33,7 +33,7 @@ bg_color = Color(0, 0, 0, 1)
 font = ExtResource("6_a6tgg")
 font_size = 30
 
-[node name="ShopPanel" type="Panel"]
+[node name="ShopPanel" type="Panel" node_paths=PackedStringArray("DialogueBox", "ItemPanels", "Portrait", "Audio")]
 process_mode = 3
 custom_minimum_size = Vector2(1250, 600)
 anchors_preset = 8
@@ -49,6 +49,10 @@ grow_horizontal = 2
 grow_vertical = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_xpyy5")
 script = ExtResource("1_l4r6o")
+DialogueBox = NodePath("Dialogue Nodes/Dialogue Shadow/DialogueBox")
+ItemPanels = NodePath("ItemPanels")
+Portrait = NodePath("Dialogue Nodes/Panel/Portrait")
+Audio = NodePath("AudioStreamPlayer")
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
 

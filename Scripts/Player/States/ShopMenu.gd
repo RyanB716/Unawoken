@@ -22,7 +22,6 @@ func _ready():
 	
 func _process(delta):
 	if Input.is_action_just_pressed("ui_cancel"):
-		player.IsInMenu = false
 		print("Closing Menu...")
 		self.visible = false
 		get_tree().paused = false

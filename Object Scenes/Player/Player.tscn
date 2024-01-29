@@ -796,6 +796,7 @@ script = ExtResource("11_1xnuh")
 SwingSFX = Array[AudioStream]([ExtResource("12_glkli")])
 
 [node name="UI" type="CanvasLayer" parent="." node_paths=PackedStringArray("player", "inventory", "HealthBar", "AttackIndicatorBox", "StaminaIndicatorBox", "CoinLabel", "PowderGUI", "ElixirGUI", "StatueMenu", "Shop")]
+process_mode = 3
 script = ExtResource("15_pbqi6")
 player = NodePath("..")
 inventory = NodePath("../Inventory")
