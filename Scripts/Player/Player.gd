@@ -34,6 +34,8 @@ var animID : String
 
 var IsHealing : bool = false
 
+var AnimState : AnimationNodeStateMachinePlayback
+
 @export_category("Components")
 @export var InventoryRef : Inventory
 @export var UI : PlayerUI
@@ -42,6 +44,7 @@ var IsHealing : bool = false
 
 @export_category("Internal References")
 @export var AnimPlayer : AnimationPlayer
+@export var AnimTree : AnimationTree
 @export var AttackTimer : Timer
 @export var CooldownTimer : Timer
 @export var BodyAudio : BodyAudioPlayer
@@ -60,6 +63,8 @@ func _ready():
 	
 	HitBox.HitRecieved.connect(TakeDamage)
 	
+	AnimState = AnimTree.get("parameters/playback")
+	
 func _process(_delta):
 	if CurrentState == eStates.Dead:
 		return
@@ -72,95 +77,56 @@ func _physics_process(_delta):
 	move_and_slide()
 	
 func StateMachine():
+	if CurrentState == eStates.Dead:
+		CurrentSpeed = 0
+		return
+	
+	if CurrentSpeed > 0 && CurrentSpeed != eStates.Attacking:
+		BodyAudio.PlayStep()
+		AnimState.travel("Run")
+	elif CurrentSpeed <= 0 && CurrentState != eStates.Attacking:
+		AnimState.travel("Idle")
+	
 	match CurrentState:
-		eStates.Dead:
-			velocity = Vector2.ZERO
-		
 		eStates.InMenu:
-			velocity = Vector2.ZERO
-			AnimPlayer.play("Idle_Down")
+			CurrentSpeed = 0
+			AnimState.travel("Idle")
 	
 func InputManager():
 	if CurrentState == eStates.InMenu or CurrentState == eStates.InMenu:
 		return
-	
-	Direction = Input.get_vector("Run_Left", "Run_Right", "Run_Up", "Run_Down").normalized()
+	Direction = Vector2.ZERO
+	Direction.x = Input.get_action_strength("Run_Right") - Input.get_action_strength("Run_Left")
+	Direction.y = Input.get_action_strength("Run_Down") - Input.get_action_strength("Run_Up")
+	Direction = Direction.normalized()
 	
 	if Direction != Vector2.ZERO:
+		AnimTree.set("parameters/Idle/blend_position", Direction)
+		AnimTree.set("parameters/Run/blend_position", Direction)
+		AnimTree.set("parameters/Swipe Attack/blend_position", Direction)
 		
 		CurrentSpeed = WalkSpeed
-		BodyAudio.PlayStep()
-		
-		if CurrentState != eStates.Attacking:
-			match Direction:
-				Vector2.UP:
-					AnimPlayer.play("Run_Up")
-					LastDirection = Vector2.UP
-				Vector2.DOWN:
-					AnimPlayer.play("Run_Down")
-					LastDirection = Vector2.DOWN
-				Vector2.LEFT:
-					AnimPlayer.play("Run_Left")
-					LastDirection = Vector2.LEFT
-				Vector2.RIGHT:
-					AnimPlayer.play("Run_Right")
-					LastDirection = Vector2.RIGHT
-	
-	elif Direction == Vector2.ZERO:
+	else:
 		CurrentSpeed = 0
-		
-		if CurrentState != eStates.Attacking:
-			match LastDirection:
-					Vector2.RIGHT:
-						AnimPlayer.play("Idle_Right")
-					Vector2.LEFT:
-						AnimPlayer.play("Idle_Left")
-					Vector2.UP:
-						AnimPlayer.play("Idle_Up")
-					Vector2.DOWN:
-						AnimPlayer.play("Idle_Down")
 	
 	if Input.is_action_just_pressed("Attack") && CurrentState == eStates.CanAttack:
 		Attack()
-	
+
 func Attack():
 	if CooldownTimer.time_left >= 0.01:
 		return
 	
-	CurrentState = eStates.Attacking
-	
 	BodyAudio.PlayVoice()
+	
 	await get_tree().create_timer(0.15).timeout
 	
+	CurrentState = eStates.Attacking
+	
 	WeaponAudio.PlaySwing()
+	AnimState.travel("Swipe Attack")
 	
-	var library : String
-	var dir : String
+	await AnimTree.animation_finished
 	
-	match AttackIndex:
-		1:
-			library = "Swipe"
-		2:
-			library = "Reverse Swipe"
-		3:
-			library = "Swipe"
-		4:
-			library = "Reverse Swipe"
-	
-	match LastDirection:
-		Vector2.LEFT:
-			dir = "Left"
-		Vector2.RIGHT:
-			dir = "Right"
-		Vector2.UP:
-			dir = "Up"
-		Vector2.DOWN:
-			dir = "Down"
-	
-	animID = (library + "/" + dir)
-	AnimPlayer.play(animID)
-	
-	await AnimPlayer.animation_finished
 	CurrentState = eStates.CanAttack
 	
 	UI.UpdateAttackIcons(MaxAttackNumber - AttackIndex)

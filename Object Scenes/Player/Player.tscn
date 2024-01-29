@@ -1,4 +1,4 @@
-[gd_scene load_steps=45 format=3 uid="uid://dxprot5svswbe"]
+[gd_scene load_steps=68 format=3 uid="uid://dxprot5svswbe"]
 
 [ext_resource type="Script" path="res://Scripts/Player/Player.gd" id="1_18da1"]
 [ext_resource type="Texture2D" uid="uid://bi38invhap0t" path="res://Visual Assets/SpriteSheets/player.png" id="2_w50ld"]
@@ -708,11 +708,107 @@ _data = {
 "Up": SubResource("Animation_s2vuk")
 }
 
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_v4og3"]
+animation = &"Idle_Left"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_bwb4y"]
+animation = &"Idle_Right"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_4yihu"]
+animation = &"Idle_Down"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_k2a70"]
+animation = &"Idle_Up"
+
+[sub_resource type="AnimationNodeBlendSpace2D" id="AnimationNodeBlendSpace2D_coexx"]
+blend_point_0/node = SubResource("AnimationNodeAnimation_v4og3")
+blend_point_0/pos = Vector2(-1, 0)
+blend_point_1/node = SubResource("AnimationNodeAnimation_bwb4y")
+blend_point_1/pos = Vector2(1, 0)
+blend_point_2/node = SubResource("AnimationNodeAnimation_4yihu")
+blend_point_2/pos = Vector2(0, 1)
+blend_point_3/node = SubResource("AnimationNodeAnimation_k2a70")
+blend_point_3/pos = Vector2(0, -1)
+blend_mode = 1
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_qxo3m"]
+animation = &"Run_Left"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_ip5aj"]
+animation = &"Run_Right"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_fhlg1"]
+animation = &"Run_Down"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_1gqf0"]
+animation = &"Run_Up"
+
+[sub_resource type="AnimationNodeBlendSpace2D" id="AnimationNodeBlendSpace2D_ewxva"]
+blend_point_0/node = SubResource("AnimationNodeAnimation_qxo3m")
+blend_point_0/pos = Vector2(-1, 0)
+blend_point_1/node = SubResource("AnimationNodeAnimation_ip5aj")
+blend_point_1/pos = Vector2(1, 0)
+blend_point_2/node = SubResource("AnimationNodeAnimation_fhlg1")
+blend_point_2/pos = Vector2(0, 1)
+blend_point_3/node = SubResource("AnimationNodeAnimation_1gqf0")
+blend_point_3/pos = Vector2(0, -1)
+blend_mode = 1
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_iybx3"]
+animation = &"Swipe/Left"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_g6oy7"]
+animation = &"Swipe/Right"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_cqn58"]
+animation = &"Swipe/Down"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_1gxyt"]
+animation = &"Swipe/Up"
+
+[sub_resource type="AnimationNodeBlendSpace2D" id="AnimationNodeBlendSpace2D_mfysi"]
+blend_point_0/node = SubResource("AnimationNodeAnimation_iybx3")
+blend_point_0/pos = Vector2(-1, 0)
+blend_point_1/node = SubResource("AnimationNodeAnimation_g6oy7")
+blend_point_1/pos = Vector2(1, 0)
+blend_point_2/node = SubResource("AnimationNodeAnimation_cqn58")
+blend_point_2/pos = Vector2(0, 1)
+blend_point_3/node = SubResource("AnimationNodeAnimation_1gxyt")
+blend_point_3/pos = Vector2(0, -1)
+blend_mode = 1
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_spq6a"]
+advance_mode = 2
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_ue6cy"]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_bloit"]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_geuc4"]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_prnkb"]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_nqhfy"]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_n00h1"]
+
+[sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_au4g3"]
+states/End/position = Vector2(1100.67, 32.6667)
+states/Idle/node = SubResource("AnimationNodeBlendSpace2D_coexx")
+states/Idle/position = Vector2(140, 72.7654)
+states/Run/node = SubResource("AnimationNodeBlendSpace2D_ewxva")
+states/Run/position = Vector2(350.667, 73.3333)
+states/Start/position = Vector2(-42.6666, 72)
+"states/Swipe Attack/node" = SubResource("AnimationNodeBlendSpace2D_mfysi")
+"states/Swipe Attack/position" = Vector2(254.333, 199.667)
+transitions = ["Start", "Idle", SubResource("AnimationNodeStateMachineTransition_spq6a"), "Idle", "Run", SubResource("AnimationNodeStateMachineTransition_ue6cy"), "Run", "Idle", SubResource("AnimationNodeStateMachineTransition_bloit"), "Idle", "Swipe Attack", SubResource("AnimationNodeStateMachineTransition_geuc4"), "Swipe Attack", "Idle", SubResource("AnimationNodeStateMachineTransition_prnkb"), "Run", "Swipe Attack", SubResource("AnimationNodeStateMachineTransition_nqhfy"), "Swipe Attack", "Run", SubResource("AnimationNodeStateMachineTransition_n00h1")]
+graph_offset = Vector2(-467, 50)
+
 [sub_resource type="LabelSettings" id="LabelSettings_ppayg"]
 font = ExtResource("19_bx1h2")
 font_size = 35
 
-[node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("InventoryRef", "UI", "HitBox", "HurtBox", "AnimPlayer", "AttackTimer", "CooldownTimer", "BodyAudio", "WeaponAudio") groups=["Player"]]
+[node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("InventoryRef", "UI", "HitBox", "HurtBox", "AnimPlayer", "AnimTree", "AttackTimer", "CooldownTimer", "BodyAudio", "WeaponAudio") groups=["Player"]]
 z_index = 1
 collision_mask = 7
 platform_floor_layers = 0
@@ -729,6 +825,7 @@ UI = NodePath("UI")
 HitBox = NodePath("Hitbox")
 HurtBox = NodePath("HurtBox")
 AnimPlayer = NodePath("AnimationPlayer")
+AnimTree = NodePath("AnimationTree")
 AttackTimer = NodePath("Timers/AttackTimer")
 CooldownTimer = NodePath("Timers/CooldownTimer")
 BodyAudio = NodePath("Audio/BodyAudioPlayer")
@@ -773,6 +870,18 @@ libraries = {
 "Reverse Swipe": SubResource("AnimationLibrary_7cfgm"),
 "Swipe": SubResource("AnimationLibrary_hla3g")
 }
+
+[node name="AnimationTree" type="AnimationTree" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_8gsv8"),
+"Reverse Swipe": SubResource("AnimationLibrary_7cfgm"),
+"Swipe": SubResource("AnimationLibrary_hla3g")
+}
+tree_root = SubResource("AnimationNodeStateMachine_au4g3")
+anim_player = NodePath("../AnimationPlayer")
+parameters/Idle/blend_position = Vector2(0, 0)
+parameters/Run/blend_position = Vector2(0, 0)
+"parameters/Swipe Attack/blend_position" = Vector2(0, 0)
 
 [node name="Timers" type="Node" parent="."]
 
