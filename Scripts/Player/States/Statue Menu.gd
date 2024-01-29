@@ -15,11 +15,8 @@ var CurrentStatue : Statue
 
 @onready var player : Player = get_tree().get_first_node_in_group('Player')
 
-func _ready():
-	self.visible = false
-
-func _on_visibility_changed():
-	if visible == true:
+func OpenMenu():
+	if visible:
 		Audio.stream = InSFX
 		Audio.play()
 		await get_tree().create_timer(0.25).timeout
@@ -35,7 +32,7 @@ func _on_no_pressed():
 	self.visible = false
 	Audio.stream = OutSFX
 	Audio.play()
-	#player.CurrentState = player.eStates.Idle
+	player.CurrentState = player.eStates.CanAttack
 
 func PlayClick():
 	Audio.stream = Click

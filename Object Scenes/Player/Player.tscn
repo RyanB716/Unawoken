@@ -856,6 +856,7 @@ offset_right = 168.0
 offset_bottom = 1068.0
 
 [node name="StatueMenu" parent="UI" instance=ExtResource("19_mgy6k")]
+visible = false
 
 [connection signal="timeout" from="Timers/AttackTimer" to="." method="ResetAttackIndex"]
 [connection signal="timeout" from="Timers/CooldownTimer" to="." method="ResetAttackIndex"]

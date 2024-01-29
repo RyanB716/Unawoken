@@ -43,10 +43,9 @@ func _enter_tree():
 
 func _ready():
 	CoinCount = GameSettings.CurrentCoins
-	#CurrentItem = Elixirs[0]
 
 func _process(_delta):
-	if Input.is_action_just_pressed("UseItem"):
+	if Input.is_action_just_pressed("UseItem") && CurrentItem != null:
 		UseCurrentItem()
 	
 	if Input.is_action_just_pressed("CycleElixir"):
@@ -128,7 +127,7 @@ func UseCurrentItem():
 
 #Cycles the Elixir inventory upward
 func CycleElixir():
-	if !CurrentItem is Elixir:
+	if !CurrentItem is Elixir && Elixirs[ElixirIndex] != null:
 		if Elixirs[ElixirIndex].AmountHeld >= 1:
 			CurrentItem = Elixirs[ElixirIndex]
 	else:

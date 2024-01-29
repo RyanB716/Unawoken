@@ -56,16 +56,17 @@ func IntroFX():
 	await get_tree().create_timer(1.5).timeout
 	$NodeShake.Target = PoemBox
 	PoemBox.visible = true
+	
 	for i in range(Poems.size()):
-		var colorTween = get_tree().create_tween()
-		colorTween.tween_property(Poems[i].label_settings, "font_color", Color.WHITE, 0.5)
+		var PoemTween = get_tree().create_tween()
+		PoemTween.tween_property(Poems[i].label_settings, "font_color", Color.WHITE, 0.5)
 		if i == 2:
 			await get_tree().create_timer(3.5).timeout
 		else:
 			await get_tree().create_timer(2.5).timeout
-		
-	var colorTween = get_tree().create_tween()
+	
 	Book.visible = true
+	var colorTween = get_tree().create_tween()
 	colorTween.tween_property(Book.label_settings, "font_color", Color.WHITE, 0.5)
 	await get_tree().create_timer(3).timeout
 	ContinueBtn.visible = true

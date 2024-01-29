@@ -61,10 +61,10 @@ func Spotlight(_location : Vector2):
 	Curtain.visible = false
 	SpotLight.visible = true
 	var firstTween = get_tree().create_tween()
-	firstTween.tween_property($CanvasLayer/HBoxContainer/DeathPrompt1.label_settings, "font_color", Color.WHITE, 3.5)
+	firstTween.tween_property($CanvasLayer/HBoxContainer/DeathPrompt1.label_settings, "font_color", Color.WHITE, 1)
 	var secondTween = get_tree().create_tween()
-	secondTween.tween_property($CanvasLayer/HBoxContainer/DeathPrompt2.label_settings, "font_color", Color.WHITE, 3.5)
+	secondTween.tween_property($CanvasLayer/HBoxContainer/DeathPrompt2.label_settings, "font_color", Color.WHITE, 1)
 	await secondTween.finished
 	var thirdTween = get_tree().create_tween()
-	thirdTween.tween_property($CanvasLayer/HBoxContainer/DeathPrompt2.label_settings, "font_color",Color.RED, 3.5)
+	thirdTween.tween_property($CanvasLayer/HBoxContainer/DeathPrompt2.label_settings, "font_color",Color.RED, 4.0)
 	await thirdTween.finished

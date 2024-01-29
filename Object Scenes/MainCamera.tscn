@@ -16,7 +16,7 @@ font_color = Color(1, 1, 1, 0)
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_ws417"]
 shader = ExtResource("2_qxqvy")
-shader_parameter/height = 0.15
+shader_parameter/height = 0.25
 shader_parameter/width = 0.15
 
 [node name="MainCamera" type="Camera2D" groups=["Cameras"]]

@@ -11,7 +11,6 @@ extends Control
 @onready var ButtonList = ButtonBox.get_children()
 
 func _ready():
-
 	Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
 	
 	if GameSettings.IsLaunched == false:
@@ -24,6 +23,7 @@ func _ready():
 	
 		await get_tree().create_timer(1.5).timeout
 		TitleFX()
+		
 	else:
 		if Input.mouse_mode == Input.MOUSE_MODE_HIDDEN:
 			ButtonBox.get_child(1).grab_focus()

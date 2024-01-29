@@ -11,6 +11,9 @@ func _ready():
 	PlayerRef = $Player
 	Cam = $MainCamera
 	
+	PlayerRef.PlayerDied.connect(PlayerDeath)
+	PlayerRef.PlayerHit.connect(HitStop)
+	
 	if get_child(0) is LevelController:
 		Level = get_child(0)
 	
@@ -24,5 +27,14 @@ func _ready():
 
 func HitStop(EffectTime : float):
 	get_tree().paused = true
+	Cam.ApplyShake(1, EffectTime)
 	await get_tree().create_timer(EffectTime).timeout
 	get_tree().paused = false
+	
+func CamShake(intensity : float, duration : float):
+	Cam.ApplyShake(intensity, duration)
+
+func PlayerDeath(location : Vector2):
+	Cam.Spotlight(location)
+	await get_tree().create_timer(5).timeout
+	get_tree().reload_current_scene()

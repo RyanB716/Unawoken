@@ -2,6 +2,7 @@ extends CharacterBody2D
 class_name BasicEnemy
 
 signal Died()
+signal OnHit(intensity : float, dur : float)
 
 @export_category("General Stats")
 @export var MaxHealth : int
@@ -37,6 +38,9 @@ func _enter_tree():
 	
 	HitBox.HitRecieved.connect(TakeDamage)
 
+	var GM : GameManager = get_tree().current_scene
+	OnHit.connect(GM.CamShake)
+
 func _physics_process(_delta):
 	HealthBar.value = CurrentHealth
 	StateMachine()
@@ -47,7 +51,9 @@ func StateMachine():
 	pass
 
 func TakeDamage(Amount : int):
+	OnHit.emit(0.75, 0.25)
 	CurrentHealth -= Amount
 	
 	if CurrentHealth <= 0:
+		OnHit.emit(1.25, 0.5)
 		Died.emit()

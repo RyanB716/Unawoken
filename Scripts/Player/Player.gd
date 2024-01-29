@@ -6,6 +6,9 @@
 extends CharacterBody2D
 class_name Player
 
+signal PlayerDied(pos : Vector2)
+signal PlayerHit(dur : float)
+
 enum eStates {CanAttack, Attacking, AttackCooldown, Guard, InMenu, Dead}
 var CurrentState : eStates
 
@@ -21,7 +24,7 @@ var CurrentStamina : int
 @export var Damage : int
 @export var AttackTime : float
 @export var AttackCooldown : float
-@export var MaxAttackNumber : int = 3
+@export var MaxAttackNumber : int = 4
 
 var CurrentSpeed : float = 0
 var Direction
@@ -63,7 +66,6 @@ func _process(_delta):
 	
 	InputManager()
 	StateMachine()
-	AnimationManager()
 	
 func _physics_process(_delta):
 	velocity = (Direction * CurrentSpeed)
@@ -73,9 +75,13 @@ func StateMachine():
 	match CurrentState:
 		eStates.Dead:
 			velocity = Vector2.ZERO
+		
+		eStates.InMenu:
+			velocity = Vector2.ZERO
+			AnimPlayer.play("Idle_Down")
 	
 func InputManager():
-	if CurrentState == eStates.InMenu:
+	if CurrentState == eStates.InMenu or CurrentState == eStates.InMenu:
 		return
 	
 	Direction = Input.get_vector("Run_Left", "Run_Right", "Run_Up", "Run_Down").normalized()
@@ -116,9 +122,6 @@ func InputManager():
 	
 	if Input.is_action_just_pressed("Attack") && CurrentState == eStates.CanAttack:
 		Attack()
-
-func AnimationManager():
-	pass
 	
 func Attack():
 	if CooldownTimer.time_left >= 0.01:
@@ -141,6 +144,8 @@ func Attack():
 			library = "Reverse Swipe"
 		3:
 			library = "Swipe"
+		4:
+			library = "Reverse Swipe"
 	
 	match LastDirection:
 		Vector2.LEFT:
@@ -184,9 +189,15 @@ func ReduceStamina(Amount : int):
 	UI.RefillStaminaIcons(CurrentStamina)
 
 func TakeDamage(Amount : int):
-	print("PLAYER HIT")
+	PlayerHit.emit(0.25)
 	CurrentHealth -= Amount
-	
+	if CurrentHealth <= 0:
+		Die()
+
+func Die():
+	PlayerDied.emit(self.position)
+	CurrentState = eStates.Dead
+
 #Regains a variable amount of health
 func RegainHealth(Amount : int):
 	if IsHealing == false:

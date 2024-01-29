@@ -53,6 +53,15 @@ grow_horizontal = 2
 grow_vertical = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_4hcfq")
 
+[node name="ChromaticAbberation" parent="." instance=ExtResource("8_4x57r")]
+z_index = 1
+layout_mode = 1
+mouse_filter = 1
+
+[node name="FilmGrain" parent="." instance=ExtResource("9_ng8m1")]
+z_index = 1
+layout_mode = 1
+
 [node name="VBoxContainer" type="VBoxContainer" parent="."]
 layout_mode = 1
 anchors_preset = 8
@@ -105,15 +114,6 @@ volume_db = -20.0
 script = ExtResource("5_dc1un")
 NewGameSFX = ExtResource("6_ccb6k")
 Tick = ExtResource("7_rpqoa")
-
-[node name="ChromaticAbberation" parent="." instance=ExtResource("8_4x57r")]
-z_index = 1
-layout_mode = 1
-mouse_filter = 1
-
-[node name="FilmGrain" parent="." instance=ExtResource("9_ng8m1")]
-z_index = 1
-layout_mode = 1
 
 [connection signal="focus_entered" from="VBoxContainer/CheckIntro" to="AudioStreamPlayer" method="PlayTick"]
 [connection signal="mouse_entered" from="VBoxContainer/CheckIntro" to="AudioStreamPlayer" method="PlayTick"]
