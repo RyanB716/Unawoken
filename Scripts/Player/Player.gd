@@ -101,9 +101,10 @@ func InputManager():
 
 func Move():
 	if Direction != Vector2.ZERO:
-		AnimTree.set("parameters/Idle/blend_position", Direction)
-		AnimTree.set("parameters/Run/blend_position", Direction)
-		AnimTree.set("parameters/Swipe Attack/blend_position", Direction)
+		if CurrentState == eStates.NoAction:
+			AnimTree.set("parameters/Idle/blend_position", Direction)
+			AnimTree.set("parameters/Run/blend_position", Direction)
+			AnimTree.set("parameters/Swipe Attack/blend_position", Direction)
 		
 		CurrentSpeed = WalkSpeed
 		
