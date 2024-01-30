@@ -20,9 +20,6 @@ func _ready():
 	LoadInventory()
 
 func _process(_delta):
-	if Input.is_action_just_pressed("UseItem") && CurrentItem != null:
-		UseCurrentItem()
-	
 	if Input.is_action_just_pressed("CycleElixir"):
 		if !Elixirs.is_empty():
 			CycleElixir()

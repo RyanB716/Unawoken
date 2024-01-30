@@ -1,4 +1,4 @@
-[gd_scene load_steps=66 format=3 uid="uid://dxprot5svswbe"]
+[gd_scene load_steps=73 format=3 uid="uid://dxprot5svswbe"]
 
 [ext_resource type="Script" path="res://Scripts/Player/Player.gd" id="1_18da1"]
 [ext_resource type="Texture2D" uid="uid://bi38invhap0t" path="res://Visual Assets/SpriteSheets/player.png" id="2_w50ld"]
@@ -505,7 +505,8 @@ _data = {
 
 [sub_resource type="Animation" id="Animation_u682s"]
 resource_name = "Down"
-length = 0.30001
+length = 0.250002
+step = 0.0166667
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -513,7 +514,7 @@ tracks/0/path = NodePath("Sprite:frame_coords")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.1, 0.2, 0.30001),
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.25),
 "transitions": PackedFloat32Array(1, 1, 1, 1),
 "update": 1,
 "values": [Vector2i(0, 6), Vector2i(1, 6), Vector2i(2, 6), Vector2i(2, 6)]
@@ -731,6 +732,29 @@ blend_point_3/node = SubResource("AnimationNodeAnimation_k2a70")
 blend_point_3/pos = Vector2(0, -1)
 blend_mode = 1
 
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_rsbew"]
+animation = &"Reverse Swipe/Left"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_ts6lh"]
+animation = &"Reverse Swipe/Right"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_srof8"]
+animation = &"Reverse Swipe/Down"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_oy888"]
+animation = &"Reverse Swipe/Up"
+
+[sub_resource type="AnimationNodeBlendSpace2D" id="AnimationNodeBlendSpace2D_y6qcc"]
+blend_point_0/node = SubResource("AnimationNodeAnimation_rsbew")
+blend_point_0/pos = Vector2(-1, 0)
+blend_point_1/node = SubResource("AnimationNodeAnimation_ts6lh")
+blend_point_1/pos = Vector2(1, 0)
+blend_point_2/node = SubResource("AnimationNodeAnimation_srof8")
+blend_point_2/pos = Vector2(0, 1)
+blend_point_3/node = SubResource("AnimationNodeAnimation_oy888")
+blend_point_3/pos = Vector2(0, -1)
+blend_mode = 1
+
 [sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_qxo3m"]
 animation = &"Run_Left"
 
@@ -787,24 +811,34 @@ advance_mode = 2
 [sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_geuc4"]
 
 [sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_prnkb"]
+switch_mode = 2
+advance_mode = 2
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_euo41"]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_aaph8"]
+switch_mode = 2
+advance_mode = 2
 
 [sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_au4g3"]
 states/End/position = Vector2(1100.67, 32.6667)
 states/Idle/node = SubResource("AnimationNodeBlendSpace2D_coexx")
 states/Idle/position = Vector2(140, 72.7654)
+"states/Reverse Swipe/node" = SubResource("AnimationNodeBlendSpace2D_y6qcc")
+"states/Reverse Swipe/position" = Vector2(245.333, 202)
 states/Run/node = SubResource("AnimationNodeBlendSpace2D_ewxva")
 states/Run/position = Vector2(350.667, 73.3333)
 states/Start/position = Vector2(-42.6666, 72)
 "states/Swipe Attack/node" = SubResource("AnimationNodeBlendSpace2D_mfysi")
-"states/Swipe Attack/position" = Vector2(141.222, 203)
-transitions = ["Start", "Idle", SubResource("AnimationNodeStateMachineTransition_spq6a"), "Idle", "Run", SubResource("AnimationNodeStateMachineTransition_ue6cy"), "Run", "Idle", SubResource("AnimationNodeStateMachineTransition_bloit"), "Idle", "Swipe Attack", SubResource("AnimationNodeStateMachineTransition_geuc4"), "Swipe Attack", "Idle", SubResource("AnimationNodeStateMachineTransition_prnkb")]
-graph_offset = Vector2(-482, -5)
+"states/Swipe Attack/position" = Vector2(-27.4447, 223)
+transitions = ["Start", "Idle", SubResource("AnimationNodeStateMachineTransition_spq6a"), "Idle", "Run", SubResource("AnimationNodeStateMachineTransition_ue6cy"), "Run", "Idle", SubResource("AnimationNodeStateMachineTransition_bloit"), "Idle", "Swipe Attack", SubResource("AnimationNodeStateMachineTransition_geuc4"), "Swipe Attack", "Idle", SubResource("AnimationNodeStateMachineTransition_prnkb"), "Idle", "Reverse Swipe", SubResource("AnimationNodeStateMachineTransition_euo41"), "Reverse Swipe", "Idle", SubResource("AnimationNodeStateMachineTransition_aaph8")]
+graph_offset = Vector2(-548, 42)
 
 [sub_resource type="LabelSettings" id="LabelSettings_ppayg"]
 font = ExtResource("19_bx1h2")
 font_size = 35
 
-[node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("InventoryRef", "UI", "HitBox", "HurtBox", "AnimPlayer", "AnimTree", "AttackTimer", "CooldownTimer", "BodyAudio", "WeaponAudio") groups=["Player"]]
+[node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("InventoryRef", "UI", "HitBox", "HurtBox", "AnimPlayer", "AnimTree", "AttackTimer", "BodyAudio", "WeaponAudio") groups=["Player"]]
 z_index = 1
 collision_mask = 7
 platform_floor_layers = 0
@@ -823,7 +857,6 @@ HurtBox = NodePath("HurtBox")
 AnimPlayer = NodePath("AnimationPlayer")
 AnimTree = NodePath("AnimationTree")
 AttackTimer = NodePath("Timers/AttackTimer")
-CooldownTimer = NodePath("Timers/CooldownTimer")
 BodyAudio = NodePath("Audio/BodyAudioPlayer")
 WeaponAudio = NodePath("Audio/WeaponAudioPlayer")
 
@@ -876,15 +909,13 @@ libraries = {
 tree_root = SubResource("AnimationNodeStateMachine_au4g3")
 anim_player = NodePath("../AnimationPlayer")
 parameters/Idle/blend_position = Vector2(0, 0)
+"parameters/Reverse Swipe/blend_position" = Vector2(0, 0)
 parameters/Run/blend_position = Vector2(0, 0)
 "parameters/Swipe Attack/blend_position" = Vector2(0, 0)
 
 [node name="Timers" type="Node" parent="."]
 
 [node name="AttackTimer" type="Timer" parent="Timers"]
-one_shot = true
-
-[node name="CooldownTimer" type="Timer" parent="Timers"]
 one_shot = true
 
 [node name="Audio" type="Node" parent="."]
@@ -966,7 +997,6 @@ visible = false
 [node name="ShopPanel" parent="UI" instance=ExtResource("20_y22ny")]
 
 [connection signal="timeout" from="Timers/AttackTimer" to="." method="ResetAttackIndex"]
-[connection signal="timeout" from="Timers/CooldownTimer" to="." method="ResetAttackIndex"]
 
 [editable path="Hitbox"]
 [editable path="HurtBox"]

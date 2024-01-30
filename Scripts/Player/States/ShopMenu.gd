@@ -6,7 +6,7 @@ class_name ShopMenu
 @export var Portrait : TextureRect
 @export var Audio : AudioStreamPlayer
 
-@onready var player = get_parent().player
+@onready var player : Player = get_parent().player
 
 @onready var SlotScene = preload("res://Object Scenes/NPCS/Merchants/Ware_Slot.tscn")
 
@@ -21,15 +21,17 @@ func _ready():
 	self.visible = false
 	
 func _process(delta):
-	if Input.is_action_just_pressed("ui_cancel"):
+	if Input.is_action_just_pressed("ui_cancel") && player.CurrentState == player.eStates.InMenu:
 		print("Closing Menu...")
 		self.visible = false
 		get_tree().paused = false
+		player.CurrentState == player.eStates.NoAction
 		
 	if Input.is_action_just_pressed("Attack") && self.visible:
 		ChooseDialogue(NPC.Dialogue, NPC.SpokenDialogue)
 	
 func OpenMenu(npc : Merchant):
+	player.CurrentState = player.eStates.InMenu
 	NPC = npc
 	ClearMenu()
 	print("Opening Menu...")

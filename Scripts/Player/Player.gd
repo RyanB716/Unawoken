@@ -46,7 +46,6 @@ var AnimState : AnimationNodeStateMachinePlayback
 @export var AnimPlayer : AnimationPlayer
 @export var AnimTree : AnimationTree
 @export var AttackTimer : Timer
-@export var CooldownTimer : Timer
 @export var BodyAudio : BodyAudioPlayer
 @export var WeaponAudio : WeaponAudioPlayer
 
@@ -88,6 +87,9 @@ func StateMachine():
 			Guard()
 	
 func InputManager():
+	if CurrentState == eStates.Dead or CurrentState == eStates.InMenu:
+		return
+	
 	Direction = Vector2.ZERO
 	Direction.x = Input.get_action_strength("Run_Right") - Input.get_action_strength("Run_Left")
 	Direction.y = Input.get_action_strength("Run_Down") - Input.get_action_strength("Run_Up")
@@ -98,6 +100,9 @@ func InputManager():
 		
 	if Input.is_action_pressed("Guard"):
 		Guard()
+	
+	if Input.is_action_just_pressed("UseItem") && InventoryRef.CurrentItem != null:
+		InventoryRef.UseCurrentItem()
 
 func Move():
 	if Direction != Vector2.ZERO:
@@ -105,6 +110,7 @@ func Move():
 			AnimTree.set("parameters/Idle/blend_position", Direction)
 			AnimTree.set("parameters/Run/blend_position", Direction)
 			AnimTree.set("parameters/Swipe Attack/blend_position", Direction)
+			AnimTree.set("parameters/Reverse Swipe/blend_position", Direction)
 		
 		CurrentSpeed = WalkSpeed
 		
@@ -117,15 +123,43 @@ func Move():
 			AnimState.travel("Idle")
 		
 func Attack():
-	if CurrentState == eStates.Attacking:
+	if CurrentState == eStates.Attacking or AttackIndex > MaxAttackNumber:
 		return
 		
 	CurrentState = eStates.Attacking
+	
 	BodyAudio.PlayVoice()
 	await get_tree().create_timer(0.10).timeout
-	AnimState.travel("Swipe Attack")
 	WeaponAudio.PlaySwing()
-	await AnimTree.animation_finished
+	
+	print(AttackIndex)
+	
+	match AttackIndex:
+		1:
+			AnimState.travel("Swipe Attack")
+			await AnimTree.animation_finished
+		
+		2:
+			AnimState.travel("Reverse Swipe")
+			await AnimTree.animation_finished
+		
+		3:
+			AnimState.travel("Swipe Attack")
+			await AnimTree.animation_finished
+		
+		4:
+			AnimState.travel("Reverse Swipe")
+			await AnimTree.animation_finished
+	
+	if AttackIndex == MaxAttackNumber:
+		print("Running cooldown\n")
+		ReduceStamina(1)
+		AttackTimer.start(AttackCooldown)
+	else:
+		AttackTimer.start(AttackTime)
+	
+	AttackIndex += 1
+	UI.UpdateAttackIcons(MaxAttackNumber - (AttackIndex - 1))
 	CurrentState = eStates.NoAction
 	
 func Guard():
@@ -136,6 +170,7 @@ func ResetAttackIndex():
 	UI.UpdateAttackIcons(MaxAttackNumber)
 	
 func ReduceStamina(Amount : int):
+	print(AttackIndex)
 	CurrentStamina -= Amount
 	#print(CurrentStamina)
 	UI.UpdateStaminaIcons(CurrentStamina)
