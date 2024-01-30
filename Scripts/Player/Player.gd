@@ -67,7 +67,8 @@ func _ready():
 func _process(_delta):
 	if CurrentState == eStates.Dead:
 		return
-		
+	
+	InputManager()
 	StateMachine()
 	
 func _physics_process(_delta):
@@ -75,45 +76,32 @@ func _physics_process(_delta):
 	move_and_slide()
 	
 func StateMachine():
-	
 	match CurrentState:
 		eStates.Moving:
 			Move()
-
-		eStates.Attacking:
-			pass
 			
+		eStates.Attacking:
+			Attack()
+		
 		eStates.Guarding:
-			pass
-	
-	"""
-	if CurrentState == eStates.Dead:
-		CurrentSpeed = 0
-		return
-	
-	if CurrentSpeed > 0 && CurrentSpeed != eStates.Attacking:
-		BodyAudio.PlayStep()
-		AnimState.travel("Run")
-	elif CurrentSpeed <= 0 && CurrentState != eStates.Attacking:
-		AnimState.travel("Idle")
-	
-	match CurrentState:
-		eStates.InMenu:
-			CurrentSpeed = 0
-			AnimState.travel("Idle")
-	"""
+			Guard()
 	
 func InputManager():
-	
-	if Input.is_action_just_pressed("Attack") && CurrentState != eStates.Attacking:
-		Attack()
-
-func Move():
 	Direction = Vector2.ZERO
 	Direction.x = Input.get_action_strength("Run_Right") - Input.get_action_strength("Run_Left")
 	Direction.y = Input.get_action_strength("Run_Down") - Input.get_action_strength("Run_Up")
 	Direction = Direction.normalized()
 	
+	if Input.is_action_just_pressed("Attack"):
+		Attack()
+		
+	if Input.is_action_pressed("Guard"):
+		Guard()
+	
+	if Input.is_action_just_released("Guard"):
+		CurrentState = eStates.Moving
+
+func Move():
 	if Direction != Vector2.ZERO:
 		AnimTree.set("parameters/Idle/blend_position", Direction)
 		AnimTree.set("parameters/Run/blend_position", Direction)
@@ -128,31 +116,20 @@ func Move():
 		AnimState.travel("Idle")
 		
 func Attack():
-	if CooldownTimer.time_left >= 0.01:
+	if CurrentState == eStates.Attacking:
 		return
-	
-	BodyAudio.PlayVoice()
-	
-	await get_tree().create_timer(0.15).timeout
-	
+		
 	CurrentState = eStates.Attacking
-	
-	WeaponAudio.PlaySwing()
+	BodyAudio.PlayVoice()
+	await get_tree().create_timer(0.10).timeout
 	AnimState.travel("Swipe Attack")
+	WeaponAudio.PlaySwing()
 	
 	await AnimTree.animation_finished
+	CurrentState = eStates.Moving
 	
-	UI.UpdateAttackIcons(MaxAttackNumber - AttackIndex)
-	
-	if AttackTimer.time_left >= 0.01:
-			AttackTimer.stop()
-	
-	if AttackIndex == MaxAttackNumber:
-		ReduceStamina(1)
-		CooldownTimer.start(AttackCooldown)
-	else:
-		AttackIndex += 1
-		AttackTimer.start(AttackTime)
+func Guard():
+	print("Guard ON")
 
 func ResetAttackIndex():
 	AttackIndex = 1

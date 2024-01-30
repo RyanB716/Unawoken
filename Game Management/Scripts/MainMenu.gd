@@ -25,8 +25,7 @@ func _ready():
 		TitleFX()
 		
 	else:
-		if Input.mouse_mode == Input.MOUSE_MODE_HIDDEN:
-			ButtonBox.get_child(1).grab_focus()
+		ButtonBox.get_child(1).grab_focus()
 
 func _process(delta):
 	if Input.get_joy_name(0):

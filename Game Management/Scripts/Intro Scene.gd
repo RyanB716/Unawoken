@@ -34,7 +34,7 @@ func _ready():
 	
 func _process(_delta):
 	if ContinueBtn.visible:
-		if Input.is_action_just_pressed("Attack") or Input.is_action_just_pressed("Roll") or Input.is_key_pressed(KEY_ENTER):
+		if Input.is_action_just_pressed("Attack") or Input.is_action_just_pressed("Guard") or Input.is_key_pressed(KEY_ENTER):
 			get_tree().change_scene_to_file("res://Game Management/Scenes/GameManager.tscn")
 			
 	if $AudioStreamPlayer.playing == false:

@@ -115,6 +115,7 @@ script = ExtResource("5_dc1un")
 NewGameSFX = ExtResource("6_ccb6k")
 Tick = ExtResource("7_rpqoa")
 
+[connection signal="tree_entered" from="." to="." method="_on_tree_entered"]
 [connection signal="focus_entered" from="VBoxContainer/CheckIntro" to="AudioStreamPlayer" method="PlayTick"]
 [connection signal="mouse_entered" from="VBoxContainer/CheckIntro" to="AudioStreamPlayer" method="PlayTick"]
 [connection signal="pressed" from="VBoxContainer/CheckIntro" to="." method="SetIntro"]

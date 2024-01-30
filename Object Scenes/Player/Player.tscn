@@ -1,4 +1,4 @@
-[gd_scene load_steps=68 format=3 uid="uid://dxprot5svswbe"]
+[gd_scene load_steps=66 format=3 uid="uid://dxprot5svswbe"]
 
 [ext_resource type="Script" path="res://Scripts/Player/Player.gd" id="1_18da1"]
 [ext_resource type="Texture2D" uid="uid://bi38invhap0t" path="res://Visual Assets/SpriteSheets/player.png" id="2_w50ld"]
@@ -513,10 +513,10 @@ tracks/0/path = NodePath("Sprite:frame_coords")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.1, 0.2, 0.3),
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.30001),
 "transitions": PackedFloat32Array(1, 1, 1, 1),
 "update": 1,
-"values": [Vector2i(0, 6), Vector2i(1, 6), Vector2i(2, 6), Vector2i(3, 6)]
+"values": [Vector2i(0, 6), Vector2i(1, 6), Vector2i(2, 6), Vector2i(2, 6)]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
@@ -556,7 +556,7 @@ tracks/0/keys = {
 "times": PackedFloat32Array(0, 0.1, 0.2, 0.3),
 "transitions": PackedFloat32Array(1, 1, 1, 1),
 "update": 1,
-"values": [Vector2i(0, 7), Vector2i(1, 7), Vector2i(2, 7), Vector2i(3, 7)]
+"values": [Vector2i(0, 7), Vector2i(1, 7), Vector2i(2, 7), Vector2i(2, 7)]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
@@ -606,10 +606,10 @@ tracks/0/path = NodePath("Sprite:frame_coords")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.1, 0.20014, 0.30021),
+"times": PackedFloat32Array(0, 0.1, 0.20014, 0.30001),
 "transitions": PackedFloat32Array(1, 1, 1, 1),
 "update": 1,
-"values": [Vector2i(0, 7), Vector2i(1, 7), Vector2i(2, 7), Vector2i(3, 7)]
+"values": [Vector2i(0, 7), Vector2i(1, 7), Vector2i(2, 7), Vector2i(2, 7)]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
@@ -673,7 +673,7 @@ tracks/0/keys = {
 "times": PackedFloat32Array(0, 0.1, 0.2, 0.3),
 "transitions": PackedFloat32Array(1, 1, 1, 1),
 "update": 1,
-"values": [Vector2i(0, 8), Vector2i(1, 8), Vector2i(2, 8), Vector2i(3, 8)]
+"values": [Vector2i(0, 8), Vector2i(1, 8), Vector2i(2, 8), Vector2i(2, 8)]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
@@ -788,10 +788,6 @@ advance_mode = 2
 
 [sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_prnkb"]
 
-[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_nqhfy"]
-
-[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_n00h1"]
-
 [sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_au4g3"]
 states/End/position = Vector2(1100.67, 32.6667)
 states/Idle/node = SubResource("AnimationNodeBlendSpace2D_coexx")
@@ -800,9 +796,9 @@ states/Run/node = SubResource("AnimationNodeBlendSpace2D_ewxva")
 states/Run/position = Vector2(350.667, 73.3333)
 states/Start/position = Vector2(-42.6666, 72)
 "states/Swipe Attack/node" = SubResource("AnimationNodeBlendSpace2D_mfysi")
-"states/Swipe Attack/position" = Vector2(254.333, 199.667)
-transitions = ["Start", "Idle", SubResource("AnimationNodeStateMachineTransition_spq6a"), "Idle", "Run", SubResource("AnimationNodeStateMachineTransition_ue6cy"), "Run", "Idle", SubResource("AnimationNodeStateMachineTransition_bloit"), "Idle", "Swipe Attack", SubResource("AnimationNodeStateMachineTransition_geuc4"), "Swipe Attack", "Idle", SubResource("AnimationNodeStateMachineTransition_prnkb"), "Run", "Swipe Attack", SubResource("AnimationNodeStateMachineTransition_nqhfy"), "Swipe Attack", "Run", SubResource("AnimationNodeStateMachineTransition_n00h1")]
-graph_offset = Vector2(-467, 50)
+"states/Swipe Attack/position" = Vector2(141.222, 203)
+transitions = ["Start", "Idle", SubResource("AnimationNodeStateMachineTransition_spq6a"), "Idle", "Run", SubResource("AnimationNodeStateMachineTransition_ue6cy"), "Run", "Idle", SubResource("AnimationNodeStateMachineTransition_bloit"), "Idle", "Swipe Attack", SubResource("AnimationNodeStateMachineTransition_geuc4"), "Swipe Attack", "Idle", SubResource("AnimationNodeStateMachineTransition_prnkb")]
+graph_offset = Vector2(-482, -5)
 
 [sub_resource type="LabelSettings" id="LabelSettings_ppayg"]
 font = ExtResource("19_bx1h2")

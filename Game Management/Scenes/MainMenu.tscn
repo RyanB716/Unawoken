@@ -240,6 +240,7 @@ script = ExtResource("9_yp6t8")
 NewGameSFX = ExtResource("10_agfws")
 Tick = ExtResource("11_a608u")
 
+[connection signal="tree_entered" from="." to="." method="_on_tree_entered"]
 [connection signal="focus_entered" from="Button Container/Start" to="AudioStreamPlayer" method="PlayTick"]
 [connection signal="mouse_entered" from="Button Container/Start" to="AudioStreamPlayer" method="PlayTick"]
 [connection signal="pressed" from="Button Container/Start" to="." method="NewGame"]

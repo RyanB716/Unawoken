@@ -5,8 +5,8 @@ func _ready():
 		$VBoxContainer/CheckIntro.button_pressed = true
 	else:
 		$VBoxContainer/CheckIntro.button_pressed = false
-		
-	Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
+	
+	$VBoxContainer.get_child(1).grab_focus()
 
 func _process(delta):
 	if Input.is_action_just_pressed("ui_cancel"):
