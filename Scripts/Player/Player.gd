@@ -9,7 +9,7 @@ class_name Player
 signal PlayerDied(pos : Vector2)
 signal PlayerHit(dur : float)
 
-enum eStates {Moving, Guarding, Attacking, AttackCooldown, GuardCooldown, InMenu, Dead}
+enum eStates {NoAction, Guarding, Attacking, AttackCooldown, GuardCooldown, InMenu, Dead}
 var CurrentState : eStates
 
 @export_category("Player Stats")
@@ -64,10 +64,13 @@ func _ready():
 	
 	AnimState = AnimTree.get("parameters/playback")
 	
+	CurrentState = eStates.NoAction
+	
 func _process(_delta):
 	if CurrentState == eStates.Dead:
 		return
 	
+	Move()
 	InputManager()
 	StateMachine()
 	
@@ -77,8 +80,6 @@ func _physics_process(_delta):
 	
 func StateMachine():
 	match CurrentState:
-		eStates.Moving:
-			Move()
 			
 		eStates.Attacking:
 			Attack()
@@ -97,9 +98,6 @@ func InputManager():
 		
 	if Input.is_action_pressed("Guard"):
 		Guard()
-	
-	if Input.is_action_just_released("Guard"):
-		CurrentState = eStates.Moving
 
 func Move():
 	if Direction != Vector2.ZERO:
@@ -109,11 +107,13 @@ func Move():
 		
 		CurrentSpeed = WalkSpeed
 		
-		AnimState.travel("Run")
 		BodyAudio.PlayStep()
+		if CurrentState == eStates.NoAction:
+			AnimState.travel("Run")
 	else:
 		CurrentSpeed = 0
-		AnimState.travel("Idle")
+		if CurrentState == eStates.NoAction:
+			AnimState.travel("Idle")
 		
 func Attack():
 	if CurrentState == eStates.Attacking:
@@ -124,9 +124,8 @@ func Attack():
 	await get_tree().create_timer(0.10).timeout
 	AnimState.travel("Swipe Attack")
 	WeaponAudio.PlaySwing()
-	
-	await AnimTree.animation_finished
-	CurrentState = eStates.Moving
+	await get_tree().create_timer(AnimPlayer.current_animation_length).timeout
+	CurrentState = eStates.NoAction
 	
 func Guard():
 	print("Guard ON")

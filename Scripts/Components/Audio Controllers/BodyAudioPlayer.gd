@@ -36,7 +36,7 @@ func PlayHitSFX():
 func PlayStep():
 	if StepTimer.time_left > 0.01:
 		return
-	
+		
 	stream = FootSFX
 	pitch_scale = RNG.randf_range(0.5, 1.5)
 	self.play()
