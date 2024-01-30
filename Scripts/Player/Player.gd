@@ -9,7 +9,7 @@ class_name Player
 signal PlayerDied(pos : Vector2)
 signal PlayerHit(dur : float)
 
-enum eStates {CanAttack, Attacking, AttackCooldown, Guard, InMenu, Dead}
+enum eStates {Moving, Guarding, Attacking, AttackCooldown, GuardCooldown, InMenu, Dead}
 var CurrentState : eStates
 
 @export_category("Player Stats")
@@ -51,7 +51,6 @@ var AnimState : AnimationNodeStateMachinePlayback
 @export var WeaponAudio : WeaponAudioPlayer
 
 func _ready():
-	CurrentState = eStates.CanAttack
 	Direction = Vector2.DOWN
 	LastDirection = Vector2.DOWN
 	
@@ -68,8 +67,7 @@ func _ready():
 func _process(_delta):
 	if CurrentState == eStates.Dead:
 		return
-	
-	InputManager()
+		
 	StateMachine()
 	
 func _physics_process(_delta):
@@ -77,6 +75,18 @@ func _physics_process(_delta):
 	move_and_slide()
 	
 func StateMachine():
+	
+	match CurrentState:
+		eStates.Moving:
+			Move()
+
+		eStates.Attacking:
+			pass
+			
+		eStates.Guarding:
+			pass
+	
+	"""
 	if CurrentState == eStates.Dead:
 		CurrentSpeed = 0
 		return
@@ -91,10 +101,14 @@ func StateMachine():
 		eStates.InMenu:
 			CurrentSpeed = 0
 			AnimState.travel("Idle")
+	"""
 	
 func InputManager():
-	if CurrentState == eStates.InMenu or CurrentState == eStates.InMenu:
-		return
+	
+	if Input.is_action_just_pressed("Attack") && CurrentState != eStates.Attacking:
+		Attack()
+
+func Move():
 	Direction = Vector2.ZERO
 	Direction.x = Input.get_action_strength("Run_Right") - Input.get_action_strength("Run_Left")
 	Direction.y = Input.get_action_strength("Run_Down") - Input.get_action_strength("Run_Up")
@@ -106,12 +120,13 @@ func InputManager():
 		AnimTree.set("parameters/Swipe Attack/blend_position", Direction)
 		
 		CurrentSpeed = WalkSpeed
+		
+		AnimState.travel("Run")
+		BodyAudio.PlayStep()
 	else:
 		CurrentSpeed = 0
-	
-	if Input.is_action_just_pressed("Attack") && CurrentState == eStates.CanAttack:
-		Attack()
-
+		AnimState.travel("Idle")
+		
 func Attack():
 	if CooldownTimer.time_left >= 0.01:
 		return
@@ -126,8 +141,6 @@ func Attack():
 	AnimState.travel("Swipe Attack")
 	
 	await AnimTree.animation_finished
-	
-	CurrentState = eStates.CanAttack
 	
 	UI.UpdateAttackIcons(MaxAttackNumber - AttackIndex)
 	
