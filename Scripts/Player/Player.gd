@@ -124,7 +124,7 @@ func Attack():
 	await get_tree().create_timer(0.10).timeout
 	AnimState.travel("Swipe Attack")
 	WeaponAudio.PlaySwing()
-	await get_tree().create_timer(AnimPlayer.current_animation_length).timeout
+	await AnimTree.animation_finished
 	CurrentState = eStates.NoAction
 	
 func Guard():
