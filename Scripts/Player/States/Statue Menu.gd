@@ -17,6 +17,7 @@ var CurrentStatue : Statue
 
 func OpenMenu():
 	if visible:
+		player.CurrentState = player.eStates.InMenu
 		Audio.stream = InSFX
 		Audio.play()
 		await get_tree().create_timer(0.25).timeout
@@ -29,6 +30,7 @@ func _on_yes_pressed():
 	get_tree().reload_current_scene()
 
 func _on_no_pressed():
+	player.CurrentState = player.eStates.NoAction
 	self.visible = false
 	Audio.stream = OutSFX
 	Audio.play()

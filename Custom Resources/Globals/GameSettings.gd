@@ -11,17 +11,18 @@ var PlayerElixirs : Array[Elixir]
 var PlayerPowders : Array[Powder]
 var PlayerKeys : Array[KeyItem]
 
-@onready var player : Player = get_tree().get_first_node_in_group("Player")
+@onready var player : Player
 var inventory : Inventory
 
 func _process(delta):
 	if player == null:
+		print("Resetting Player reference")
 		player = get_tree().get_first_node_in_group("Player")
 
 func UpdateInventory(globalArray : Array, playerArray : Array, name : String): 
 	print("\nUpdating global " + str(name) + "!\n")
 	
-	globalArray.clear()
+	#globalArray.clear()
 	
 	for i in playerArray.size():
 		print(str(i) + ": " + str(playerArray[i].Name))

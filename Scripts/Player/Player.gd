@@ -132,8 +132,6 @@ func Attack():
 	await get_tree().create_timer(0.10).timeout
 	WeaponAudio.PlaySwing()
 	
-	print(AttackIndex)
-	
 	match AttackIndex:
 		1:
 			AnimState.travel("Swipe Attack")

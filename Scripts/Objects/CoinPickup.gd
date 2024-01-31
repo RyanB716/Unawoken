@@ -14,7 +14,7 @@ func _ready():
 	self.CanMove = false
 	TimeDestroy()
 	player = get_tree().get_first_node_in_group('Player')
-	await get_tree().create_timer(0.25).timeout
+	await get_tree().create_timer(0.35).timeout
 	self.CanMove = true
 
 func _physics_process(_delta):

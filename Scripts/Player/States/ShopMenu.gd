@@ -10,7 +10,6 @@ class_name ShopMenu
 
 @onready var SlotScene = preload("res://Object Scenes/NPCS/Merchants/Ware_Slot.tscn")
 
-
 var Buttons : Array[Button]
 
 var NPC : Merchant
@@ -23,9 +22,9 @@ func _ready():
 func _process(delta):
 	if Input.is_action_just_pressed("ui_cancel") && player.CurrentState == player.eStates.InMenu:
 		print("Closing Menu...")
+		player.CurrentState = player.eStates.NoAction
 		self.visible = false
 		get_tree().paused = false
-		player.CurrentState == player.eStates.NoAction
 		
 	if Input.is_action_just_pressed("Attack") && self.visible:
 		ChooseDialogue(NPC.Dialogue, NPC.SpokenDialogue)

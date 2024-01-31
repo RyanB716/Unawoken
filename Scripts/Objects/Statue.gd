@@ -16,7 +16,6 @@ func _process(_delta):
 		GameSettings.RespawnPoint = self.global_position
 		print(GameSettings.RespawnPoint)
 		PlayerRef.UI.ToggleMenu(PlayerRef.UI.StatueMenu, true)
-		PlayerRef.CurrentState = PlayerRef.eStates.InMenu
 		
 func _on_detection_sphere_area_entered(area):
 	if area.get_parent() is Player:
