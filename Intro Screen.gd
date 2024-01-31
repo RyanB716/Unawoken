@@ -10,7 +10,7 @@ func _ready():
 	await get_tree().create_timer(3.5).timeout
 	GoToMenu()
 
-func _process(delta):
+func _process(_delta):
 	if Input.is_action_just_pressed("ui_accept") or Input.is_action_just_pressed("ui_cancel"):
 		if RB.visible == false:
 			GoToRB()

@@ -19,7 +19,7 @@ var newText : String
 func _ready():
 	self.visible = false
 	
-func _process(delta):
+func _process(_delta):
 	if Input.is_action_just_pressed("ui_cancel") && player.CurrentState == player.eStates.InMenu:
 		print("Closing Menu...")
 		player.CurrentState = player.eStates.NoAction

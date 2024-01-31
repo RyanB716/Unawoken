@@ -8,7 +8,7 @@ func _ready():
 	
 	$VBoxContainer.get_child(1).grab_focus()
 
-func _process(delta):
+func _process(_delta):
 	if Input.is_action_just_pressed("ui_cancel"):
 		get_tree().change_scene_to_file("res://Game Management/Scenes/MainMenu.tscn")
 		

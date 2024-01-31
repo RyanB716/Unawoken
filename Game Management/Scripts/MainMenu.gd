@@ -27,7 +27,7 @@ func _ready():
 	else:
 		ButtonBox.get_child(1).grab_focus()
 
-func _process(delta):
+func _process(_delta):
 	if Input.get_joy_name(0):
 		Input.mouse_mode = Input.MOUSE_MODE_HIDDEN
 
