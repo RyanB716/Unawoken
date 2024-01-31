@@ -232,7 +232,7 @@ offset_top = -35.0
 offset_right = 76.0
 offset_bottom = -9.0
 grow_vertical = 0
-text = "ver. 0.5.5.1 ----- Rustbelt Software est. MMXXIII"
+text = "ver. 0.5.5.2 ----- Rustbelt Software est. MMXXIII"
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
 volume_db = -20.0

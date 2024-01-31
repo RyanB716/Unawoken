@@ -9,7 +9,7 @@ bounce = 0.5
 absorbent = true
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_4a1p7"]
-radius = 1.6
+radius = 2.0
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_yanyd"]
 radius = 4.0
@@ -24,7 +24,7 @@ max_contacts_reported = 100
 contact_monitor = true
 angular_damp = 2.0
 script = ExtResource("1_6ks4o")
-Velocity = 300.0
+Velocity = 350.0
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 scale = Vector2(0.05, 0.05)

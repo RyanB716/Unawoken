@@ -1,6 +1,6 @@
 [gd_scene load_steps=15 format=3 uid="uid://bq21xd4n7wkej"]
 
-[ext_resource type="Script" path="res://Scripts/Player/States/ShopMenu.gd" id="1_l4r6o"]
+[ext_resource type="Script" path="res://Scripts/ShopMenu.gd" id="1_l4r6o"]
 [ext_resource type="PackedScene" uid="uid://bhvpudy3rhqqu" path="res://Object Scenes/NPCS/Merchants/Ware_Slot.tscn" id="2_cljke"]
 [ext_resource type="Texture2D" uid="uid://y3mr7qen2b04" path="res://Visual Assets/SpriteSheets/NPCs/Merchants/crow_idle.png" id="3_gvp7d"]
 [ext_resource type="FontFile" uid="uid://bs6libyxfwgc" path="res://Visual Assets/Fonts/MorrisRomanBlack.ttf" id="4_cujv8"]

@@ -1,7 +1,7 @@
 [gd_scene load_steps=4 format=3 uid="uid://cy3usaue2r7jy"]
 
 [ext_resource type="FontFile" uid="uid://dlulxm5dxb804" path="res://Visual Assets/Fonts/Seagram tfb.ttf" id="1_8tr3b"]
-[ext_resource type="Script" path="res://Scripts/Player/States/Item_GUI.gd" id="1_bv3av"]
+[ext_resource type="Script" path="res://Scripts/Item_GUI.gd" id="1_bv3av"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_vqkry"]
 font = ExtResource("1_8tr3b")

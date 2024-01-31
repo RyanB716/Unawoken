@@ -94,7 +94,6 @@ grow_vertical = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_5tcly")
 
 [node name="Presents" type="Label" parent="Panel"]
-visible = false
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -109,7 +108,9 @@ grow_horizontal = 2
 grow_vertical = 2
 theme_override_fonts/font = ExtResource("2_ox527")
 theme_override_font_sizes/font_size = 125
-text = "Rustbelt Games presents..."
+text = "Rustbelt Games presents
+..."
+horizontal_alignment = 1
 
 [node name="Title" type="Label" parent="Panel"]
 visible = false
@@ -150,6 +151,7 @@ text = "Rustbelt Game Software est. MMXXIII"
 horizontal_alignment = 1
 
 [node name="Poem Container" type="VBoxContainer" parent="Panel"]
+visible = false
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5

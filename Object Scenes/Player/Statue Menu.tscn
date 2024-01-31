@@ -1,7 +1,7 @@
 [gd_scene load_steps=10 format=3 uid="uid://bah6bwn6do5bj"]
 
 [ext_resource type="FontFile" uid="uid://bs6libyxfwgc" path="res://Visual Assets/Fonts/MorrisRomanBlack.ttf" id="1_5ft2k"]
-[ext_resource type="Script" path="res://Scripts/Player/States/Statue Menu.gd" id="1_x1mes"]
+[ext_resource type="Script" path="res://Scripts/Statue Menu.gd" id="1_x1mes"]
 [ext_resource type="AudioStream" uid="uid://e6lc4du0uqfn" path="res://Audio/SFX/UI/Menu_In.mp3" id="2_ljwb3"]
 [ext_resource type="AudioStream" uid="uid://70y0whjphl5c" path="res://Audio/SFX/UI/Menu_Out.mp3" id="3_p7qaj"]
 [ext_resource type="AudioStream" uid="uid://05r4hhm2yxwl" path="res://Audio/SFX/UI/16461_1460643357.mp3" id="4_cgium"]

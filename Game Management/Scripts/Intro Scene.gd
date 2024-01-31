@@ -16,6 +16,7 @@ extends Control
 var RNG
 
 func _ready():
+	$AudioStreamPlayer.play()
 	Input.mouse_mode = Input.MOUSE_MODE_HIDDEN
 	
 	var Assets = panel.get_children()
