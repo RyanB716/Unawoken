@@ -37,7 +37,7 @@ var IsHealing : bool = false
 var AnimState : AnimationNodeStateMachinePlayback
 
 @export_category("Components")
-@export var InventoryRef : Inventory
+@export var InventoryRef : InventoryManager
 @export var UI : PlayerUI
 @export var HitBox : Hit_Box
 @export var HurtBox : Hurt_Box

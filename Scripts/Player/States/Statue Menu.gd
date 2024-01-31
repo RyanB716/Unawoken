@@ -25,7 +25,6 @@ func OpenMenu():
 
 func _on_yes_pressed():
 	get_tree().get_first_node_in_group('Cameras').FadeToBlack(true, 3.0)
-	GameSettings.SaveInventories()
 	await get_tree().create_timer(3.0).timeout
 	get_tree().reload_current_scene()
 

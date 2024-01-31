@@ -3,7 +3,7 @@ class_name Ware_Slot
 
 @export var BuyButton : Button
 
-@onready var playerInventory = get_tree().get_first_node_in_group("Player").InventoryRef
+@onready var playerInventory : InventoryManager = get_tree().get_first_node_in_group("Player").InventoryRef
 
 var item : WareSlotData
 
@@ -18,13 +18,13 @@ func AssignData(slot : WareSlotData):
 	
 func BuyItem():
 	print('Purchasing: ' + str(item.Item.Name))
-	if playerInventory is Inventory:
+	if playerInventory is InventoryManager:
 		controller.ChooseDialogue(controller.NPC.PurchaseLines, controller.NPC.SpokenPurchaseLines)
-		playerInventory.CoinCount -= item.Cost
+		playerInventory.InventoryData.CoinAmount -= item.Cost
 		playerInventory.AddItem(item.Item)
 		
 func _on_button_pressed():
-	if playerInventory.CoinCount >= item.Cost:
+	if playerInventory.InventoryData.CoinAmount >= item.Cost:
 		BuyItem()
 	else:
 		controller.ChooseDialogue(controller.NPC.FailLines, controller.NPC.SpokenFailLines)

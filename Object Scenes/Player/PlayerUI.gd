@@ -3,7 +3,7 @@ class_name PlayerUI
 
 @export_category("Data Resources")
 @export var player : Player
-@export var inventory : Inventory
+@export var inventory : InventoryManager
 
 @export_category("Children")
 @export var HealthBar : ProgressBar
@@ -21,7 +21,7 @@ func _ready():
 
 func _process(_delta):
 	HealthBar.value = player.CurrentHealth
-	CoinLabel.text = ("$" + str(inventory.CoinCount))
+	CoinLabel.text = ("$" + str(inventory.Coins))
 	
 	if !inventory.Elixirs.is_empty():
 		ElixirGUI.DisplayItem(inventory.Elixirs[inventory.ElixirIndex])

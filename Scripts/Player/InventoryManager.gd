@@ -1,61 +1,41 @@
 extends Node2D
-class_name Inventory
+class_name InventoryManager
 
-@export var Elixirs : Array[Elixir]
-@export var Powders : Array[Powder]
-@export var Keys : Array[Key]
+@export var InventoryData : InventoryResource
 
-@onready var CurrentItem : InventoryItem
+var CurrentItem : InventoryItem
+
+var Elixirs : Array[Elixir]
+var Powders : Array[Powder]
 
 @onready var ElixirIndex : int = 0
 @onready var PowderIndex : int = 0
-@onready var KeyIndex : int = 0
 
-@onready var CoinCount : int = 0
+var Coins : int
 
 @onready var player : Player = get_parent()
 @onready var InvSFX : InventoryAudio = $InventoryAudio
 
 func _ready():
-	LoadInventory()
+	Elixirs = InventoryData.ElixirsArray
+	Powders = InventoryData.PowdersArray
+	
+	if !Elixirs.is_empty():
+		for i in Elixirs.size():
+			print("Elixir: " + str(i + 1) + "/" + str(Elixirs.size()) + " is: " + str(Elixirs[i].Name))
+			
+	if !Powders.is_empty():
+		for i in Powders.size():
+			print("Powder: " + str(i + 1) + "/" + str(Powders.size()) + " is: " + str(Powders[i].Name))
 
 func _process(_delta):
-	if Input.is_action_just_pressed("CycleElixir"):
-		if !Elixirs.is_empty():
-			CycleElixir()
+	if Input.is_action_just_pressed("CycleElixir") && !Elixirs.is_empty():
+		CycleElixir()
 	
-	if Input.is_action_just_pressed("CyclePowder"):
-		if !Powders.is_empty():
-			CyclePowder()
-			
-func LoadInventory():
-	if !GameSettings.PlayerElixirs.is_empty():
-		print("\nLoading Elixir Inventory..." + " (" + str(GameSettings.PlayerElixirs.size()) + " items)")
-		Elixirs.clear()
-		Elixirs = GameSettings.PlayerElixirs
+	if Input.is_action_just_pressed("CyclePowder") && !Powders.is_empty():
+		CyclePowder()
 		
-		for i in Elixirs.size():
-			print("-Index: " + str(i) + ": " + str(Elixirs[i].Name) + ", " + str(Elixirs[i].AmountHeld))
-		
-		ElixirIndex = 0
-		CurrentItem = Elixirs[ElixirIndex]
-	else:
-		print("Global Elixirs is not populated\n")
-		
-	if !GameSettings.PlayerPowders.is_empty():
-		print("\nLoading Powder Inventory..." + " (" + str(GameSettings.PlayerPowders.size()) + " items)")
-		Powders.clear()
-		Powders = GameSettings.PlayerPowders
-		
-		for i in Powders.size():
-			print("-Index: " + str(i) + ": " + str(Powders[i].Name) + ", " + str(Powders[i].AmountHeld))
-		
-		PowderIndex = 0
-	else:
-		print("Global Powders is not populated\n")
-		
-	CoinCount = GameSettings.CurrentCoins
-	print("Inventory loading COMPLETE")
+	Coins = InventoryData.CoinAmount
 
 #Adds a new item to proper inventory
 func AddItem(item : InventoryItem):
@@ -176,7 +156,7 @@ func CyclePowder():
 	#print('Setting Current Item to: ' + str(CurrentItem.Name))
 
 func AddCoin():
-	CoinCount += 1
+	InventoryData.CoinAmount += 1
 	var RNG = RandomNumberGenerator.new()
 	RNG.randomize()
 	var newSFX = AudioStreamPlayer.new()
