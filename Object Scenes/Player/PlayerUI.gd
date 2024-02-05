@@ -9,6 +9,7 @@ class_name PlayerUI
 @export var HealthBar : ProgressBar
 @export var AttackIndicatorBox : IndicatorBox
 @export var StaminaIndicatorBox : IndicatorBox
+@export var AnxMeter : Label
 @export var CoinLabel : Label
 @export var PowderGUI : ItemGUI
 @export var ElixirGUI : ItemGUI
@@ -42,6 +43,8 @@ func _process(_delta):
 			InventoryItem.eItemTypes.Powder:
 				PowderGUI.Border.visible = true
 				ElixirGUI.Border.visible = false
+				
+	AnxMeter.text = "Anxiety: " + str(player.GM.Anxiety)
 	
 func UpdateAttackIcons(Amount : int):
 	for i in AttackIndicatorBox.get_child_count():

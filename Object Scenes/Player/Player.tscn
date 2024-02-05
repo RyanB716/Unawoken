@@ -936,7 +936,7 @@ FootSFX = ExtResource("10_o41wl")
 script = ExtResource("11_1xnuh")
 SwingSFX = Array[AudioStream]([ExtResource("12_glkli")])
 
-[node name="UI" type="CanvasLayer" parent="." node_paths=PackedStringArray("player", "inventory", "HealthBar", "AttackIndicatorBox", "StaminaIndicatorBox", "CoinLabel", "PowderGUI", "ElixirGUI", "StatueMenu", "Shop")]
+[node name="UI" type="CanvasLayer" parent="." node_paths=PackedStringArray("player", "inventory", "HealthBar", "AttackIndicatorBox", "StaminaIndicatorBox", "AnxMeter", "CoinLabel", "PowderGUI", "ElixirGUI", "StatueMenu", "Shop")]
 process_mode = 3
 script = ExtResource("15_pbqi6")
 player = NodePath("..")
@@ -944,6 +944,7 @@ inventory = NodePath("../Inventory")
 HealthBar = NodePath("Top Left/Health Bar")
 AttackIndicatorBox = NodePath("Top Left/AttackIndicators")
 StaminaIndicatorBox = NodePath("Top Left/StaminaContainer")
+AnxMeter = NodePath("Top Left/Label")
 CoinLabel = NodePath("Coin Count")
 PowderGUI = NodePath("PowderGUI")
 ElixirGUI = NodePath("ElixirGUI")
@@ -966,6 +967,10 @@ layout_mode = 2
 
 [node name="AttackIndicators" parent="UI/Top Left" instance=ExtResource("17_2lead")]
 layout_mode = 2
+
+[node name="Label" type="Label" parent="UI/Top Left"]
+layout_mode = 2
+text = "Anxiety"
 
 [node name="Coin Count" type="Label" parent="UI"]
 anchors_preset = 3

@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" path="res://Scripts/Components/MainCamera.gd" id="1_qwcuj"]
 [ext_resource type="FontFile" uid="uid://dlulxm5dxb804" path="res://Visual Assets/Fonts/Seagram tfb.ttf" id="2_lmj0j"]
-[ext_resource type="Shader" path="res://Object Scenes/SpotlightShader.gdshader" id="2_qxqvy"]
+[ext_resource type="Shader" path="res://Object Scenes/Shaders/SpotlightShader.gdshader" id="3_7akxk"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_thb8e"]
 font = ExtResource("2_lmj0j")
@@ -15,7 +15,7 @@ font_size = 150
 font_color = Color(1, 1, 1, 0)
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_ws417"]
-shader = ExtResource("2_qxqvy")
+shader = ExtResource("3_7akxk")
 shader_parameter/height = 0.25
 shader_parameter/width = 0.15
 

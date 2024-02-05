@@ -5,6 +5,10 @@ class_name GameManager
 @onready var Cam : MC
 @onready var Level : LevelController
 
+@onready var Anxiety : float = 0
+@onready var FillTween : Tween
+@export var FillTimeInMinutes : float
+
 func _ready():
 	Input.mouse_mode = Input.MOUSE_MODE_HIDDEN
 	
@@ -24,6 +28,8 @@ func _ready():
 		
 	for i in Level.Destructables.size():
 		Level.Destructables[i].CallScreenShake.connect(Cam.ApplyShake)
+		
+	StartFill()
 
 func HitStop(EffectTime : float):
 	get_tree().paused = true
@@ -38,3 +44,8 @@ func PlayerDeath(location : Vector2):
 	Cam.Spotlight(location)
 	await get_tree().create_timer(5).timeout
 	get_tree().reload_current_scene()
+
+func StartFill():
+	FillTween = get_tree().create_tween()
+	var realTime = FillTimeInMinutes * 60
+	FillTween.tween_property(self, "Anxiety", 100.0, realTime)

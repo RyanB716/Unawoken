@@ -1,0 +1,15 @@
+[gd_scene load_steps=4 format=3 uid="uid://e8a6r10pg7h3"]
+
+[ext_resource type="Shader" path="res://Object Scenes/Shaders/new_shader.gdshader" id="1_sghb3"]
+[ext_resource type="Script" path="res://AnxietyFill.gd" id="2_ygneh"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_r26wd"]
+shader = ExtResource("1_sghb3")
+shader_parameter/fV = 0.01
+
+[node name="ColorRect" type="ColorRect"]
+material = SubResource("ShaderMaterial_r26wd")
+offset_right = 40.0
+offset_bottom = 40.0
+scale = Vector2(5, 5)
+script = ExtResource("2_ygneh")

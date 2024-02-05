@@ -41,6 +41,7 @@ var AnimState : AnimationNodeStateMachinePlayback
 @export var UI : PlayerUI
 @export var HitBox : Hit_Box
 @export var HurtBox : Hurt_Box
+@onready var GM : GameManager = get_parent()
 
 @export_category("Internal References")
 @export var AnimPlayer : AnimationPlayer
@@ -135,19 +136,17 @@ func Attack():
 	match AttackIndex:
 		1:
 			AnimState.travel("Swipe Attack")
-			await AnimTree.animation_finished
 		
 		2:
 			AnimState.travel("Reverse Swipe")
-			await AnimTree.animation_finished
 		
 		3:
 			AnimState.travel("Swipe Attack")
-			await AnimTree.animation_finished
 		
 		4:
 			AnimState.travel("Reverse Swipe")
-			await AnimTree.animation_finished
+	
+	await AnimTree.animation_finished
 	
 	if AttackIndex == MaxAttackNumber:
 		print("Running cooldown\n")
