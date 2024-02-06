@@ -23,7 +23,6 @@ corner_radius_bottom_left = 120
 [sub_resource type="LabelSettings" id="LabelSettings_tk43r"]
 font = ExtResource("3_ipcxk")
 font_size = 100
-outline_size = 10
 outline_color = Color(0, 0, 0, 1)
 
 [node name="AnxietyMeter" type="Control"]

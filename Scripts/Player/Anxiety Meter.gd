@@ -11,6 +11,6 @@ func _ready():
 	GM = player.get_parent()
 
 func _process(_delta):
-	Meter.material.set("shader_parameter/progress", GM.Anxiety)
+	Meter.material.set("shader_parameter/progress", (GM.Anxiety) - 0.1)
 	var value : int = int(GM.Anxiety * 10)
 	Percentage.text = (str(value) + "0%")
