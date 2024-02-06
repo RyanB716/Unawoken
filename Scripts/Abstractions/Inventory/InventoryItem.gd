@@ -10,3 +10,12 @@ enum eItemTypes {Elixir, Powder, Key}
 @export var UseSFX : AudioStream
 @export var Description : String
 @export var AmountHeld : int
+
+
+func UseItem():
+	print("Using " + str(Name))
+	AmountHeld -= 1
+	Effect()
+
+func Effect():
+	pass

@@ -188,11 +188,10 @@ func Die():
 
 #Regains a variable amount of health
 func RegainHealth(AmountInPercent : float):
-	if IsHealing == false:
-		var Amount : int = int(MaxHealth * (AmountInPercent * 0.01))
-		print("Healing: " + str(Amount) + " points!")
-		IsHealing = true
-		var HealthTween = get_tree().create_tween()
-		HealthTween.tween_property(self, "CurrentHealth", (CurrentHealth + Amount), 0.5)
-		await HealthTween.finished
-		IsHealing = false
+	var Amount : int = int(MaxHealth * (AmountInPercent * 0.01))
+	print("Healing: " + str(Amount) + " points!")
+	IsHealing = true
+	var HealthTween = get_tree().create_tween()
+	HealthTween.tween_property(self, "CurrentHealth", (CurrentHealth + Amount), 0.5)
+	await HealthTween.finished
+	IsHealing = false

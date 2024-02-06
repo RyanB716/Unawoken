@@ -41,6 +41,7 @@ func _process(_delta):
 func AddItem(item : InventoryItem):
 	match item.ItemType:
 		InventoryItem.eItemTypes.Elixir:
+			item.Heal.connect(player.RegainHealth)
 			AddItemDelegate(item, Elixirs, "Elixirs", ElixirIndex)
 			if Powders.is_empty():
 				CycleElixir()
@@ -86,10 +87,19 @@ func AddItemDelegate(_item : InventoryItem, array : Array, arrayName : String, _
 
 #Uses the current item
 func UseCurrentItem():
+	match CurrentItem.ItemType:
+		InventoryItem.eItemTypes.Elixir:
+			if player.CurrentHealth < player.MaxHealth && player.IsHealing == false:
+				CurrentItem.UseItem()
+		
+		InventoryItem.eItemTypes.Powder:
+			CurrentItem.UseItem()
+	
+	
 	InvSFX.PlaySFX(CurrentItem.UseSFX)
 	
-	CurrentItem.AmountHeld -= 1
 	
+	'''
 	match CurrentItem.ItemType:
 		
 		InventoryItem.eItemTypes.Elixir:
@@ -124,6 +134,7 @@ func UseCurrentItem():
 				
 		InventoryItem.eItemTypes.Key:
 			pass
+		'''
 
 #Cycles the Elixir inventory upward
 func CycleElixir():
