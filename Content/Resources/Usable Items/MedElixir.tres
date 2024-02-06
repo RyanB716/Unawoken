@@ -1,6 +1,6 @@
 [gd_resource type="Resource" script_class="Elixir" load_steps=6 format=3 uid="uid://djo5mayfmsoct"]
 
-[ext_resource type="Script" path="res://Scripts/Abstractions/Inventory/ElixirResource.gd" id="1_aaq6v"]
+[ext_resource type="Script" path="res://Scripts/Abstractions/Inventory/Items/ElixirResource.gd" id="1_aaq6v"]
 [ext_resource type="Texture2D" uid="uid://1uarnvruolxg" path="res://Aesthetics/Sprites/Items/#1 - Transparent Icons.png" id="1_lcw8k"]
 [ext_resource type="AudioStream" uid="uid://mfvj3l3wr3co" path="res://Aesthetics/Audio/SFX/Item/Pickup/Potion_Pickup.mp3" id="2_a1r6x"]
 [ext_resource type="AudioStream" uid="uid://b5v5a034hje1m" path="res://Aesthetics/Audio/SFX/Item/Use/Potion_use.mp3" id="3_o5w7b"]

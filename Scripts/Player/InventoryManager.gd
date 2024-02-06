@@ -46,6 +46,7 @@ func AddItem(item : InventoryItem):
 			if Powders.is_empty():
 				CycleElixir()
 		InventoryItem.eItemTypes.Powder:
+			item.UpdateAnxiety.connect(player.GM.RestartAnxietyFill)
 			AddItemDelegate(item, Powders, "Powders", PowderIndex)
 			if Elixirs.is_empty():
 				CyclePowder()

@@ -1,2 +1,0 @@
-extends InventoryItem
-class_name KeyItem

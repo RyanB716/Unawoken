@@ -47,5 +47,23 @@ func PlayerDeath(location : Vector2):
 
 func StartFill():
 	FillTween = get_tree().create_tween()
+	var TimeTween = get_tree().create_tween()
 	var realTime = FillTimeInMinutes * 60
+	print("Starting Anxiety fill: " + str(Anxiety) + " will be 100 in: " + str(realTime) + " seconds / " + str(FillTimeInMinutes) + " minutes")
 	FillTween.tween_property(self, "Anxiety", 100.0, realTime)
+	TimeTween.tween_property(self, "FillTimeInMinutes", 0, realTime)
+
+func RestartAnxietyFill(time : float, amount : float):
+	FillTween.stop()
+	FillTimeInMinutes += time
+	
+	var newValue : float
+	if Anxiety - amount <= 0.00:
+		newValue = 0
+	else:
+		newValue = Anxiety - amount
+		
+	var newValueTween = get_tree().create_tween()
+	newValueTween.tween_property(self, "Anxiety", newValue, 0.5)
+	await newValueTween.finished
+	StartFill()

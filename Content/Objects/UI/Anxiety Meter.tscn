@@ -1,0 +1,37 @@
+[gd_scene load_steps=5 format=3 uid="uid://s1sbq5wnosnk"]
+
+[ext_resource type="Script" path="res://Scripts/Player/Anxiety Meter.gd" id="1_1cl32"]
+[ext_resource type="Shader" path="res://Aesthetics/Shaders/Raw Scripts/AnxietyLiquid.gdshader" id="1_ltx0y"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_6tgke"]
+shader = ExtResource("1_ltx0y")
+shader_parameter/progress = 0.5
+shader_parameter/bg_color = Color(1, 1, 1, 1)
+shader_parameter/wave_1_color = Color(0.227451, 0, 0.227451, 1)
+shader_parameter/wave_2_color = Color(0.376471, 0, 0.376471, 1)
+shader_parameter/wave_1_speed = -1.0
+shader_parameter/wave_2_speed = 1.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_tnqb2"]
+bg_color = Color(1, 1, 1, 1)
+corner_radius_top_left = 120
+corner_radius_top_right = 120
+corner_radius_bottom_right = 120
+corner_radius_bottom_left = 120
+
+[node name="AnxietyMeter" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_1cl32")
+
+[node name="Fill" type="Panel" parent="."]
+material = SubResource("ShaderMaterial_6tgke")
+custom_minimum_size = Vector2(250, 250)
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_tnqb2")

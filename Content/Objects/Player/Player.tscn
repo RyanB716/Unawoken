@@ -1,4 +1,4 @@
-[gd_scene load_steps=76 format=3 uid="uid://dxprot5svswbe"]
+[gd_scene load_steps=79 format=3 uid="uid://dxprot5svswbe"]
 
 [ext_resource type="Script" path="res://Scripts/Player/Player.gd" id="1_18da1"]
 [ext_resource type="Texture2D" uid="uid://bi38invhap0t" path="res://Aesthetics/Sprites/Player/player.png" id="2_w50ld"]
@@ -17,10 +17,13 @@
 [ext_resource type="Script" path="res://Scripts/Player/PlayerUI.gd" id="15_pbqi6"]
 [ext_resource type="PackedScene" uid="uid://cvlh1usf2hwre" path="res://Content/Objects/Components/HealthBar.tscn" id="16_i6jb6"]
 [ext_resource type="PackedScene" uid="uid://cna3svtiht3b2" path="res://Content/Objects/Player/Player UI/AttackIndicators.tscn" id="17_2lead"]
+[ext_resource type="PackedScene" uid="uid://s1sbq5wnosnk" path="res://Content/Objects/UI/Anxiety Meter.tscn" id="17_gn7sr"]
 [ext_resource type="PackedScene" uid="uid://b8dv2qk331bb" path="res://Content/Objects/Player/Player UI/StaminaIndicators.tscn" id="17_xn00y"]
+[ext_resource type="PackedScene" uid="uid://cs2uv0qtv8j1f" path="res://Content/Objects/Player/Player UI/StaminaGUI.tscn" id="18_nsvp7"]
 [ext_resource type="FontFile" uid="uid://dlulxm5dxb804" path="res://Aesthetics/Fonts/Seagram tfb.ttf" id="19_bx1h2"]
 [ext_resource type="PackedScene" uid="uid://bah6bwn6do5bj" path="res://Content/Objects/UI/Statue Menu.tscn" id="19_mgy6k"]
 [ext_resource type="PackedScene" uid="uid://cy3usaue2r7jy" path="res://Content/Objects/Player/Player UI/ItemGUI.tscn" id="20_lthxp"]
+[ext_resource type="PackedScene" uid="uid://dn1nfb6pxmd20" path="res://Content/Objects/Player/Player UI/AttackGUI.tscn" id="20_pa7va"]
 [ext_resource type="PackedScene" uid="uid://bq21xd4n7wkej" path="res://Content/Objects/UI/ShopMenu.tscn" id="20_y22ny"]
 
 [sub_resource type="Resource" id="Resource_veymq"]
@@ -943,34 +946,85 @@ process_mode = 3
 script = ExtResource("15_pbqi6")
 player = NodePath("..")
 inventory = NodePath("../Inventory")
-HealthBar = NodePath("Top Left/Health Bar")
-AttackIndicatorBox = NodePath("Top Left/AttackIndicators")
-StaminaIndicatorBox = NodePath("Top Left/StaminaContainer")
-AnxMeter = NodePath("Top Left/Label")
+HealthBar = NodePath("Main UI/Health Bar")
+AttackIndicatorBox = NodePath("Main UI/AttackIndicators")
+StaminaIndicatorBox = NodePath("Main UI/StaminaContainer")
+AnxMeter = NodePath("Main UI/Anxiety DEBUG")
 CoinLabel = NodePath("Coin Count")
 PowderGUI = NodePath("PowderGUI")
 ElixirGUI = NodePath("ElixirGUI")
 StatueMenu = NodePath("StatueMenu")
 Shop = NodePath("ShopPanel")
 
-[node name="Top Left" type="VBoxContainer" parent="UI"]
+[node name="Main UI" type="Control" parent="UI"]
+custom_minimum_size = Vector2(750, 350)
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="Health Bar" parent="UI/Main UI" instance=ExtResource("16_i6jb6")]
+layout_mode = 0
 offset_left = 24.0
 offset_top = 21.0
 offset_right = 524.0
-offset_bottom = 231.0
-theme_override_constants/separation = 15
+offset_bottom = 71.0
 
-[node name="Health Bar" parent="UI/Top Left" instance=ExtResource("16_i6jb6")]
+[node name="AnxietyMeter" parent="UI/Main UI" node_paths=PackedStringArray("player") instance=ExtResource("17_gn7sr")]
+layout_mode = 1
+anchors_preset = 4
+anchor_top = 0.5
+anchor_right = 0.0
+anchor_bottom = 0.5
+offset_left = 13.0
+offset_top = -87.0
+offset_right = 13.0
+offset_bottom = -87.0
+grow_horizontal = 1
+scale = Vector2(0.75, 0.75)
+player = NodePath("../../..")
+
+[node name="StaminaContainer" parent="UI/Main UI" instance=ExtResource("17_xn00y")]
+layout_mode = 0
+offset_left = 223.0
+offset_top = 115.0
+offset_right = 723.0
+offset_bottom = 195.0
+
+[node name="StaminaGUI" parent="UI/Main UI/StaminaContainer" instance=ExtResource("18_nsvp7")]
 layout_mode = 2
 
-[node name="StaminaContainer" parent="UI/Top Left" instance=ExtResource("17_xn00y")]
+[node name="StaminaGUI2" parent="UI/Main UI/StaminaContainer" instance=ExtResource("18_nsvp7")]
 layout_mode = 2
 
-[node name="AttackIndicators" parent="UI/Top Left" instance=ExtResource("17_2lead")]
+[node name="StaminaGUI3" parent="UI/Main UI/StaminaContainer" instance=ExtResource("18_nsvp7")]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="UI/Top Left"]
+[node name="AttackIndicators" parent="UI/Main UI" instance=ExtResource("17_2lead")]
+layout_mode = 0
+offset_left = 222.0
+offset_top = 218.0
+offset_right = 722.0
+offset_bottom = 268.0
+
+[node name="Attack Indicator" parent="UI/Main UI/AttackIndicators" instance=ExtResource("20_pa7va")]
 layout_mode = 2
+
+[node name="Attack Indicator2" parent="UI/Main UI/AttackIndicators" instance=ExtResource("20_pa7va")]
+layout_mode = 2
+
+[node name="Attack Indicator3" parent="UI/Main UI/AttackIndicators" instance=ExtResource("20_pa7va")]
+layout_mode = 2
+
+[node name="Attack Indicator4" parent="UI/Main UI/AttackIndicators" instance=ExtResource("20_pa7va")]
+layout_mode = 2
+
+[node name="Anxiety DEBUG" type="Label" parent="UI/Main UI"]
+layout_mode = 0
+offset_left = 25.0
+offset_top = 294.0
+offset_right = 525.0
+offset_bottom = 317.0
 text = "Anxiety"
 
 [node name="Coin Count" type="Label" parent="UI"]
@@ -1006,6 +1060,7 @@ offset_bottom = 1068.0
 visible = false
 
 [node name="ShopPanel" parent="UI" instance=ExtResource("20_y22ny")]
+visible = false
 
 [connection signal="timeout" from="Timers/AttackTimer" to="." method="ResetAttackIndex"]
 
