@@ -1,0 +1,108 @@
+[gd_scene load_steps=19 format=3 uid="uid://b1e2vsd1485iw"]
+
+[ext_resource type="Script" path="res://Scripts/NPcs/MerchantClass.gd" id="1_ebl6r"]
+[ext_resource type="Texture2D" uid="uid://y3mr7qen2b04" path="res://Aesthetics/Sprites/NPCs/Merchants/crow_idle.png" id="1_i64by"]
+[ext_resource type="Texture2D" uid="uid://b7kyjf5pv8ne" path="res://Aesthetics/UI Elements/Controller Icons/PS/icons_ps4_animated_buttons1.png" id="2_4sdru"]
+[ext_resource type="Script" path="res://Scripts/Abstractions/Inventory/WareSlotResource.gd" id="2_mq0c4"]
+[ext_resource type="Resource" uid="uid://xcxif0nh2xr1" path="res://Content/Resources/Usable Items/LiteElixir.tres" id="2_qmrgu"]
+[ext_resource type="Resource" uid="uid://dcnarwww73wqb" path="res://Content/Resources/Usable Items/BluePowder.tres" id="5_5bjv7"]
+[ext_resource type="AudioStream" uid="uid://bch2jj66r0no2" path="res://Aesthetics/Audio/SFX/Player/Voices/Voice_1.mp3" id="5_7mvxt"]
+[ext_resource type="Resource" uid="uid://h5urxbnyfvc4" path="res://Content/Resources/Usable Items/key.tres" id="6_udfqt"]
+
+[sub_resource type="Resource" id="Resource_0hr4i"]
+script = ExtResource("2_mq0c4")
+Item = ExtResource("2_qmrgu")
+Cost = 25
+
+[sub_resource type="Resource" id="Resource_7ihey"]
+script = ExtResource("2_mq0c4")
+Item = ExtResource("5_5bjv7")
+Cost = 35
+
+[sub_resource type="Resource" id="Resource_ufm4c"]
+script = ExtResource("2_mq0c4")
+Item = ExtResource("6_udfqt")
+Cost = 15
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_jepu6"]
+atlas = ExtResource("1_i64by")
+region = Rect2(22, 20, 21, 29)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_alfnr"]
+atlas = ExtResource("1_i64by")
+region = Rect2(0, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7txq2"]
+atlas = ExtResource("1_i64by")
+region = Rect2(64, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_hs7hq"]
+atlas = ExtResource("1_i64by")
+region = Rect2(128, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2dvqx"]
+atlas = ExtResource("1_i64by")
+region = Rect2(192, 0, 64, 64)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_2q3bj"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_alfnr")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_7txq2")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_hs7hq")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_2dvqx")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_571xs"]
+radius = 40.0
+
+[node name="ForsakenDepths_Merchant" type="Area2D"]
+texture_filter = 1
+script = ExtResource("1_ebl6r")
+Wares = Array[ExtResource("2_mq0c4")]([SubResource("Resource_0hr4i"), SubResource("Resource_7ihey"), SubResource("Resource_ufm4c")])
+voice = ExtResource("5_7mvxt")
+Portrait = SubResource("AtlasTexture_jepu6")
+Greeting = "Ai-siwame! Welcome friend."
+Dialogue = Array[String](["Should you be out on this night? ... So young?", "We have a saying in my family. 'Have your fun, but know when to stop.'", "You look ...familar siwame.", "Glory to the highest, forever in our name ... yes?"])
+PurchaseLines = Array[String](["Ah thank you siwame!", "Let me wrap that for you friend.", "Tell your friends that are left, yes?", "Thank you for your support in such ... unique circumstances."])
+FailLines = Array[String](["I'm afraid I can't do that.", "No shame friend. We've all been to the poor house now haven't we?", "Please come back with more coin siwame.", "These troubled times will end ..."])
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_2q3bj")
+frame_progress = 0.0775679
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, 27)
+shape = SubResource("CircleShape2D_571xs")
+
+[node name="Label" type="Control" parent="."]
+z_index = 5
+layout_mode = 3
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Sprite2D" type="Sprite2D" parent="Label"]
+texture_filter = 1
+position = Vector2(0, -26)
+texture = ExtResource("2_4sdru")
+region_enabled = true
+region_rect = Rect2(0, 0, 16, 16)
+
+[connection signal="area_entered" from="." to="." method="_on_area_entered"]
+[connection signal="area_exited" from="." to="." method="_on_area_exited"]

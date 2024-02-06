@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="Unawoken"
-run/main_scene="res://Studio Card.tscn"
+run/main_scene="res://Game Management/Scenes/Panels/Studio Card.tscn"
 config/features=PackedStringArray("4.2", "Forward Plus")
 boot_splash/bg_color=Color(1, 1, 1, 1)
 boot_splash/show_image=false
@@ -20,7 +20,7 @@ config/icon="res://icon.svg"
 
 [autoload]
 
-GameSettings="*res://Custom Resources/Globals/GameSettings.gd"
+GameSettings="*res://Game Management/Scripts/Globals/GameSettings.gd"
 
 [display]
 

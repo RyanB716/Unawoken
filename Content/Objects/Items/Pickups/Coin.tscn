@@ -1,0 +1,46 @@
+[gd_scene load_steps=7 format=3 uid="uid://cuuq6ce6rr3yp"]
+
+[ext_resource type="Script" path="res://Scripts/Objects/CoinPickup.gd" id="1_6ks4o"]
+[ext_resource type="Texture2D" uid="uid://3ljpgjh07u2u" path="res://Aesthetics/Sprites/Items/Coin.png" id="1_v2b3u"]
+[ext_resource type="AudioStream" uid="uid://dq8bw4rp55ei6" path="res://Aesthetics/Audio/SFX/Item/Misc/Coin_Hit.mp3" id="3_wki0x"]
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_vftsd"]
+bounce = 0.5
+absorbent = true
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_4a1p7"]
+radius = 2.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_yanyd"]
+radius = 4.0
+
+[node name="Coin" type="RigidBody2D"]
+texture_filter = 1
+collision_mask = 5
+physics_material_override = SubResource("PhysicsMaterial_vftsd")
+can_sleep = false
+continuous_cd = 2
+max_contacts_reported = 100
+contact_monitor = true
+angular_damp = 2.0
+script = ExtResource("1_6ks4o")
+Velocity = 350.0
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+scale = Vector2(0.05, 0.05)
+texture = ExtResource("1_v2b3u")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_4a1p7")
+debug_color = Color(0.980392, 0, 0.368627, 0.419608)
+
+[node name="Area2D" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource("CircleShape2D_yanyd")
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("3_wki0x")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
+[connection signal="body_entered" from="Area2D" to="." method="OnPickup"]

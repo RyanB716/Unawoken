@@ -1,0 +1,14 @@
+[gd_scene load_steps=3 format=3 uid="uid://b8dv2qk331bb"]
+
+[ext_resource type="Script" path="res://Scripts/Player/IndicatorBox.gd" id="1_0av45"]
+[ext_resource type="PackedScene" uid="uid://cs2uv0qtv8j1f" path="res://Content/Objects/Player/Player UI/StaminaGUI.tscn" id="2_0m50t"]
+
+[node name="StaminaContainer" type="HBoxContainer"]
+custom_minimum_size = Vector2(80, 80)
+offset_left = 30.0
+offset_top = 30.0
+offset_right = 110.0
+offset_bottom = 110.0
+theme_override_constants/separation = 20
+script = ExtResource("1_0av45")
+Icon = ExtResource("2_0m50t")

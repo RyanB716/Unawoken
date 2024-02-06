@@ -14,8 +14,8 @@ var CoinAmount : int
 @export var HitSFX : Array[AudioStream]
 @export var BreakSFX : Array[AudioStream]
 
-@onready var PickupScene = preload("res://Object Scenes/World Items/ItemPickup.tscn")
-@onready var CoinScene = preload("res://Object Scenes/World Items/Coin.tscn")
+@onready var PickupScene = preload("res://Content/Objects/Items/Pickups/ItemPickup.tscn")
+@onready var CoinScene = preload("res://Content/Objects/Items/Pickups/Coin.tscn")
 @onready var Area = self.get_child(0)
 @onready var RNG = RandomNumberGenerator.new()
 
