@@ -25,7 +25,8 @@ func _ready():
 		TitleFX()
 		
 	else:
-		ButtonBox.get_child(1).grab_focus()
+		if Input.get_joy_name(0):
+			ButtonBox.get_child(1).grab_focus()
 
 func _process(_delta):
 	if Input.get_joy_name(0):

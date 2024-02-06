@@ -6,7 +6,7 @@ func _ready():
 	else:
 		$VBoxContainer/CheckIntro.button_pressed = false
 	
-	$VBoxContainer.get_child(1).grab_focus()
+	#$VBoxContainer.get_child(1).grab_focus()
 
 func _process(_delta):
 	if Input.is_action_just_pressed("ui_cancel"):
@@ -22,4 +22,4 @@ func GoBack():
 	get_tree().change_scene_to_file("res://Game Management/Scenes/Menus/MainMenu.tscn")
 
 func OpenControls():
-	get_tree().change_scene_to_file("res://Game Management/Scenes/ControlsList.tscn")
+	get_tree().change_scene_to_file("res://Game Management/Scenes/Menus/ControlsList.tscn")
