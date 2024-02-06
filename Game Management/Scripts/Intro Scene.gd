@@ -39,7 +39,8 @@ func _process(_delta):
 			get_tree().change_scene_to_file("res://Game Management/Scenes/GameManager.tscn")
 			
 	if $AudioStreamPlayer.playing == false:
-		$AudioStreamPlayer.play()
+		if $AudioStreamPlayer.is_inside_tree():
+			$AudioStreamPlayer.play()
 			
 func IntroFX():
 	await get_tree().create_timer(1.5).timeout
