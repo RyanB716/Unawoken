@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="KeyItem" load_steps=2 format=3 uid="uid://h5urxbnyfvc4"]
+
+[ext_resource type="Script" path="res://Scripts/Abstractions/Inventory/KeyResource.gd" id="1_fanex"]
+
+[resource]
+script = ExtResource("1_fanex")
+Name = ""
+ItemType = 0
+Description = ""
+AmountHeld = 0

@@ -1,9 +1,11 @@
 extends StaticBody2D
 class_name DestructableObject
 
+@export var HitBox : Hit_Box
+
 @export_category("Data Variables")
 @export var NeededHits : int
-@export var ItemDrops : Array[InventorySlot]
+@export var ItemDrops : Array[ItemDrop]
 @export var Min_CoinAmount : int
 @export var Max_CoinAmount : int
 var CoinAmount : int
@@ -12,22 +14,38 @@ var CoinAmount : int
 @export var HitSFX : Array[AudioStream]
 @export var BreakSFX : Array[AudioStream]
 
-var CurrentHits : int
-
-@onready var PickupScene = preload("res://Object Scenes/World Items/ItemPickup.tscn")
-@onready var CoinScene = preload("res://Object Scenes/World Items/Coin.tscn")
+@onready var PickupScene = preload("res://Content/Objects/Items/Pickups/ItemPickup.tscn")
+@onready var CoinScene = preload("res://Content/Objects/Items/Pickups/Coin.tscn")
 @onready var Area = self.get_child(0)
 @onready var RNG = RandomNumberGenerator.new()
 
+signal CallScreenShake(Strength : float, Duration : float)
+
 func _ready():
-	CurrentHits = 0
 	RNG.randomize()
 	CoinAmount = RNG.randi_range(Min_CoinAmount, Max_CoinAmount)
+	
+	if HitBox == null:
+		print("ERROR: DestructableObject: " + str(self.name) + " has NO HitBox!")
+	else:
+		HitBox.HitRecieved.connect(TakeHit)
 
-#If the current hit will meet the NeededHits variable, then executes feedback commands, then deletes itself
+func TakeHit(amount : int):
+	if NeededHits - amount > 0:
+		Hit(amount)
+	elif NeededHits -1 == 0:
+		Destroy()
+		
+func Hit(amount : int):
+	NeededHits -= amount
+	CallScreenShake.emit(0.75, 0.15)
+	PlayHitSFX()
+
 func Destroy():
+	CallScreenShake.emit(1.5, 0.25)
 	PlayBreakSFX()
 	Area.queue_free()
+	HitBox.queue_free()
 	$CollisionShape2D.queue_free()
 	$Sprite2D.visible = false
 	GiveItems()
@@ -57,11 +75,12 @@ func PlayBreakSFX():
 func GiveItems():
 	if ItemDrops.size() >= 1:
 		for i in ItemDrops.size():
-			var newItem = PickupScene.instantiate()
-			if newItem is ItemPickup:
-				newItem.resource = ItemDrops[i].Item
-				get_tree().current_scene.call_deferred("add_child", newItem)
-				newItem.position = self.position
+			for x in ItemDrops[i].Amount:
+				var newItem = PickupScene.instantiate()
+				if newItem is ItemPickup:
+					newItem.resource = ItemDrops[i].Item
+					get_tree().current_scene.call_deferred("add_child", newItem)
+					newItem.position = self.position
 	
 	for i in CoinAmount:
 		var newCoin = CoinScene.instantiate()

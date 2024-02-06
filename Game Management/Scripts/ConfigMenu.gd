@@ -5,18 +5,21 @@ func _ready():
 		$VBoxContainer/CheckIntro.button_pressed = true
 	else:
 		$VBoxContainer/CheckIntro.button_pressed = false
-		
-	$VBoxContainer/BackButton.grab_focus()
+	
+	#$VBoxContainer.get_child(1).grab_focus()
 
-func _process(delta):
+func _process(_delta):
 	if Input.is_action_just_pressed("ui_cancel"):
-		get_tree().change_scene_to_file("res://Game Management/Scenes/MainMenu.tscn")
+		GoBack()
+		
+	if Input.get_joy_name(0):
+		Input.mouse_mode = Input.MOUSE_MODE_HIDDEN
 
 func SetIntro():
 	GameSettings.PlayIntro = !GameSettings.PlayIntro
 	
 func GoBack():
-	get_tree().change_scene_to_file("res://Game Management/Scenes/MainMenu.tscn")
+	get_tree().change_scene_to_file("res://Game Management/Scenes/Menus/MainMenu.tscn")
 
 func OpenControls():
-	get_tree().change_scene_to_file("res://Game Management/Scenes/ControlsList.tscn")
+	get_tree().change_scene_to_file("res://Game Management/Scenes/Menus/ControlsList.tscn")

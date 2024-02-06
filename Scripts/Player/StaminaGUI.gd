@@ -3,10 +3,11 @@ extends Panel
 @export var FilledIcon : Texture
 @export var EmptyIcon : Texture
 
-@onready var sprite = $Sprite2D
+@onready var texture : TextureRect = $TextureRect
+@onready var IsFilled : bool = true
 
-func UpdateFill(IsFilled : bool):
+func _process(_delta):
 	if IsFilled:
-		sprite.texture = FilledIcon
+		texture.texture = FilledIcon
 	else:
-		sprite.texture = EmptyIcon
+		texture.texture = EmptyIcon

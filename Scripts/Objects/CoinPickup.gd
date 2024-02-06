@@ -3,11 +3,28 @@ class_name Coin
 
 @export var Velocity : float
 
+var Direction
+var player
+var CanMove
+
 func _enter_tree():
 	SendAway()
 	
 func _ready():
+	self.CanMove = false
 	TimeDestroy()
+	player = get_tree().get_first_node_in_group('Player')
+	await get_tree().create_timer(0.35).timeout
+	self.CanMove = true
+
+func _physics_process(_delta):
+	if self.CanMove == false:
+		return
+
+	Direction = player.global_position - self.global_position
+	
+	if Direction.length() < 100:
+		self.linear_velocity = Direction.normalized() * 100
 
 func SendAway():
 	var RNG =  RandomNumberGenerator.new()

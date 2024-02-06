@@ -1,185 +1,198 @@
+#This class is responsible for handling input and output for the player's character
+#Utilizing a 'KISS'-forward state machine, inputs will be handled
+#This class contains necessary data for child objects to pull from ie Health, XP, Stamina, Damage, etc
+#Various signals are created to avoid altering or calling data directly in child objects
+
 extends CharacterBody2D
 class_name Player
 
-@onready var AnimPlayer = $AnimationPlayer
+signal PlayerDied(pos : Vector2)
+signal PlayerHit(dur : float)
 
-@onready var AttackTimer = $Timers/AttackStateTimer
-@onready var CooldownTimer = $Timers/CoolDown
-@onready var SFXtime = $Timers/SFXtimer
+enum eStates {NoAction, Guarding, Attacking, AttackCooldown, GuardCooldown, InMenu, Dead}
+var CurrentState : eStates
 
-@onready var BodyAudio = $Audio/BodyAudio
-@onready var WeaponAudio = $Audio/WeaponAudio
-
-@onready var EnvColl = $"Environment Collision"
-@onready var HitColl = $HitBox/CollisionShape2D
-
-enum DirectionStates {Up, Down, Left, Right}
-
-var CurrentDirection : int
-@onready var CurrentAttackIndex : int = 1
-
-var IsMoving = false
-var IsHealing = false
-
-@export_category("PlayerStats")
+@export_category("Player Stats")
+@export var WalkSpeed : float
 @export var MaxHealth : int
-@export var MaxStaminaMoves : int
-@export var StaminaRefillTime : float
-var CurrentXP : int
-var AddedXP : int
-
-@export_category("Movement Stats")
-@export var TopSpeed = 0
-@export var Acceleration = 0.0
-@export var Deceleration = 0.0
+var CurrentHealth : int
+@export var MaxStaminaActions : int
+var CurrentStamina : int
+@export var StaminaRefill : float
 
 @export_category("Attack Stats")
-@export var MaxAttackNumber : int
-@export var DamageOutput : int
+@export var Damage : int
 @export var AttackTime : float
-@export var CooldownTime : float
-@export var InputBufferAmnt : float
+@export var AttackCooldown : float
+@export var MaxAttackNumber : int = 4
+
+var CurrentSpeed : float = 0
+var Direction
+var AttackIndex : int = 1
+var LastDirection : Vector2
+var animID : String
+
+var IsHealing : bool = false
+
+var AnimState : AnimationNodeStateMachinePlayback
+
+@export_category("Components")
+@export var InventoryRef : InventoryManager
+@export var UI : PlayerUI
+@export var HitBox : Hit_Box
+@export var HurtBox : Hurt_Box
+@onready var GM : GameManager = get_parent()
 
 @export_category("Internal References")
-@export var InventoryRef : Inventory
-@export var UI : PlayerUI
-
-var CurrentSpeed = 0
-var HorizontalInput = 0
-var VerticalInput = 0
-var Direction = Vector2.ZERO
-
-var CurrentHealth : int
-var CurrentStaminaActions : int
-
-var AnimState = null
-
-var IsInMenu = false
-var IsRolling = false
-var IsDead = false
+@export var AnimPlayer : AnimationPlayer
+@export var AnimTree : AnimationTree
+@export var AttackTimer : Timer
+@export var BodyAudio : BodyAudioPlayer
+@export var WeaponAudio : WeaponAudioPlayer
 
 func _ready():
-	CurrentDirection = DirectionStates.Down
+	Direction = Vector2.DOWN
+	LastDirection = Vector2.DOWN
+	
+	UI.UpdateAttackIcons(MaxAttackNumber)
+	UI.SetStaminaIcons(MaxStaminaActions)
 	
 	CurrentHealth = MaxHealth
-	CurrentStaminaActions = MaxStaminaMoves
+	CurrentStamina = MaxStaminaActions
 	
-	UI.get_node("StaminaContainer").SetMaxIcons(MaxStaminaMoves)
+	HitBox.HitRecieved.connect(TakeDamage)
 	
-	$"Player UI/XpLabel/Amount Label".visible = false
-	CurrentXP = GameSettings.CurrentPlayerXP
+	AnimState = AnimTree.get("parameters/playback")
+	
+	CurrentState = eStates.NoAction
 	
 func _process(_delta):
-	if CurrentHealth <= 0 && $Timers/DeathTimer.is_stopped():
-		$StateMachine.CurrentState.Transitioned.emit("Dead")
-		IsDead = true
-		$Timers/DeathTimer.one_shot = true
-		$Timers/DeathTimer.start(8)
-		
-	$"Player UI/XpLabel".text = ("XP: " + str(CurrentXP))
-	$"Player UI/XpLabel/Amount Label".text = ("+" + str(AddedXP))
+	if CurrentState == eStates.Dead:
+		return
 	
-	if CurrentHealth >= MaxHealth:
-		CurrentHealth = MaxHealth
+	Move()
+	InputManager()
+	StateMachine()
 	
 func _physics_process(_delta):
-	
-	if IsDead == false:
-		IsMoving = Input.is_action_pressed("Run_Up") || Input.is_action_pressed("Run_Down") || Input.is_action_pressed("Run_Left") || Input.is_action_pressed("Run_Right")
-	
-	if IsRolling == false && IsMoving:
-		if Input.is_action_pressed("Run_Up"):
-			CurrentDirection = DirectionStates.Up
-			Direction = Vector2.UP
-		elif Input.is_action_pressed("Run_Down"):
-			CurrentDirection = DirectionStates.Down
-			Direction = Vector2.DOWN
-		elif Input.is_action_pressed("Run_Right"):
-			CurrentDirection = DirectionStates.Right
-			Direction = Vector2.RIGHT
-		elif Input.is_action_pressed("Run_Left"):
-			CurrentDirection = DirectionStates.Left
-			Direction = Vector2.LEFT
-	
-	if IsDead == false:
-		if IsMoving:
-			CurrentSpeed = TopSpeed
-		elif IsRolling:
-			CurrentSpeed = TopSpeed + 25
-		else:
-			CurrentSpeed = 0
-	else:
-		CurrentSpeed = 0
-	
 	velocity = (Direction * CurrentSpeed)
 	move_and_slide()
+	
+func StateMachine():
+	match CurrentState:
+			
+		eStates.Attacking:
+			Attack()
+		
+		eStates.Guarding:
+			Guard()
+	
+func InputManager():
+	if CurrentState == eStates.Dead or CurrentState == eStates.InMenu:
+		return
+	
+	Direction = Vector2.ZERO
+	Direction.x = Input.get_action_strength("Run_Right") - Input.get_action_strength("Run_Left")
+	Direction.y = Input.get_action_strength("Run_Down") - Input.get_action_strength("Run_Up")
+	Direction = Direction.normalized()
+	
+	if Input.is_action_just_pressed("Attack"):
+		Attack()
+		
+	if Input.is_action_pressed("Guard"):
+		Guard()
+	
+	if Input.is_action_just_pressed("UseItem") && InventoryRef.CurrentItem != null:
+		InventoryRef.UseCurrentItem()
+
+func Move():
+	if Direction != Vector2.ZERO:
+		if CurrentState == eStates.NoAction:
+			AnimTree.set("parameters/Idle/blend_position", Direction)
+			AnimTree.set("parameters/Run/blend_position", Direction)
+			AnimTree.set("parameters/Swipe Attack/blend_position", Direction)
+			AnimTree.set("parameters/Reverse Swipe/blend_position", Direction)
+		
+		CurrentSpeed = WalkSpeed
+		
+		BodyAudio.PlayStep()
+		if CurrentState == eStates.NoAction:
+			AnimState.travel("Run")
+	else:
+		CurrentSpeed = 0
+		if CurrentState == eStates.NoAction:
+			AnimState.travel("Idle")
+		
+func Attack():
+	if CurrentState == eStates.Attacking or AttackIndex > MaxAttackNumber:
+		return
+		
+	CurrentState = eStates.Attacking
+	
+	BodyAudio.PlayVoice()
+	await get_tree().create_timer(0.10).timeout
+	WeaponAudio.PlaySwing()
+	
+	match AttackIndex:
+		1:
+			AnimState.travel("Swipe Attack")
+		
+		2:
+			AnimState.travel("Reverse Swipe")
+		
+		3:
+			AnimState.travel("Swipe Attack")
+		
+		4:
+			AnimState.travel("Reverse Swipe")
+	
+	await AnimTree.animation_finished
+	
+	if AttackIndex == MaxAttackNumber:
+		print("Running cooldown\n")
+		ReduceStamina(1)
+		AttackTimer.start(AttackCooldown)
+	else:
+		AttackTimer.start(AttackTime)
+	
+	AttackIndex += 1
+	UI.UpdateAttackIcons(MaxAttackNumber - (AttackIndex - 1))
+	CurrentState = eStates.NoAction
+	
+func Guard():
+	print("Guard ON")
 
 func ResetAttackIndex():
-	CurrentAttackIndex = 1
-	UI.AttackIcons.AddIndicator(1)
+	AttackIndex = 1
+	UI.UpdateAttackIcons(MaxAttackNumber)
+	
+func ReduceStamina(Amount : int):
+	print(AttackIndex)
+	CurrentStamina -= Amount
+	#print(CurrentStamina)
+	UI.UpdateStaminaIcons(CurrentStamina)
+	
+	await get_tree().create_timer(StaminaRefill).timeout
+	CurrentStamina += 1
+	UI.RefillStaminaIcons(CurrentStamina)
 
-func AttackCooldown():
-	CooldownTimer.start(CooldownTime)
-	await CooldownTimer.timeout
-	CurrentAttackIndex = 1
-	UI.AttackIcons.AddIndicator(MaxAttackNumber)
+func TakeDamage(Amount : int):
+	PlayerHit.emit(0.25)
+	CurrentHealth -= Amount
+	if CurrentHealth <= 0:
+		Die()
 
-func ReduceStamina(Amnt : int):
-	CurrentStaminaActions -= Amnt
-	UI.get_node("StaminaContainer").UpdateIcons(CurrentStaminaActions)
-
-#Resets stamina circles 1-by-1
-func ResetStamina(Amnt : int):
-	for i in range(Amnt):
-		
-		await get_tree().create_timer(StaminaRefillTime).timeout
-		
-		if CurrentStaminaActions + 1 <= MaxStaminaMoves:
-			CurrentStaminaActions += 1
-			UI.get_node("StaminaContainer").UpdateIcons(CurrentStaminaActions)
-		else:
-			print_debug('ERROR @ ResetStamina(): CurrentStaminaActions += 1 would EXCEED MaxStamina variable')
+func Die():
+	PlayerDied.emit(self.position)
+	CurrentState = eStates.Dead
 
 #Regains a variable amount of health
-func RegainHealth(Amount : int):
+func RegainHealth(AmountInPercent : float):
 	if IsHealing == false:
+		var Amount : int = int(MaxHealth * (AmountInPercent * 0.01))
 		print("Healing: " + str(Amount) + " points!")
 		IsHealing = true
 		var HealthTween = get_tree().create_tween()
 		HealthTween.tween_property(self, "CurrentHealth", (CurrentHealth + Amount), 0.5)
 		await HealthTween.finished
 		IsHealing = false
-
-#Regains MaxHealth
-func RegainFULLHealth():
-	if IsHealing == false:
-		IsHealing = true
-		var HealthTween = get_tree().create_tween()
-		HealthTween.tween_property(self, "CurrentHealth", MaxHealth, 0.5)
-		await HealthTween.finished
-		IsHealing = false
-
-#Reloads the current level
-func Respawn():
-	print("Reloading...")
-	get_tree().reload_current_scene()
-
-#Add to the amount of XP to then be added to the total count
-func AddXP(Amount : int):
-	if $Timers/XPTimer.time_left > 0:
-		$Timers/XPTimer.stop()
-	$Timers/XPTimer.start(3)
-	AddedXP += Amount
-	$"Player UI/XpLabel/Amount Label".visible = true
-	await $Timers/XPTimer.timeout
-	DisplayXP()
-
-#Aesthetically display the addition of XP
-func DisplayXP():
-	var XPTween = get_tree().create_tween()
-	var AmountTween = get_tree().create_tween()
-	XPTween.tween_property(self, "CurrentXP", (CurrentXP + AddedXP), 1.25)
-	AmountTween.tween_property(self, "AddedXP", 0, 1.25)
-	await XPTween.finished
-	await AmountTween.finished
-	$"Player UI/XpLabel/Amount Label".visible = false
