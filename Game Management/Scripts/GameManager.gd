@@ -30,6 +30,10 @@ func _ready():
 		Level.Destructables[i].CallScreenShake.connect(Cam.ApplyShake)
 		
 	StartFill()
+	
+func _process(delta):
+	if Input.is_action_just_pressed("ui_focus_next"):
+		CheckStats()
 
 func HitStop(EffectTime : float):
 	get_tree().paused = true
@@ -46,16 +50,23 @@ func PlayerDeath(location : Vector2):
 	get_tree().reload_current_scene()
 
 func StartFill():
-	FillTween = get_tree().create_tween()
 	var TimeTween = get_tree().create_tween()
 	var realTime = FillTimeInMinutes * 60
-	print("Starting Anxiety fill: " + str(Anxiety) + " will be 100% in: " + str(realTime) + " seconds / " + str(FillTimeInMinutes) + " minutes")
+	FillTween = get_tree().create_tween()
+	print("\nStarting Anxiety fill: " + str(Anxiety) + " will be 100% in: " + str(realTime) + " seconds / " + str(FillTimeInMinutes) + " minutes")
 	FillTween.tween_property(self, "Anxiety", 1, realTime)
 	TimeTween.tween_property(self, "FillTimeInMinutes", 0, realTime)
 
+func CheckStats():
+	print("\nCurrent Seconds: " + str(snapped((FillTimeInMinutes * 60), 0.01)) + " That's: " + str(FillTimeInMinutes) + " minutes!")
+	print("Current Fill: " + str(snapped(Anxiety, 0.01)))
+
 func RestartAnxietyFill(time : float, amount : float):
 	FillTween.stop()
+	FillTween = null
+	print("Current Seconds: " + str(FillTimeInMinutes * 60) + " + New Seconds: " + str(time * 60) + " = " + str(snapped((FillTimeInMinutes * 60) + (time * 60), 0.01)))
 	FillTimeInMinutes += time
+	print("New Time in seconds: " + str(FillTimeInMinutes * 60) + " // Minutes: " + str(FillTimeInMinutes))
 	
 	var newFloat : float = amount * 0.01
 	
