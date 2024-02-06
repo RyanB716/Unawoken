@@ -1,7 +1,7 @@
 extends Control
 
 @onready var Meter : Panel = $Fill
-@onready var Percentage : Label = $Fill/Percentage
+@onready var Percentage : Label = $Percentage
 
 @export var player : Player
 
@@ -11,6 +11,6 @@ func _ready():
 	GM = player.get_parent()
 
 func _process(_delta):
-	Meter.material.set("shader_parameter/progress", (GM.Anxiety) - 0.1)
-	var value : int = int(GM.Anxiety * 10)
-	Percentage.text = (str(value) + "0%")
+	Meter.material.set("shader_parameter/progress", (GM.Anxiety) - 0.05)
+	var value = int(GM.Anxiety * 100)
+	Percentage.text = (str(value) + "%")

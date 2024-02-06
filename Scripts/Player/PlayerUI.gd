@@ -44,7 +44,7 @@ func _process(_delta):
 				PowderGUI.Border.visible = true
 				ElixirGUI.Border.visible = false
 				
-	AnxMeter.text = "Anxiety: " + str(player.GM.Anxiety)
+	AnxMeter.text = "Anxiety: " + str((player.GM.Anxiety))
 	
 func UpdateAttackIcons(Amount : int):
 	for i in AttackIndicatorBox.get_child_count():
