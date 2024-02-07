@@ -21,7 +21,7 @@ func BuyItem():
 	if playerInventory is InventoryManager:
 		controller.ChooseDialogue(controller.NPC.PurchaseLines, controller.NPC.SpokenPurchaseLines)
 		playerInventory.InventoryData.CoinAmount -= item.Cost
-		playerInventory.AddItem(item.Item)
+		playerInventory.AddItem(item.Item, 1)
 		
 func _on_button_pressed():
 	if playerInventory.InventoryData.CoinAmount >= item.Cost:

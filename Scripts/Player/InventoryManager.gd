@@ -38,16 +38,16 @@ func _process(_delta):
 	Coins = InventoryData.CoinAmount
 
 #Adds a new item to proper inventory
-func AddItem(item : InventoryItem):
+func AddItem(item : InventoryItem, amount : int):
 	match item.ItemType:
 		InventoryItem.eItemTypes.Elixir:
 			item.Heal.connect(player.RegainHealth)
-			AddItemDelegate(item, Elixirs, "Elixirs", ElixirIndex)
+			AddItemDelegate(item, Elixirs, "Elixirs", ElixirIndex, amount)
 			if Powders.is_empty():
 				CycleElixir()
 		InventoryItem.eItemTypes.Powder:
 			item.UpdateAnxiety.connect(player.GM.RestartAnxietyFill)
-			AddItemDelegate(item, Powders, "Powders", PowderIndex)
+			AddItemDelegate(item, Powders, "Powders", PowderIndex, amount)
 			if Elixirs.is_empty():
 				CyclePowder()
 		InventoryItem.eItemTypes.Key:
@@ -55,20 +55,21 @@ func AddItem(item : InventoryItem):
 			
 	InvSFX.PlaySFX(item.PickupSFX)
 	
-func AddItemDelegate(_item : InventoryItem, array : Array, arrayName : String, _index : int):
+func AddItemDelegate(_item : InventoryItem, array : Array, arrayName : String, _index : int, amount : int):
 	if array.has(_item):
 		print("\n" + str(arrayName) + " has item: " + str(_item.Name) + ", adding to AmountHeld")
 		var element = array.find(_item)
 		if array[element] is InventoryItem:
-			array[element].AmountHeld += 1
+			array[element].AmountHeld += amount
 		else:
 			print('ERROR')
 	else:
 		print(arrayName + " DOES NOT have item: " + str(_item.Name) + ", appending array")
-		_item.AmountHeld = 1
+		_item.AmountHeld = amount
 		array.append(_item)
 		
 	var newIndex = array.find(_item)
+	
 	match _item.ItemType:
 		InventoryItem.eItemTypes.Elixir:
 			ElixirIndex = newIndex
@@ -76,10 +77,9 @@ func AddItemDelegate(_item : InventoryItem, array : Array, arrayName : String, _
 				CurrentItem = array[newIndex]
 			
 		InventoryItem.eItemTypes.Powder:
-			pass
-			
-		InventoryItem.eItemTypes.Key:
-			pass
+			PowderIndex = newIndex
+			if CurrentItem == null:
+				CurrentItem = array[newIndex]
 	
 	print("\n" + str(arrayName) + " Contents:")
 	for i in array.size():

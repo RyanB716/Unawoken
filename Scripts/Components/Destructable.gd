@@ -75,12 +75,11 @@ func PlayBreakSFX():
 func GiveItems():
 	if ItemDrops.size() >= 1:
 		for i in ItemDrops.size():
-			for x in ItemDrops[i].Amount:
-				var newItem = PickupScene.instantiate()
-				if newItem is ItemPickup:
-					newItem.resource = ItemDrops[i].Item
-					get_tree().current_scene.call_deferred("add_child", newItem)
-					newItem.position = self.position
+			var newItem : ItemPickup = PickupScene.instantiate()
+			newItem.resource = ItemDrops[i].Item
+			newItem.Amount = ItemDrops[i].AmountToGive
+			get_tree().current_scene.call_deferred("add_child", newItem)
+			newItem.position = self.position
 	
 	for i in CoinAmount:
 		var newCoin = CoinScene.instantiate()

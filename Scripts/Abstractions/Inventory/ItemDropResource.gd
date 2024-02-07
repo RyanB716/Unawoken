@@ -2,4 +2,4 @@ extends Resource
 class_name ItemDrop
 
 @export var Item : InventoryItem
-@export var Amount : int = 1
+@export var AmountToGive : int = 1

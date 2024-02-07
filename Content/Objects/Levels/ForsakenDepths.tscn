@@ -1529,17 +1529,17 @@ sources/1 = SubResource("TileSetAtlasSource_wk6tw")
 [sub_resource type="Resource" id="Resource_js2pr"]
 script = ExtResource("12_upbej")
 Item = ExtResource("9_hpmqo")
-Amount = 1
+AmountToGive = 1
 
 [sub_resource type="Resource" id="Resource_jdsly"]
 script = ExtResource("12_upbej")
 Item = ExtResource("13_0vicu")
-Amount = 1
+AmountToGive = 1
 
 [sub_resource type="Resource" id="Resource_5qq0n"]
 script = ExtResource("12_upbej")
 Item = ExtResource("14_8ctq4")
-Amount = 3
+AmountToGive = 3
 
 [node name="Forsaken Depths" type="Node2D"]
 process_mode = 1
