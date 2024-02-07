@@ -29,8 +29,12 @@ func _physics_process(_delta):
 func SendAway():
 	var RNG =  RandomNumberGenerator.new()
 	RNG.randomize()
-	self.linear_velocity.x = RNG.randf_range(-Velocity, Velocity)
-	self.linear_velocity.y = RNG.randf_range(-Velocity, Velocity)
+	var VelX = RNG.randf_range(-Velocity, Velocity)
+	var VelY = RNG.randf_range(-Velocity, Velocity)
+	if absi(VelX) <= 10 or absi(VelY) <= 10:
+		SendAway()
+	self.linear_velocity.x = VelX
+	self.linear_velocity.y = VelY
 
 #If coin is not picked up by the end of its random lifespan; delete and add 1 to coin count
 func TimeDestroy():

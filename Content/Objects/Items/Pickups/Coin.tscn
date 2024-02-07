@@ -24,7 +24,7 @@ max_contacts_reported = 100
 contact_monitor = true
 angular_damp = 2.0
 script = ExtResource("1_6ks4o")
-Velocity = 350.0
+Velocity = 200.0
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 scale = Vector2(0.05, 0.05)
