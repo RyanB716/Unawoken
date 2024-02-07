@@ -1,12 +1,13 @@
-[gd_scene load_steps=7 format=3 uid="uid://s1sbq5wnosnk"]
+[gd_scene load_steps=9 format=3 uid="uid://s1sbq5wnosnk"]
 
 [ext_resource type="Script" path="res://Scripts/Player/Anxiety Meter.gd" id="1_1cl32"]
 [ext_resource type="Shader" path="res://Aesthetics/Shaders/Raw Scripts/AnxietyLiquid.gdshader" id="1_ltx0y"]
 [ext_resource type="FontFile" uid="uid://dlulxm5dxb804" path="res://Aesthetics/Fonts/Seagram tfb.ttf" id="3_ipcxk"]
+[ext_resource type="Texture2D" uid="uid://ckf14bb28y4mk" path="res://Aesthetics/UI Elements/Icons/Bubble.png" id="4_nbmmj"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_6tgke"]
 shader = ExtResource("1_ltx0y")
-shader_parameter/progress = 0.95
+shader_parameter/progress = 1.0
 shader_parameter/bg_color = Color(1, 1, 1, 1)
 shader_parameter/wave_1_color = Color(0.227451, 0, 0.227451, 1)
 shader_parameter/wave_2_color = Color(0.376471, 0, 0.376471, 1)
@@ -25,6 +26,12 @@ font = ExtResource("3_ipcxk")
 font_size = 150
 font_color = Color(1, 1, 1, 0)
 outline_size = 10
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_rpvoe"]
+particle_flag_disable_z = true
+emission_shape = 3
+emission_box_extents = Vector3(70, 1, 1)
+gravity = Vector3(0, -100, 0)
 
 [node name="AnxietyMeter" type="Control"]
 layout_mode = 3
@@ -74,3 +81,14 @@ text = "100"
 label_settings = SubResource("LabelSettings_tk43r")
 horizontal_alignment = 1
 vertical_alignment = 1
+
+[node name="GPUParticles2D" type="GPUParticles2D" parent="."]
+texture_filter = 1
+position = Vector2(2, 90)
+amount = 3
+process_material = SubResource("ParticleProcessMaterial_rpvoe")
+texture = ExtResource("4_nbmmj")
+lifetime = 1.85
+explosiveness = 0.25
+randomness = 0.25
+fixed_fps = 60
