@@ -76,3 +76,7 @@ func RefillStaminaIcons(Amount : int):
 
 func ToggleMenu(Menu : Object, Choice : bool):
 	Menu.visible = Choice
+	if Choice == true:
+		player.CurrentState = player.eStates.InMenu
+	else:
+		player.CurrentState = player.eStates.NoAction

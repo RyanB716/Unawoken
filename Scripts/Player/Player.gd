@@ -80,6 +80,10 @@ func _physics_process(_delta):
 	
 func StateMachine():
 	match CurrentState:
+		
+		eStates.InMenu:
+			AnimTree.set("parameters/Idle/blend_position", Vector2.UP)
+			AnimState.travel("Idle")
 			
 		eStates.Attacking:
 			Attack()
