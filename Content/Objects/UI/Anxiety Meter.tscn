@@ -7,7 +7,7 @@
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_6tgke"]
 shader = ExtResource("1_ltx0y")
-shader_parameter/progress = 1.0
+shader_parameter/progress = 0.675
 shader_parameter/bg_color = Color(1, 1, 1, 1)
 shader_parameter/wave_1_color = Color(0.227451, 0, 0.227451, 1)
 shader_parameter/wave_2_color = Color(0.376471, 0, 0.376471, 1)

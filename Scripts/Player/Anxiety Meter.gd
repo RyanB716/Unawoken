@@ -26,19 +26,19 @@ func _process(_delta):
 	
 func AffectWaveSpeed():
 	if GM.Anxiety >= 0.25:
-		WaveSpeed = 1
+		WaveSpeed = 1.25
 	
 	elif GM.Anxiety >= 0.5:
 		WaveSpeed = 1.5
 	
 	elif GM.Anxiety >= 0.75:
-		WaveSpeed = 2
+		WaveSpeed = 1.75
 	
 	elif GM.Anxiety >= 1.0:
-		WaveSpeed = 3
+		WaveSpeed = 2
 	
 	else:
-		WaveSpeed = 0.75
+		WaveSpeed = 1
 	
 	Meter.material.set("shader_parameter/wave_1_speed", -WaveSpeed)
 	Meter.material.set("shader_parameter/wave_2_speed", WaveSpeed)
