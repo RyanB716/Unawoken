@@ -13,4 +13,4 @@ func _ready():
 func _process(_delta):
 	Meter.material.set("shader_parameter/progress", (GM.Anxiety) - 0.05)
 	var value = int(GM.Anxiety * 100)
-	Percentage.text = (str(value) + "%")
+	Percentage.text = (str(value))

@@ -6,7 +6,7 @@
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_6tgke"]
 shader = ExtResource("1_ltx0y")
-shader_parameter/progress = 0.552
+shader_parameter/progress = 0.95
 shader_parameter/bg_color = Color(1, 1, 1, 1)
 shader_parameter/wave_1_color = Color(0.227451, 0, 0.227451, 1)
 shader_parameter/wave_2_color = Color(0.376471, 0, 0.376471, 1)
@@ -22,7 +22,7 @@ corner_radius_bottom_left = 120
 
 [sub_resource type="LabelSettings" id="LabelSettings_tk43r"]
 font = ExtResource("3_ipcxk")
-font_size = 100
+font_size = 150
 font_color = Color(1, 1, 1, 0)
 outline_size = 10
 
@@ -63,13 +63,13 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -120.5
-offset_top = -63.5
-offset_right = 120.5
-offset_bottom = 63.5
+offset_left = -130.0
+offset_top = -95.0
+offset_right = 126.0
+offset_bottom = 95.0
 grow_horizontal = 2
 grow_vertical = 2
-text = "100%"
+text = "100"
 label_settings = SubResource("LabelSettings_tk43r")
 horizontal_alignment = 1
 vertical_alignment = 1

@@ -9,7 +9,7 @@ region = Rect2(195, 646, 26, 24)
 
 [resource]
 script = ExtResource("2_f5myb")
-TimeToAdd = 0.5
+TimeToAdd = 1.5
 PercentToSubtract = 10.0
 Name = "Azalea Powder"
 ItemType = 1
