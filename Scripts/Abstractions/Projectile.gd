@@ -10,8 +10,9 @@ var Direction : Vector2
 func _enter_tree():
 	#print("New Projectile created! Launcher: " + str(Launcher.name) + ", Damage: " + str(Damage) + ", Direction: " + str(Direction))
 	self.linear_velocity = Direction.normalized() * Speed
-	
-func _on_body_entered(body):
+
+
+func _on_hurt_box_body_entered(body):
 	if body is Hit_Box && body.Parent == Launcher:
 		pass
 	else:

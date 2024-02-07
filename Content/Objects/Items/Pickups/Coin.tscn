@@ -5,6 +5,7 @@
 [ext_resource type="AudioStream" uid="uid://dq8bw4rp55ei6" path="res://Aesthetics/Audio/SFX/Item/Misc/Coin_Hit.mp3" id="3_wki0x"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_vftsd"]
+friction = 0.75
 bounce = 0.5
 absorbent = true
 
@@ -24,7 +25,7 @@ max_contacts_reported = 100
 contact_monitor = true
 angular_damp = 2.0
 script = ExtResource("1_6ks4o")
-Velocity = 200.0
+Velocity = 250.0
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 scale = Vector2(0.05, 0.05)

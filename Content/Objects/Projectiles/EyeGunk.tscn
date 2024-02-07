@@ -16,6 +16,8 @@ radius = 4.12
 
 [node name="Eye Gunk" type="RigidBody2D"]
 texture_filter = 1
+collision_layer = 5
+collision_mask = 5
 max_contacts_reported = 1
 contact_monitor = true
 script = ExtResource("1_f2dp3")
@@ -31,11 +33,13 @@ disabled = true
 
 [node name="HurtBox" parent="." instance=ExtResource("3_xr4bp")]
 position = Vector2(0, 0)
+collision_layer = 5
+collision_mask = 5
 
 [node name="CollisionShape2D" parent="HurtBox" index="0"]
 shape = SubResource("CircleShape2D_61dlx")
 disabled = false
 
-[connection signal="area_entered" from="HurtBox" to="." method="_on_body_entered"]
+[connection signal="body_entered" from="HurtBox" to="." method="_on_hurt_box_body_entered"]
 
 [editable path="HurtBox"]
