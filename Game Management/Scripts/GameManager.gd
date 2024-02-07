@@ -59,13 +59,13 @@ func RestartAnxietyFill(time : float, amount : float):
 	TimeTween.stop()
 	FillTween = null
 	TimeTween = null
-	print("Current Seconds: " + str(FillTimeInMinutes * 60) + " + New Seconds: " + str(time * 60) + " = " + str(snapped((FillTimeInMinutes * 60) + (time * 60), 0.01)))
+	#print("Current Seconds: " + str(FillTimeInMinutes * 60) + " + New Seconds: " + str(time * 60) + " = " + str(snapped((FillTimeInMinutes * 60) + (time * 60), 0.01)))
 	FillTimeInMinutes += time
-	print("New Time in seconds: " + str(FillTimeInMinutes * 60) + " // Minutes: " + str(FillTimeInMinutes))
+	#print("New Time in seconds: " + str(FillTimeInMinutes * 60) + " // Minutes: " + str(FillTimeInMinutes))
 	
 	var newFloat : float = amount * 0.01
-	
 	var newValue
+	
 	if Anxiety - newFloat <= 0.00:
 		newValue = 0
 	else:

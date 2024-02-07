@@ -4,14 +4,40 @@ extends Control
 @onready var Percentage : Label = $Percentage
 
 @export var player : Player
-@export var FillScalar : float
+
+@export var MaxFill : float
 
 var GM : GameManager
+
+var WaveSpeed : float = 1
 
 func _ready():
 	GM = player.get_parent()
 
 func _process(_delta):
-	Meter.material.set("shader_parameter/progress", (GM.Anxiety) - FillScalar)
+	if GM.Anxiety <= MaxFill:
+		Meter.material.set("shader_parameter/progress", GM.Anxiety)
+	
 	var value = int(GM.Anxiety * 100)
 	Percentage.text = (str(value))
+	
+	AffectWaveSpeed()
+	
+func AffectWaveSpeed():
+	if GM.Anxiety >= 0.25:
+		WaveSpeed = 1
+	
+	elif GM.Anxiety >= 0.5:
+		WaveSpeed = 1.5
+	
+	elif GM.Anxiety >= 0.75:
+		WaveSpeed = 2
+	
+	elif GM.Anxiety >= 1.0:
+		WaveSpeed = 3
+	
+	else:
+		WaveSpeed = 0.75
+	
+	Meter.material.set("shader_parameter/wave_1_speed", -WaveSpeed)
+	Meter.material.set("shader_parameter/wave_2_speed", WaveSpeed)
