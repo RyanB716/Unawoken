@@ -68,7 +68,7 @@ Wares = Array[ExtResource("2_mq0c4")]([SubResource("Resource_0hr4i"), SubResourc
 voice = ExtResource("5_7mvxt")
 Portrait = SubResource("AtlasTexture_jepu6")
 Greeting = "Ai-siwame! Welcome friend."
-Dialogue = Array[String](["Should you be out on this night? ... So young?", "We have a saying in my family. 'Have your fun, but know when to stop.'", "You look ...familar siwame.", "Glory to the highest, forever in our name ... yes?"])
+Dialogue = Array[String](["Should you be out on this night? ... So young?", "We have a saying in my family. 'Have your fun, but know when to stop.'", "You look ...familar siwame.", "Glory to the highest, forever in our name ... yes?", "My people do not claim a specific home...the skies are our abode.", "Our flock have always been disfavored. Yet you clodwalkers desire our crafts still..."])
 PurchaseLines = Array[String](["Ah thank you siwame!", "Let me wrap that for you friend.", "Tell your friends that are left, yes?", "Thank you for your support in such ... unique circumstances."])
 FailLines = Array[String](["I'm afraid I can't do that.", "No shame friend. We've all been to the poor house now haven't we?", "Please come back with more coin siwame.", "These troubled times will end ..."])
 
