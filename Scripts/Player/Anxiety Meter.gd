@@ -22,6 +22,7 @@ func _process(_delta):
 	Percentage.text = (str(value))
 	
 	AffectWaveSpeed()
+	FillSounds()
 	
 func AffectWaveSpeed():
 	if GM.Anxiety >= 0.25:
@@ -41,3 +42,14 @@ func AffectWaveSpeed():
 	
 	Meter.material.set("shader_parameter/wave_1_speed", -WaveSpeed)
 	Meter.material.set("shader_parameter/wave_2_speed", WaveSpeed)
+
+func FillSounds():
+	match GM.Anxiety:
+		0.25:
+			print("Playing bubbles")
+		0.5:
+			print("Playing bubbles")
+		0.75:
+			print("Playing bubbles")
+		1.00:
+			print("Playing bubbles")
