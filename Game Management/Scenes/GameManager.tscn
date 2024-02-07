@@ -8,7 +8,7 @@
 [node name="GameManager" type="Node" groups=["GameManager"]]
 process_mode = 3
 script = ExtResource("1_gdgan")
-FillTimeInMinutes = 1.0
+FillTimeInMinutes = 0.5
 
 [node name="Forsaken Depths" parent="." instance=ExtResource("1_1m60y")]
 
