@@ -103,15 +103,14 @@ func TierTimer():
 				nextTier = 0.75
 			0.75:
 				nextTier = 1.0
-		
-	
-	print("\n" + str(TimeToNextTier) + " seconds until " + str(nextTier) + " Timer launch!")
-	print("That's " + str((TimeToNextTier/ 60)) + " minutes!\n")
-	
-	if Anxiety == 1.00:
-		return
-	else:
+				
+	if Anxiety < 1.00:
+		print("\n" + str(TimeToNextTier) + " seconds until " + str(nextTier) + " Timer launch!")
+		print("That's " + str((TimeToNextTier/ 60)) + " minutes!\n")
 		AnxTimer.start(TimeToNextTier)
+	else:
+		print("No more increasing")
+		return
 	
 func OnAnxTimerOut():
 	HitNewTier.emit(Anxiety)

@@ -18,6 +18,7 @@ func _ready():
 	CurrentState = eStates.Idle
 	
 func _process(_delta):
+	TestHealth()
 	Distance = PlayerTarget.position - self.position
 	
 	if Distance.length() <= DetectionRange:
@@ -80,3 +81,6 @@ func Die():
 	CurrentState = eStates.Dead
 	await get_tree().create_timer(0.25).timeout
 	self.queue_free()
+
+func TestHealth():
+	pass

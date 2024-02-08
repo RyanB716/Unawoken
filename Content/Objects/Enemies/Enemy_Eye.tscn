@@ -60,6 +60,19 @@ theme_override_styles/fill = SubResource("StyleBoxFlat_1odvp")
 value = 25.0
 show_percentage = false
 
+[node name="Label" type="Label" parent="Health Bar"]
+texture_filter = 1
+layout_mode = 0
+offset_left = -2.0
+offset_top = -10.0
+offset_right = 92.0
+offset_bottom = 25.0
+scale = Vector2(0.25, 0.25)
+theme_override_font_sizes/font_size = 25
+text = "100/100"
+horizontal_alignment = 1
+vertical_alignment = 1
+
 [node name="HitBox" parent="." instance=ExtResource("3_wdu5u")]
 visible = false
 position = Vector2(0.5, 1)
