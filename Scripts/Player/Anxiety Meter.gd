@@ -22,7 +22,7 @@ func _process(_delta):
 	Percentage.text = (str(value))
 	
 	AffectWaveSpeed()
-	FillSounds()
+	#FillSounds()
 	
 func AffectWaveSpeed():
 	if GM.Anxiety >= 0.25:

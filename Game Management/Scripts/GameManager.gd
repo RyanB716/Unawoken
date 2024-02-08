@@ -1,6 +1,8 @@
 extends Node
 class_name GameManager
 
+signal HitNewTier(percent : float)
+
 @onready var PlayerRef : Player
 @onready var Cam : MC
 @onready var Level : LevelController
@@ -9,6 +11,9 @@ class_name GameManager
 @onready var FillTween : Tween
 @onready var TimeTween : Tween
 @export var FillTimeInMinutes : float
+@onready var FillTimeInSeconds : float
+
+@onready var AnxTimer : Timer = $AnxietyTimer
 
 func _ready():
 	Input.mouse_mode = Input.MOUSE_MODE_HIDDEN
@@ -31,6 +36,9 @@ func _ready():
 		Level.Destructables[i].CallScreenShake.connect(Cam.ApplyShake)
 		
 	StartFill()
+	
+func _process(delta):
+	Anxiety = snapped(Anxiety, 0.01)
 
 func HitStop(EffectTime : float):
 	get_tree().paused = true
@@ -48,11 +56,12 @@ func PlayerDeath(location : Vector2):
 
 func StartFill():
 	TimeTween = get_tree().create_tween()
-	var realTime = FillTimeInMinutes * 60
+	FillTimeInSeconds = FillTimeInMinutes * 60
 	FillTween = get_tree().create_tween()
-	print("\nStarting Anxiety fill: " + str(Anxiety) + " will be 100% in: " + str(realTime) + " seconds / " + str(FillTimeInMinutes) + " minutes")
-	FillTween.tween_property(self, "Anxiety", 1, realTime)
-	TimeTween.tween_property(self, "FillTimeInMinutes", 0, realTime)
+	print("\nStarting Anxiety fill: " + str(Anxiety) + " will be 100% in: " + str(FillTimeInSeconds) + " seconds / " + str(FillTimeInMinutes) + " minutes")
+	FillTween.tween_property(self, "Anxiety", 1, FillTimeInSeconds)
+	TimeTween.tween_property(self, "FillTimeInMinutes", 0, FillTimeInSeconds)
+	TierTimer()
 
 func RestartAnxietyFill(time : float, amount : float):
 	FillTween.stop()
@@ -75,3 +84,35 @@ func RestartAnxietyFill(time : float, amount : float):
 	newValueTween.tween_property(self, "Anxiety", newValue, 0.5)
 	await newValueTween.finished
 	StartFill()
+	
+func TierTimer():
+	if AnxTimer.time_left >= 0.01:
+		AnxTimer.stop()
+		
+	var TimeToNextTier : float = snapped((FillTimeInSeconds * 0.25), 0.01)
+	
+	var nextTier : float
+	
+	if Anxiety < 0.25:
+		nextTier = 0.25
+	else:
+		match Anxiety:
+			0.25:
+				nextTier = 0.5
+			0.5:
+				nextTier = 0.75
+			0.75:
+				nextTier = 1.0
+		
+	
+	print("\n" + str(TimeToNextTier) + " seconds until " + str(nextTier) + " Timer launch!")
+	print("That's " + str((TimeToNextTier/ 60)) + " minutes!\n")
+	
+	if Anxiety == 1.00:
+		return
+	else:
+		AnxTimer.start(TimeToNextTier)
+	
+func OnAnxTimerOut():
+	HitNewTier.emit(Anxiety)
+	TierTimer()

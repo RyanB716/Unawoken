@@ -60,3 +60,6 @@ func TakeDamage(Amount : int):
 		OnHit.emit(1.25, 0.5)
 		Died.emit()
 		OnDeath.emit(0.15)
+		
+func AnxietyEffect(percent : float):
+	print("Enabling effect for: " + str(percent) + " percent!")

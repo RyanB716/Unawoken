@@ -8,7 +8,7 @@
 [node name="GameManager" type="Node" groups=["GameManager"]]
 process_mode = 3
 script = ExtResource("1_gdgan")
-FillTimeInMinutes = 10.0
+FillTimeInMinutes = 1.0
 
 [node name="Forsaken Depths" parent="." instance=ExtResource("1_1m60y")]
 
@@ -20,3 +20,8 @@ CamSpeed = 1.25
 [node name="Player" parent="." instance=ExtResource("2_t5728")]
 process_mode = 1
 position = Vector2(-667, 517)
+
+[node name="AnxietyTimer" type="Timer" parent="."]
+one_shot = true
+
+[connection signal="timeout" from="AnxietyTimer" to="." method="OnAnxTimerOut"]

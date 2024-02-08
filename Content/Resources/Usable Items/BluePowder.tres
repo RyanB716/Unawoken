@@ -9,10 +9,10 @@ region = Rect2(195, 646, 26, 24)
 
 [resource]
 script = ExtResource("2_f5myb")
-TimeToAdd = 1.5
+TimeToAdd = 0.0
 PercentToSubtract = 10.0
 Name = "Azalea Powder"
 ItemType = 1
 Icon = SubResource("AtlasTexture_k77m5")
 Description = "A coarse and rough dried extract powder."
-AmountHeld = 0
+AmountHeld = 3
