@@ -56,7 +56,7 @@ func PlayerDeath(location : Vector2):
 
 func StartFill():
 	TimeTween = get_tree().create_tween()
-	FillTimeInSeconds = FillTimeInMinutes * 60
+	FillTimeInSeconds = snapped((FillTimeInMinutes * 60), 0.01)
 	FillTween = get_tree().create_tween()
 	print("\nStarting Anxiety fill: " + str(Anxiety) + " will be 100% in: " + str(FillTimeInSeconds) + " seconds / " + str(FillTimeInMinutes) + " minutes")
 	FillTween.tween_property(self, "Anxiety", 1, FillTimeInSeconds)
@@ -64,6 +64,7 @@ func StartFill():
 	TierTimer()
 
 func RestartAnxietyFill(time : float, amount : float):
+	AnxTimer.stop()
 	FillTween.stop()
 	TimeTween.stop()
 	FillTween = null
@@ -86,23 +87,22 @@ func RestartAnxietyFill(time : float, amount : float):
 	StartFill()
 	
 func TierTimer():
-	if AnxTimer.time_left >= 0.01:
-		AnxTimer.stop()
-		
+	print(FillTimeInSeconds)
 	var TimeToNextTier : float = snapped((FillTimeInSeconds * 0.25), 0.01)
 	
 	var nextTier : float
 	
 	if Anxiety < 0.25:
 		nextTier = 0.25
+		
+	elif Anxiety < 0.5:
+		nextTier = 0.5
+		
+	elif Anxiety < 0.75:
+		nextTier = 0.75
+		
 	else:
-		match Anxiety:
-			0.25:
-				nextTier = 0.5
-			0.5:
-				nextTier = 0.75
-			0.75:
-				nextTier = 1.0
+		nextTier = 1.0
 				
 	if Anxiety < 1.00:
 		print("\n" + str(TimeToNextTier) + " seconds until " + str(nextTier) + " Timer launch!")

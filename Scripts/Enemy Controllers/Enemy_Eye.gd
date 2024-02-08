@@ -7,5 +7,4 @@ func TestHealth():
 func AnxietyEffect(percent : float):
 	MaxHealth = MaxHealth + (MaxHealth * 0.25)
 	CurrentHealth = CurrentHealth + (CurrentHealth * 0.25)
-	print("New Max Health: " + str(MaxHealth) + " // New Current Health: " + str(self.CurrentHealth))
-	
+	#print("New Max Health: " + str(MaxHealth) + " // New Current Health: " + str(self.CurrentHealth))
