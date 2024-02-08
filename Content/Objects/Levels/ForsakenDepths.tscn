@@ -1539,7 +1539,7 @@ AmountToGive = 1
 [sub_resource type="Resource" id="Resource_5qq0n"]
 script = ExtResource("12_upbej")
 Item = ExtResource("14_8ctq4")
-AmountToGive = 3
+AmountToGive = 10
 
 [node name="Forsaken Depths" type="Node2D"]
 process_mode = 1

@@ -15,6 +15,8 @@ signal HitNewTier(percent : float)
 
 @onready var SignalTimer : Timer = $"Signal Timer"
 
+var ElapsedTime : float
+
 func _ready():
 	Input.mouse_mode = Input.MOUSE_MODE_HIDDEN
 	
@@ -76,7 +78,7 @@ func StartFill():
 	TimeTween = get_tree().create_tween()
 	FillTimeInSeconds = snapped((FillTimeInMinutes * 60), 0.01)
 	FillTween = get_tree().create_tween()
-	print("\nStarting Anxiety fill: " + str(Anxiety) + " will be 100% in: " + str(FillTimeInSeconds) + " seconds / " + str(FillTimeInMinutes) + " minutes")
+	print("\nStarting Anxiety fill: " + str(Anxiety) + " will be 100% in: " + str(FillTimeInSeconds) + " seconds / " + str(snapped(FillTimeInMinutes, 0.01)) + " minutes")
 	FillTween.tween_property(self, "Anxiety", 1, FillTimeInSeconds)
 	TimeTween.tween_property(self, "FillTimeInMinutes", 0, FillTimeInSeconds)
 
@@ -96,9 +98,16 @@ func RestartAnxietyFill(time : float, amount : float):
 		newValue = 0
 	else:
 		newValue = Anxiety - newFloat
-		
+	
+	if newValue > 0:
+		ElapsedTime = snapped(FillTimeInSeconds - (FillTimeInMinutes * 60), 0.01)
+		print("Elapsed time: " + str(ElapsedTime))
+		print("New Time: " + str(snapped((FillTimeInSeconds - ElapsedTime), 0.01)))
+		FillTimeInSeconds -= ElapsedTime
+	
 	var newValueTween = get_tree().create_tween()
 	newValueTween.tween_property(self, "Anxiety", newValue, 0.5)
 	await newValueTween.finished
+
+	HitNewTier.emit(Anxiety)
 	StartFill()
-	
