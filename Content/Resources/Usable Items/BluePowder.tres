@@ -10,7 +10,7 @@ region = Rect2(195, 646, 26, 24)
 [resource]
 script = ExtResource("2_f5myb")
 TimeToAdd = 0.0
-PercentToSubtract = 20.0
+PercentToSubtract = 10.0
 Name = "Azalea Powder"
 ItemType = 1
 Icon = SubResource("AtlasTexture_k77m5")

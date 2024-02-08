@@ -10,7 +10,8 @@ signal HitNewTier(percent : float)
 @onready var Anxiety : float = 0
 @onready var FillTween : Tween
 @onready var TimeTween : Tween
-@export var FillTimeInMinutes : float
+
+@export var FillTime : float
 @onready var FillTimeInSeconds : float
 
 @onready var SignalTimer : Timer = $"Signal Timer"
@@ -36,7 +37,8 @@ func _ready():
 		
 	for i in Level.Destructables.size():
 		Level.Destructables[i].CallScreenShake.connect(Cam.ApplyShake)
-		
+	
+	FillTimeInSeconds = snapped((FillTime * 60), 0.01)
 	StartFill()
 	
 func _process(delta):
@@ -76,38 +78,24 @@ func PlayerDeath(location : Vector2):
 
 func StartFill():
 	TimeTween = get_tree().create_tween()
-	FillTimeInSeconds = snapped((FillTimeInMinutes * 60), 0.01)
 	FillTween = get_tree().create_tween()
-	print("\nStarting Anxiety fill: " + str(Anxiety) + " will be 100% in: " + str(FillTimeInSeconds) + " seconds / " + str(snapped(FillTimeInMinutes, 0.01)) + " minutes")
+	print("\nStarting Anxiety fill: " + str(Anxiety) + " will be 100% in: " + str(FillTimeInSeconds) + " seconds / " + str(snapped(FillTime, 0.01)) + " minutes")
 	FillTween.tween_property(self, "Anxiety", 1, FillTimeInSeconds)
-	TimeTween.tween_property(self, "FillTimeInMinutes", 0, FillTimeInSeconds)
+	TimeTween.tween_property(self, "FillTimeInSeconds", 0, FillTime)
 
 func RestartAnxietyFill(time : float, amount : float):
 	FillTween.stop()
 	TimeTween.stop()
-	FillTween = null
-	TimeTween = null
-	#print("Current Seconds: " + str(FillTimeInMinutes * 60) + " + New Seconds: " + str(time * 60) + " = " + str(snapped((FillTimeInMinutes * 60) + (time * 60), 0.01)))
-	FillTimeInMinutes += time
-	#print("New Time in seconds: " + str(FillTimeInMinutes * 60) + " // Minutes: " + str(FillTimeInMinutes))
-	
-	var newFloat : float = amount * 0.01
-	var newValue
-	
-	if Anxiety - newFloat <= 0.00:
-		newValue = 0
+	amount *= 0.01
+	if Anxiety - amount <= 0.0:
+		Anxiety = 0
 	else:
-		newValue = Anxiety - newFloat
-	
-	if newValue > 0:
-		ElapsedTime = snapped(FillTimeInSeconds - (FillTimeInMinutes * 60), 0.01)
-		print("Elapsed time: " + str(ElapsedTime))
-		print("New Time: " + str(snapped((FillTimeInSeconds - ElapsedTime), 0.01)))
-		FillTimeInSeconds -= ElapsedTime
-	
-	var newValueTween = get_tree().create_tween()
-	newValueTween.tween_property(self, "Anxiety", newValue, 0.5)
-	await newValueTween.finished
-
+		Anxiety -= amount
+	print("Anxiety: " + str(Anxiety))
+	var FillPercentage : float = snapped((Anxiety / 1.00), 0.01)
+	var NewTime : float = FillTime - (FillTime * FillPercentage)
+	print("Fill: " + str(FillPercentage) + " // New Time: Seconds: " + str(NewTime * 60) + " Minutes: " + str(NewTime))
+	FillTime = NewTime
+	FillTimeInSeconds = NewTime * 60
 	HitNewTier.emit(Anxiety)
 	StartFill()
