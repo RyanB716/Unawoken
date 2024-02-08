@@ -21,7 +21,5 @@ CamSpeed = 1.25
 process_mode = 1
 position = Vector2(-667, 517)
 
-[node name="AnxietyTimer" type="Timer" parent="."]
+[node name="Signal Timer" type="Timer" parent="."]
 one_shot = true
-
-[connection signal="timeout" from="AnxietyTimer" to="." method="OnAnxTimerOut"]

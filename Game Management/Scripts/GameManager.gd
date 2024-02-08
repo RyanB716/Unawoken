@@ -13,7 +13,7 @@ signal HitNewTier(percent : float)
 @export var FillTimeInMinutes : float
 @onready var FillTimeInSeconds : float
 
-@onready var AnxTimer : Timer = $AnxietyTimer
+@onready var SignalTimer : Timer = $"Signal Timer"
 
 func _ready():
 	Input.mouse_mode = Input.MOUSE_MODE_HIDDEN
@@ -39,6 +39,24 @@ func _ready():
 	
 func _process(delta):
 	Anxiety = snapped(Anxiety, 0.01)
+	
+	if SignalTimer != null && SignalTimer.is_stopped():
+		if Anxiety == 0.25:
+			print("Launching signal for 25%\n")
+			HitNewTier.emit(Anxiety)
+			SignalTimer.start()
+		elif Anxiety == 0.5:
+			print("Launching signal for 50%\n")
+			HitNewTier.emit(Anxiety)
+			SignalTimer.start()
+		elif Anxiety == 0.75:
+			print("Launching signal for 75%\n")
+			HitNewTier.emit(Anxiety)
+			SignalTimer.start()
+		elif Anxiety == 1.00:
+			print("Launching signal for 100%\n")
+			HitNewTier.emit(Anxiety)
+			SignalTimer.queue_free()
 
 func HitStop(EffectTime : float):
 	get_tree().paused = true
@@ -61,10 +79,8 @@ func StartFill():
 	print("\nStarting Anxiety fill: " + str(Anxiety) + " will be 100% in: " + str(FillTimeInSeconds) + " seconds / " + str(FillTimeInMinutes) + " minutes")
 	FillTween.tween_property(self, "Anxiety", 1, FillTimeInSeconds)
 	TimeTween.tween_property(self, "FillTimeInMinutes", 0, FillTimeInSeconds)
-	TierTimer()
 
 func RestartAnxietyFill(time : float, amount : float):
-	AnxTimer.stop()
 	FillTween.stop()
 	TimeTween.stop()
 	FillTween = null
@@ -86,32 +102,3 @@ func RestartAnxietyFill(time : float, amount : float):
 	await newValueTween.finished
 	StartFill()
 	
-func TierTimer():
-	print(FillTimeInSeconds)
-	var TimeToNextTier : float = snapped((FillTimeInSeconds * 0.25), 0.01)
-	
-	var nextTier : float
-	
-	if Anxiety < 0.25:
-		nextTier = 0.25
-		
-	elif Anxiety < 0.5:
-		nextTier = 0.5
-		
-	elif Anxiety < 0.75:
-		nextTier = 0.75
-		
-	else:
-		nextTier = 1.0
-				
-	if Anxiety < 1.00:
-		print("\n" + str(TimeToNextTier) + " seconds until " + str(nextTier) + " Timer launch!")
-		print("That's " + str((TimeToNextTier/ 60)) + " minutes!\n")
-		AnxTimer.start(TimeToNextTier)
-	else:
-		print("No more increasing")
-		return
-	
-func OnAnxTimerOut():
-	HitNewTier.emit(Anxiety)
-	TierTimer()
