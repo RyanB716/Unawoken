@@ -171,11 +171,9 @@ func ResetAttackIndex():
 	UI.UpdateAttackIcons(MaxAttackNumber)
 	
 func ReduceStamina(Amount : int):
-	print(AttackIndex)
 	CurrentStamina -= Amount
-	#print(CurrentStamina)
 	UI.UpdateStaminaIcons(CurrentStamina)
-	
+	#######
 	await get_tree().create_timer(StaminaRefill).timeout
 	CurrentStamina += 1
 	UI.RefillStaminaIcons(CurrentStamina)
