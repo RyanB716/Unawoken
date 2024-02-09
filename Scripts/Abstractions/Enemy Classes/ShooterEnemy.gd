@@ -21,21 +21,23 @@ func _process(_delta):
 	TestHealth()
 	Distance = PlayerTarget.position - self.position
 	
-	if Distance.length() <= DetectionRange:
-		CurrentState = eStates.Follow
-		if Distance.length() <= AttackRange && Distance.length() >= FlyRange:
-			CurrentState = eStates.Shoot
-		elif Distance.length() >= FlyRange:
-			CurrentState = eStates.Patrol
-	elif Distance.length() >= DisengagementRange:
-		CurrentState = eStates.Idle
+	if CurrentState != eStates.Dead:
+		if Distance.length() <= DetectionRange:
+			CurrentState = eStates.Follow
+			if Distance.length() <= AttackRange && Distance.length() >= FlyRange:
+				CurrentState = eStates.Shoot
+			elif Distance.length() >= FlyRange:
+				CurrentState = eStates.Patrol
+		elif Distance.length() >= DisengagementRange:
+			CurrentState = eStates.Idle
+	else:
+		CurrentSpeed = 0
 
 func StateMachine():
-	if CurrentState == eStates.Dead:
-		CurrentSpeed = 0
-		return
-		
 	match CurrentState:
+		eStates.Dead:
+			velocity = Vector2.ZERO
+		
 		eStates.Idle:
 			CurrentSpeed = 0
 			if ChangeTimer.is_stopped():
@@ -79,7 +81,7 @@ func ShootProjectile():
 func Die():
 	print(str(self.name) + " has died!")
 	CurrentState = eStates.Dead
-	await get_tree().create_timer(0.25).timeout
+	await get_tree().create_timer(1.5).timeout
 	self.queue_free()
 
 func TestHealth():

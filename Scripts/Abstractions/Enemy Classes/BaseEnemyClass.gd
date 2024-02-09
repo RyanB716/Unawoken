@@ -27,6 +27,7 @@ var Distance
 @export var AnimPlayer : AnimationPlayer
 @export var HitBox : Hit_Box
 @export var HealthBar : ProgressBar
+@export var BodySFX : BodyAudioPlayer
 
 var PlayerTarget : Player
 
@@ -55,7 +56,7 @@ func StateMachine():
 func TakeDamage(Amount : int):
 	OnHit.emit(0.75, 0.25)
 	CurrentHealth -= Amount
-	
+	BodySFX.PlayHitSFX()
 	if CurrentHealth <= 0:
 		OnHit.emit(1.25, 0.5)
 		Died.emit()

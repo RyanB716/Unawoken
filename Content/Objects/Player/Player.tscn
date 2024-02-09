@@ -1,4 +1,4 @@
-[gd_scene load_steps=79 format=3 uid="uid://dxprot5svswbe"]
+[gd_scene load_steps=82 format=3 uid="uid://dxprot5svswbe"]
 
 [ext_resource type="Script" path="res://Scripts/Player/Player.gd" id="1_18da1"]
 [ext_resource type="Texture2D" uid="uid://bi38invhap0t" path="res://Aesthetics/Sprites/Player/player.png" id="2_w50ld"]
@@ -13,7 +13,10 @@
 [ext_resource type="AudioStream" uid="uid://dlnsrugki0emv" path="res://Aesthetics/Audio/SFX/Player/Body Hurt/blade_hit_07.wav" id="9_v33nq"]
 [ext_resource type="AudioStream" uid="uid://dfg2itgn13nbu" path="res://Aesthetics/Audio/SFX/Player/Footsteps/16_human_walk_stone_1.wav" id="10_o41wl"]
 [ext_resource type="Script" path="res://Scripts/Components/Audio Controllers/WeaponAudio.gd" id="11_1xnuh"]
+[ext_resource type="AudioStream" uid="uid://cdla8hf16tqfv" path="res://Aesthetics/Audio/SFX/Player/Voices/attack2.wav" id="11_e7t2a"]
 [ext_resource type="AudioStream" uid="uid://d33remjia4oc1" path="res://Aesthetics/Audio/SFX/Player/Sword Swings/07_human_atk_sword_1.wav" id="12_glkli"]
+[ext_resource type="AudioStream" uid="uid://tky2sadciuix" path="res://Aesthetics/Audio/SFX/Player/Voices/attack3.wav" id="12_ykm3s"]
+[ext_resource type="AudioStream" uid="uid://b1u7ihusdosr8" path="res://Aesthetics/Audio/SFX/Player/Body Hurt/blade_hit_08.wav" id="14_0ki75"]
 [ext_resource type="Script" path="res://Scripts/Player/PlayerUI.gd" id="15_pbqi6"]
 [ext_resource type="PackedScene" uid="uid://cvlh1usf2hwre" path="res://Content/Objects/Components/HealthBar.tscn" id="16_i6jb6"]
 [ext_resource type="PackedScene" uid="uid://cna3svtiht3b2" path="res://Content/Objects/Player/Player UI/AttackIndicators.tscn" id="17_2lead"]
@@ -857,7 +860,7 @@ WalkSpeed = 75.0
 MaxHealth = 250
 MaxStaminaActions = 3
 StaminaRefill = 2.5
-Damage = 50
+MaxDamage = 50
 AttackTime = 1.5
 AttackCooldown = 2.25
 InventoryRef = NodePath("Inventory")
@@ -935,8 +938,8 @@ one_shot = true
 [node name="BodyAudioPlayer" type="AudioStreamPlayer" parent="Audio" node_paths=PackedStringArray("Parent")]
 script = ExtResource("7_yvwfc")
 Parent = NodePath("../..")
-VoiceSFX = Array[AudioStream]([ExtResource("8_3o1p1")])
-HurtSFX = Array[AudioStream]([ExtResource("9_v33nq")])
+VoiceSFX = Array[AudioStream]([ExtResource("8_3o1p1"), ExtResource("11_e7t2a"), ExtResource("12_ykm3s")])
+HurtSFX = Array[AudioStream]([ExtResource("9_v33nq"), ExtResource("14_0ki75")])
 FootSFX = ExtResource("10_o41wl")
 
 [node name="WeaponAudioPlayer" type="AudioStreamPlayer" parent="Audio"]

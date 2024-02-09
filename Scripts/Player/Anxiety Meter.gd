@@ -44,12 +44,9 @@ func AffectWaveSpeed():
 	Meter.material.set("shader_parameter/wave_2_speed", WaveSpeed)
 
 func FillSounds():
-	match GM.Anxiety:
-		0.25:
-			print("Playing bubbles")
-		0.5:
-			print("Playing bubbles")
-		0.75:
-			print("Playing bubbles")
-		1.00:
-			print("Playing bubbles")
+	var newSFX = AudioStreamPlayer.new()
+	newSFX.stream = load("res://Aesthetics/Audio/SFX/UI/AnxietyBubbles.mp3")
+	add_child(newSFX)
+	newSFX.play()
+	await newSFX.finished
+	newSFX.queue_free()

@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://cdmcs3nd60ahh"
+path="res://.godot/imported/Steam Release Sound Effect.mp3-061e6c1d3af23e94294e70556147c501.mp3str"
+
+[deps]
+
+source_file="res://Aesthetics/Audio/SFX/UI/Steam Release Sound Effect.mp3"
+dest_files=["res://.godot/imported/Steam Release Sound Effect.mp3-061e6c1d3af23e94294e70556147c501.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

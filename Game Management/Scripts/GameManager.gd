@@ -1,7 +1,7 @@
 extends Node
 class_name GameManager
 
-signal HitNewTier(percent : float)
+signal AnxietyUpdate(percent : float)
 
 @onready var PlayerRef : Player
 @onready var Cam : MC
@@ -24,10 +24,6 @@ func _ready():
 	PlayerRef = $Player
 	Cam = $MainCamera
 	
-	PlayerRef.PlayerDied.connect(PlayerDeath)
-	PlayerRef.PlayerHit.connect(HitStop)
-	HitNewTier.connect(PlayerRef.AnxietyEffects)
-	
 	if get_child(0) is LevelController:
 		Level = get_child(0)
 	
@@ -38,31 +34,20 @@ func _ready():
 		
 	for i in Level.Destructables.size():
 		Level.Destructables[i].CallScreenShake.connect(Cam.ApplyShake)
+		
+	PlayerRef.PlayerDied.connect(PlayerDeath)
+	PlayerRef.PlayerHit.connect(HitStop)
+	AnxietyUpdate.connect(PlayerRef.AnxietyEffects)
+	Level.AllowFill.connect(StartFill)
 	
 	FillTimeInSeconds = FillTime * 60
-	StartFill()
+	
+	if GameSettings.ShouldFillAnxiety == true:
+		StartFill()
 	
 func _process(delta):
-	if SignalTimer != null && SignalTimer.is_stopped():
-		if snapped(Anxiety, 0.01) == 0.25:
-			print("Launching signal for 25%\n")
-			HitNewTier.emit(Anxiety)
-			SignalTimer.start()
-		elif snapped(Anxiety, 0.01) == 0.5:
-			print("Launching signal for 50%\n")
-			HitNewTier.emit(Anxiety)
-			SignalTimer.start()
-		elif snapped(Anxiety, 0.01) == 0.75:
-			print("Launching signal for 75%\n")
-			HitNewTier.emit(Anxiety)
-			SignalTimer.start()
-		elif snapped(Anxiety, 0.01) == 1.00:
-			print("Launching signal for 100%\n")
-			HitNewTier.emit(Anxiety)
-			SignalTimer.queue_free()
-			
-	#if Input.is_action_just_pressed("ui_accept"):
-		#StartFill()
+	var snappedAnxiety = snapped(Anxiety, 0.01)
+	AnxietyUpdate.emit(snappedAnxiety)
 
 func HitStop(EffectTime : float):
 	get_tree().paused = true
@@ -79,13 +64,20 @@ func PlayerDeath(location : Vector2):
 	get_tree().reload_current_scene()
 
 func StartFill():
+	var newSFX = AudioStreamPlayer.new()
+	newSFX.stream = load("res://Aesthetics/Audio/SFX/UI/AnxietyRelease.mp3")
+	newSFX.volume_db = -10
+	add_child(newSFX)
+	newSFX.play()
+	
 	ElapsedTime = 0
 	FillTimeInSeconds = FillTime * 60
-	print("Fill Time in Seconds: " + str(FillTimeInSeconds))
 	FillTween = get_tree().create_tween()
 	print("\nStarting Anxiety fill: " + str(Anxiety) + " will be 100% in: " + str(FillTimeInSeconds) + " seconds / " + str(FillTime) + " minutes")
 	$Timer.start(1.0)
 	FillTween.tween_property(self, "Anxiety", 1.00, FillTimeInSeconds)
+	await newSFX.finished
+	newSFX.queue_free()
 
 func RestartAnxietyFill(time : float, amount : float):
 	$Timer.stop()
@@ -100,9 +92,8 @@ func RestartAnxietyFill(time : float, amount : float):
 		var newTime : float = FillTime * (1.0 - Anxiety)
 		FillTime = newTime
 		
-	HitNewTier.emit(Anxiety)
+	AnxietyUpdate.emit(Anxiety)
 	StartFill()
-
 
 func _on_timer_timeout():
 	ElapsedTime += 1

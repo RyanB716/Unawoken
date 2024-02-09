@@ -1,6 +1,8 @@
 extends Node2D
 class_name LevelController
 
+signal AllowFill()
+
 @onready var GM : GameManager = get_parent()
 
 var Destructables : Array[DestructableObject]
@@ -14,7 +16,7 @@ func _ready():
 			
 	for i in $Enemies.get_child_count():
 		if $Enemies.get_child(i) is BasicEnemy:
-			GM.HitNewTier.connect($Enemies.get_child(i).AnxietyEffect)
+			GM.AnxietyUpdate.connect($Enemies.get_child(i).AnxietyEffect)
 			Enemies.append($Enemies.get_child(i))
 
 func _process(_delta):
@@ -23,3 +25,9 @@ func _process(_delta):
 		
 	if !$"Audio/Ambient Audio 2".playing:
 		$"Audio/Ambient Audio 2".play()
+
+func _on_anxiety_trigger_body_entered(body):
+	if body is Player:
+		if GameSettings.ShouldFillAnxiety == false:
+			GameSettings.ShouldFillAnxiety = true
+			AllowFill.emit()

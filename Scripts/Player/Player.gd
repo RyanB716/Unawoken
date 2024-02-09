@@ -21,7 +21,8 @@ var CurrentStamina : int
 @export var StaminaRefill : float
 
 @export_category("Attack Stats")
-@export var Damage : int
+@export var MaxDamage : int
+var CurrentDamage : int
 @export var AttackTime : float
 @export var AttackCooldown : float
 @export var MaxAttackNumber : int = 4
@@ -65,6 +66,8 @@ func _ready():
 	AnimState = AnimTree.get("parameters/playback")
 	
 	CurrentState = eStates.NoAction
+	
+	CurrentDamage = MaxDamage
 	
 func _process(_delta):
 	if CurrentState == eStates.Dead:
@@ -128,9 +131,14 @@ func Move():
 			AnimState.travel("Idle")
 			
 func AnxietyEffects(percent : float):
+	if percent >= 0.50:
+		UI.AttackIndicatorBox.visible = false
 	if percent >= 0.75:
-		Damage = Damage * 0.75
 		UI.StaminaIndicatorBox.visible = false
+	if percent >= 0.85:
+		CurrentDamage = MaxDamage * 0.85
+	if percent >= 1.00:
+		CurrentDamage = MaxDamage * 0.70
 		
 func Attack():
 	if CurrentState == eStates.Attacking or AttackIndex > MaxAttackNumber:
@@ -186,6 +194,7 @@ func ReduceStamina(Amount : int):
 func TakeDamage(Amount : int):
 	PlayerHit.emit(0.25)
 	CurrentHealth -= Amount
+	BodyAudio.PlayHitSFX()
 	if CurrentHealth <= 0:
 		Die()
 

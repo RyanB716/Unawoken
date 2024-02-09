@@ -48,6 +48,11 @@ func _process(_delta):
 	var eTimeSeconds = fmod(player.GM.ElapsedTime, 60)
 	AnxMeter.text = "Elapsed Time: " + "%02d:%02d" % [eTimeInMinutes, eTimeSeconds]
 	
+	if GameSettings.ShouldFillAnxiety == true:
+		$"Main UI/AnxietyMeter".visible = true
+	else:
+		$"Main UI/AnxietyMeter".visible = false
+	
 func UpdateAttackIcons(Amount : int):
 	for i in AttackIndicatorBox.get_child_count():
 		AttackIndicatorBox.get_child(i).queue_free()

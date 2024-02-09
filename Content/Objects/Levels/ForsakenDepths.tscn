@@ -1,4 +1,4 @@
-[gd_scene load_steps=22 format=3 uid="uid://c4oy4c3d46qb4"]
+[gd_scene load_steps=23 format=3 uid="uid://c4oy4c3d46qb4"]
 
 [ext_resource type="Texture2D" uid="uid://dij84ijwq0tae" path="res://Aesthetics/TileSets/Forsaken Depths/Tiles.png" id="1_ocd84"]
 [ext_resource type="Script" path="res://Scripts/Level Controllers/ForsakenDepths.gd" id="1_u4b3h"]
@@ -1541,6 +1541,9 @@ script = ExtResource("12_upbej")
 Item = ExtResource("14_8ctq4")
 AmountToGive = 3
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ovct4"]
+size = Vector2(34, 34)
+
 [node name="Forsaken Depths" type="Node2D"]
 process_mode = 1
 script = ExtResource("1_u4b3h")
@@ -1730,6 +1733,15 @@ position = Vector2(194, 124)
 
 [node name="Eye4" parent="Enemies" instance=ExtResource("17_hug4x")]
 position = Vector2(83, 186)
+
+[node name="Anxiety Trigger" type="Area2D" parent="."]
+position = Vector2(-597, 409)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Anxiety Trigger"]
+position = Vector2(5, -6)
+shape = SubResource("RectangleShape2D_ovct4")
+
+[connection signal="body_entered" from="Anxiety Trigger" to="." method="_on_anxiety_trigger_body_entered"]
 
 [editable path="1st Note"]
 [editable path="Prayer Note"]

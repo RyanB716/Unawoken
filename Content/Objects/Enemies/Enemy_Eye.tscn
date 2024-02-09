@@ -1,9 +1,12 @@
-[gd_scene load_steps=9 format=3 uid="uid://cd4u8ky38vqh1"]
+[gd_scene load_steps=12 format=3 uid="uid://cd4u8ky38vqh1"]
 
 [ext_resource type="Script" path="res://Scripts/Enemy Controllers/Enemy_Eye.gd" id="1_pkwis"]
 [ext_resource type="PackedScene" uid="uid://dkdkwarkfnals" path="res://Content/Objects/Projectiles/EyeGunk.tscn" id="2_hseai"]
 [ext_resource type="Texture2D" uid="uid://cpfja0f2bda0u" path="res://Aesthetics/Sprites/Enemies/Eye/Grassa Cornea Draft 1.png" id="3_6i2k5"]
 [ext_resource type="PackedScene" uid="uid://cvn673tlhbnmt" path="res://Content/Objects/Components/Hitbox.tscn" id="3_wdu5u"]
+[ext_resource type="Script" path="res://Scripts/Components/Audio Controllers/BodyAudioPlayer.gd" id="5_pkod6"]
+[ext_resource type="AudioStream" uid="uid://dlnsrugki0emv" path="res://Aesthetics/Audio/SFX/Player/Body Hurt/blade_hit_07.wav" id="6_qmpcb"]
+[ext_resource type="AudioStream" uid="uid://b1u7ihusdosr8" path="res://Aesthetics/Audio/SFX/Player/Body Hurt/blade_hit_08.wav" id="7_u585c"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_qpu4u"]
 bg_color = Color(1, 1, 1, 1)
@@ -20,7 +23,7 @@ height = 22.0
 radius = 9.0
 height = 24.0
 
-[node name="Eye" type="CharacterBody2D" node_paths=PackedStringArray("ChangeTimer", "ShootTimer", "HitBox", "HealthBar")]
+[node name="Eye" type="CharacterBody2D" node_paths=PackedStringArray("ChangeTimer", "ShootTimer", "HitBox", "HealthBar", "BodySFX")]
 collision_layer = 2
 collision_mask = 4
 script = ExtResource("1_pkwis")
@@ -38,6 +41,7 @@ DisengagementRange = 150.0
 AttackRange = 75.0
 HitBox = NodePath("HitBox")
 HealthBar = NodePath("Health Bar")
+BodySFX = NodePath("BodyAudioPlayer")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture_filter = 1
@@ -93,6 +97,11 @@ one_shot = true
 
 [node name="Shoot Timer" type="Timer" parent="."]
 one_shot = true
+
+[node name="BodyAudioPlayer" type="AudioStreamPlayer" parent="." node_paths=PackedStringArray("Parent")]
+script = ExtResource("5_pkod6")
+Parent = NodePath("..")
+HurtSFX = Array[AudioStream]([ExtResource("6_qmpcb"), ExtResource("7_u585c")])
 
 [connection signal="timeout" from="Change Timer" to="." method="ChangeState"]
 
