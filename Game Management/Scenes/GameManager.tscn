@@ -9,7 +9,7 @@
 process_mode = 3
 process_priority = -1
 script = ExtResource("1_gdgan")
-FillTime = 3.0
+FillTime = 2.5
 
 [node name="Forsaken Depths" parent="." instance=ExtResource("1_1m60y")]
 
@@ -24,3 +24,7 @@ position = Vector2(-667, 517)
 
 [node name="Signal Timer" type="Timer" parent="."]
 one_shot = true
+
+[node name="Timer" type="Timer" parent="."]
+
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

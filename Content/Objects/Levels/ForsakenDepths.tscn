@@ -1,4 +1,4 @@
-[gd_scene load_steps=21 format=3 uid="uid://c4oy4c3d46qb4"]
+[gd_scene load_steps=22 format=3 uid="uid://c4oy4c3d46qb4"]
 
 [ext_resource type="Texture2D" uid="uid://dij84ijwq0tae" path="res://Aesthetics/TileSets/Forsaken Depths/Tiles.png" id="1_ocd84"]
 [ext_resource type="Script" path="res://Scripts/Level Controllers/ForsakenDepths.gd" id="1_u4b3h"]
@@ -7,6 +7,7 @@
 [ext_resource type="AudioStream" uid="uid://dp5kawtmj2jip" path="res://Aesthetics/Audio/SFX/Ambient Tracks/Forsaken Depths/Ambiance_Cave_Drips_Loop_Stereo.wav" id="5_ucqvd"]
 [ext_resource type="PackedScene" uid="uid://bkee3pqvgv4x1" path="res://Content/Objects/Items/Destructables/Pot.tscn" id="7_auceg"]
 [ext_resource type="PackedScene" uid="uid://wvlasq770v6g" path="res://Content/Objects/Items/Interactables/Statue.tscn" id="9_kcsy4"]
+[ext_resource type="Resource" uid="uid://xcxif0nh2xr1" path="res://Content/Resources/Usable Items/LiteElixir.tres" id="9_y2gjn"]
 [ext_resource type="PackedScene" uid="uid://jxarx6uqoibj" path="res://Content/Objects/Items/Interactables/Note_Object.tscn" id="10_clkcy"]
 [ext_resource type="Script" path="res://Scripts/Abstractions/Inventory/ItemDropResource.gd" id="12_upbej"]
 [ext_resource type="Resource" uid="uid://djo5mayfmsoct" path="res://Content/Resources/Usable Items/MedElixir.tres" id="13_0vicu"]
@@ -1527,8 +1528,8 @@ sources/1 = SubResource("TileSetAtlasSource_wk6tw")
 
 [sub_resource type="Resource" id="Resource_js2pr"]
 script = ExtResource("12_upbej")
-Item = ExtResource("14_8ctq4")
-AmountToGive = 10
+Item = ExtResource("9_y2gjn")
+AmountToGive = 1
 
 [sub_resource type="Resource" id="Resource_jdsly"]
 script = ExtResource("12_upbej")
@@ -1538,7 +1539,7 @@ AmountToGive = 1
 [sub_resource type="Resource" id="Resource_5qq0n"]
 script = ExtResource("12_upbej")
 Item = ExtResource("14_8ctq4")
-AmountToGive = 10
+AmountToGive = 3
 
 [node name="Forsaken Depths" type="Node2D"]
 process_mode = 1

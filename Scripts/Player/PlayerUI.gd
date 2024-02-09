@@ -43,8 +43,10 @@ func _process(_delta):
 			InventoryItem.eItemTypes.Powder:
 				PowderGUI.Border.visible = true
 				ElixirGUI.Border.visible = false
-				
-	AnxMeter.text = "Time: " + str((player.GM.ElapsedTime))
+	
+	var eTimeInMinutes = player.GM.ElapsedTime / 60
+	var eTimeSeconds = fmod(player.GM.ElapsedTime, 60)
+	AnxMeter.text = "Elapsed Time: " + "%02d:%02d" % [eTimeInMinutes, eTimeSeconds]
 	
 func UpdateAttackIcons(Amount : int):
 	for i in AttackIndicatorBox.get_child_count():

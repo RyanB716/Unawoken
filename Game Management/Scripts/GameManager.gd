@@ -79,16 +79,17 @@ func PlayerDeath(location : Vector2):
 	get_tree().reload_current_scene()
 
 func StartFill():
+	ElapsedTime = 0
 	FillTimeInSeconds = FillTime * 60
+	print("Fill Time in Seconds: " + str(FillTimeInSeconds))
 	FillTween = get_tree().create_tween()
 	print("\nStarting Anxiety fill: " + str(Anxiety) + " will be 100% in: " + str(FillTimeInSeconds) + " seconds / " + str(FillTime) + " minutes")
+	$Timer.start(1.0)
 	FillTween.tween_property(self, "Anxiety", 1.00, FillTimeInSeconds)
 
 func RestartAnxietyFill(time : float, amount : float):
+	$Timer.stop()
 	FillTween.stop()
-	FillTimeInSeconds = FillTime * 60
-	
-	print(Anxiety)
 	
 	amount *= 0.01
 	if Anxiety - amount <= 0.0:
@@ -96,9 +97,12 @@ func RestartAnxietyFill(time : float, amount : float):
 	else:
 		Anxiety -= amount
 		
-		var PercentOfTimeLeft = 1.0 - Anxiety
-		var newTime = (FillTime * 60) * PercentOfTimeLeft
-		print(newTime)
+		var newTime : float = FillTime * (1.0 - Anxiety)
+		FillTime = newTime
 		
 	HitNewTier.emit(Anxiety)
 	StartFill()
+
+
+func _on_timer_timeout():
+	ElapsedTime += 1
