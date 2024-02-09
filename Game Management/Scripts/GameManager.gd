@@ -26,6 +26,7 @@ func _ready():
 	
 	PlayerRef.PlayerDied.connect(PlayerDeath)
 	PlayerRef.PlayerHit.connect(HitStop)
+	HitNewTier.connect(PlayerRef.AnxietyEffects)
 	
 	if get_child(0) is LevelController:
 		Level = get_child(0)
@@ -38,29 +39,30 @@ func _ready():
 	for i in Level.Destructables.size():
 		Level.Destructables[i].CallScreenShake.connect(Cam.ApplyShake)
 	
-	FillTimeInSeconds = snapped((FillTime * 60), 0.01)
+	FillTimeInSeconds = FillTime * 60
 	StartFill()
 	
 func _process(delta):
-	Anxiety = snapped(Anxiety, 0.01)
-	
 	if SignalTimer != null && SignalTimer.is_stopped():
-		if Anxiety == 0.25:
+		if snapped(Anxiety, 0.01) == 0.25:
 			print("Launching signal for 25%\n")
 			HitNewTier.emit(Anxiety)
 			SignalTimer.start()
-		elif Anxiety == 0.5:
+		elif snapped(Anxiety, 0.01) == 0.5:
 			print("Launching signal for 50%\n")
 			HitNewTier.emit(Anxiety)
 			SignalTimer.start()
-		elif Anxiety == 0.75:
+		elif snapped(Anxiety, 0.01) == 0.75:
 			print("Launching signal for 75%\n")
 			HitNewTier.emit(Anxiety)
 			SignalTimer.start()
-		elif Anxiety == 1.00:
+		elif snapped(Anxiety, 0.01) == 1.00:
 			print("Launching signal for 100%\n")
 			HitNewTier.emit(Anxiety)
 			SignalTimer.queue_free()
+			
+	#if Input.is_action_just_pressed("ui_accept"):
+		#StartFill()
 
 func HitStop(EffectTime : float):
 	get_tree().paused = true
@@ -77,25 +79,26 @@ func PlayerDeath(location : Vector2):
 	get_tree().reload_current_scene()
 
 func StartFill():
-	TimeTween = get_tree().create_tween()
+	FillTimeInSeconds = FillTime * 60
 	FillTween = get_tree().create_tween()
-	print("\nStarting Anxiety fill: " + str(Anxiety) + " will be 100% in: " + str(FillTimeInSeconds) + " seconds / " + str(snapped(FillTime, 0.01)) + " minutes")
-	FillTween.tween_property(self, "Anxiety", 1, FillTimeInSeconds)
-	TimeTween.tween_property(self, "FillTimeInSeconds", 0, FillTime)
+	print("\nStarting Anxiety fill: " + str(Anxiety) + " will be 100% in: " + str(FillTimeInSeconds) + " seconds / " + str(FillTime) + " minutes")
+	FillTween.tween_property(self, "Anxiety", 1.00, FillTimeInSeconds)
 
 func RestartAnxietyFill(time : float, amount : float):
 	FillTween.stop()
-	TimeTween.stop()
+	FillTimeInSeconds = FillTime * 60
+	
+	print(Anxiety)
+	
 	amount *= 0.01
 	if Anxiety - amount <= 0.0:
 		Anxiety = 0
 	else:
 		Anxiety -= amount
-	print("Anxiety: " + str(Anxiety))
-	var FillPercentage : float = snapped((Anxiety / 1.00), 0.01)
-	var NewTime : float = FillTime - (FillTime * FillPercentage)
-	print("Fill: " + str(FillPercentage) + " // New Time: Seconds: " + str(NewTime * 60) + " Minutes: " + str(NewTime))
-	FillTime = NewTime
-	FillTimeInSeconds = NewTime * 60
+		
+		var PercentOfTimeLeft = 1.0 - Anxiety
+		var newTime = (FillTime * 60) * PercentOfTimeLeft
+		print(newTime)
+		
 	HitNewTier.emit(Anxiety)
 	StartFill()

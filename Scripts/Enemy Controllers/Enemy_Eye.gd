@@ -2,7 +2,19 @@ extends ShooterEnemy
 class_name Eye
 
 func TestHealth():
-	$"Health Bar/Label".text = (str(CurrentHealth) + "/" + str(MaxHealth))
+	match MaxHealth:
+		125:
+			$"Health Bar/Label".visible = false
+			#$"Health Bar/Label".text = "+0"
+		150:
+			$"Health Bar/Label".visible = true
+			$"Health Bar/Label".text = "+25"
+		175:
+			$"Health Bar/Label".text = "+50"
+		200:
+			$"Health Bar/Label".text = "+75"
+		250:
+			$"Health Bar/Label".text = "+125"
 
 func AnxietyEffect(percent : float):
 	#print("Percent: " + str(percent))

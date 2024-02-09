@@ -7,6 +7,7 @@
 
 [node name="GameManager" type="Node" groups=["GameManager"]]
 process_mode = 3
+process_priority = -1
 script = ExtResource("1_gdgan")
 FillTime = 3.0
 

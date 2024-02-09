@@ -126,6 +126,11 @@ func Move():
 		CurrentSpeed = 0
 		if CurrentState == eStates.NoAction:
 			AnimState.travel("Idle")
+			
+func AnxietyEffects(percent : float):
+	if percent >= 0.75:
+		Damage = Damage * 0.75
+		UI.StaminaIndicatorBox.visible = false
 		
 func Attack():
 	if CurrentState == eStates.Attacking or AttackIndex > MaxAttackNumber:
