@@ -1025,7 +1025,6 @@ layout_mode = 2
 layout_mode = 2
 
 [node name="Anxiety DEBUG" type="Label" parent="UI/Main UI"]
-visible = false
 layout_mode = 0
 offset_left = 25.0
 offset_top = 305.0

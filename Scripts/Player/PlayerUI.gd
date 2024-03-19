@@ -44,9 +44,7 @@ func _process(_delta):
 				PowderGUI.Border.visible = true
 				ElixirGUI.Border.visible = false
 	
-	var eTimeInMinutes = player.GM.ElapsedTime / 60
-	var eTimeSeconds = fmod(player.GM.ElapsedTime, 60)
-	AnxMeter.text = "Elapsed Time: " + "%02d:%02d" % [eTimeInMinutes, eTimeSeconds]
+	AnxMeter.text = "Anxiety: " + str(snapped(player.GM.Anxiety, 0.01))
 	
 	if GameSettings.ShouldFillAnxiety == true:
 		$"Main UI/AnxietyMeter".visible = true
