@@ -15,6 +15,7 @@ class_name PlayerUI
 @export var ElixirGUI : ItemGUI
 @export var StatueMenu : Statue_Menu
 @export var Shop : ShopMenu
+#var iniinv : InventoryItem
 
 func _ready():
 	player = get_parent()
@@ -22,18 +23,23 @@ func _ready():
 
 func _process(_delta):
 	HealthBar.value = player.CurrentHealth
-	CoinLabel.text = ("$" + str(inventory.Coins))
-	
-	if !inventory.Elixirs.is_empty():
-		ElixirGUI.DisplayItem(inventory.Elixirs[inventory.ElixirIndex])
+	CoinLabel.text = ("$" + str(inventory.Coins))	
+	#print("ths is iniinv " + str(iniinv.Name))
+		
+	if inventory.Elixirs > 0:
+		
+		if (inventory.inventoyMap[InventoryItem.eItemTypes.Elixir]["Lite Elixir"]).AmountHeld > 0:
+			ElixirGUI.DisplayItem(inventory.inventoyMap[InventoryItem.eItemTypes.Elixir]["Lite Elixir"])
+		else:
+			ElixirGUI.DisplayItem(inventory.inventoyMap[InventoryItem.eItemTypes.Elixir]["Mild Elixir"])
 	else:
 		ElixirGUI.visible = false
 		
-	if !inventory.Powders.is_empty():
-		PowderGUI.DisplayItem(inventory.Powders[inventory.PowderIndex])
+	if inventory.Powders > 0:
+		PowderGUI.DisplayItem(inventory.inventoyMap[InventoryItem.eItemTypes.Powder]["Azalea Powder"])
 	else:
 		PowderGUI.visible = false
-	
+	#
 	if inventory.CurrentItem != null:
 		match inventory.CurrentItem.ItemType:
 			InventoryItem.eItemTypes.Elixir:
@@ -43,8 +49,10 @@ func _process(_delta):
 			InventoryItem.eItemTypes.Powder:
 				PowderGUI.Border.visible = true
 				ElixirGUI.Border.visible = false
-	
-	AnxMeter.text = "Anxiety: " + str(snapped(player.GM.Anxiety, 0.01))
+	#
+	var eTimeInMinutes = player.GM.ElapsedTime / 60
+	var eTimeSeconds = fmod(player.GM.ElapsedTime, 60)
+	AnxMeter.text = "Elapsed Time: " + "%02d:%02d" % [eTimeInMinutes, eTimeSeconds]
 	
 	if GameSettings.ShouldFillAnxiety == true:
 		$"Main UI/AnxietyMeter".visible = true

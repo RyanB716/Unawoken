@@ -5,7 +5,9 @@ class_name DestructableObject
 
 @export_category("Data Variables")
 @export var NeededHits : int
+
 @export var ItemDrops : Array[ItemDrop]
+
 @export var Min_CoinAmount : int
 @export var Max_CoinAmount : int
 var CoinAmount : int
@@ -19,9 +21,11 @@ var CoinAmount : int
 @onready var Area = self.get_child(0)
 @onready var RNG = RandomNumberGenerator.new()
 
+
 signal CallScreenShake(Strength : float, Duration : float)
 
 func _ready():
+	
 	RNG.randomize()
 	CoinAmount = RNG.randi_range(Min_CoinAmount, Max_CoinAmount)
 	
@@ -73,10 +77,11 @@ func PlayBreakSFX():
 	await NewPlayer.finished
 
 func GiveItems():
+		
 	if ItemDrops.size() >= 1:
 		for i in ItemDrops.size():
-			var newItem : ItemPickup = PickupScene.instantiate()
-			newItem.resource = ItemDrops[i].Item
+			var newItem : ItemPickup = PickupScene.instantiate()			
+			newItem.res = ItemDrops[i].Item
 			newItem.Amount = ItemDrops[i].AmountToGive
 			get_tree().current_scene.call_deferred("add_child", newItem)
 			newItem.position = self.position
