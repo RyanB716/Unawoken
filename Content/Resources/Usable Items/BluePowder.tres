@@ -15,4 +15,4 @@ Name = "Azalea Powder"
 ItemType = 1
 Icon = SubResource("AtlasTexture_k77m5")
 Description = "A coarse and rough dried extract powder."
-AmountHeld = 3
+AmountHeld = 0

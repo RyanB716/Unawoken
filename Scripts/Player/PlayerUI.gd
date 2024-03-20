@@ -15,6 +15,7 @@ class_name PlayerUI
 @export var ElixirGUI : ItemGUI
 @export var StatueMenu : Statue_Menu
 @export var Shop : ShopMenu
+
 #var iniinv : InventoryItem
 
 func _ready():
@@ -26,17 +27,21 @@ func _process(_delta):
 	CoinLabel.text = ("$" + str(inventory.Coins))	
 	#print("ths is iniinv " + str(iniinv.Name))
 		
-	if inventory.Elixirs > 0:
-		
-		if (inventory.inventoyMap[InventoryItem.eItemTypes.Elixir]["Lite Elixir"]).AmountHeld > 0:
+	if inventory.Elixirs > 0 :
+		if inventory.ElixerEquiped == inventory.inventoyMap[InventoryItem.eItemTypes.Elixir]["Lite Elixir"]:
+			
+		#if (inventory.inventoyMap[InventoryItem.eItemTypes.Elixir]["Lite Elixir"]).AmountHeld > 0:
 			ElixirGUI.DisplayItem(inventory.inventoyMap[InventoryItem.eItemTypes.Elixir]["Lite Elixir"])
-		else:
+		if inventory.ElixerEquiped == inventory.inventoyMap[InventoryItem.eItemTypes.Elixir]["Mild Elixir"]:
+		#else:
 			ElixirGUI.DisplayItem(inventory.inventoyMap[InventoryItem.eItemTypes.Elixir]["Mild Elixir"])
+					
 	else:
 		ElixirGUI.visible = false
 		
-	if inventory.Powders > 0:
-		PowderGUI.DisplayItem(inventory.inventoyMap[InventoryItem.eItemTypes.Powder]["Azalea Powder"])
+	if inventory.Powders > 0 :
+		if inventory.PowerEquiped == inventory.inventoyMap[InventoryItem.eItemTypes.Powder]["Azalea Powder"]:
+			PowderGUI.DisplayItem(inventory.inventoyMap[InventoryItem.eItemTypes.Powder]["Azalea Powder"])
 	else:
 		PowderGUI.visible = false
 	#

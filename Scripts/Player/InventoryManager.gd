@@ -16,6 +16,8 @@ var Coins : int
 @onready var player : Player = get_parent()
 @onready var InvSFX : InventoryAudio = $InventoryAudio
 
+@export var ElixerEquiped : Elixir
+@export var PowerEquiped : Powder
 
 func _ready():
 	inventoyMap = InventoryData.InventoryStorage
@@ -36,21 +38,21 @@ func _process(_delta):
 func AddItem(item : InventoryItem, amount : int):
 	#Key : InventoryItem Name   Value : InventoryItem Object
 	
-	match item.ItemType:
+	match inventoyMap[item.ItemType][item.Name].ItemType:
 		InventoryItem.eItemTypes.Elixir:
-			if !item.Heal.is_connected(player.RegainHealth):
-				item.Heal.connect(player.RegainHealth)
-			AddItemDelegate(item, amount)
-			if Powders <= 0:
-				CycleElixir()
+			if !inventoyMap[item.ItemType][item.Name].Heal.is_connected(player.RegainHealth):
+				inventoyMap[item.ItemType][item.Name].Heal.connect(player.RegainHealth)
+			AddItemDelegate(inventoyMap[item.ItemType][item.Name], amount)
+			#if Powders <= 0:
+				#CycleElixir()
 				
 		InventoryItem.eItemTypes.Powder:
-			if !item.UpdateAnxiety.is_connected(player.GM.RestartAnxietyFill):
-				item.UpdateAnxiety.connect(player.GM.RestartAnxietyFill)
-			AddItemDelegate(item, amount)
+			if !inventoyMap[item.ItemType][item.Name].UpdateAnxiety.is_connected(player.GM.RestartAnxietyFill):
+				inventoyMap[item.ItemType][item.Name].UpdateAnxiety.connect(player.GM.RestartAnxietyFill)
+			AddItemDelegate(inventoyMap[item.ItemType][item.Name], amount)
 			print("AddItemDelegate" + str(inventoyMap[item.ItemType]))
-			if Elixirs <= 0:
-				CyclePowder()
+			#if Elixirs <= 0:
+				#CyclePowder()
 				
 		InventoryItem.eItemTypes.Key:
 			pass
@@ -60,20 +62,29 @@ func AddItem(item : InventoryItem, amount : int):
 func AddItemDelegate(_item : InventoryItem,  amount : int):
 	
 	inventoyMap[_item.ItemType][_item.Name].AmountHeld += amount
-	if _item.ItemType == InventoryItem.eItemTypes.Elixir :
-		Elixirs += amount
-	else:
-		Powders += amount
-		
-	if CurrentItem == null:
-		CurrentItem = _item
+	match _item.ItemType:
+		InventoryItem.eItemTypes.Elixir :
+			Elixirs += amount
+			
+			if CurrentItem == null: 
+				CurrentItem = inventoyMap[_item.ItemType][_item.Name]
+			if ElixerEquiped == null:
+				ElixerEquiped = inventoyMap[_item.ItemType][_item.Name]
+		InventoryItem.eItemTypes.Powder :
+			Powders += amount
+			
+			if CurrentItem == null:
+				CurrentItem = inventoyMap[_item.ItemType][_item.Name]
+			if PowerEquiped == null:
+				PowerEquiped = inventoyMap[_item.ItemType][_item.Name]
+	
 #Uses the current item
 func UseCurrentItem():
 	match CurrentItem.ItemType:
 		InventoryItem.eItemTypes.Elixir:
 			if player.CurrentHealth < player.MaxHealth && player.IsHealing == false:
 				CurrentItem.UseItem()
-				Elixirs += -1
+				Elixirs -= 1
 				InvSFX.PlaySFX(CurrentItem.UseSFX)
 				
 				if CurrentItem.AmountHeld <= 0:
@@ -81,7 +92,7 @@ func UseCurrentItem():
 		
 		InventoryItem.eItemTypes.Powder:
 			CurrentItem.UseItem()
-			Powders += -1
+			Powders -= 1
 			InvSFX.PlaySFX(CurrentItem.UseSFX)
 			
 			if CurrentItem.AmountHeld <= 0:
@@ -94,24 +105,31 @@ func RemoveItem(item : InventoryItem):
 		InventoryItem.eItemTypes.Elixir:
 			if Elixirs > 0:
 				for i in inventoyMap[InventoryItem.eItemTypes.Elixir]:
-					if i.AmountHeld > 0:
-						CurrentItem = i
+					if inventoyMap[InventoryItem.eItemTypes.Elixir][i].AmountHeld > 0:
+						CurrentItem = inventoyMap[InventoryItem.eItemTypes.Elixir][i]
+						ElixerEquiped = CurrentItem
 						break
 			elif Powders > 0:
 				for i in inventoyMap[InventoryItem.eItemTypes.Powder]:
-					if i.AmountHeld > 0:
-						CurrentItem = i
+					if inventoyMap[InventoryItem.eItemTypes.Powder][i].AmountHeld > 0:
+						CurrentItem = inventoyMap[InventoryItem.eItemTypes.Powder][i]
+						ElixerEquiped = null
+						PowerEquiped = CurrentItem
 						break
 			else:
 				CurrentItem = null
+				ElixerEquiped = null
 				
 		InventoryItem.eItemTypes.Powder:
 			if Elixirs > 0 && Powders <= 0:
 				for i in inventoyMap[InventoryItem.eItemTypes.Elixir]:
 					if i.AmountHeld > 0:
-						CurrentItem = i
+						CurrentItem = inventoyMap[InventoryItem.eItemTypes.Elixir][i]
+						ElixerEquiped = CurrentItem
 						break
 			else:
+				ElixerEquiped = null
+				PowerEquiped = null
 				CurrentItem = null
 
 #Cycles the Elixir inventory upward
@@ -121,18 +139,23 @@ func CycleElixir():
 		print("Equipping Elixir!")		
 		var temp = FirstHeld(inventoyMap[InventoryItem.eItemTypes.Elixir])
 		CurrentItem = temp
+		ElixerEquiped = CurrentItem
 		
 	else:
-		print("Cycling Elixirs...")
+		
 		match CurrentItem.Name:
 			"Lite Elixir":
 				#ElixirIndex = newIndex
-				CurrentItem = inventoyMap[CurrentItem.ItemType]["Mild Elixir"]
-			
+				if inventoyMap[InventoryItem.eItemTypes.Elixir]["Mild Elixir"].AmountHeld > 0:
+					print("Cycling Elixirs...")
+					CurrentItem = inventoyMap[InventoryItem.eItemTypes.Elixir]["Mild Elixir"]
+					ElixerEquiped = CurrentItem
 			"Mild Elixir":
 				#PowderIndex = newIndex
-				CurrentItem = inventoyMap[CurrentItem.ItemType]["Lite Elixir"]
-		
+				if inventoyMap[InventoryItem.eItemTypes.Elixir]["Lite Elixir"].AmountHeld > 0:
+					print("Cycling Elixirs...")
+					CurrentItem = inventoyMap[InventoryItem.eItemTypes.Elixir]["Lite Elixir"]
+					ElixerEquiped = CurrentItem
 	
 	#if !CurrentItem is Elixir && inventoyMap.values().has(Elixir): #!= null:
 	#	
@@ -154,8 +177,11 @@ func CyclePowder():
 		if !CurrentItem is Powder: #&& Powders >= 1:
 			print("Equipping Powder!")
 			CurrentItem = inventoyMap[InventoryItem.eItemTypes.Powder]["Azalea Powder"]
+			PowerEquiped = CurrentItem
 		else:
 			print("Cycling Powders...")
+			#CurrentItem = 
+			#PowerEquiped = CurrentItem
 			#TODO: actually make it cycle whem more powders are created
 	
 	#if !CurrentItem is Powder:
