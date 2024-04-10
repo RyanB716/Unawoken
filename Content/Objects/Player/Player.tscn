@@ -31,8 +31,7 @@
 
 [sub_resource type="Resource" id="Resource_veymq"]
 script = ExtResource("3_pgg20")
-ElixirsArray = Array[Resource("res://Scripts/Abstractions/Inventory/Items/ElixirResource.gd")]([])
-PowdersArray = Array[Resource("res://Scripts/Abstractions/Inventory/Items/PowderResource.gd")]([])
+InventoryStorage = {}
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_8v8gj"]
 size = Vector2(9.5, 4)
