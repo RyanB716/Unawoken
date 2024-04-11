@@ -953,7 +953,7 @@ script = ExtResource("1_18da1")
 WalkSpeed = 75.0
 MaxHealth = 250
 MaxStaminaActions = 3
-StaminaRefill = 2.5
+StaminaRefill = 3.5
 MaxDamage = 50
 AttackTime = 1.5
 AttackCooldown = 2.25
@@ -992,7 +992,7 @@ position = Vector2(0, 2)
 shape = SubResource("RectangleShape2D_8v8gj")
 
 [node name="Shield" type="Area2D" parent="."]
-position = Vector2(0.5, -7.5)
+position = Vector2(0.2, -7)
 script = ExtResource("7_6r544")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Shield"]
@@ -1187,6 +1187,7 @@ visible = false
 [node name="ShopPanel" parent="UI" instance=ExtResource("20_y22ny")]
 visible = false
 
+[connection signal="area_entered" from="Shield" to="Shield" method="OnHit"]
 [connection signal="timeout" from="Timers/AttackTimer" to="." method="ResetAttackIndex"]
 
 [editable path="Hitbox"]

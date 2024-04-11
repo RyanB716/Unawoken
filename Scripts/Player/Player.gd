@@ -63,6 +63,7 @@ func _ready():
 		Shield.Sprite.visible = false
 	
 	Shield.Disable()
+	Shield.AttackBlocked.connect(BlockAttack)
 	
 	CurrentHealth = MaxHealth
 	CurrentStamina = MaxStaminaActions
@@ -209,6 +210,9 @@ func ReduceStamina(Amount : int):
 	await get_tree().create_timer(StaminaRefill).timeout
 	CurrentStamina += 1
 	UI.RefillStaminaIcons(CurrentStamina)
+	
+func BlockAttack():
+	ReduceStamina(1)
 
 func TakeDamage(Amount : int):
 	PlayerHit.emit(0.25)

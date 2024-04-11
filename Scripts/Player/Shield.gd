@@ -1,6 +1,8 @@
 extends Area2D
 class_name ShieldController
 
+signal AttackBlocked()
+
 @onready var Collider : CollisionShape2D
 @onready var Anim : AnimationPlayer
 @onready var Sprite : Sprite2D
@@ -21,3 +23,8 @@ func Disable():
 	if Collider.disabled == false:
 		Collider.disabled = true
 		Anim.play("Disable")
+
+func OnHit(hurtbox : Area2D):
+	if hurtbox is Hurt_Box:
+		print("Successful Block!")
+		AttackBlocked.emit()
