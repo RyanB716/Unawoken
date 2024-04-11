@@ -7,6 +7,7 @@ extends Area2D
 class_name Hit_Box
 
 @onready var Parent : Node2D
+@onready var Collider : CollisionShape2D = get_child(0)
 
 signal HitRecieved(amount : int)
 

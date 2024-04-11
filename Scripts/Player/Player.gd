@@ -9,7 +9,7 @@ class_name Player
 signal PlayerDied(pos : Vector2)
 signal PlayerHit(dur : float)
 
-enum eStates {NoAction, Guarding, Attacking, AttackCooldown, GuardCooldown, InMenu, Dead}
+enum eStates {NoAction, Blocking, Attacking, AttackCooldown, InMenu, Dead}
 var CurrentState : eStates
 
 @export_category("Player Stats")
@@ -43,6 +43,7 @@ var AnimState : AnimationNodeStateMachinePlayback
 @export var HitBox : Hit_Box
 @export var HurtBox : Hurt_Box
 @onready var GM : GameManager = get_parent()
+@onready var Shield : Area2D = $Shield
 
 @export_category("Internal References")
 @export var AnimPlayer : AnimationPlayer
@@ -57,6 +58,12 @@ func _ready():
 	
 	UI.UpdateAttackIcons(MaxAttackNumber)
 	UI.SetStaminaIcons(MaxStaminaActions)
+	
+	if Shield.get_child(1).visible == true:
+		Shield.get_child(1).visible = false
+	
+	if Shield.get_child(0).disabled == false:
+		Shield.get_child(0).disabled = true
 	
 	CurrentHealth = MaxHealth
 	CurrentStamina = MaxStaminaActions
@@ -73,9 +80,12 @@ func _process(_delta):
 	if CurrentState == eStates.Dead:
 		return
 	
-	Move()
+	#print("Current State: " + str(CurrentState))
+	
 	InputManager()
 	StateMachine()
+	if CurrentState != eStates.Blocking:
+		Move()
 	
 func _physics_process(_delta):
 	velocity = (Direction * CurrentSpeed)
@@ -90,9 +100,6 @@ func StateMachine():
 			
 		eStates.Attacking:
 			Attack()
-		
-		eStates.Guarding:
-			Guard()
 	
 func InputManager():
 	if CurrentState == eStates.Dead or CurrentState == eStates.InMenu:
@@ -106,8 +113,11 @@ func InputManager():
 	if Input.is_action_just_pressed("Attack"):
 		Attack()
 		
-	if Input.is_action_pressed("Guard"):
-		Guard()
+	if Input.is_action_just_pressed("Block"):
+		GuardON()
+		
+	if Input.is_action_just_released("Block"):
+		GuardOFF()
 	
 	if Input.is_action_just_pressed("UseItem") && InventoryRef.CurrentItem != null:
 		InventoryRef.UseCurrentItem()
@@ -176,8 +186,22 @@ func Attack():
 	UI.UpdateAttackIcons(MaxAttackNumber - (AttackIndex - 1))
 	CurrentState = eStates.NoAction
 	
-func Guard():
+func GuardON():
 	print("Guard ON")
+	CurrentState = eStates.Blocking
+	HitBox.monitoring = false
+	Shield.get_child(0).disabled = false
+	CurrentSpeed = 0
+	AnimTree.set("parameters/Idle/blend_position", Vector2(0, 1))
+	AnimState.travel("Idle")
+	Shield.get_child(2).play("Enable")
+	
+func GuardOFF():
+	print("Guard OFF")
+	HitBox.monitoring = true
+	Shield.get_child(0).disabled = true
+	Shield.get_child(2).play("Disable")
+	CurrentState = eStates.NoAction
 
 func ResetAttackIndex():
 	AttackIndex = 1

@@ -1,10 +1,11 @@
-[gd_scene load_steps=82 format=3 uid="uid://dxprot5svswbe"]
+[gd_scene load_steps=88 format=3 uid="uid://dxprot5svswbe"]
 
 [ext_resource type="Script" path="res://Scripts/Player/Player.gd" id="1_18da1"]
 [ext_resource type="Texture2D" uid="uid://bi38invhap0t" path="res://Aesthetics/Sprites/Player/player.png" id="2_w50ld"]
 [ext_resource type="Script" path="res://Scripts/Player/InventoryAudio.gd" id="3_6ug1t"]
 [ext_resource type="Script" path="res://Scripts/Abstractions/Inventory/InventoryResource.gd" id="3_pgg20"]
 [ext_resource type="AudioStream" uid="uid://dq8bw4rp55ei6" path="res://Aesthetics/Audio/SFX/Item/Misc/Coin_Hit.mp3" id="5_0gdkg"]
+[ext_resource type="Texture2D" uid="uid://bcovcay1fhtyk" path="res://Aesthetics/Sprites/Player/Block Effects/ShieldEffect_1.png" id="7_7atmh"]
 [ext_resource type="PackedScene" uid="uid://cvn673tlhbnmt" path="res://Content/Objects/Components/Hitbox.tscn" id="7_qeb6o"]
 [ext_resource type="Script" path="res://Scripts/Components/Audio Controllers/BodyAudioPlayer.gd" id="7_yvwfc"]
 [ext_resource type="AudioStream" uid="uid://d0iijvcalr7qr" path="res://Aesthetics/Audio/SFX/Player/Voices/attack1.wav" id="8_3o1p1"]
@@ -35,6 +36,99 @@ InventoryStorage = {}
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_8v8gj"]
 size = Vector2(9.5, 4)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_qsi8w"]
+radius = 12.0
+
+[sub_resource type="Animation" id="Animation_41yjk"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame_coords")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [Vector2i(1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite2D:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+
+[sub_resource type="Animation" id="Animation_sxexa"]
+resource_name = "Disable"
+length = 0.50001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame_coords")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [Vector2i(0, 0), Vector2i(1, 0), Vector2i(0, 1), Vector2i(1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite2D:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0.4),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+
+[sub_resource type="Animation" id="Animation_1ugak"]
+resource_name = "Enable"
+length = 0.50001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame_coords")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0.1, 0.2, 0.3, 0.4),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [Vector2i(1, 1), Vector2i(0, 1), Vector2i(1, 0), Vector2i(0, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite2D:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_vdhrm"]
+_data = {
+"Disable": SubResource("Animation_sxexa"),
+"Enable": SubResource("Animation_1ugak"),
+"RESET": SubResource("Animation_41yjk")
+}
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_35al6"]
 radius = 5.5
@@ -895,6 +989,29 @@ visible = false
 position = Vector2(0, 2)
 shape = SubResource("RectangleShape2D_8v8gj")
 
+[node name="Shield" type="Area2D" parent="."]
+position = Vector2(0.5, -7.5)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Shield"]
+position = Vector2(-0.25, 2)
+shape = SubResource("CircleShape2D_qsi8w")
+debug_color = Color(0, 0.231373, 0.45098, 0.705882)
+
+[node name="Sprite2D" type="Sprite2D" parent="Shield"]
+visible = false
+texture_filter = 1
+position = Vector2(-0.25, 3)
+scale = Vector2(0.05, 0.05)
+texture = ExtResource("7_7atmh")
+hframes = 2
+vframes = 2
+frame = 3
+
+[node name="Shield Animation" type="AnimationPlayer" parent="Shield"]
+libraries = {
+"": SubResource("AnimationLibrary_vdhrm")
+}
+
 [node name="Hitbox" parent="." instance=ExtResource("7_qeb6o")]
 position = Vector2(0.25, -6)
 
@@ -922,7 +1039,7 @@ libraries = {
 }
 tree_root = SubResource("AnimationNodeStateMachine_au4g3")
 anim_player = NodePath("../AnimationPlayer")
-parameters/Idle/blend_position = Vector2(0, 0)
+parameters/Idle/blend_position = Vector2(0, 0.989418)
 "parameters/Reverse Swipe/blend_position" = Vector2(0, 0)
 parameters/Run/blend_position = Vector2(0, 0)
 "parameters/Swipe Attack/blend_position" = Vector2(0, 0)
