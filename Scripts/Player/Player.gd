@@ -9,7 +9,7 @@ class_name Player
 signal PlayerDied(pos : Vector2)
 signal PlayerHit(dur : float)
 
-enum eStates {NoAction, Blocking, Attacking, AttackCooldown, InMenu, Dead}
+enum eStates {NoAction, Blocking, Attacking, AttackCooldown, InMenu, Break, Dead}
 var CurrentState : eStates
 
 @export_category("Player Stats")
@@ -19,6 +19,7 @@ var CurrentHealth : int
 @export var MaxStaminaActions : int
 var CurrentStamina : int
 @export var StaminaRefill : float
+@export var BreakTime : float
 
 @export_category("Attack Stats")
 @export var MaxDamage : int
@@ -84,8 +85,9 @@ func _process(_delta):
 	
 	InputManager()
 	StateMachine()
-	if CurrentState != eStates.Blocking:
+	if CurrentState != eStates.Blocking && CurrentState != eStates.Break:
 		Move()
+	
 	
 func _physics_process(_delta):
 	velocity = (Direction * CurrentSpeed)
@@ -102,7 +104,7 @@ func StateMachine():
 			Attack()
 	
 func InputManager():
-	if CurrentState == eStates.Dead or CurrentState == eStates.InMenu:
+	if CurrentState == eStates.Dead or CurrentState == eStates.Break or CurrentState == eStates.InMenu:
 		return
 	
 	Direction = Vector2.ZERO
@@ -213,6 +215,8 @@ func ReduceStamina(Amount : int):
 	
 func BlockAttack():
 	ReduceStamina(1)
+	if CurrentStamina <= 0:
+		Break()
 
 func TakeDamage(Amount : int):
 	PlayerHit.emit(0.25)
@@ -220,6 +224,14 @@ func TakeDamage(Amount : int):
 	BodyAudio.PlayHitSFX()
 	if CurrentHealth <= 0:
 		Die()
+		
+func Break():
+	print("BREAK!")
+	CurrentState = eStates.Break
+	Shield.call_deferred("Disable")
+	HitBox.call_deferred("Enable")
+	await get_tree().create_timer(BreakTime).timeout
+	CurrentState= eStates.NoAction
 
 func Die():
 	PlayerDied.emit(self.position)

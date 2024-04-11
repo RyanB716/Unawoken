@@ -954,6 +954,7 @@ WalkSpeed = 75.0
 MaxHealth = 250
 MaxStaminaActions = 3
 StaminaRefill = 3.5
+BreakTime = 3.0
 MaxDamage = 50
 AttackTime = 1.5
 AttackCooldown = 2.25

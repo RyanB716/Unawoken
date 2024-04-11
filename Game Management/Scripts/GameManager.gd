@@ -45,7 +45,7 @@ func _ready():
 	if GameSettings.ShouldFillAnxiety == true:
 		StartFill()
 	
-func _process(delta):
+func _process(_delta):
 	var snappedAnxiety = snapped(Anxiety, 0.01)
 	AnxietyUpdate.emit(snappedAnxiety)
 

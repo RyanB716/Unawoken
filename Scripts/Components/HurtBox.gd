@@ -10,7 +10,7 @@ func _ready():
 	if !Parent is Projectile:
 		self.get_child(0).disabled = true
 		
-func _process(delta):
+func _process(_delta):
 	if Parent is Player:
 		DamageOutput = Parent.CurrentDamage
 		#print("Current Damage: " + str(Parent.CurrentDamage))
