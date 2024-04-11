@@ -15,7 +15,15 @@ func _ready():
 	Parent = get_parent()
 	if get_child(0).disabled == true:
 		get_child(0).disabled = false
-	
+
+func Enable():
+	if Collider.disabled == true:
+		Collider.disabled = false
+		
+func Disable():
+	if Collider.disabled == false:
+		Collider.disabled = true
+
 func OnHurt(hurtbox : Area2D):
 	if hurtbox is Hurt_Box:
 		if hurtbox.Parent is Projectile:

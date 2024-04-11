@@ -42,8 +42,8 @@ var AnimState : AnimationNodeStateMachinePlayback
 @export var UI : PlayerUI
 @export var HitBox : Hit_Box
 @export var HurtBox : Hurt_Box
+@export var Shield : ShieldController
 @onready var GM : GameManager = get_parent()
-@onready var Shield : Area2D = $Shield
 
 @export_category("Internal References")
 @export var AnimPlayer : AnimationPlayer
@@ -59,11 +59,10 @@ func _ready():
 	UI.UpdateAttackIcons(MaxAttackNumber)
 	UI.SetStaminaIcons(MaxStaminaActions)
 	
-	if Shield.get_child(1).visible == true:
-		Shield.get_child(1).visible = false
+	if Shield.Sprite.visible == true:
+		Shield.Sprite.visible = false
 	
-	if Shield.get_child(0).disabled == false:
-		Shield.get_child(0).disabled = true
+	Shield.Disable()
 	
 	CurrentHealth = MaxHealth
 	CurrentStamina = MaxStaminaActions
@@ -187,20 +186,16 @@ func Attack():
 	CurrentState = eStates.NoAction
 	
 func GuardON():
-	print("Guard ON")
 	CurrentState = eStates.Blocking
-	HitBox.monitoring = false
-	Shield.get_child(0).disabled = false
-	CurrentSpeed = 0
 	AnimTree.set("parameters/Idle/blend_position", Vector2(0, 1))
 	AnimState.travel("Idle")
-	Shield.get_child(2).play("Enable")
+	HitBox.Disable()
+	Shield.Enable()
+	CurrentSpeed = 0
 	
 func GuardOFF():
-	print("Guard OFF")
-	HitBox.monitoring = true
-	Shield.get_child(0).disabled = true
-	Shield.get_child(2).play("Disable")
+	Shield.Disable()
+	HitBox.Enable()
 	CurrentState = eStates.NoAction
 
 func ResetAttackIndex():
