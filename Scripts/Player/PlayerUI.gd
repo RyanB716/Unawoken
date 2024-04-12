@@ -15,6 +15,7 @@ class_name PlayerUI
 @export var ElixirGUI : ItemGUI
 @export var StatueMenu : Statue_Menu
 @export var Shop : ShopMenu
+@export var XP : XPTracker
 
 #var iniinv : InventoryItem
 
@@ -63,6 +64,11 @@ func _process(_delta):
 		$"Main UI/AnxietyMeter".visible = true
 	else:
 		$"Main UI/AnxietyMeter".visible = false
+		
+	XP.ResolvePoints.text = str(player.ResolvePoints)
+	XP.Amount.text = str(player.CurrentXP)
+	XP.Bar.max_value = player.NeededXP
+	XP.Bar.value = player.CurrentXP
 	
 func UpdateAttackIcons(Amount : int):
 	for i in AttackIndicatorBox.get_child_count():

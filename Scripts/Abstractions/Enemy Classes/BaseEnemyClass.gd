@@ -2,6 +2,7 @@ extends CharacterBody2D
 class_name BasicEnemy
 
 signal Died()
+signal GiveXP(amount : int)
 signal OnDeath(time : float)
 signal OnHit(intensity : float, dur : float)
 
@@ -61,6 +62,7 @@ func TakeDamage(Amount : int):
 		OnHit.emit(1.25, 0.5)
 		Died.emit()
 		OnDeath.emit(0.15)
+		self.GiveXP.emit(XpAmount)
 		
 func AnxietyEffect(percent : float):
 	print("Enabling effect for: " + str(percent) + " percent!")

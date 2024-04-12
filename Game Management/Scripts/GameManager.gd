@@ -40,6 +40,9 @@ func _ready():
 	AnxietyUpdate.connect(PlayerRef.AnxietyEffects)
 	Level.AllowFill.connect(StartFill)
 	
+	for i in Level.Enemies.size():
+		Level.Enemies[i].GiveXP.connect(PlayerRef.GetXP)
+	
 	FillTimeInSeconds = FillTime * 60
 	
 	if GameSettings.ShouldFillAnxiety == true:

@@ -20,6 +20,10 @@ var CurrentHealth : int
 var CurrentStamina : int
 @export var StaminaRefill : float
 @export var BreakTime : float
+@onready var ResolvePoints : int = 0
+@onready var CurrentXP : int = 0
+@export var NeededXP : int
+@export var XPScalar : float
 
 @export_category("Attack Stats")
 @export var MaxDamage : int
@@ -188,6 +192,19 @@ func Attack():
 	UI.UpdateAttackIcons(MaxAttackNumber - (AttackIndex - 1))
 	CurrentState = eStates.NoAction
 	
+func GetXP(amount : int):
+	print("Recieving " + str(amount) + " XP!")
+	if CurrentXP + amount < NeededXP:
+		var WaitTime : float = 0.25
+		var Pitch : float
+		for i in amount:
+			CurrentXP += 1
+			WaitTime -= 0.01
+			Pitch += 0.1
+			$Audio/AudioStreamPlayer.pitch_scale = Pitch
+			$Audio/AudioStreamPlayer.play()
+			await get_tree().create_timer(WaitTime).timeout
+
 func GuardON():
 	CurrentState = eStates.Blocking
 	AnimTree.set("parameters/Idle/blend_position", Vector2(0, 1))
