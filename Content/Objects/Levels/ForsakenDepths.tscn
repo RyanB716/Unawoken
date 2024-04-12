@@ -1724,11 +1724,11 @@ position = Vector2(282, -330)
 
 [node name="Eye" parent="Enemies" instance=ExtResource("17_hug4x")]
 position = Vector2(-622, 314)
-XpAmount = 124
+XpAmount = 249
 
 [node name="Eye5" parent="Enemies" instance=ExtResource("17_hug4x")]
 position = Vector2(-567, 315)
-XpAmount = 125
+XpAmount = 249
 
 [node name="Eye2" parent="Enemies" instance=ExtResource("17_hug4x")]
 position = Vector2(82, 76)

@@ -195,15 +195,11 @@ func Attack():
 func GetXP(amount : int):
 	print("Recieving " + str(amount) + " XP!")
 	if CurrentXP + amount < NeededXP:
-		var WaitTime : float = 0.25
-		var Pitch : float
-		for i in amount:
-			CurrentXP += 1
-			WaitTime -= 0.01
-			Pitch += 0.1
-			$Audio/AudioStreamPlayer.pitch_scale = Pitch
-			$Audio/AudioStreamPlayer.play()
-			await get_tree().create_timer(WaitTime).timeout
+		CurrentXP += amount
+	else:
+		var FinishVaue : int = NeededXP - CurrentXP
+		print("Filling the last " + str(FinishVaue) + " point(s)")
+		#var Remainder : int = 
 
 func GuardON():
 	CurrentState = eStates.Blocking

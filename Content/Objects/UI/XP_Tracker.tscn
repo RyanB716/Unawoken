@@ -21,7 +21,7 @@ corner_radius_top_right = 25
 corner_radius_bottom_right = 25
 corner_radius_bottom_left = 25
 
-[node name="XP" type="Panel" node_paths=PackedStringArray("ResolvePoints", "Amount", "Bar")]
+[node name="XP" type="Panel" node_paths=PackedStringArray("ResolvePoints", "Amount", "Bar", "AddAmount")]
 custom_minimum_size = Vector2(325, 150)
 anchors_preset = 1
 anchor_left = 1.0
@@ -36,6 +36,7 @@ script = ExtResource("1_1u8ok")
 ResolvePoints = NodePath("Resolve Points")
 Amount = NodePath("Progress/Amount")
 Bar = NodePath("Progress/ProgressBar")
+AddAmount = NodePath("Progress/Add Amount")
 
 [node name="Resolve Points" type="Label" parent="."]
 layout_mode = 1
@@ -64,10 +65,10 @@ layout_mode = 1
 anchors_preset = 1
 anchor_left = 1.0
 anchor_right = 1.0
-offset_left = -141.0
-offset_top = 5.0
+offset_left = -176.0
+offset_top = 35.0
 offset_right = -12.0
-offset_bottom = 84.0
+offset_bottom = 176.0
 grow_horizontal = 0
 
 [node name="Amount" type="Label" parent="Progress"]
@@ -84,19 +85,8 @@ theme_override_styles/fill = SubResource("StyleBoxFlat_j7aqk")
 value = 50.0
 show_percentage = false
 
-[node name="Add Amount" type="Label" parent="."]
-layout_mode = 1
-anchors_preset = 3
-anchor_left = 1.0
-anchor_top = 1.0
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = -169.0
-offset_top = -66.0
-offset_right = -5.0
-offset_bottom = -2.0
-grow_horizontal = 0
-grow_vertical = 0
+[node name="Add Amount" type="Label" parent="Progress"]
+layout_mode = 2
 size_flags_horizontal = 4
 text = "+1,000"
 label_settings = ExtResource("1_5c3u0")
