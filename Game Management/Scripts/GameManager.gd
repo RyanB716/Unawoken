@@ -26,7 +26,7 @@ func _ready():
 	
 	if get_child(0) is LevelController:
 		Level = get_child(0)
-	
+		
 	if GameSettings.RespawnPoint != Vector2.ZERO:
 		PlayerRef.position = Vector2(GameSettings.RespawnPoint.x, (GameSettings.RespawnPoint.y + 25))
 		print("Spawn Position: " + str(PlayerRef.position))

@@ -3,7 +3,9 @@ class_name PlayerUI
 
 @export_category("Data Resources")
 @export var player : Player
-@export var inventory : InventoryManager
+#@export var inventory : InventoryResource
+@export var invmanager : InventoryManager
+
 
 @export_category("Children")
 @export var HealthBar : ProgressBar
@@ -25,29 +27,30 @@ func _ready():
 
 func _process(_delta):
 	HealthBar.value = player.CurrentHealth
-	CoinLabel.text = ("$" + str(inventory.Coins))	
+	
+	CoinLabel.text = ("$" + str(invmanager.InventoryData.CoinAmount))	
 	#print("ths is iniinv " + str(iniinv.Name))
 		
-	if inventory.Elixirs > 0 :
-		if inventory.ElixerEquiped == inventory.inventoyMap[InventoryItem.eItemTypes.Elixir]["Lite Elixir"]:
+	if invmanager.InventoryData.Elixirs > 0 :
+		if invmanager.InventoryData.ElixerEquiped == invmanager.InventoryData.InventoryStorage[InventoryItem.eItemTypes.Elixir]["Lite Elixir"]:
 			
-		#if (inventory.inventoyMap[InventoryItem.eItemTypes.Elixir]["Lite Elixir"]).AmountHeld > 0:
-			ElixirGUI.DisplayItem(inventory.inventoyMap[InventoryItem.eItemTypes.Elixir]["Lite Elixir"])
-		if inventory.ElixerEquiped == inventory.inventoyMap[InventoryItem.eItemTypes.Elixir]["Mild Elixir"]:
+		#if (inventory.InventoyMap[InventoryItem.eItemTypes.Elixir]["Lite Elixir"]).AmountHeld > 0:
+			ElixirGUI.DisplayItem(invmanager.InventoryData.InventoryStorage[InventoryItem.eItemTypes.Elixir]["Lite Elixir"])
+		if invmanager.InventoryData.ElixerEquiped == invmanager.InventoryData.InventoryStorage[InventoryItem.eItemTypes.Elixir]["Mild Elixir"]:
 		#else:
-			ElixirGUI.DisplayItem(inventory.inventoyMap[InventoryItem.eItemTypes.Elixir]["Mild Elixir"])
+			ElixirGUI.DisplayItem(invmanager.InventoryData.InventoryStorage[InventoryItem.eItemTypes.Elixir]["Mild Elixir"])
 					
 	else:
 		ElixirGUI.visible = false
 		
-	if inventory.Powders > 0 :
-		if inventory.PowerEquiped == inventory.inventoyMap[InventoryItem.eItemTypes.Powder]["Azalea Powder"]:
-			PowderGUI.DisplayItem(inventory.inventoyMap[InventoryItem.eItemTypes.Powder]["Azalea Powder"])
+	if invmanager.InventoryData.Powders > 0 :
+		if invmanager.InventoryData.PowerEquiped == invmanager.InventoryData.InventoryStorage[InventoryItem.eItemTypes.Powder]["Azalea Powder"]:
+			PowderGUI.DisplayItem(invmanager.InventoryData.InventoryStorage[InventoryItem.eItemTypes.Powder]["Azalea Powder"])
 	else:
 		PowderGUI.visible = false
 	#
-	if inventory.CurrentItem != null:
-		match inventory.CurrentItem.ItemType:
+	if invmanager.InventoryData.CurrentItem != null:
+		match invmanager.InventoryData.CurrentItem.ItemType:
 			InventoryItem.eItemTypes.Elixir:
 				ElixirGUI.Border.visible = true
 				PowderGUI.Border.visible = false

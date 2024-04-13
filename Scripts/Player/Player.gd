@@ -25,6 +25,7 @@ var CurrentStamina : int
 @export var NeededXP : int
 @export var XPScalar : float
 @export var BlinkCooldown : float
+@export var Blinkdistance : int 
 
 @export_category("Attack Stats")
 @export var MaxDamage : int
@@ -233,7 +234,7 @@ func Blink():
 		print("Blink")
 		ReduceStamina(1)
 		set_collision_mask_value(3, false)
-		var Blinkdistance : int = 75
+		
 		var PCollisionOffset : Vector2 = Vector2(0,2)
 		var CollisionOrigin : Vector2 = global_position + PCollisionOffset
 		var NormalizedBlinkdistance = Direction * Blinkdistance
@@ -252,7 +253,7 @@ func Blink():
 	
 		#check if there would be a collision with the player environment collision box
 		var space_state : PhysicsDirectSpaceState2D = get_world_2d().direct_space_state
-		var query = PhysicsRayQueryParameters2D.create( CollisionOrigin ,  CollisionOrigin + NormalizedBlinkdistance , 0x0003)
+		var query = PhysicsRayQueryParameters2D.create( CollisionOrigin ,  CollisionOrigin + NormalizedBlinkdistance , 4)
 		var Collision  =  space_state.intersect_ray(query)
 	
 		#if collision with collison box, move player origin to collision with the offset being the collision box
@@ -260,10 +261,10 @@ func Blink():
 			#4 ray query
 			# Move this to method #TODO
 			var InversionPixel = Collision.position  + (Direction * -0.08)
-			var up = PhysicsRayQueryParameters2D.create( InversionPixel ,  InversionPixel + Vector2(0,-2), 0x0003)
-			var down = PhysicsRayQueryParameters2D.create( InversionPixel ,  InversionPixel + Vector2(0,2), 0x0003)
-			var left = PhysicsRayQueryParameters2D.create( InversionPixel ,  InversionPixel + Vector2(-4.75,0), 0x0003)
-			var right = PhysicsRayQueryParameters2D.create( InversionPixel ,  InversionPixel + Vector2(4.75,0), 0x0003)
+			var up = PhysicsRayQueryParameters2D.create( InversionPixel ,  InversionPixel + Vector2(0,-2), 4)
+			var down = PhysicsRayQueryParameters2D.create( InversionPixel ,  InversionPixel + Vector2(0,2), 4)
+			var left = PhysicsRayQueryParameters2D.create( InversionPixel ,  InversionPixel + Vector2(-4.75,0), 4)
+			var right = PhysicsRayQueryParameters2D.create( InversionPixel ,  InversionPixel + Vector2(4.75,0), 4)
 			var CollisionBoxOffsetter : Vector2
 		
 		

@@ -33,9 +33,8 @@
 [ext_resource type="PackedScene" uid="uid://bq21xd4n7wkej" path="res://Content/Objects/UI/ShopMenu.tscn" id="20_y22ny"]
 [ext_resource type="PackedScene" uid="uid://xq3fptn0yski" path="res://Content/Objects/UI/XP_Tracker.tscn" id="31_stl7h"]
 
-[sub_resource type="Resource" id="Resource_veymq"]
+[sub_resource type="Resource" id="Resource_dvfuj"]
 script = ExtResource("3_pgg20")
-InventoryStorage = {}
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_8v8gj"]
 size = Vector2(9.5, 4)
@@ -960,6 +959,7 @@ BreakTime = 3.0
 NeededXP = 250
 XPScalar = 1.5
 BlinkCooldown = 0.5
+Blinkdistance = 75
 MaxDamage = 50
 AttackTime = 1.5
 AttackCooldown = 2.25
@@ -978,7 +978,7 @@ BlinkTimer = NodePath("Timers/BlinkTimer")
 [node name="Inventory" type="Node2D" parent="."]
 process_mode = 3
 script = ExtResource("8_nbgbr")
-InventoryData = SubResource("Resource_veymq")
+InventoryData = SubResource("Resource_dvfuj")
 
 [node name="InventoryAudio" type="AudioStreamPlayer" parent="Inventory"]
 script = ExtResource("3_6ug1t")
@@ -1078,11 +1078,11 @@ SwingSFX = Array[AudioStream]([ExtResource("12_glkli")])
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="Audio"]
 stream = ExtResource("20_34mta")
 
-[node name="UI" type="CanvasLayer" parent="." node_paths=PackedStringArray("player", "inventory", "HealthBar", "AttackIndicatorBox", "StaminaIndicatorBox", "AnxMeter", "CoinLabel", "PowderGUI", "ElixirGUI", "StatueMenu", "Shop", "XP")]
+[node name="UI" type="CanvasLayer" parent="." node_paths=PackedStringArray("player", "invmanager", "HealthBar", "AttackIndicatorBox", "StaminaIndicatorBox", "AnxMeter", "CoinLabel", "PowderGUI", "ElixirGUI", "StatueMenu", "Shop", "XP")]
 process_mode = 3
 script = ExtResource("15_pbqi6")
 player = NodePath("..")
-inventory = NodePath("../Inventory")
+invmanager = NodePath("../Inventory")
 HealthBar = NodePath("Main UI/Health Bar")
 AttackIndicatorBox = NodePath("Main UI/AttackIndicators")
 StaminaIndicatorBox = NodePath("Main UI/StaminaContainer")
