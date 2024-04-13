@@ -947,7 +947,7 @@ graph_offset = Vector2(-548, 42)
 font = ExtResource("19_bx1h2")
 font_size = 35
 
-[node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("InventoryRef", "UI", "HitBox", "HurtBox", "Shield", "AnimPlayer", "AnimTree", "AttackTimer", "BodyAudio", "WeaponAudio") groups=["Player"]]
+[node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("InventoryRef", "UI", "HitBox", "HurtBox", "Shield", "AnimPlayer", "AnimTree", "AttackTimer", "BodyAudio", "WeaponAudio", "BlinkTimer") groups=["Player"]]
 z_index = 1
 collision_mask = 7
 platform_floor_layers = 0
@@ -959,6 +959,7 @@ StaminaRefill = 3.5
 BreakTime = 3.0
 NeededXP = 250
 XPScalar = 1.5
+BlinkCooldown = 0.5
 MaxDamage = 50
 AttackTime = 1.5
 AttackCooldown = 2.25
@@ -972,6 +973,7 @@ AnimTree = NodePath("AnimationTree")
 AttackTimer = NodePath("Timers/AttackTimer")
 BodyAudio = NodePath("Audio/BodyAudioPlayer")
 WeaponAudio = NodePath("Audio/WeaponAudioPlayer")
+BlinkTimer = NodePath("Timers/BlinkTimer")
 
 [node name="Inventory" type="Node2D" parent="."]
 process_mode = 3
@@ -1055,6 +1057,9 @@ parameters/Run/blend_position = Vector2(0, 0)
 [node name="Timers" type="Node" parent="."]
 
 [node name="AttackTimer" type="Timer" parent="Timers"]
+one_shot = true
+
+[node name="BlinkTimer" type="Timer" parent="Timers"]
 one_shot = true
 
 [node name="Audio" type="Node" parent="."]
@@ -1204,6 +1209,7 @@ offset_bottom = 146.0
 
 [connection signal="area_entered" from="Shield" to="Shield" method="OnHit"]
 [connection signal="timeout" from="Timers/AttackTimer" to="." method="ResetAttackIndex"]
+[connection signal="timeout" from="Timers/BlinkTimer" to="." method="ResetAttackIndex"]
 
 [editable path="Hitbox"]
 [editable path="HurtBox"]
