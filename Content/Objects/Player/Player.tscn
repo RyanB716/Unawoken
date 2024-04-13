@@ -31,8 +31,7 @@
 
 [sub_resource type="Resource" id="Resource_veymq"]
 script = ExtResource("3_pgg20")
-ElixirsArray = Array[Resource("res://Scripts/Abstractions/Inventory/Items/ElixirResource.gd")]([])
-PowdersArray = Array[Resource("res://Scripts/Abstractions/Inventory/Items/PowderResource.gd")]([])
+InventoryStorage = {}
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_8v8gj"]
 size = Vector2(9.5, 4)
@@ -851,7 +850,7 @@ graph_offset = Vector2(-548, 42)
 font = ExtResource("19_bx1h2")
 font_size = 35
 
-[node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("InventoryRef", "UI", "HitBox", "HurtBox", "AnimPlayer", "AnimTree", "AttackTimer", "BodyAudio", "WeaponAudio") groups=["Player"]]
+[node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("InventoryRef", "UI", "HitBox", "HurtBox", "AnimPlayer", "AnimTree", "AttackTimer", "AbilityTimer", "BodyAudio", "WeaponAudio") groups=["Player"]]
 z_index = 1
 collision_mask = 7
 platform_floor_layers = 0
@@ -863,6 +862,7 @@ StaminaRefill = 2.5
 MaxDamage = 50
 AttackTime = 1.5
 AttackCooldown = 2.25
+BlinkCooldown = 0.3
 InventoryRef = NodePath("Inventory")
 UI = NodePath("UI")
 HitBox = NodePath("Hitbox")
@@ -870,6 +870,7 @@ HurtBox = NodePath("HurtBox")
 AnimPlayer = NodePath("AnimationPlayer")
 AnimTree = NodePath("AnimationTree")
 AttackTimer = NodePath("Timers/AttackTimer")
+AbilityTimer = NodePath("Timers/AbilityTimer")
 BodyAudio = NodePath("Audio/BodyAudioPlayer")
 WeaponAudio = NodePath("Audio/WeaponAudioPlayer")
 
@@ -897,12 +898,14 @@ position = Vector2(0, 2)
 shape = SubResource("RectangleShape2D_8v8gj")
 
 [node name="Hitbox" parent="." instance=ExtResource("7_qeb6o")]
+visible = false
 position = Vector2(0.25, -6)
 
 [node name="CollisionShape2D" parent="Hitbox" index="0"]
 shape = SubResource("CapsuleShape2D_35al6")
 
 [node name="HurtBox" parent="." instance=ExtResource("8_tyw0s")]
+visible = false
 position = Vector2(-10, -2)
 
 [node name="CollisionShape2D" parent="HurtBox" index="0"]
@@ -931,6 +934,9 @@ parameters/Run/blend_position = Vector2(0, 0)
 [node name="Timers" type="Node" parent="."]
 
 [node name="AttackTimer" type="Timer" parent="Timers"]
+one_shot = true
+
+[node name="AbilityTimer" type="Timer" parent="Timers"]
 one_shot = true
 
 [node name="Audio" type="Node" parent="."]
@@ -1069,6 +1075,7 @@ visible = false
 visible = false
 
 [connection signal="timeout" from="Timers/AttackTimer" to="." method="ResetAttackIndex"]
+[connection signal="timeout" from="Timers/AbilityTimer" to="." method="_on_ability_timer_timeout"]
 
 [editable path="Hitbox"]
 [editable path="HurtBox"]

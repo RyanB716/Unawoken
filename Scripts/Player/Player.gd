@@ -9,7 +9,8 @@ class_name Player
 signal PlayerDied(pos : Vector2)
 signal PlayerHit(dur : float)
 
-enum eStates {NoAction, Guarding, Attacking, AttackCooldown, GuardCooldown, InMenu, Dead}
+#TODO : Reorder for Blink
+enum eStates {NoAction, Guarding, Attacking, AttackCooldown, GuardCooldown, InMenu, Dead , Blink}
 var CurrentState : eStates
 
 @export_category("Player Stats")
@@ -25,6 +26,7 @@ var CurrentStamina : int
 var CurrentDamage : int
 @export var AttackTime : float
 @export var AttackCooldown : float
+@export var BlinkCooldown : float
 @export var MaxAttackNumber : int = 4
 
 var CurrentSpeed : float = 0
@@ -48,6 +50,7 @@ var AnimState : AnimationNodeStateMachinePlayback
 @export var AnimPlayer : AnimationPlayer
 @export var AnimTree : AnimationTree
 @export var AttackTimer : Timer
+@export var AbilityTimer : Timer
 @export var BodyAudio : BodyAudioPlayer
 @export var WeaponAudio : WeaponAudioPlayer
 
@@ -72,13 +75,14 @@ func _ready():
 func _process(_delta):
 	if CurrentState == eStates.Dead:
 		return
-	
-	Move()
-	InputManager()
+	if !CurrentState == eStates.Blink:
+		Move()
+		InputManager()
 	StateMachine()
 	
 func _physics_process(_delta):
-	velocity = (Direction * CurrentSpeed)
+	if !CurrentState == eStates.Blink:
+		velocity = (Direction * CurrentSpeed)
 	move_and_slide()
 	
 func StateMachine():
@@ -93,6 +97,9 @@ func StateMachine():
 		
 		eStates.Guarding:
 			Guard()
+			
+		eStates.Blink:
+			Blink()
 	
 func InputManager():
 	if CurrentState == eStates.Dead or CurrentState == eStates.InMenu:
@@ -106,8 +113,9 @@ func InputManager():
 	if Input.is_action_just_pressed("Attack"):
 		Attack()
 		
-	if Input.is_action_pressed("Guard"):
-		Guard()
+	if Input.is_action_just_pressed("Guard"):
+		#Guard()
+		Blink()
 	
 	if Input.is_action_just_pressed("UseItem") && InventoryRef.CurrentItem != null:
 		InventoryRef.UseCurrentItem()
@@ -179,6 +187,84 @@ func Attack():
 func Guard():
 	print("Guard ON")
 
+func Blink():
+	
+	if Direction != Vector2.ZERO && CurrentState == eStates.NoAction:
+	
+		AnimState.travel("Idle")
+		print("Blink")
+		ReduceStamina(1)
+		set_collision_mask_value(3, false)
+		var Blinkdistance : int = 75
+		var PCollisionOffset : Vector2 = Vector2(0,2)
+		var CollisionOrigin : Vector2 = global_position + PCollisionOffset
+		var NormalizedBlinkdistance = Direction * Blinkdistance
+	
+	
+		#Blink normalized Collision box distance + distance of Collieded Ray
+		#environtment collision parameters 2px down 9.5px wide 4px tall
+	
+		#collisions adjustment (enum for readability?)
+		#Vector2(x,y) x = -left +right y = -up +down
+		#correct Raycast length(10px for each coord for now) based on direction but adjust for player environment collision box
+
+		CurrentState = eStates.Blink
+		#try to teleport here
+		var Teleport = CollisionOrigin + NormalizedBlinkdistance
+	
+		#check if there would be a collision with the player environment collision box
+		var space_state : PhysicsDirectSpaceState2D = get_world_2d().direct_space_state
+		var query = PhysicsRayQueryParameters2D.create( CollisionOrigin ,  CollisionOrigin + NormalizedBlinkdistance , 0x0003)
+		var Collision  =  space_state.intersect_ray(query)
+	
+		#if collision with collison box, move player origin to collision with the offset being the collision box
+		if !Collision.is_empty():
+			#4 ray query
+			# Move this to method #TODO
+			var InversionPixel = Collision.position  + (Direction * -0.08)
+			var up = PhysicsRayQueryParameters2D.create( InversionPixel ,  InversionPixel + Vector2(0,-2), 0x0003)
+			var down = PhysicsRayQueryParameters2D.create( InversionPixel ,  InversionPixel + Vector2(0,2), 0x0003)
+			var left = PhysicsRayQueryParameters2D.create( InversionPixel ,  InversionPixel + Vector2(-4.75,0), 0x0003)
+			var right = PhysicsRayQueryParameters2D.create( InversionPixel ,  InversionPixel + Vector2(4.75,0), 0x0003)
+			var CollisionBoxOffsetter : Vector2
+		
+		
+			var CollisionUp = space_state.intersect_ray(up)
+			if CollisionUp.is_empty():
+				var Collisiondown = space_state.intersect_ray(down)
+				if !Collisiondown.is_empty():
+					
+					CollisionBoxOffsetter.y =  (Collisiondown.position.y ) - 2 
+			else:
+				CollisionBoxOffsetter.y =  (CollisionUp.position.y ) + 2
+			var Collisionleft = space_state.intersect_ray(left)
+			if Collisionleft.is_empty():
+				var Collisionright = space_state.intersect_ray(right)
+				if !Collisionright.is_empty():
+					CollisionBoxOffsetter.x =  (Collisionright.position.x ) - 4.75
+			else:
+				CollisionBoxOffsetter.x = (Collisionleft.position.x ) + 4.75
+		
+			#redo to change collision position - the x and y of collision box based on "Direction"
+			if CollisionBoxOffsetter.x:
+				global_position.x =   CollisionBoxOffsetter.x
+			if CollisionBoxOffsetter.y:
+				global_position.y =   CollisionBoxOffsetter.y - PCollisionOffset.y
+		#else just teleport player origin to point
+		else:
+			global_position = Teleport - PCollisionOffset
+		set_collision_mask_value(3, true)
+		velocity = Vector2.ZERO
+		CurrentSpeed = 0
+		Direction = Vector2(0,0)
+		AbilityTimer.start(BlinkCooldown)
+		#pass
+	else:
+		pass
+		
+	
+	
+
 func ResetAttackIndex():
 	AttackIndex = 1
 	UI.UpdateAttackIcons(MaxAttackNumber)
@@ -211,3 +297,8 @@ func RegainHealth(AmountInPercent : float):
 	HealthTween.tween_property(self, "CurrentHealth", (CurrentHealth + Amount), 0.5)
 	await HealthTween.finished
 	IsHealing = false
+
+
+func _on_ability_timer_timeout():
+	CurrentState = eStates.NoAction
+	
