@@ -80,6 +80,7 @@ func AddItemDelegate(_item : InventoryItem,  amount : int):
 	
 #Uses the current item
 func UseCurrentItem():
+	print("Using Item: " + str(InventoryData.CurrentItem.Name))
 	match InventoryData.CurrentItem.ItemType:
 		InventoryItem.eItemTypes.Elixir:
 			if player.CurrentHealth < player.MaxHealth && player.IsHealing == false:

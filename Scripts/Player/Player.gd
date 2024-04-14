@@ -25,7 +25,7 @@ var CurrentStamina : int
 @export var NeededXP : int
 @export var XPScalar : float
 @export var BlinkCooldown : float
-@export var Blinkdistance : int 
+@export var BlinkDistance : int 
 
 @export_category("Attack Stats")
 @export var MaxDamage : int
@@ -84,6 +84,11 @@ func _ready():
 	
 	CurrentDamage = MaxDamage
 	
+	if InventoryRef.InventoryData.CurrentItem != null:
+		print("Current Item: " + str(InventoryRef.InventoryData.CurrentItem.Name))
+	else:
+		print("No item avaialable..")
+	
 func _process(_delta):
 	if CurrentState == eStates.Dead:
 		return
@@ -137,7 +142,7 @@ func InputManager():
 	if Input.is_action_just_released("Blink"):
 		Blink()
 	
-	if Input.is_action_just_pressed("UseItem") && InventoryRef.CurrentItem != null:
+	if Input.is_action_just_pressed("UseItem") && InventoryRef.InventoryData.CurrentItem != null:
 		InventoryRef.UseCurrentItem()
 
 func Move():
@@ -237,7 +242,7 @@ func Blink():
 		
 		var PCollisionOffset : Vector2 = Vector2(0,2)
 		var CollisionOrigin : Vector2 = global_position + PCollisionOffset
-		var NormalizedBlinkdistance = Direction * Blinkdistance
+		var NormalizedBlinkDistance = Direction * BlinkDistance
 	
 	
 		#Blink normalized Collision box distance + distance of Collieded Ray
@@ -249,11 +254,11 @@ func Blink():
 
 		CurrentState = eStates.Blink
 		#try to teleport here
-		var Teleport = CollisionOrigin + NormalizedBlinkdistance
+		var Teleport = CollisionOrigin + NormalizedBlinkDistance
 	
 		#check if there would be a collision with the player environment collision box
 		var space_state : PhysicsDirectSpaceState2D = get_world_2d().direct_space_state
-		var query = PhysicsRayQueryParameters2D.create( CollisionOrigin ,  CollisionOrigin + NormalizedBlinkdistance , 4)
+		var query = PhysicsRayQueryParameters2D.create( CollisionOrigin ,  CollisionOrigin + NormalizedBlinkDistance , 4)
 		var Collision  =  space_state.intersect_ray(query)
 	
 		#if collision with collison box, move player origin to collision with the offset being the collision box

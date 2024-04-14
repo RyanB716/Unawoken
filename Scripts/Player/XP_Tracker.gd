@@ -23,7 +23,7 @@ func DisplayXP(amount : int):
 	AddAmount.text = "+" + str(AmntToAdd)
 	await WaitTimer.timeout
 	var WaitTime : float = 0.20
-	var Pitch : float
+	var Pitch : float = -0.5
 	for i in amount:
 		AmntToAdd -= 1
 		AddAmount.text = "+" + str(AmntToAdd)
