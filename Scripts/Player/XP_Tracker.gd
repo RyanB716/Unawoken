@@ -10,21 +10,13 @@ class_name XPTracker
 @export var SFX : AudioStreamPlayer
 
 @onready var CurrentAmount : int
-@onready var AmntToAdd : int
+@onready var AmountAdding : int
 
 @onready var Transferring : bool = false
 
 func _ready():
-	AmntToAdd = 0
+	AmountAdding = 0
 	CurrentAmount = 0
-	
-func _process(delta):
-	AddAmount.text = "+" + str(AmntToAdd)
-	Amount.text = str(CurrentAmount)
-	Bar.value = CurrentAmount
-	
-func ResetProgressBar(Amount):
-	Bar.max_value = Amount
 
 func DisplayXP():
 	if Transferring:
@@ -33,8 +25,8 @@ func DisplayXP():
 	var WaitTime : float = 0.20
 	var Pitch : float = 0.1
 	Transferring = true
-	for i in AmntToAdd:
-		AmntToAdd -= 1
+	for i in AmountAdding:
+		AmountAdding -= 1
 		CurrentAmount += 1
 		WaitTime -= 0.01
 		Pitch += 0.1

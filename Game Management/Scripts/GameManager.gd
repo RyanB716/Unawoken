@@ -14,9 +14,11 @@ signal AnxietyUpdate(percent : float)
 @export var FillTime : float
 @onready var FillTimeInSeconds : float
 
-@onready var SignalTimer : Timer = $"Signal Timer"
+@onready var XpTimer : Timer = $"XP Timer"
 
 var ElapsedTime : float
+
+var StockpiledXP : int
 
 func _ready():
 	Input.mouse_mode = Input.MOUSE_MODE_HIDDEN
@@ -107,11 +109,33 @@ func SetNeededXP():
 	else:
 		newAmount = 250
 	
+	PlayerRef.CurrentXP = 0
 	PlayerRef.NeededXP = newAmount
-	PlayerRef.UI.XP.ResetProgressBar(PlayerRef.NeededXP)
 	print("Player needs " + str(newAmount) + " XP points!")
 
 func GiveXP(amount : int):
+	StockpiledXP += amount
+	PlayerRef.UI.XP.AddAmount.visible = true
+	if !XpTimer.is_stopped():
+		XpTimer.stop()
+	XpTimer.start(3)
+
+func TransferXP():
+	var scale = 0
+	var WaitTime = 0.20
+	for i in StockpiledXP:
+		StockpiledXP -= 1
+		PlayerRef.CurrentXP += 1
+		scale += 0.1
+		PlayerRef.UI.PlayXPTransfer(scale)
+		WaitTime -= 0.005
+		await get_tree().create_timer(WaitTime).timeout
+	PlayerRef.UI.XP.AddAmount.visible = false
+	print("Added: " + str(StockpiledXP))
+	print("Current: " + str(PlayerRef.CurrentXP))
+	print("Needed: " + str(PlayerRef.NeededXP - PlayerRef.CurrentXP))
+
+'func GiveXP(amount : int):
 	print("Recieving " + str(amount) + " XP!")
 	var cXP = PlayerRef.CurrentXP
 	var nXP = PlayerRef.NeededXP
@@ -122,7 +146,13 @@ func GiveXP(amount : int):
 	else:
 		var FinishValue : int = nXP - cXP
 		print("Filling the last " + str(FinishValue) + " point(s)")
-		#var Remainder : int = 
+		PlayerRef.UI.UpdateXP(FinishValue)
+		PlayerRef.ResolvePoints += 1
+		PlayerRef.UI.UpdateResolvePoints()
+		SetNeededXP()
+		var Remainder : int = amount - FinishValue
+		cXP = Remainder
+		PlayerRef.UI.UpdateXP(Remainder)'
 
 func _on_timer_timeout():
 	ElapsedTime += 1

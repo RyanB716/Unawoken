@@ -24,8 +24,7 @@ class_name PlayerUI
 func _ready():
 	player = get_parent()
 	HealthBar.max_value = player.MaxHealth
-	XP.ResolvePoints.text ="0"
-	XP.Amount.text = "0"
+	XP.AddAmount.visible = false
 
 func _process(_delta):
 	HealthBar.value = player.CurrentHealth
@@ -65,15 +64,17 @@ func _process(_delta):
 	var eTimeSeconds = fmod(player.GM.ElapsedTime, 60)
 	AnxMeter.text = "Elapsed Time: " + "%02d:%02d" % [eTimeInMinutes, eTimeSeconds]
 	
+	XP.ResolvePoints.text = str(player.ResolvePoints)
+	XP.Amount.text = str(player.CurrentXP)
+	XP.AmountAdding = player.GM.StockpiledXP
+	XP.AddAmount.text = "+" + str(XP.AmountAdding)
+	XP.Bar.value = player.CurrentXP
+	XP.Bar.max_value = player.NeededXP
+	
 	if GameSettings.ShouldFillAnxiety == true:
 		$"Main UI/AnxietyMeter".visible = true
 	else:
 		$"Main UI/AnxietyMeter".visible = false
-		
-	#XP.ResolvePoints.text = str(player.ResolvePoints)
-	#XP.Amount.text = str(player.CurrentXP)
-	#XP.Bar.max_value = player.NeededXP
-	#XP.Bar.value = player.CurrentXP
 	
 func UpdateAttackIcons(Amount : int):
 	for i in AttackIndicatorBox.get_child_count():
@@ -110,11 +111,6 @@ func ToggleMenu(Menu : Object, Choice : bool):
 	else:
 		player.CurrentState = player.eStates.NoAction
 
-func UpdateXP(amount : int):
-	print("Adding " + str(amount) + " points!")
-	XP.AmntToAdd += amount
-	
-	if !XP.AddTimer.is_stopped():
-		XP.AddTimer.stop()
-	
-	XP.AddTimer.start(3)
+func PlayXPTransfer(pitch : float):
+	XP.SFX.pitch_scale = pitch
+	XP.SFX.play()

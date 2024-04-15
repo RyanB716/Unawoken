@@ -21,9 +21,10 @@ CamSpeed = 1.25
 process_mode = 1
 position = Vector2(-667, 517)
 
-[node name="Signal Timer" type="Timer" parent="."]
+[node name="XP Timer" type="Timer" parent="."]
 one_shot = true
 
 [node name="Timer" type="Timer" parent="."]
 
+[connection signal="timeout" from="XP Timer" to="." method="TransferXP"]
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
