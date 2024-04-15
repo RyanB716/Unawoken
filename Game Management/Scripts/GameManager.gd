@@ -119,9 +119,9 @@ func GiveXP(amount : int):
 		cXP += amount
 		PlayerRef.CurrentXP = cXP
 		PlayerRef.UI.UpdateXP(amount)
-	#else:
-		#var FinishValue : int = nXP - cXP
-		#print("Filling the last " + str(FinishValue) + " point(s)")
+	else:
+		var FinishValue : int = nXP - cXP
+		print("Filling the last " + str(FinishValue) + " point(s)")
 		#var Remainder : int = 
 
 func _on_timer_timeout():

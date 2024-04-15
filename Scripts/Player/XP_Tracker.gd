@@ -12,6 +12,8 @@ class_name XPTracker
 @onready var CurrentAmount : int
 @onready var AmntToAdd : int
 
+@onready var Transferring : bool = false
+
 func _ready():
 	AmntToAdd = 0
 	CurrentAmount = 0
@@ -25,8 +27,12 @@ func ResetProgressBar(Amount):
 	Bar.max_value = Amount
 
 func DisplayXP():
+	if Transferring:
+		return
+		
 	var WaitTime : float = 0.20
 	var Pitch : float = 0.1
+	Transferring = true
 	for i in AmntToAdd:
 		AmntToAdd -= 1
 		CurrentAmount += 1
@@ -35,3 +41,4 @@ func DisplayXP():
 		SFX.pitch_scale = Pitch
 		SFX.play()
 		await get_tree().create_timer(WaitTime).timeout
+	Transferring = false

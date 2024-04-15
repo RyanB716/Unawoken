@@ -111,7 +111,7 @@ func ToggleMenu(Menu : Object, Choice : bool):
 		player.CurrentState = player.eStates.NoAction
 
 func UpdateXP(amount : int):
-	#print("Adding " + str(amount) + " points!")
+	print("Adding " + str(amount) + " points!")
 	XP.AmntToAdd += amount
 	
 	if !XP.AddTimer.is_stopped():

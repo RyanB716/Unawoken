@@ -1725,7 +1725,7 @@ position = Vector2(282, -330)
 
 [node name="Eye" parent="Enemies" instance=ExtResource("17_hug4x")]
 position = Vector2(-622, 314)
-XpAmount = 25
+XpAmount = 235
 
 [node name="Eye5" parent="Enemies" instance=ExtResource("17_hug4x")]
 position = Vector2(-567, 315)
