@@ -27,7 +27,7 @@
 [ext_resource type="PackedScene" uid="uid://cs2uv0qtv8j1f" path="res://Content/Objects/Player/Player UI/StaminaGUI.tscn" id="18_nsvp7"]
 [ext_resource type="FontFile" uid="uid://dlulxm5dxb804" path="res://Aesthetics/Fonts/Seagram tfb.ttf" id="19_bx1h2"]
 [ext_resource type="PackedScene" uid="uid://bah6bwn6do5bj" path="res://Content/Objects/UI/Statue Menu.tscn" id="19_mgy6k"]
-[ext_resource type="AudioStream" uid="uid://d3mtxmxt3kkyt" path="res://Aesthetics/Audio/SFX/UI/JDSherbert - Ultimate UI SFX Pack - Error - 1.wav" id="20_34mta"]
+[ext_resource type="AudioStream" uid="uid://d3mtxmxt3kkyt" path="res://Aesthetics/Audio/SFX/UI/Low Kick.wav" id="20_2rf6q"]
 [ext_resource type="PackedScene" uid="uid://cy3usaue2r7jy" path="res://Content/Objects/Player/Player UI/ItemGUI.tscn" id="20_lthxp"]
 [ext_resource type="PackedScene" uid="uid://dn1nfb6pxmd20" path="res://Content/Objects/Player/Player UI/AttackGUI.tscn" id="20_pa7va"]
 [ext_resource type="PackedScene" uid="uid://bq21xd4n7wkej" path="res://Content/Objects/UI/ShopMenu.tscn" id="20_y22ny"]
@@ -1076,7 +1076,7 @@ script = ExtResource("11_1xnuh")
 SwingSFX = Array[AudioStream]([ExtResource("12_glkli")])
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="Audio"]
-stream = ExtResource("20_34mta")
+stream = ExtResource("20_2rf6q")
 
 [node name="UI" type="CanvasLayer" parent="." node_paths=PackedStringArray("player", "invmanager", "HealthBar", "AttackIndicatorBox", "StaminaIndicatorBox", "AnxMeter", "CoinLabel", "PowderGUI", "ElixirGUI", "StatueMenu", "Shop", "XP")]
 process_mode = 3

@@ -6,30 +6,32 @@ class_name XPTracker
 @export var Bar : ProgressBar
 @export var AddAmount : Label
 
-@onready var WaitTimer : SceneTreeTimer = get_tree().create_timer(5)
-var AmntToAdd : int
+@export var AddTimer : Timer
+@export var SFX : AudioStreamPlayer
+
+@onready var CurrentAmount : int
+@onready var AmntToAdd : int
 
 func _ready():
-	AddAmount.text = "0"
+	AmntToAdd = 0
+	CurrentAmount = 0
 	
 func _process(delta):
-	pass
-
-func DisplayXP(amount : int):
-	if WaitTimer.time_left > 0:
-		WaitTimer.stop()
-		WaitTimer.start(5)
-	AmntToAdd += amount
 	AddAmount.text = "+" + str(AmntToAdd)
-	await WaitTimer.timeout
+	Amount.text = str(CurrentAmount)
+	Bar.value = CurrentAmount
+	
+func ResetProgressBar(Amount):
+	Bar.max_value = Amount
+
+func DisplayXP():
 	var WaitTime : float = 0.20
-	var Pitch : float = -0.5
-	for i in amount:
+	var Pitch : float = 0.1
+	for i in AmntToAdd:
 		AmntToAdd -= 1
-		AddAmount.text = "+" + str(AmntToAdd)
-		#CurrentXP += 1
+		CurrentAmount += 1
 		WaitTime -= 0.01
 		Pitch += 0.1
-		$Audio/AudioStreamPlayer.pitch_scale = Pitch
-		$Audio/AudioStreamPlayer.play()
+		SFX.pitch_scale = Pitch
+		SFX.play()
 		await get_tree().create_timer(WaitTime).timeout

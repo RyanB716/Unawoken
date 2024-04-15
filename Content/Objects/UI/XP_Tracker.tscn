@@ -1,8 +1,9 @@
-[gd_scene load_steps=7 format=3 uid="uid://xq3fptn0yski"]
+[gd_scene load_steps=8 format=3 uid="uid://xq3fptn0yski"]
 
 [ext_resource type="Script" path="res://Scripts/Player/XP_Tracker.gd" id="1_1u8ok"]
 [ext_resource type="LabelSettings" uid="uid://c7gh7kea3dmpf" path="res://Aesthetics/Thematic Resources/Title_LabelSettings.tres" id="1_5c3u0"]
 [ext_resource type="Texture2D" uid="uid://cupb0polhqrwj" path="res://addons/script-ide/icon/keyword.svg" id="2_5no1x"]
+[ext_resource type="AudioStream" uid="uid://d3mtxmxt3kkyt" path="res://Aesthetics/Audio/SFX/UI/Low Kick.wav" id="4_hi1t0"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_g8p8x"]
 bg_color = Color(0, 0, 0, 1)
@@ -21,7 +22,7 @@ corner_radius_top_right = 25
 corner_radius_bottom_right = 25
 corner_radius_bottom_left = 25
 
-[node name="XP" type="Panel" node_paths=PackedStringArray("ResolvePoints", "Amount", "Bar", "AddAmount")]
+[node name="XP" type="Panel" node_paths=PackedStringArray("ResolvePoints", "Amount", "Bar", "AddAmount", "AddTimer", "SFX")]
 custom_minimum_size = Vector2(325, 150)
 anchors_preset = 1
 anchor_left = 1.0
@@ -37,6 +38,8 @@ ResolvePoints = NodePath("Resolve Points")
 Amount = NodePath("Progress/Amount")
 Bar = NodePath("Progress/ProgressBar")
 AddAmount = NodePath("Progress/Add Amount")
+AddTimer = NodePath("Timer")
+SFX = NodePath("SFX")
 
 [node name="Resolve Points" type="Label" parent="."]
 layout_mode = 1
@@ -91,3 +94,10 @@ size_flags_horizontal = 4
 text = "+1,000"
 label_settings = ExtResource("1_5c3u0")
 horizontal_alignment = 1
+
+[node name="Timer" type="Timer" parent="."]
+
+[node name="SFX" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("4_hi1t0")
+
+[connection signal="timeout" from="Timer" to="." method="DisplayXP"]

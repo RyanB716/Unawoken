@@ -24,6 +24,8 @@ class_name PlayerUI
 func _ready():
 	player = get_parent()
 	HealthBar.max_value = player.MaxHealth
+	XP.ResolvePoints.text ="0"
+	XP.Amount.text = "0"
 
 func _process(_delta):
 	HealthBar.value = player.CurrentHealth
@@ -68,10 +70,10 @@ func _process(_delta):
 	else:
 		$"Main UI/AnxietyMeter".visible = false
 		
-	XP.ResolvePoints.text = str(player.ResolvePoints)
-	XP.Amount.text = str(player.CurrentXP)
-	XP.Bar.max_value = player.NeededXP
-	XP.Bar.value = player.CurrentXP
+	#XP.ResolvePoints.text = str(player.ResolvePoints)
+	#XP.Amount.text = str(player.CurrentXP)
+	#XP.Bar.max_value = player.NeededXP
+	#XP.Bar.value = player.CurrentXP
 	
 func UpdateAttackIcons(Amount : int):
 	for i in AttackIndicatorBox.get_child_count():
@@ -107,3 +109,12 @@ func ToggleMenu(Menu : Object, Choice : bool):
 		player.CurrentState = player.eStates.InMenu
 	else:
 		player.CurrentState = player.eStates.NoAction
+
+func UpdateXP(amount : int):
+	#print("Adding " + str(amount) + " points!")
+	XP.AmntToAdd += amount
+	
+	if !XP.AddTimer.is_stopped():
+		XP.AddTimer.stop()
+	
+	XP.AddTimer.start(3)

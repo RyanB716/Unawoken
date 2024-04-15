@@ -1725,20 +1725,23 @@ position = Vector2(282, -330)
 
 [node name="Eye" parent="Enemies" instance=ExtResource("17_hug4x")]
 position = Vector2(-622, 314)
-XpAmount = 249
+XpAmount = 25
 
 [node name="Eye5" parent="Enemies" instance=ExtResource("17_hug4x")]
 position = Vector2(-567, 315)
-XpAmount = 249
+XpAmount = 25
 
 [node name="Eye2" parent="Enemies" instance=ExtResource("17_hug4x")]
 position = Vector2(82, 76)
+XpAmount = 25
 
 [node name="Eye3" parent="Enemies" instance=ExtResource("17_hug4x")]
 position = Vector2(194, 124)
+XpAmount = 25
 
 [node name="Eye4" parent="Enemies" instance=ExtResource("17_hug4x")]
 position = Vector2(83, 186)
+XpAmount = 25
 
 [node name="Anxiety Trigger" type="Area2D" parent="."]
 position = Vector2(-597, 409)

@@ -41,12 +41,14 @@ func _ready():
 	Level.AllowFill.connect(StartFill)
 	
 	for i in Level.Enemies.size():
-		Level.Enemies[i].GiveXP.connect(PlayerRef.GetXP)
+		Level.Enemies[i].GiveXP.connect(GiveXP)
 	
 	FillTimeInSeconds = FillTime * 60
 	
 	if GameSettings.ShouldFillAnxiety == true:
 		StartFill()
+		
+	SetNeededXP()
 	
 func _process(_delta):
 	var snappedAnxiety = snapped(Anxiety, 0.01)
@@ -97,6 +99,30 @@ func RestartAnxietyFill(time : float, amount : float):
 		
 	AnxietyUpdate.emit(Anxiety)
 	StartFill()
+
+func SetNeededXP():
+	var newAmount : int
+	if PlayerRef.ResolvePoints != 0:
+		newAmount = 250 * (PlayerRef.XPScalar * PlayerRef.ResolvePoints)
+	else:
+		newAmount = 250
+	
+	PlayerRef.NeededXP = newAmount
+	PlayerRef.UI.XP.ResetProgressBar(PlayerRef.NeededXP)
+	print("Player needs " + str(newAmount) + " XP points!")
+
+func GiveXP(amount : int):
+	print("Recieving " + str(amount) + " XP!")
+	var cXP = PlayerRef.CurrentXP
+	var nXP = PlayerRef.NeededXP
+	if cXP + amount < nXP:
+		cXP += amount
+		PlayerRef.CurrentXP = cXP
+		PlayerRef.UI.UpdateXP(amount)
+	#else:
+		#var FinishValue : int = nXP - cXP
+		#print("Filling the last " + str(FinishValue) + " point(s)")
+		#var Remainder : int = 
 
 func _on_timer_timeout():
 	ElapsedTime += 1

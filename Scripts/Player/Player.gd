@@ -208,15 +208,6 @@ func Attack():
 	AttackIndex += 1
 	UI.UpdateAttackIcons(MaxAttackNumber - (AttackIndex - 1))
 	CurrentState = eStates.NoAction
-	
-func GetXP(amount : int):
-	print("Recieving " + str(amount) + " XP!")
-	if CurrentXP + amount < NeededXP:
-		CurrentXP += amount
-	else:
-		var FinishVaue : int = NeededXP - CurrentXP
-		print("Filling the last " + str(FinishVaue) + " point(s)")
-		#var Remainder : int = 
 
 func GuardON():
 	CurrentState = eStates.Blocking
