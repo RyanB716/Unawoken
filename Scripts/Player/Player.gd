@@ -112,7 +112,7 @@ func StateMachine():
 		
 		eStates.InMenu:
 			CurrentSpeed = 0
-			AnimTree.set("parameters/Idle/blend_position", Vector2.UP)
+			#AnimTree.set("parameters/Idle/blend_position", Vector2.UP)
 			AnimState.travel("Idle")
 			
 		eStates.Attacking:
@@ -122,7 +122,7 @@ func StateMachine():
 			CurrentSpeed = 0
 	
 func InputManager():
-	if CurrentState == eStates.Dead or CurrentState == eStates.Break or CurrentState == eStates.InMenu:
+	if CurrentState == eStates.Dead or CurrentState == eStates.Break:
 		return
 	
 	Direction = Vector2.ZERO

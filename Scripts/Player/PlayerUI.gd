@@ -79,6 +79,9 @@ func _process(_delta):
 		
 	if Input.is_action_just_pressed("Pause"):
 		TogglePauseMenu()
+		
+	if PauseMenu.visible:
+		player.CurrentState = player.eStates.InMenu
 	
 func UpdateAttackIcons(Amount : int):
 	for i in AttackIndicatorBox.get_child_count():
@@ -112,7 +115,6 @@ func TogglePauseMenu():
 	var MenuTween = get_tree().create_tween()
 	if !PauseMenu.visible:
 		#print("Opening Pause Menu...")
-		player.CurrentState = player.eStates.InMenu
 		PauseMenu.StartMusic()
 		PauseMenu.visible = true
 		PauseMenu.EnableChildren()
@@ -125,9 +127,9 @@ func TogglePauseMenu():
 		MenuTween.tween_property(PauseMenu, "size", Vector2(0, PauseMenu.yMax), 0.25)
 		PauseMenu.DisableChildren()
 		await MenuTween.finished
+		player.CurrentState = player.eStates.NoAction
 		PauseMenu.visible = false
 		get_tree().paused = false
-		player.CurrentState = player.eStates.NoAction
 
 func ToggleMenu(Menu : Object, Choice : bool):
 	Menu.visible = Choice

@@ -21,7 +21,7 @@ func _ready():
 	
 func _process(_delta):
 	if Input.is_action_just_pressed("ui_cancel") && player.CurrentState == player.eStates.InMenu:
-		print("Closing Menu...")
+		#print("Closing Menu...")
 		player.CurrentState = player.eStates.NoAction
 		self.visible = false
 		get_tree().paused = false
