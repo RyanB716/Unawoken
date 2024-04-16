@@ -30,3 +30,4 @@ label_settings = SubResource("LabelSettings_tus5m")
 
 [node name="MusicPlayer" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("3_ibwyk")
+volume_db = -20.0

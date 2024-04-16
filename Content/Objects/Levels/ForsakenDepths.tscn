@@ -1569,10 +1569,12 @@ process_mode = 1
 [node name="Ambient Audio 1" type="AudioStreamPlayer" parent="Audio"]
 process_mode = 3
 stream = ExtResource("4_xhi55")
+volume_db = -15.0
 
 [node name="Ambient Audio 2" type="AudioStreamPlayer" parent="Audio"]
 process_mode = 3
 stream = ExtResource("5_ucqvd")
+volume_db = -15.0
 
 [node name="1st Note" parent="." instance=ExtResource("10_clkcy")]
 position = Vector2(-609, 546)

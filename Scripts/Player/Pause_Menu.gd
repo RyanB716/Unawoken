@@ -32,7 +32,7 @@ func StartMusic():
 	var playPoint = RNG.randf_range(0.1, Music.stream.get_length())
 	Music.pitch_scale = 0.1
 	Music.play(playPoint)
-	mTween.tween_property(Music, "pitch_scale", 1.0, 1.0)
+	mTween.tween_property(Music, "pitch_scale", 1.0, 0.75)
 
 func StopMusic():
 	var mTween = get_tree().create_tween()
