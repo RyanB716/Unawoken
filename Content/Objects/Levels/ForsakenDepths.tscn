@@ -1545,7 +1545,6 @@ AmountToGive = 3
 size = Vector2(34, 34)
 
 [node name="Forsaken Depths" type="Node2D"]
-process_mode = 1
 script = ExtResource("1_u4b3h")
 
 [node name="TileMap" type="TileMap" parent="."]
