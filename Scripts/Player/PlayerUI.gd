@@ -118,13 +118,13 @@ func TogglePauseMenu():
 		PauseMenu.StartMusic()
 		PauseMenu.visible = true
 		PauseMenu.EnableChildren()
-		MenuTween.tween_property(PauseMenu, "size", Vector2(PauseMenu.xMax, PauseMenu.yMax), 0.25)
+		MenuTween.tween_property(PauseMenu, "size", Vector2(PauseMenu.xMax, PauseMenu.yMax), 0.5)
 		await MenuTween.finished
 		#get_tree().paused = true
 	else:
 		#print("Closing Pause Menu...")
 		PauseMenu.StopMusic()
-		MenuTween.tween_property(PauseMenu, "size", Vector2(0, PauseMenu.yMax), 0.25)
+		MenuTween.tween_property(PauseMenu, "size", Vector2(0, PauseMenu.yMax), 0.5)
 		PauseMenu.DisableChildren()
 		await MenuTween.finished
 		player.CurrentState = player.eStates.NoAction
