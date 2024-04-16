@@ -35,13 +35,18 @@ func DisableChildren():
 		
 func StartMusic():
 	var mTween = get_tree().create_tween()
+	var vTween = get_tree().create_tween()
 	Music.pitch_scale = 0.1
+	Music.volume_db = -50
 	Music.play(nextPoint)
 	mTween.tween_property(Music, "pitch_scale", 1.0, 0.75)
+	vTween.tween_property(Music, "volume_db", -20, 0.25)
 
 func StopMusic():
 	var mTween = get_tree().create_tween()
+	var vTween = get_tree().create_tween()
 	mTween.tween_property(Music, "pitch_scale", 0.1, 0.50)
+	vTween.tween_property(Music, "volume_db", -50, 0.50)
 	await mTween.finished
 	Music.stop()
 	GetNextPoint()

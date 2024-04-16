@@ -1,14 +1,14 @@
 [gd_scene load_steps=18 format=3 uid="uid://bmrv0ur1rwq74"]
 
 [ext_resource type="Script" path="res://Game Management/Scripts/ConfigMenu.gd" id="1_iyanm"]
-[ext_resource type="FontFile" uid="uid://dlulxm5dxb804" path="res://Visual Assets/Fonts/Seagram tfb.ttf" id="1_prdbe"]
-[ext_resource type="Texture2D" uid="uid://b5xuwwu0n6qn7" path="res://Visual Assets/UI/ButtonChecked.png" id="2_blf6l"]
-[ext_resource type="Texture2D" uid="uid://pdqr85ksfkk5" path="res://Visual Assets/UI/ButtonUnchecked.png" id="3_uld67"]
+[ext_resource type="FontFile" uid="uid://dlulxm5dxb804" path="res://Aesthetics/Fonts/Seagram tfb.ttf" id="1_prdbe"]
+[ext_resource type="Texture2D" uid="uid://b5xuwwu0n6qn7" path="res://Aesthetics/UI Elements/Buttons/ButtonChecked.png" id="2_blf6l"]
+[ext_resource type="Texture2D" uid="uid://pdqr85ksfkk5" path="res://Aesthetics/UI Elements/Buttons/ButtonUnchecked.png" id="3_uld67"]
 [ext_resource type="Script" path="res://Scripts/Components/Audio Controllers/MenuAudio.gd" id="5_dc1un"]
-[ext_resource type="AudioStream" uid="uid://wxdkvn5k7u4q" path="res://Audio/SFX/UI/Fantasy_UI (57).wav" id="6_ccb6k"]
-[ext_resource type="AudioStream" uid="uid://05r4hhm2yxwl" path="res://Audio/SFX/UI/16461_1460643357.mp3" id="7_rpqoa"]
-[ext_resource type="PackedScene" uid="uid://dukgowli70ket" path="res://Object Scenes/Shaders/Color Rects/ChromaticAbberation.tscn" id="8_4x57r"]
-[ext_resource type="PackedScene" uid="uid://hjgr02ppy2rv" path="res://Object Scenes/Shaders/Color Rects/FilmGrain.tscn" id="9_ng8m1"]
+[ext_resource type="AudioStream" uid="uid://wxdkvn5k7u4q" path="res://Aesthetics/Audio/SFX/UI/Fantasy_UI (57).wav" id="6_ccb6k"]
+[ext_resource type="AudioStream" uid="uid://05r4hhm2yxwl" path="res://Aesthetics/Audio/SFX/UI/16461_1460643357.mp3" id="7_rpqoa"]
+[ext_resource type="PackedScene" uid="uid://dukgowli70ket" path="res://Aesthetics/Shaders/Color Rects/ChromaticAbberation.tscn" id="8_4x57r"]
+[ext_resource type="PackedScene" uid="uid://hjgr02ppy2rv" path="res://Aesthetics/Shaders/Color Rects/FilmGrain.tscn" id="9_ng8m1"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_4hcfq"]
 bg_color = Color(0, 0, 0, 1)
