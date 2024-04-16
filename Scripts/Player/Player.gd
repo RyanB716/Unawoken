@@ -333,6 +333,8 @@ func Break():
 func Die():
 	PlayerDied.emit(self.position)
 	CurrentState = eStates.Dead
+	GameSettings.PlayerXP = 0
+	GameSettings.HeldResolvePoints = ResolvePoints
 
 #Regains a variable amount of health
 func RegainHealth(AmountInPercent : float):

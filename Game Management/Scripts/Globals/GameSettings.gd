@@ -7,4 +7,5 @@ var RespawnPoint : Vector2 = Vector2.ZERO
 
 var ShouldFillAnxiety : bool = false
 
-var PlayerXP : int 
+var PlayerXP : int = 0
+var HeldResolvePoints : int = 0

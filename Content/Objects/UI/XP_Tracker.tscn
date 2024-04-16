@@ -1,10 +1,11 @@
-[gd_scene load_steps=9 format=3 uid="uid://xq3fptn0yski"]
+[gd_scene load_steps=10 format=3 uid="uid://xq3fptn0yski"]
 
 [ext_resource type="Script" path="res://Scripts/Player/XP_Tracker.gd" id="1_1u8ok"]
 [ext_resource type="LabelSettings" uid="uid://c7gh7kea3dmpf" path="res://Aesthetics/Thematic Resources/Title_LabelSettings.tres" id="1_5c3u0"]
 [ext_resource type="Texture2D" uid="uid://cupb0polhqrwj" path="res://addons/script-ide/icon/keyword.svg" id="2_5no1x"]
 [ext_resource type="AudioStream" uid="uid://k5fipw1fq6h0" path="res://Aesthetics/Audio/SFX/UI/Notso_Confirm.wav" id="3_0quda"]
 [ext_resource type="AudioStream" uid="uid://d3mtxmxt3kkyt" path="res://Aesthetics/Audio/SFX/UI/Low Kick.wav" id="4_hi1t0"]
+[ext_resource type="AudioStream" uid="uid://dtilsgjvtw6qt" path="res://Aesthetics/Audio/SFX/UI/Continous Harp.wav" id="4_m6uv4"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_g8p8x"]
 bg_color = Color(0, 0, 0, 1)
@@ -43,6 +44,7 @@ AddTimer = NodePath("Timer")
 SFX = NodePath("SFX")
 XpTrack = ExtResource("4_hi1t0")
 RpTrack = ExtResource("3_0quda")
+CollapseTrack = ExtResource("4_m6uv4")
 
 [node name="RP Icon" type="TextureRect" parent="."]
 texture_filter = 1

@@ -50,7 +50,11 @@ func _ready():
 	
 	if GameSettings.ShouldFillAnxiety == true:
 		StartFill()
-		
+	
+	PlayerRef.CurrentXP = GameSettings.PlayerXP
+	PlayerRef.ResolvePoints = GameSettings.HeldResolvePoints
+	print("Player has " + str(PlayerRef.CurrentXP) + " XP!")
+	print("Player has " + str(PlayerRef.ResolvePoints) + " Resolve Points!")
 	SetNeededXP()
 	
 func _process(_delta):
@@ -105,14 +109,9 @@ func RestartAnxietyFill(time : float, amount : float):
 
 func SetNeededXP():
 	var newAmount : int
-	if PlayerRef.ResolvePoints != 0:
-		newAmount = 250 + 100 * (PlayerRef.XPScalar * PlayerRef.ResolvePoints)
-	else:
-		newAmount = 250
-	
-	PlayerRef.CurrentXP = 0
+	newAmount = 250 + (100 * (PlayerRef.XPScalar * PlayerRef.ResolvePoints))
 	PlayerRef.NeededXP = newAmount
-	print("Player needs " + str(newAmount) + " XP points!")
+	print("Player needs " + str(PlayerRef.CurrentXP - newAmount) + " XP points!")
 
 func GiveXP(amount : int):
 	print("Adding: " + str(amount))
@@ -151,12 +150,23 @@ func TransferXP():
 		XpTimer.start(0.5)
 		
 	else:
-		await get_tree().create_timer(0.25).timeout
-		PlayerRef.UI.XP.AddAmount.visible = false
-		print("Current: " + str(PlayerRef.CurrentXP))
-		print("Needed: " + str(PlayerRef.NeededXP - PlayerRef.CurrentXP) + "\n")
+		if PlayerRef.CurrentXP != PlayerRef.NeededXP:
+			await get_tree().create_timer(0.25).timeout
+			PlayerRef.UI.XP.AddAmount.visible = false
+			print("Current: " + str(PlayerRef.CurrentXP))
+			print("Needed: " + str(PlayerRef.NeededXP - PlayerRef.CurrentXP) + "\n")
+		else:
+			print("Needed XP reached!")
+			UpdateResolvePoints()
+			return
 
 func UpdateResolvePoints():
+	await get_tree().create_timer(0.25).timeout
+	var XpTween = get_tree().create_tween()
+	XpTween.tween_property(PlayerRef, "CurrentXP", 0, (0.005 * PlayerRef.CurrentXP))
+	PlayerRef.UI.PlayCollapseTrack()
+	await XpTween.finished
+	PlayerRef.UI.CutXPAudio()
 	await get_tree().create_timer(0.25).timeout
 	PlayerRef.ResolvePoints += 1
 	PlayerRef.UI.PlayRPGain()

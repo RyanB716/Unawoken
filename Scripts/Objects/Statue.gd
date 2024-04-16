@@ -15,6 +15,8 @@ func _process(_delta):
 		print("Spawn Point UPDATED!!!")
 		GameSettings.RespawnPoint = self.global_position
 		print(GameSettings.RespawnPoint)
+		GameSettings.PlayerXP = PlayerRef.CurrentXP
+		GameSettings.HeldResolvePoints = PlayerRef.ResolvePoints
 		PlayerRef.UI.ToggleMenu(PlayerRef.UI.StatueMenu, true)
 		
 func _on_detection_sphere_area_entered(area):
