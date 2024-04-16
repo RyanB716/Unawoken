@@ -124,7 +124,7 @@ func SetNeededXP():
 	var newAmount : int
 	newAmount = 250 + (100 * (PlayerRef.XPScalar * PlayerRef.ResolvePoints))
 	PlayerRef.NeededXP = newAmount
-	print("Player needs " + str(PlayerRef.CurrentXP - newAmount) + " XP points!")
+	print("Player needs " + str(newAmount - PlayerRef.CurrentXP) + " XP points!")
 
 func GiveXP(amount : int):
 	print("Adding: " + str(amount))
