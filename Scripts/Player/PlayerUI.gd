@@ -113,4 +113,10 @@ func ToggleMenu(Menu : Object, Choice : bool):
 
 func PlayXPTransfer(pitch : float):
 	XP.SFX.pitch_scale = pitch
+	XP.SFX.stream = XP.XpTrack
+	XP.SFX.play()
+
+func PlayRPGain():
+	XP.SFX.stream = XP.RpTrack
+	XP.SFX.pitch_scale = 1.0
 	XP.SFX.play()

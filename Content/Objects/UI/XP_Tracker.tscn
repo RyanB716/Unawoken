@@ -1,8 +1,9 @@
-[gd_scene load_steps=8 format=3 uid="uid://xq3fptn0yski"]
+[gd_scene load_steps=9 format=3 uid="uid://xq3fptn0yski"]
 
 [ext_resource type="Script" path="res://Scripts/Player/XP_Tracker.gd" id="1_1u8ok"]
 [ext_resource type="LabelSettings" uid="uid://c7gh7kea3dmpf" path="res://Aesthetics/Thematic Resources/Title_LabelSettings.tres" id="1_5c3u0"]
 [ext_resource type="Texture2D" uid="uid://cupb0polhqrwj" path="res://addons/script-ide/icon/keyword.svg" id="2_5no1x"]
+[ext_resource type="AudioStream" uid="uid://k5fipw1fq6h0" path="res://Aesthetics/Audio/SFX/UI/Notso_Confirm.wav" id="3_0quda"]
 [ext_resource type="AudioStream" uid="uid://d3mtxmxt3kkyt" path="res://Aesthetics/Audio/SFX/UI/Low Kick.wav" id="4_hi1t0"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_g8p8x"]
@@ -40,6 +41,8 @@ Bar = NodePath("Progress/ProgressBar")
 AddAmount = NodePath("Progress/Add Amount")
 AddTimer = NodePath("Timer")
 SFX = NodePath("SFX")
+XpTrack = ExtResource("4_hi1t0")
+RpTrack = ExtResource("3_0quda")
 
 [node name="Resolve Points" type="Label" parent="."]
 layout_mode = 1
@@ -98,6 +101,6 @@ horizontal_alignment = 1
 [node name="Timer" type="Timer" parent="."]
 
 [node name="SFX" type="AudioStreamPlayer" parent="."]
-stream = ExtResource("4_hi1t0")
+volume_db = -5.0
 
 [connection signal="timeout" from="Timer" to="." method="DisplayXP"]

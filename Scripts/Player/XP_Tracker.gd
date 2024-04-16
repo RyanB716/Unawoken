@@ -8,6 +8,8 @@ class_name XPTracker
 
 @export var AddTimer : Timer
 @export var SFX : AudioStreamPlayer
+@export var XpTrack : AudioStream
+@export var RpTrack : AudioStream
 
 @onready var CurrentAmount : int
 @onready var AmountAdding : int

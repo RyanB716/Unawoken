@@ -19,6 +19,7 @@ signal AnxietyUpdate(percent : float)
 var ElapsedTime : float
 
 var StockpiledXP : int
+var Transferring : bool
 
 func _ready():
 	Input.mouse_mode = Input.MOUSE_MODE_HIDDEN
@@ -105,7 +106,7 @@ func RestartAnxietyFill(time : float, amount : float):
 func SetNeededXP():
 	var newAmount : int
 	if PlayerRef.ResolvePoints != 0:
-		newAmount = 250 * (PlayerRef.XPScalar * PlayerRef.ResolvePoints)
+		newAmount = 250 + 100 * (PlayerRef.XPScalar * PlayerRef.ResolvePoints)
 	else:
 		newAmount = 250
 	
@@ -114,45 +115,56 @@ func SetNeededXP():
 	print("Player needs " + str(newAmount) + " XP points!")
 
 func GiveXP(amount : int):
+	print("Adding: " + str(amount))
 	StockpiledXP += amount
 	PlayerRef.UI.XP.AddAmount.visible = true
 	if !XpTimer.is_stopped():
 		XpTimer.stop()
-	XpTimer.start(3)
+	XpTimer.start(1.5)
 
 func TransferXP():
-	var scale = 0
-	var WaitTime = 0.20
-	for i in StockpiledXP:
-		StockpiledXP -= 1
-		PlayerRef.CurrentXP += 1
-		scale += 0.1
-		PlayerRef.UI.PlayXPTransfer(scale)
-		WaitTime -= 0.005
-		await get_tree().create_timer(WaitTime).timeout
-	PlayerRef.UI.XP.AddAmount.visible = false
-	print("Added: " + str(StockpiledXP))
-	print("Current: " + str(PlayerRef.CurrentXP))
-	print("Needed: " + str(PlayerRef.NeededXP - PlayerRef.CurrentXP))
+	if !Transferring:
+		var scale = 0.01
+		var WaitTime = 0.13
+		Transferring = true
+		for i in StockpiledXP:
+			if PlayerRef.CurrentXP == PlayerRef.NeededXP:
+				print("Needed XP reached!")
+				UpdateResolvePoints()
+				return
+			
+			else:
+				if StockpiledXP > 0:
+					StockpiledXP -= 1
+					PlayerRef.CurrentXP += 1
+					scale += 0.05
+					PlayerRef.UI.PlayXPTransfer(scale)
+			
+					if WaitTime > 0.025:
+						WaitTime -= 0.0025
+			
+					await get_tree().create_timer(WaitTime).timeout
 
-'func GiveXP(amount : int):
-	print("Recieving " + str(amount) + " XP!")
-	var cXP = PlayerRef.CurrentXP
-	var nXP = PlayerRef.NeededXP
-	if cXP + amount < nXP:
-		cXP += amount
-		PlayerRef.CurrentXP = cXP
-		PlayerRef.UI.UpdateXP(amount)
+		Transferring = false
+	
+	if StockpiledXP > 0:
+		XpTimer.start(0.5)
+		
 	else:
-		var FinishValue : int = nXP - cXP
-		print("Filling the last " + str(FinishValue) + " point(s)")
-		PlayerRef.UI.UpdateXP(FinishValue)
-		PlayerRef.ResolvePoints += 1
-		PlayerRef.UI.UpdateResolvePoints()
-		SetNeededXP()
-		var Remainder : int = amount - FinishValue
-		cXP = Remainder
-		PlayerRef.UI.UpdateXP(Remainder)'
+		await get_tree().create_timer(0.25).timeout
+		PlayerRef.UI.XP.AddAmount.visible = false
+		print("Current: " + str(PlayerRef.CurrentXP))
+		print("Needed: " + str(PlayerRef.NeededXP - PlayerRef.CurrentXP) + "\n")
+
+func UpdateResolvePoints():
+	await get_tree().create_timer(0.25).timeout
+	PlayerRef.ResolvePoints += 1
+	PlayerRef.UI.PlayRPGain()
+	SetNeededXP()
+	await get_tree().create_timer(0.5).timeout
+	Transferring = false
+	TransferXP()
+	#XpTimer.start(1.5)
 
 func _on_timer_timeout():
 	ElapsedTime += 1
