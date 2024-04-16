@@ -1,4 +1,4 @@
-[gd_scene load_steps=91 format=3 uid="uid://dxprot5svswbe"]
+[gd_scene load_steps=92 format=3 uid="uid://dxprot5svswbe"]
 
 [ext_resource type="Script" path="res://Scripts/Player/Player.gd" id="1_18da1"]
 [ext_resource type="Texture2D" uid="uid://bi38invhap0t" path="res://Aesthetics/Sprites/Player/player.png" id="2_w50ld"]
@@ -31,6 +31,7 @@
 [ext_resource type="PackedScene" uid="uid://cy3usaue2r7jy" path="res://Content/Objects/Player/Player UI/ItemGUI.tscn" id="20_lthxp"]
 [ext_resource type="PackedScene" uid="uid://dn1nfb6pxmd20" path="res://Content/Objects/Player/Player UI/AttackGUI.tscn" id="20_pa7va"]
 [ext_resource type="PackedScene" uid="uid://bq21xd4n7wkej" path="res://Content/Objects/UI/ShopMenu.tscn" id="20_y22ny"]
+[ext_resource type="PackedScene" uid="uid://p0uwgm5l5ea2" path="res://Content/Objects/UI/Pause_Menu.tscn" id="28_jc7ne"]
 [ext_resource type="PackedScene" uid="uid://xq3fptn0yski" path="res://Content/Objects/UI/XP_Tracker.tscn" id="31_stl7h"]
 
 [sub_resource type="Resource" id="Resource_dvfuj"]
@@ -947,6 +948,7 @@ font = ExtResource("19_bx1h2")
 font_size = 35
 
 [node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("InventoryRef", "UI", "HitBox", "HurtBox", "Shield", "AnimPlayer", "AnimTree", "AttackTimer", "BodyAudio", "WeaponAudio", "BlinkTimer") groups=["Player"]]
+process_mode = 1
 z_index = 1
 collision_mask = 7
 platform_floor_layers = 0
@@ -1078,11 +1080,12 @@ SwingSFX = Array[AudioStream]([ExtResource("12_glkli")])
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="Audio"]
 stream = ExtResource("20_2rf6q")
 
-[node name="UI" type="CanvasLayer" parent="." node_paths=PackedStringArray("player", "invmanager", "HealthBar", "AttackIndicatorBox", "StaminaIndicatorBox", "AnxMeter", "CoinLabel", "PowderGUI", "ElixirGUI", "StatueMenu", "Shop", "XP")]
+[node name="UI" type="CanvasLayer" parent="." node_paths=PackedStringArray("player", "invmanager", "PauseMenu", "HealthBar", "AttackIndicatorBox", "StaminaIndicatorBox", "AnxMeter", "CoinLabel", "PowderGUI", "ElixirGUI", "StatueMenu", "Shop", "XP")]
 process_mode = 3
 script = ExtResource("15_pbqi6")
 player = NodePath("..")
 invmanager = NodePath("../Inventory")
+PauseMenu = NodePath("Pause Menu")
 HealthBar = NodePath("Main UI/Health Bar")
 AttackIndicatorBox = NodePath("Main UI/AttackIndicators")
 StaminaIndicatorBox = NodePath("Main UI/StaminaContainer")
@@ -1165,6 +1168,8 @@ offset_top = 305.0
 offset_right = 525.0
 offset_bottom = 328.0
 text = "Anxiety"
+
+[node name="Pause Menu" parent="UI" instance=ExtResource("28_jc7ne")]
 
 [node name="Coin Count" type="Label" parent="UI"]
 anchors_preset = 3

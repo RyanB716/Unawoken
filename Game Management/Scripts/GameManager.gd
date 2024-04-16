@@ -60,6 +60,19 @@ func _ready():
 func _process(_delta):
 	var snappedAnxiety = snapped(Anxiety, 0.01)
 	AnxietyUpdate.emit(snappedAnxiety)
+	
+	if get_tree().paused == false:
+		Level.Ambient1.stream_paused = false
+		Level.Ambient2.stream_paused = false
+		
+		if !Level.Ambient1.playing:
+			Level.Ambient1.play()
+	
+		if !Level.Ambient2.playing:
+			Level.Ambient2.play()
+	else:
+		Level.Ambient1.stream_paused = true
+		Level.Ambient2.stream_paused = true
 
 func HitStop(EffectTime : float):
 	get_tree().paused = true

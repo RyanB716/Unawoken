@@ -6,7 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://bqe051788k1gi" path="res://Game Management/MainCamera.tscn" id="4_8fpqb"]
 
 [node name="GameManager" type="Node" groups=["GameManager"]]
-process_mode = 3
+process_mode = 1
 script = ExtResource("1_gdgan")
 FillTime = 2.0
 
@@ -18,7 +18,6 @@ zoom = Vector2(4, 4)
 CamSpeed = 1.25
 
 [node name="Player" parent="." instance=ExtResource("2_t5728")]
-process_mode = 1
 position = Vector2(-667, 517)
 
 [node name="XP Timer" type="Timer" parent="."]

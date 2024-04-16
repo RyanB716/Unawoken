@@ -9,6 +9,9 @@ var Destructables : Array[DestructableObject]
 
 var Enemies : Array[BasicEnemy]
 
+@onready var Ambient1 : AudioStreamPlayer = $"Audio/Ambient Audio 1"
+@onready var Ambient2 : AudioStreamPlayer = $"Audio/Ambient Audio 2"
+
 func _ready():
 	for i in $Destructables.get_child_count():
 		if $Destructables.get_child(i) is DestructableObject:
@@ -20,13 +23,6 @@ func _ready():
 		if $Enemies.get_child(i) is BasicEnemy:
 			GM.AnxietyUpdate.connect($Enemies.get_child(i).AnxietyEffect)
 			Enemies.append($Enemies.get_child(i))
-
-func _process(_delta):
-	if !$"Audio/Ambient Audio 1".playing:
-		$"Audio/Ambient Audio 1".play()
-		
-	if !$"Audio/Ambient Audio 2".playing:
-		$"Audio/Ambient Audio 2".play()
 
 func _on_anxiety_trigger_body_entered(body):
 	if body is Player:

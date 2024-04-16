@@ -8,6 +8,7 @@ class_name PlayerUI
 
 
 @export_category("Children")
+@export var PauseMenu : PauseMenuController
 @export var HealthBar : ProgressBar
 @export var AttackIndicatorBox : IndicatorBox
 @export var StaminaIndicatorBox : IndicatorBox
@@ -75,6 +76,9 @@ func _process(_delta):
 		$"Main UI/AnxietyMeter".visible = true
 	else:
 		$"Main UI/AnxietyMeter".visible = false
+		
+	if Input.is_action_just_pressed("Pause"):
+		TogglePauseMenu()
 	
 func UpdateAttackIcons(Amount : int):
 	for i in AttackIndicatorBox.get_child_count():
@@ -103,6 +107,27 @@ func RefillStaminaIcons(Amount : int):
 	for i in Amount:
 		if StaminaIndicatorBox.get_child(i).IsFilled == false:
 			StaminaIndicatorBox.get_child(i).IsFilled = true
+
+func TogglePauseMenu():
+	var MenuTween = get_tree().create_tween()
+	if !PauseMenu.visible:
+		#print("Opening Pause Menu...")
+		player.CurrentState = player.eStates.InMenu
+		PauseMenu.StartMusic()
+		PauseMenu.visible = true
+		PauseMenu.EnableChildren()
+		MenuTween.tween_property(PauseMenu, "size", Vector2(PauseMenu.xMax, PauseMenu.yMax), 0.25)
+		await MenuTween.finished
+		#get_tree().paused = true
+	else:
+		#print("Closing Pause Menu...")
+		PauseMenu.StopMusic()
+		MenuTween.tween_property(PauseMenu, "size", Vector2(0, PauseMenu.yMax), 0.25)
+		PauseMenu.DisableChildren()
+		await MenuTween.finished
+		PauseMenu.visible = false
+		get_tree().paused = false
+		player.CurrentState = player.eStates.NoAction
 
 func ToggleMenu(Menu : Object, Choice : bool):
 	Menu.visible = Choice
