@@ -1202,10 +1202,10 @@ visible = false
 visible = false
 
 [node name="XP" parent="UI" instance=ExtResource("31_stl7h")]
-offset_left = -323.0
-offset_top = 21.0
-offset_right = -23.0
-offset_bottom = 146.0
+offset_left = -316.0
+offset_top = 17.0
+offset_right = -16.0
+offset_bottom = 167.0
 
 [connection signal="area_entered" from="Shield" to="Shield" method="OnHit"]
 [connection signal="timeout" from="Timers/AttackTimer" to="." method="ResetAttackIndex"]
