@@ -9,6 +9,8 @@ var Destructables : Array[DestructableObject]
 
 var Enemies : Array[BasicEnemy]
 
+@export var AreaName : String
+
 @onready var Ambient1 : AudioStreamPlayer = $"Audio/Ambient Audio 1"
 @onready var Ambient2 : AudioStreamPlayer = $"Audio/Ambient Audio 2"
 

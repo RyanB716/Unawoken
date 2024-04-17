@@ -1546,6 +1546,7 @@ size = Vector2(34, 34)
 
 [node name="Forsaken Depths" type="Node2D"]
 script = ExtResource("1_u4b3h")
+AreaName = "Forsaken Depths"
 
 [node name="TileMap" type="TileMap" parent="."]
 texture_filter = 1

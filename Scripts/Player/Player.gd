@@ -64,7 +64,7 @@ func _ready():
 	Direction = Vector2.DOWN
 	LastDirection = Vector2.DOWN
 	
-	UI.UpdateAttackIcons(MaxAttackNumber)
+	#UI.UpdateAttackIcons(MaxAttackNumber)
 	UI.SetStaminaIcons(MaxStaminaActions)
 	
 	if Shield.Sprite.visible == true:
@@ -165,7 +165,7 @@ func Move():
 			
 func AnxietyEffects(percent : float):
 	if percent >= 0.50:
-		UI.AttackIndicatorBox.visible = false
+		UI.AttackIndex.visible = false
 	if percent >= 0.75:
 		UI.StaminaIndicatorBox.visible = false
 	if percent >= 0.85:
@@ -202,11 +202,14 @@ func Attack():
 		print("Running cooldown\n")
 		ReduceStamina(1)
 		AttackTimer.start(AttackCooldown)
+		UI.DisplayAttackIndex(AttackCooldown, AttackIndex, true)
+		
 	else:
 		AttackTimer.start(AttackTime)
 	
 	AttackIndex += 1
-	UI.UpdateAttackIcons(MaxAttackNumber - (AttackIndex - 1))
+	UI.DisplayAttackIndex(AttackTime, AttackIndex, false)
+	#UI.UpdateAttackIcons(MaxAttackNumber - (AttackIndex - 1))
 	CurrentState = eStates.NoAction
 
 func GuardON():
@@ -300,7 +303,7 @@ func Blink():
 
 func ResetAttackIndex():
 	AttackIndex = 1
-	UI.UpdateAttackIcons(MaxAttackNumber)
+	UI.AttackIndex.IndexLabel.text = "Combo"
 	
 func ReduceStamina(Amount : int):
 	CurrentStamina -= Amount

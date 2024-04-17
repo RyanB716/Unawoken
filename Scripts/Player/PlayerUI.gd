@@ -10,7 +10,7 @@ class_name PlayerUI
 @export_category("Children")
 @export var PauseMenu : PauseMenuController
 @export var HealthBar : ProgressBar
-@export var AttackIndicatorBox : IndicatorBox
+@export var AttackIndex : AttackBarController
 @export var StaminaIndicatorBox : IndicatorBox
 @export var AnxMeter : Label
 @export var CoinLabel : Label
@@ -72,24 +72,36 @@ func _process(_delta):
 	XP.Bar.value = player.CurrentXP
 	XP.Bar.max_value = player.NeededXP
 	
+	PauseMenu.Title.text = player.GM.Level.AreaName
+	
+	AttackIndex.value = player.AttackTimer.time_left
+	
+	if player.AttackTimer.time_left > 0:
+		AttackIndex.Particles.emitting = true
+	else:
+		AttackIndex.Particles.emitting = false
+	
+	'if player.AttackTimer.time_left > 0:
+		AttackIndex.Particles.emitting = true
+		AttackIndex.Particles.position = lerp(AttackIndex.Particles.position, Vector2(0, 10), player.AttackTime * _delta)
+	else:
+		AttackIndex.Particles.emitting = false
+		if AttackIndex.Particles.position != AttackIndex.pStartingPos:
+			AttackIndex.Particles.position = AttackIndex.pStartingPos'
+	
 	if GameSettings.ShouldFillAnxiety == true:
 		$"Main UI/AnxietyMeter".visible = true
 	else:
 		$"Main UI/AnxietyMeter".visible = false
 		
 	if Input.is_action_just_pressed("Pause"):
-		TogglePauseMenu()
+		if PauseMenu.visible == false && player.CurrentState == player.eStates.InMenu:
+			return
+		else:
+			TogglePauseMenu()
 		
 	if PauseMenu.visible:
 		player.CurrentState = player.eStates.InMenu
-	
-func UpdateAttackIcons(Amount : int):
-	for i in AttackIndicatorBox.get_child_count():
-		AttackIndicatorBox.get_child(i).queue_free()
-	
-	for i in Amount:
-		var newIcon = AttackIndicatorBox.Icon.instantiate()
-		AttackIndicatorBox.add_child(newIcon)
 		
 func SetStaminaIcons(Amount : int):
 	for i in StaminaIndicatorBox.get_child_count():
@@ -113,19 +125,20 @@ func RefillStaminaIcons(Amount : int):
 
 func TogglePauseMenu():
 	var MenuTween = get_tree().create_tween()
+	MenuTween.set_pause_mode(Tween.TWEEN_PAUSE_PROCESS)
 	if !PauseMenu.visible:
 		#print("Opening Pause Menu...")
 		PauseMenu.StartMusic()
 		PauseMenu.visible = true
-		PauseMenu.EnableChildren()
-		MenuTween.tween_property(PauseMenu, "size", Vector2(PauseMenu.xMax, PauseMenu.yMax), 0.5)
+		MenuTween.tween_property(PauseMenu, "size", Vector2(PauseMenu.xMax, PauseMenu.yMax), 0.25)
 		await MenuTween.finished
-		#get_tree().paused = true
+		PauseMenu.EnableChildren()
+		get_tree().paused = true
 	else:
 		#print("Closing Pause Menu...")
 		PauseMenu.StopMusic()
-		MenuTween.tween_property(PauseMenu, "size", Vector2(0, PauseMenu.yMax), 0.5)
 		PauseMenu.DisableChildren()
+		MenuTween.tween_property(PauseMenu, "size", Vector2(0, PauseMenu.yMax), 0.25)
 		await MenuTween.finished
 		player.CurrentState = player.eStates.NoAction
 		PauseMenu.visible = false
@@ -137,6 +150,30 @@ func ToggleMenu(Menu : Object, Choice : bool):
 		player.CurrentState = player.eStates.InMenu
 	else:
 		player.CurrentState = player.eStates.NoAction
+		
+func DisplayAttackIndex(time : float, index : int, cooldown : bool):
+	AttackIndex.max_value = time
+	#AttackIndex.Particles.position = AttackIndex.pStartingPos
+	AttackIndex.Particles.emitting = true
+	
+	if cooldown:
+		AttackIndex.IndexLabel.text = "Cooldown!"
+	
+	else:
+		match index:
+			2:
+				AttackIndex.IndexLabel.text = "I"
+			3:
+				AttackIndex.IndexLabel.text = "II"
+			4:
+				AttackIndex.IndexLabel.text = "III"
+	
+	#AttackIndex.Particles.position = AttackIndex.pStartingPos
+	#AttackIndex.Particles.position = lerp(AttackIndex.Particles.position, Vector2(0, 10), player.AttackTime * get_process_delta_time())
+	#var pTween = get_tree().create_tween()
+	#pTween.tween_property(AttackIndex.Particles, "position", Vector2(0, 25), time - 0.25)
+	#await pTween.finished
+	#AttackIndex.Particles.emitting = false
 
 func PlayXPTransfer(pitch : float):
 	XP.SFX.pitch_scale = pitch

@@ -1,4 +1,4 @@
-[gd_scene load_steps=91 format=3 uid="uid://dxprot5svswbe"]
+[gd_scene load_steps=90 format=3 uid="uid://dxprot5svswbe"]
 
 [ext_resource type="Script" path="res://Scripts/Player/Player.gd" id="1_18da1"]
 [ext_resource type="Texture2D" uid="uid://bi38invhap0t" path="res://Aesthetics/Sprites/Player/player.png" id="2_w50ld"]
@@ -21,15 +21,14 @@
 [ext_resource type="AudioStream" uid="uid://b1u7ihusdosr8" path="res://Aesthetics/Audio/SFX/Player/Body Hurt/blade_hit_08.wav" id="14_0ki75"]
 [ext_resource type="Script" path="res://Scripts/Player/PlayerUI.gd" id="15_pbqi6"]
 [ext_resource type="PackedScene" uid="uid://cvlh1usf2hwre" path="res://Content/Objects/Components/HealthBar.tscn" id="16_i6jb6"]
-[ext_resource type="PackedScene" uid="uid://cna3svtiht3b2" path="res://Content/Objects/Player/Player UI/AttackIndicators.tscn" id="17_2lead"]
 [ext_resource type="PackedScene" uid="uid://s1sbq5wnosnk" path="res://Content/Objects/UI/Anxiety Meter.tscn" id="17_gn7sr"]
 [ext_resource type="PackedScene" uid="uid://b8dv2qk331bb" path="res://Content/Objects/Player/Player UI/StaminaIndicators.tscn" id="17_xn00y"]
 [ext_resource type="PackedScene" uid="uid://cs2uv0qtv8j1f" path="res://Content/Objects/Player/Player UI/StaminaGUI.tscn" id="18_nsvp7"]
 [ext_resource type="FontFile" uid="uid://dlulxm5dxb804" path="res://Aesthetics/Fonts/Seagram tfb.ttf" id="19_bx1h2"]
 [ext_resource type="PackedScene" uid="uid://bah6bwn6do5bj" path="res://Content/Objects/UI/Statue Menu.tscn" id="19_mgy6k"]
 [ext_resource type="PackedScene" uid="uid://cy3usaue2r7jy" path="res://Content/Objects/Player/Player UI/ItemGUI.tscn" id="20_lthxp"]
-[ext_resource type="PackedScene" uid="uid://dn1nfb6pxmd20" path="res://Content/Objects/Player/Player UI/AttackGUI.tscn" id="20_pa7va"]
 [ext_resource type="PackedScene" uid="uid://bq21xd4n7wkej" path="res://Content/Objects/UI/ShopMenu.tscn" id="20_y22ny"]
+[ext_resource type="PackedScene" uid="uid://bbcqth4iquje" path="res://Attack_Index_Bar.tscn" id="25_wlqw8"]
 [ext_resource type="PackedScene" uid="uid://p0uwgm5l5ea2" path="res://Content/Objects/UI/Pause_Menu.tscn" id="28_jc7ne"]
 [ext_resource type="PackedScene" uid="uid://xq3fptn0yski" path="res://Content/Objects/UI/XP_Tracker.tscn" id="31_stl7h"]
 
@@ -1090,14 +1089,14 @@ FootSFX = ExtResource("10_o41wl")
 script = ExtResource("11_1xnuh")
 SwingSFX = Array[AudioStream]([ExtResource("12_glkli")])
 
-[node name="UI" type="CanvasLayer" parent="." node_paths=PackedStringArray("player", "invmanager", "PauseMenu", "HealthBar", "AttackIndicatorBox", "StaminaIndicatorBox", "AnxMeter", "CoinLabel", "PowderGUI", "ElixirGUI", "StatueMenu", "Shop", "XP")]
+[node name="UI" type="CanvasLayer" parent="." node_paths=PackedStringArray("player", "invmanager", "PauseMenu", "HealthBar", "AttackIndex", "StaminaIndicatorBox", "AnxMeter", "CoinLabel", "PowderGUI", "ElixirGUI", "StatueMenu", "Shop", "XP")]
 process_mode = 3
 script = ExtResource("15_pbqi6")
 player = NodePath("..")
 invmanager = NodePath("../Inventory")
 PauseMenu = NodePath("Pause Menu")
 HealthBar = NodePath("Main UI/Health Bar")
-AttackIndicatorBox = NodePath("Main UI/AttackIndicators")
+AttackIndex = NodePath("Main UI/Attack Index Bar")
 StaminaIndicatorBox = NodePath("Main UI/StaminaContainer")
 AnxMeter = NodePath("Main UI/Anxiety DEBUG")
 CoinLabel = NodePath("Coin Count")
@@ -1138,9 +1137,9 @@ player = NodePath("../../..")
 [node name="StaminaContainer" parent="UI/Main UI" instance=ExtResource("17_xn00y")]
 layout_mode = 0
 offset_left = 223.0
-offset_top = 115.0
+offset_top = 80.0
 offset_right = 723.0
-offset_bottom = 195.0
+offset_bottom = 160.0
 
 [node name="StaminaGUI" parent="UI/Main UI/StaminaContainer" instance=ExtResource("18_nsvp7")]
 layout_mode = 2
@@ -1151,24 +1150,12 @@ layout_mode = 2
 [node name="StaminaGUI3" parent="UI/Main UI/StaminaContainer" instance=ExtResource("18_nsvp7")]
 layout_mode = 2
 
-[node name="AttackIndicators" parent="UI/Main UI" instance=ExtResource("17_2lead")]
+[node name="Attack Index Bar" parent="UI/Main UI" instance=ExtResource("25_wlqw8")]
 layout_mode = 0
-offset_left = 222.0
-offset_top = 218.0
-offset_right = 722.0
-offset_bottom = 268.0
-
-[node name="Attack Indicator" parent="UI/Main UI/AttackIndicators" instance=ExtResource("20_pa7va")]
-layout_mode = 2
-
-[node name="Attack Indicator2" parent="UI/Main UI/AttackIndicators" instance=ExtResource("20_pa7va")]
-layout_mode = 2
-
-[node name="Attack Indicator3" parent="UI/Main UI/AttackIndicators" instance=ExtResource("20_pa7va")]
-layout_mode = 2
-
-[node name="Attack Indicator4" parent="UI/Main UI/AttackIndicators" instance=ExtResource("20_pa7va")]
-layout_mode = 2
+offset_left = 230.0
+offset_top = 169.0
+offset_right = 480.0
+offset_bottom = 196.0
 
 [node name="Anxiety DEBUG" type="Label" parent="UI/Main UI"]
 visible = false
@@ -1180,6 +1167,7 @@ offset_bottom = 328.0
 text = "Anxiety"
 
 [node name="Pause Menu" parent="UI" instance=ExtResource("28_jc7ne")]
+visible = false
 
 [node name="Coin Count" type="Label" parent="UI"]
 anchors_preset = 3
