@@ -1,4 +1,4 @@
-[gd_scene load_steps=92 format=3 uid="uid://dxprot5svswbe"]
+[gd_scene load_steps=91 format=3 uid="uid://dxprot5svswbe"]
 
 [ext_resource type="Script" path="res://Scripts/Player/Player.gd" id="1_18da1"]
 [ext_resource type="Texture2D" uid="uid://bi38invhap0t" path="res://Aesthetics/Sprites/Player/player.png" id="2_w50ld"]
@@ -27,7 +27,6 @@
 [ext_resource type="PackedScene" uid="uid://cs2uv0qtv8j1f" path="res://Content/Objects/Player/Player UI/StaminaGUI.tscn" id="18_nsvp7"]
 [ext_resource type="FontFile" uid="uid://dlulxm5dxb804" path="res://Aesthetics/Fonts/Seagram tfb.ttf" id="19_bx1h2"]
 [ext_resource type="PackedScene" uid="uid://bah6bwn6do5bj" path="res://Content/Objects/UI/Statue Menu.tscn" id="19_mgy6k"]
-[ext_resource type="AudioStream" uid="uid://d3mtxmxt3kkyt" path="res://Aesthetics/Audio/SFX/UI/Low Kick.wav" id="20_2rf6q"]
 [ext_resource type="PackedScene" uid="uid://cy3usaue2r7jy" path="res://Content/Objects/Player/Player UI/ItemGUI.tscn" id="20_lthxp"]
 [ext_resource type="PackedScene" uid="uid://dn1nfb6pxmd20" path="res://Content/Objects/Player/Player UI/AttackGUI.tscn" id="20_pa7va"]
 [ext_resource type="PackedScene" uid="uid://bq21xd4n7wkej" path="res://Content/Objects/UI/ShopMenu.tscn" id="20_y22ny"]
@@ -999,6 +998,21 @@ visible = false
 position = Vector2(0, 2)
 shape = SubResource("RectangleShape2D_8v8gj")
 
+[node name="Hurt Effect" type="CPUParticles2D" parent="."]
+position = Vector2(0, -1)
+emitting = false
+amount = 25
+lifetime = 0.25
+one_shot = true
+emission_shape = 1
+emission_sphere_radius = 0.01
+direction = Vector2(0, 0)
+spread = 180.0
+gravity = Vector2(0, 0)
+initial_velocity_min = 25.0
+initial_velocity_max = 50.0
+color = Color(1, 0, 0, 1)
+
 [node name="Shield" type="Area2D" parent="."]
 position = Vector2(0.2, -7)
 script = ExtResource("7_6r544")
@@ -1075,9 +1089,6 @@ FootSFX = ExtResource("10_o41wl")
 [node name="WeaponAudioPlayer" type="AudioStreamPlayer" parent="Audio"]
 script = ExtResource("11_1xnuh")
 SwingSFX = Array[AudioStream]([ExtResource("12_glkli")])
-
-[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="Audio"]
-stream = ExtResource("20_2rf6q")
 
 [node name="UI" type="CanvasLayer" parent="." node_paths=PackedStringArray("player", "invmanager", "PauseMenu", "HealthBar", "AttackIndicatorBox", "StaminaIndicatorBox", "AnxMeter", "CoinLabel", "PowderGUI", "ElixirGUI", "StatueMenu", "Shop", "XP")]
 process_mode = 3

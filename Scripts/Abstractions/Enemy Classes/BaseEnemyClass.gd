@@ -29,6 +29,7 @@ var Distance
 @export var HitBox : Hit_Box
 @export var HealthBar : ProgressBar
 @export var BodySFX : BodyAudioPlayer
+@export var EnvCollider : CollisionShape2D
 
 var PlayerTarget : Player
 

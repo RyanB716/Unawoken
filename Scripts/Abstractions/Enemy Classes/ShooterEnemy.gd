@@ -81,7 +81,7 @@ func ShootProjectile():
 func Die():
 	print("\n" + str(self.name) + " has died!")
 	HitBox.call_deferred("Disable")
-	HitBox.Collider.set_deferred("disabled", true)
+	self.EnvCollider.set_deferred("disabled", true)
 	CurrentState = eStates.Dead
 	await get_tree().create_timer(1.5).timeout
 	self.queue_free()

@@ -317,6 +317,7 @@ func BlockAttack():
 
 func TakeDamage(Amount : int):
 	PlayerHit.emit(0.25)
+	$"Hurt Effect".emitting = true
 	CurrentHealth -= Amount
 	BodyAudio.PlayHitSFX()
 	if CurrentHealth <= 0:
@@ -332,7 +333,10 @@ func Break():
 
 func Die():
 	PlayerDied.emit(self.position)
+	GameSettings.HeldResolvePoints = ResolvePoints
+	GameSettings.PlayerXP = 0
 	CurrentState = eStates.Dead
+	HitBox.call_deferred("Disable")
 	GameSettings.PlayerXP = 0
 	GameSettings.HeldResolvePoints = ResolvePoints
 

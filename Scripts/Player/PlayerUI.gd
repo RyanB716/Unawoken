@@ -151,7 +151,7 @@ func PlayRPGain():
 func PlayCollapseTrack():
 	XP.SFX.pitch_scale = 1.0
 	var RNG = RandomNumberGenerator.new()
-	var newPoint = RNG.randf_range(0.1, XP.CollapseTrack.get_length())
+	#var newPoint = RNG.randf_range(0.1, XP.CollapseTrack.get_length())
 	XP.SFX.stream = XP.CollapseTrack
 	XP.SFX.play()
 	

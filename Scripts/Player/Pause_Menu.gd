@@ -10,7 +10,7 @@ var nextPoint : float
 
 func _ready():
 	visible = false
-	size = Vector2(0, get_viewport().size.y)
+	self.set_deferred("size", Vector2(0, get_viewport().size.y))
 	xMax = get_viewport().size.x
 	yMax = get_viewport().size.y
 	GetNextPoint()

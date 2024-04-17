@@ -132,7 +132,7 @@ func GiveXP(amount : int):
 	PlayerRef.UI.XP.AddAmount.visible = true
 	if !XpTimer.is_stopped():
 		XpTimer.stop()
-	XpTimer.start(3)
+	XpTimer.start(5)
 
 func TransferXP():
 	if !Transferring:

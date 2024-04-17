@@ -5,7 +5,6 @@ func TestHealth():
 	match MaxHealth:
 		125:
 			$"Health Bar/Label".visible = false
-			#$"Health Bar/Label".text = "+0"
 		150:
 			$"Health Bar/Label".visible = true
 			$"Health Bar/Label".text = "+25"
