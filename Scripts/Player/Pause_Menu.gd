@@ -2,7 +2,9 @@ extends ColorRect
 class_name PauseMenuController
 
 @onready var Music : AudioStreamPlayer = $MusicPlayer
+@onready var SFX : AudioStreamPlayer = $SFX
 @onready var Title : Label = $Title
+@onready var Location : HBoxContainer = $Location
 
 @onready var yMax : int
 @onready var xMax : int
@@ -14,6 +16,7 @@ func _ready():
 	self.set_deferred("size", Vector2(0, get_viewport().size.y))
 	xMax = get_viewport().size.x
 	yMax = get_viewport().size.y
+	DeleteName()
 	GetNextPoint()
 
 func _process(delta):
@@ -48,3 +51,33 @@ func StopMusic():
 	await mTween.finished
 	Music.stop()
 	GetNextPoint()
+
+func DrawLocationName(location : String):
+	print("Location Name is: " + str(location))
+	var NumOfChar : int = location.length()
+	print("It has: " + str(NumOfChar) + " characters!")
+	
+	var CharArray : Array[String]
+	for i in NumOfChar:
+		CharArray.append(location[i])
+		var newLabel = Label.new()
+		newLabel.label_settings = load("res://Content/Objects/UI/Pause_Menu_NameSettings.tres")
+		Location.add_child(newLabel)
+	
+	print("Location now has: " + str(Location.get_child_count()) + " children!")
+	print("CharArray now has: " + str(CharArray.size()) + " elements!")
+	print(CharArray)
+	
+	var RNG = RandomNumberGenerator.new()
+	RNG.randomize()
+	
+	for i in CharArray.size():
+		if visible:
+			Location.get_child(i).text = CharArray[i]
+			SFX.pitch_scale = RNG.randf_range(0.25, 1.5)
+			SFX.play()
+			await get_tree().create_timer(RNG.randf_range(0.05, 0.25)).timeout
+
+func DeleteName():
+	for i in Location.get_child_count():
+		Location.get_child(i).queue_free()
