@@ -2,13 +2,13 @@
 
 importer="font_data_dynamic"
 type="FontFile"
-uid="uid://c036wxpvb3ld5"
-path="res://.godot/imported/Blackside.ttf-7388282be517565d3dc5649adb005c86.fontdata"
+uid="uid://fl4n8uet8xjj"
+path="res://.godot/imported/iknowaghost.ttf-98444757fb2c544cf6cb0b15e5070362.fontdata"
 
 [deps]
 
-source_file="res://Aesthetics/Fonts/Blackside.ttf"
-dest_files=["res://.godot/imported/Blackside.ttf-7388282be517565d3dc5649adb005c86.fontdata"]
+source_file="res://Aesthetics/Fonts/iknowaghost.ttf"
+dest_files=["res://.godot/imported/iknowaghost.ttf-98444757fb2c544cf6cb0b15e5070362.fontdata"]
 
 [params]
 

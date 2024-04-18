@@ -57,6 +57,8 @@ func _ready():
 	print("Player has " + str(PlayerRef.ResolvePoints) + " Resolve Points!")
 	SetNeededXP()
 	
+	GameSettings.CurrentPrompt = "I don't understand. This room is my home. But I'm being told to ... escape?"
+	
 func _process(_delta):
 	var snappedAnxiety = snapped(Anxiety, 0.01)
 	AnxietyUpdate.emit(snappedAnxiety)
