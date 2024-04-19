@@ -25,6 +25,9 @@ class_name PauseMenuController
 @export var WriteSFX : AudioStream
 @export var HighlightSFX : AudioStream
 
+@onready var Transition : TransitionController = $TransitionScreen
+@onready var Collection : CollectionMenuController = $Collection
+
 var nextPoint : float
 
 func _ready():
@@ -176,5 +179,5 @@ func QuitToMenu():
 
 func ToCollection():
 	print("Bringing up Collection Menu")
-	await UI.Transition.PlayTransition()
+	await Transition.PlayTransition()
 	UI.Collection.Open()

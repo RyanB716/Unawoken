@@ -1,7 +1,7 @@
 shader_type canvas_item;
 
 // set max strength to your liking here=20.0, step_size=0.1
-uniform float strength:hint_range(0, 100, 0.1)=16;
+uniform float strength:hint_range(0, 275, 0.1)=16;
 
 void fragment() {
 	
@@ -15,7 +15,7 @@ void fragment() {
 	// Add grain to Screen
 	screen = screen+vec4(mod((mod(x, 13.0) ) * (mod(x, 123.0) ), 0.01)-0.005) * strength;
     
-    screen = 1.0 - screen;
+    //screen = 1.0 - screen;
 	COLOR = screen;
     
 }

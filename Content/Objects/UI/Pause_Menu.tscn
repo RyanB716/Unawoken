@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=3 uid="uid://p0uwgm5l5ea2"]
+[gd_scene load_steps=18 format=3 uid="uid://p0uwgm5l5ea2"]
 
 [ext_resource type="Script" path="res://Scripts/Player/Pause_Menu.gd" id="1_wplhc"]
 [ext_resource type="LabelSettings" uid="uid://ctjpv4hrbopk8" path="res://Content/Objects/UI/Pause_Menu_NameSettings.tres" id="2_roj4l"]
@@ -7,6 +7,8 @@
 [ext_resource type="AudioStream" uid="uid://vjl4lggyvyci" path="res://Aesthetics/Audio/SFX/UI/Writing.mp3" id="3_n2x3w"]
 [ext_resource type="AudioStream" uid="uid://bno7xbcj6cfeo" path="res://Aesthetics/Audio/SFX/UI/TypeWriter.mp3" id="4_ef0oa"]
 [ext_resource type="AudioStream" uid="uid://05r4hhm2yxwl" path="res://Aesthetics/Audio/SFX/UI/16461_1460643357.mp3" id="4_egkch"]
+[ext_resource type="PackedScene" uid="uid://dw0rwiiktrl58" path="res://Content/Objects/UI/TransitionScreen.tscn" id="5_b00yx"]
+[ext_resource type="PackedScene" uid="uid://b2dt1pbt12b5f" path="res://Content/Objects/UI/CollectionMenu.tscn" id="6_8f1pd"]
 [ext_resource type="FontFile" uid="uid://dlulxm5dxb804" path="res://Aesthetics/Fonts/Seagram tfb.ttf" id="6_aegdp"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_tus5m"]
@@ -55,6 +57,14 @@ script = ExtResource("1_wplhc")
 NameSFX = ExtResource("4_ef0oa")
 WriteSFX = ExtResource("3_n2x3w")
 HighlightSFX = ExtResource("4_egkch")
+
+[node name="TransitionScreen" parent="." instance=ExtResource("5_b00yx")]
+layout_mode = 0
+anchors_preset = 0
+
+[node name="Collection" parent="." instance=ExtResource("6_8f1pd")]
+layout_mode = 0
+anchors_preset = 0
 
 [node name="Title" type="Label" parent="."]
 layout_mode = 0

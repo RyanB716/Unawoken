@@ -1,4 +1,4 @@
-[gd_scene load_steps=92 format=3 uid="uid://dxprot5svswbe"]
+[gd_scene load_steps=91 format=3 uid="uid://dxprot5svswbe"]
 
 [ext_resource type="Script" path="res://Scripts/Player/Player.gd" id="1_18da1"]
 [ext_resource type="Texture2D" uid="uid://bi38invhap0t" path="res://Aesthetics/Sprites/Player/player.png" id="2_w50ld"]
@@ -30,7 +30,6 @@
 [ext_resource type="PackedScene" uid="uid://bq21xd4n7wkej" path="res://Content/Objects/UI/ShopMenu.tscn" id="20_y22ny"]
 [ext_resource type="PackedScene" uid="uid://b2dt1pbt12b5f" path="res://Content/Objects/UI/CollectionMenu.tscn" id="22_680nm"]
 [ext_resource type="PackedScene" uid="uid://bbcqth4iquje" path="res://Attack_Index_Bar.tscn" id="25_wlqw8"]
-[ext_resource type="PackedScene" uid="uid://dw0rwiiktrl58" path="res://Content/Objects/UI/TransitionScreen.tscn" id="27_jjj4u"]
 [ext_resource type="PackedScene" uid="uid://p0uwgm5l5ea2" path="res://Content/Objects/UI/Pause_Menu.tscn" id="28_jc7ne"]
 [ext_resource type="PackedScene" uid="uid://xq3fptn0yski" path="res://Content/Objects/UI/XP_Tracker.tscn" id="31_stl7h"]
 
@@ -1091,13 +1090,11 @@ FootSFX = ExtResource("10_o41wl")
 script = ExtResource("11_1xnuh")
 SwingSFX = Array[AudioStream]([ExtResource("12_glkli")])
 
-[node name="UI" type="CanvasLayer" parent="." node_paths=PackedStringArray("player", "invmanager", "Transition", "Collection", "PauseMenu", "HealthBar", "AttackIndex", "StaminaIndicatorBox", "AnxMeter", "CoinLabel", "PowderGUI", "ElixirGUI", "StatueMenu", "Shop", "XP")]
+[node name="UI" type="CanvasLayer" parent="." node_paths=PackedStringArray("player", "invmanager", "PauseMenu", "HealthBar", "AttackIndex", "StaminaIndicatorBox", "AnxMeter", "CoinLabel", "PowderGUI", "ElixirGUI", "StatueMenu", "Shop", "XP")]
 process_mode = 3
 script = ExtResource("15_pbqi6")
 player = NodePath("..")
 invmanager = NodePath("../Inventory")
-Transition = NodePath("TransitionScreen")
-Collection = NodePath("Collection")
 PauseMenu = NodePath("Pause Menu")
 HealthBar = NodePath("Main UI/Health Bar")
 AttackIndex = NodePath("Main UI/Attack Index Bar")
@@ -1109,9 +1106,6 @@ ElixirGUI = NodePath("ElixirGUI")
 StatueMenu = NodePath("StatueMenu")
 Shop = NodePath("ShopPanel")
 XP = NodePath("XP")
-
-[node name="TransitionScreen" parent="UI" instance=ExtResource("27_jjj4u")]
-z_index = 5
 
 [node name="Collection" parent="UI" instance=ExtResource("22_680nm")]
 z_index = 2

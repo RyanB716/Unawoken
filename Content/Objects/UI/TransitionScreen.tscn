@@ -6,7 +6,7 @@
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_empyt"]
 shader = ExtResource("3_cl5k1")
-shader_parameter/strength = 100.0
+shader_parameter/strength = 177.6
 
 [node name="TransitionScreen" type="ColorRect"]
 process_mode = 2

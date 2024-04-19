@@ -8,8 +8,6 @@ class_name PlayerUI
 
 
 @export_category("Children")
-@export var Transition : TransitionController
-@export var Collection : CollectionMenuController
 @export var PauseMenu : PauseMenuController
 @export var HealthBar : ProgressBar
 @export var AttackIndex : AttackBarController
@@ -95,15 +93,10 @@ func _process(_delta):
 		$"Main UI/AnxietyMeter".visible = false
 		
 	if Input.is_action_just_pressed("Pause"):
-		if Collection.visible:
-				await Transition.PlayTransition()
-				Collection.visible = false
-				return
+		if PauseMenu.visible == false && player.CurrentState == player.eStates.InMenu:
+			return
 		else:
-			if PauseMenu.visible == false && player.CurrentState == player.eStates.InMenu:
-				return
-			else:
-				TogglePauseMenu()
+			TogglePauseMenu()
 		
 	if PauseMenu.visible:
 		player.CurrentState = player.eStates.InMenu
