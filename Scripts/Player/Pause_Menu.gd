@@ -53,17 +53,23 @@ func GetNextPoint():
 	
 func EnableChildren():
 	PromptField.visible_characters = 0
+	SFX.volume_db = 0
+	ButtonSFX.volume_db = 0
 	
 	for i in get_child_count():
 		if get_child(i).has_signal("visibility_changed"):
 			get_child(i).visible = true
 			
 	$Resume.visible = false
+	for i in ButtonBox.get_child_count():
+		ButtonBox.get_child(i).visible = false
 
 func DisableChildren():
-	SFX.stop()
+	SFX.volume_db = -50
+	ButtonSFX.volume_db = -50
 	
 	$Resume.visible = false
+	
 	for i in ButtonBox.get_child_count():
 		ButtonBox.get_child(i).visible = false
 	
@@ -109,22 +115,24 @@ func DrawLocationName(location : String):
 	RNG.randomize()
 	
 	for i in CharArray.size():
-		if visible:
-			Location.get_child(i).text = CharArray[i]
-			SFX.pitch_scale = RNG.randf_range(0.25, 1.5)
-			SFX.play()
-			await get_tree().create_timer(RNG.randf_range(0.05, 0.1)).timeout
-			SFX.stop()
+		if !visible:
+			return
+		Location.get_child(i).text = CharArray[i]
+		SFX.pitch_scale = RNG.randf_range(0.25, 1.5)
+		SFX.play()
+		await get_tree().create_timer(RNG.randf_range(0.05, 0.1)).timeout
+		SFX.stop()
 	
 	await get_tree().create_timer(0.25).timeout
 	SFX.stream = HighlightSFX
 	SFX.pitch_scale = 0.75
 	for i in ButtonBox.get_child_count():
-		if visible:
-			ButtonBox.get_child(i).visible = true
-			SFX.pitch_scale += 0.15
-			SFX.play()
-			await get_tree().create_timer(0.25).timeout
+		if !visible:
+			return
+		ButtonBox.get_child(i).visible = true
+		SFX.pitch_scale += 0.15
+		SFX.play()
+		await get_tree().create_timer(0.25).timeout
 	
 	if visible:
 		await get_tree().create_timer(0.35).timeout

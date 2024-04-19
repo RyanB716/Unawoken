@@ -158,7 +158,8 @@ offset_bottom = 550.0
 text = "Text Text Text"
 label_settings = SubResource("LabelSettings_erk67")
 autowrap_mode = 2
-visible_ratio = -0.0714286
+visible_characters = 0
+visible_ratio = 0.0
 
 [node name="Resume" type="Button" parent="."]
 custom_minimum_size = Vector2(500, 150)
