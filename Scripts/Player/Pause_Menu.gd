@@ -7,6 +7,8 @@ class_name PauseMenuController
 @onready var Title : Label = $Title
 @onready var Location : HBoxContainer = $Location
 
+@onready var UI : PlayerUI = get_parent()
+
 @onready var yMax : int
 @onready var xMax : int
 
@@ -171,3 +173,8 @@ func QuitToMenu():
 	self.get_parent().TogglePauseMenu()
 	await get_tree().create_timer(0.5).timeout
 	get_tree().change_scene_to_file("res://Game Management/Scenes/Menus/MainMenu.tscn")
+
+func ToCollection():
+	print("Bringing up Collection Menu")
+	await UI.Transition.PlayTransition()
+	UI.Collection.Open()

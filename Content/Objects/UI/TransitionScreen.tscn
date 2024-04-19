@@ -1,0 +1,32 @@
+[gd_scene load_steps=5 format=3 uid="uid://dw0rwiiktrl58"]
+
+[ext_resource type="Script" path="res://Content/Objects/UI/TransitionScreen.gd" id="1_uwg3n"]
+[ext_resource type="AudioStream" uid="uid://cmi2n7prqfj6v" path="res://Aesthetics/Audio/SFX/UI/Tuning.mp3" id="3_70pm2"]
+[ext_resource type="Shader" path="res://Aesthetics/Shaders/Raw Scripts/FilmGrain.gdshader" id="3_cl5k1"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_empyt"]
+shader = ExtResource("3_cl5k1")
+shader_parameter/strength = 100.0
+
+[node name="TransitionScreen" type="ColorRect"]
+process_mode = 2
+z_index = 2
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_uwg3n")
+
+[node name="FilmGrain" type="ColorRect" parent="."]
+material = SubResource("ShaderMaterial_empyt")
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="SFX" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("3_70pm2")
+volume_db = 10.0

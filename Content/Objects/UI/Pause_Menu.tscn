@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3 uid="uid://p0uwgm5l5ea2"]
+[gd_scene load_steps=16 format=3 uid="uid://p0uwgm5l5ea2"]
 
 [ext_resource type="Script" path="res://Scripts/Player/Pause_Menu.gd" id="1_wplhc"]
 [ext_resource type="LabelSettings" uid="uid://ctjpv4hrbopk8" path="res://Content/Objects/UI/Pause_Menu_NameSettings.tres" id="2_roj4l"]
@@ -28,6 +28,12 @@ border_width_top = 2
 border_width_right = 2
 border_width_bottom = 2
 border_color = Color(0, 0, 0, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_mkvbx"]
+bg_color = Color(0, 1, 0, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ieo8g"]
+bg_color = Color(1, 0, 0, 1)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ucdue"]
 bg_color = Color(1, 1, 1, 1)
@@ -200,7 +206,10 @@ theme_override_colors/font_focus_color = Color(0, 0, 0, 1)
 theme_override_fonts/font = ExtResource("6_aegdp")
 theme_override_font_sizes/font_size = 100
 theme_override_styles/normal = SubResource("StyleBoxFlat_a0eg3")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_mkvbx")
+theme_override_styles/disabled = SubResource("StyleBoxFlat_ieo8g")
 theme_override_styles/focus = SubResource("StyleBoxFlat_ucdue")
+action_mode = 0
 text = "Collection"
 
 [node name="Configure Btn" type="Button" parent="Buttons"]
@@ -241,6 +250,7 @@ stream = ExtResource("4_egkch")
 [connection signal="focus_entered" from="Resume" to="." method="PlayHighlightSFX"]
 [connection signal="pressed" from="Resume" to="." method="ResumeGame"]
 [connection signal="focus_entered" from="Buttons/Collection Btn" to="." method="PlayHighlightSFX"]
+[connection signal="pressed" from="Buttons/Collection Btn" to="." method="ToCollection"]
 [connection signal="focus_entered" from="Buttons/Configure Btn" to="." method="PlayHighlightSFX"]
 [connection signal="focus_entered" from="Buttons/Quit Btn" to="." method="PlayHighlightSFX"]
 [connection signal="pressed" from="Buttons/Quit Btn" to="." method="QuitToMenu"]
