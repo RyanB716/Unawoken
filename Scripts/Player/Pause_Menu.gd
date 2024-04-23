@@ -32,18 +32,23 @@ var nextPoint : float
 
 func _ready():
 	visible = false
-	self.set_deferred("size", Vector2(0, get_viewport().size.y))
-	xMax = get_viewport().size.x
-	yMax = get_viewport().size.y
-	DeleteName()
-	GetNextPoint()
-	PromptField.visible_characters = 0
+	
+	for i in get_child_count():
+		if get_child(i).has_signal("visibility_changed"):
+			get_child(i).visible = false
 	
 	ButtonArray.append($Resume)
 	$Resume.visible = false
 	for i in ButtonBox.get_child_count():
 		ButtonArray.append(ButtonBox.get_child(i))
 		ButtonBox.get_child(i).visible = false
+		
+	self.set_deferred("size", Vector2(0, get_viewport().size.y))
+	xMax = get_viewport().size.x
+	yMax = get_viewport().size.y
+	DeleteName()
+	GetNextPoint()
+	PromptField.visible_characters = 0
 
 func _process(delta):
 	if !Music.playing && visible == true:
@@ -51,6 +56,12 @@ func _process(delta):
 		
 	PromptMessage = GameSettings.CurrentPrompt
 	PromptField.text = PromptMessage
+	
+	if Input.is_action_just_pressed("ui_cancel") && visible:
+		if Collection.visible:
+			#print("Closing Collection Menu...")
+			Collection.visible = false
+			Transition.PlayTransition()
 
 func GetNextPoint():
 	var RNG = RandomNumberGenerator.new()
@@ -61,28 +72,20 @@ func EnableChildren():
 	SFX.volume_db = 0
 	ButtonSFX.volume_db = 0
 	
-	for i in get_child_count():
-		if get_child(i).has_signal("visibility_changed"):
-			get_child(i).visible = true
-			
-	$Resume.visible = false
-	for i in ButtonBox.get_child_count():
-		ButtonBox.get_child(i).visible = false
+	Title.visible = true
+	Location.visible = true
+	PromptField.visible = true
+	ButtonBox.visible = true
 
 func DisableChildren():
 	SFX.volume_db = -50
 	ButtonSFX.volume_db = -50
 	
 	$Resume.visible = false
-	
-	for i in ButtonBox.get_child_count():
-		ButtonBox.get_child(i).visible = false
-	
-	for i in get_child_count():
-		if get_child(i).has_signal("visibility_changed"):
-			get_child(i).visible = false
-			
-	PromptField.visible_characters = 0
+	Title.visible = false
+	Location.visible = false
+	PromptField.visible = false
+	ButtonBox.visible = false
 
 func StartMusic():
 	var mTween = get_tree().create_tween()
@@ -178,6 +181,5 @@ func QuitToMenu():
 	get_tree().change_scene_to_file("res://Game Management/Scenes/Menus/MainMenu.tscn")
 
 func ToCollection():
-	print("Bringing up Collection Menu")
-	await Transition.PlayTransition()
-	UI.Collection.Open()
+	Collection.Open()
+	Transition.PlayTransition()

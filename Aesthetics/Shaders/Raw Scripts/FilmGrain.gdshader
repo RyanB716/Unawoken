@@ -15,7 +15,7 @@ void fragment() {
 	// Add grain to Screen
 	screen = screen+vec4(mod((mod(x, 13.0) ) * (mod(x, 123.0) ), 0.01)-0.005) * strength;
     
-    //screen = 1.0 - screen;
+    screen = 1.0 - screen;
 	COLOR = screen;
     
 }

@@ -59,12 +59,10 @@ WriteSFX = ExtResource("3_n2x3w")
 HighlightSFX = ExtResource("4_egkch")
 
 [node name="TransitionScreen" parent="." instance=ExtResource("5_b00yx")]
-layout_mode = 0
-anchors_preset = 0
+layout_mode = 1
 
 [node name="Collection" parent="." instance=ExtResource("6_8f1pd")]
-layout_mode = 0
-anchors_preset = 0
+layout_mode = 1
 
 [node name="Title" type="Label" parent="."]
 layout_mode = 0

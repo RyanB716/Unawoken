@@ -1,6 +1,8 @@
 extends ColorRect
 class_name TransitionController
 
+@export var EffectTime : float
+
 @onready var Static : ColorRect = $FilmGrain
 @onready var SFX : AudioStreamPlayer = $SFX
 
@@ -9,17 +11,16 @@ func _ready():
 	Static.material.set_shader_parameter("Strength", 0)
 	
 func PlayTransition():
+	#print("Starting transition..")
 	var RNG = RandomNumberGenerator.new()
 	RNG.randomize()
-	Static.material.set("shader_parameter/strength", 275)
+	Static.material.set("shader_parameter/strength", 175)
 	visible = true
-	#await get_tree().create_timer(1.0).timeout
-	var eTween = get_tree().create_tween()
+	var eTween = create_tween()
 	eTween.set_pause_mode(Tween.TWEEN_PAUSE_PROCESS)
 	SFX.play(RNG.randf_range(0.1, SFX.stream.get_length() - 3.0))
 	var Mat : Material = Static.material
-	eTween.tween_property(Mat, "shader_parameter/strength", 0, 2)
+	eTween.tween_property(Mat, "shader_parameter/strength", 0, EffectTime)
 	await eTween.finished
 	SFX.stop()
 	visible = false
-	return

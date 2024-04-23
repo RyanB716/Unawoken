@@ -98,9 +98,6 @@ func _process(_delta):
 		else:
 			TogglePauseMenu()
 		
-	if PauseMenu.visible:
-		player.CurrentState = player.eStates.InMenu
-		
 func SetStaminaIcons(Amount : int):
 	for i in StaminaIndicatorBox.get_child_count():
 		StaminaIndicatorBox.get_child(i).queue_free()
