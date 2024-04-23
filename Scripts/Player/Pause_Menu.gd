@@ -81,11 +81,15 @@ func DisableChildren():
 	SFX.volume_db = -50
 	ButtonSFX.volume_db = -50
 	
-	$Resume.visible = false
 	Title.visible = false
 	Location.visible = false
 	PromptField.visible = false
 	ButtonBox.visible = false
+	
+	for i in ButtonArray.size():
+		ButtonArray[i].visible = false
+	
+	Collection.visible = false
 
 func StartMusic():
 	var mTween = get_tree().create_tween()

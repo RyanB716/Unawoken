@@ -6,7 +6,7 @@
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_empyt"]
 shader = ExtResource("3_cl5k1")
-shader_parameter/strength = 275.0
+shader_parameter/strength = 175.0
 
 [node name="TransitionScreen" type="ColorRect"]
 process_mode = 2
@@ -18,7 +18,7 @@ grow_horizontal = 2
 grow_vertical = 2
 color = Color(0, 0, 0, 1)
 script = ExtResource("1_uwg3n")
-EffectTime = 2.5
+EffectTime = 2.0
 
 [node name="FilmGrain" type="ColorRect" parent="."]
 material = SubResource("ShaderMaterial_empyt")
