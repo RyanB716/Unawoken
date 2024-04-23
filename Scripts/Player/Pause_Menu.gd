@@ -44,7 +44,7 @@ func _ready():
 		ButtonBox.get_child(i).visible = false
 		
 	self.set_deferred("size", Vector2(0, get_viewport().size.y))
-	xMax = get_viewport().size.x
+	xMax = get_viewport().size.x + 10
 	yMax = get_viewport().size.y
 	DeleteName()
 	GetNextPoint()
