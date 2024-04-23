@@ -22,7 +22,7 @@ var CurrentStamina : int
 @export var BreakTime : float
 @onready var ResolvePoints : int = 0
 @onready var CurrentXP : int = 0
-@export var NeededXP : int
+@onready var NeededXP : int
 @export var XPScalar : float
 @export var BlinkCooldown : float
 @export var BlinkDistance : int 

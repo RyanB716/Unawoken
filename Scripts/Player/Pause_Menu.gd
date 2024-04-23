@@ -58,7 +58,7 @@ func _process(delta):
 	PromptField.text = PromptMessage
 	
 	if Input.is_action_just_pressed("ui_cancel") && visible:
-		if Collection.visible:
+		if Collection.visible && Transition.CanTransition:
 			#print("Closing Collection Menu...")
 			Collection.visible = false
 			Transition.PlayTransition()
@@ -181,5 +181,6 @@ func QuitToMenu():
 	get_tree().change_scene_to_file("res://Game Management/Scenes/Menus/MainMenu.tscn")
 
 func ToCollection():
-	Collection.Open()
-	Transition.PlayTransition()
+	if Transition.CanTransition:
+		Collection.Open()
+		Transition.PlayTransition()
