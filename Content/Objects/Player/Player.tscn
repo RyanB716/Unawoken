@@ -32,7 +32,7 @@
 [ext_resource type="PackedScene" uid="uid://p0uwgm5l5ea2" path="res://Content/Objects/UI/Pause_Menu.tscn" id="28_jc7ne"]
 [ext_resource type="PackedScene" uid="uid://xq3fptn0yski" path="res://Content/Objects/UI/XP_Tracker.tscn" id="31_stl7h"]
 
-[sub_resource type="Resource" id="Resource_dvfuj"]
+[sub_resource type="Resource" id="Resource_wlxkc"]
 script = ExtResource("3_pgg20")
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_8v8gj"]
@@ -977,7 +977,7 @@ BlinkTimer = NodePath("Timers/BlinkTimer")
 [node name="Inventory" type="Node2D" parent="."]
 process_mode = 3
 script = ExtResource("8_nbgbr")
-InventoryData = SubResource("Resource_dvfuj")
+InventoryData = SubResource("Resource_wlxkc")
 
 [node name="InventoryAudio" type="AudioStreamPlayer" parent="Inventory"]
 script = ExtResource("3_6ug1t")

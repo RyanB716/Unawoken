@@ -14,6 +14,7 @@ var CurrentStatue : Statue
 @export var NoBtn : Button
 
 @onready var player : Player = get_tree().get_first_node_in_group('Player')
+@onready var game : GameManager = get_tree().get_first_node_in_group('GameManager')
 
 func OpenMenu():
 	if visible:
@@ -24,9 +25,15 @@ func OpenMenu():
 		YesBtn.grab_focus()
 
 func _on_yes_pressed():
-	get_tree().get_first_node_in_group('Cameras').FadeToBlack(true, 3.0)
+	var camera : Node = get_tree().get_first_node_in_group('Cameras')
+	camera.FadeToBlack(true, 3.0)
 	await get_tree().create_timer(3.0).timeout
-	get_tree().reload_current_scene()
+	#emit reload current level
+	#emit_signal()
+	#get_tree().reload_current_scene()
+	game.reload_level()
+	player.UI.ToggleMenu(player.UI.StatueMenu, false)
+	camera.FadeToBlack(false, 3.0)
 
 func _on_no_pressed():
 	player.CurrentState = player.eStates.NoAction
