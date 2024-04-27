@@ -1,13 +1,49 @@
-[gd_scene load_steps=5 format=3 uid="uid://p0uwgm5l5ea2"]
+[gd_scene load_steps=18 format=3 uid="uid://p0uwgm5l5ea2"]
 
 [ext_resource type="Script" path="res://Scripts/Player/Pause_Menu.gd" id="1_wplhc"]
-[ext_resource type="FontFile" uid="uid://dlulxm5dxb804" path="res://Aesthetics/Fonts/Seagram tfb.ttf" id="2_7nj8p"]
+[ext_resource type="LabelSettings" uid="uid://ctjpv4hrbopk8" path="res://Content/Objects/UI/Pause_Menu_NameSettings.tres" id="2_roj4l"]
+[ext_resource type="FontFile" uid="uid://fl4n8uet8xjj" path="res://Aesthetics/Fonts/iknowaghost.ttf" id="3_dnx73"]
 [ext_resource type="AudioStream" uid="uid://cqc0t2i5th6df" path="res://Aesthetics/Audio/Music/The Caretaker It s just a burning memory 2016 -xADSDapqn9o-192k-1713288022.mp3" id="3_ibwyk"]
+[ext_resource type="AudioStream" uid="uid://vjl4lggyvyci" path="res://Aesthetics/Audio/SFX/UI/Writing.mp3" id="3_n2x3w"]
+[ext_resource type="AudioStream" uid="uid://bno7xbcj6cfeo" path="res://Aesthetics/Audio/SFX/UI/TypeWriter.mp3" id="4_ef0oa"]
+[ext_resource type="AudioStream" uid="uid://05r4hhm2yxwl" path="res://Aesthetics/Audio/SFX/UI/16461_1460643357.mp3" id="4_egkch"]
+[ext_resource type="PackedScene" uid="uid://dw0rwiiktrl58" path="res://Content/Objects/UI/TransitionScreen.tscn" id="5_b00yx"]
+[ext_resource type="PackedScene" uid="uid://b2dt1pbt12b5f" path="res://Content/Objects/UI/CollectionMenu.tscn" id="6_8f1pd"]
+[ext_resource type="FontFile" uid="uid://dlulxm5dxb804" path="res://Aesthetics/Fonts/Seagram tfb.ttf" id="6_aegdp"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_tus5m"]
-font = ExtResource("2_7nj8p")
-font_size = 150
+font_size = 40
 font_color = Color(0, 0, 0, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_erk67"]
+font = ExtResource("3_dnx73")
+font_size = 60
+font_color = Color(0, 0, 0, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_a0eg3"]
+bg_color = Color(0, 0, 0, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ug3ib"]
+bg_color = Color(1, 1, 1, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0, 0, 0, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_mkvbx"]
+bg_color = Color(0, 1, 0, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ieo8g"]
+bg_color = Color(1, 0, 0, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ucdue"]
+bg_color = Color(1, 1, 1, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0, 0, 0, 1)
 
 [node name="Pause Menu" type="ColorRect"]
 process_mode = 2
@@ -18,17 +54,211 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_wplhc")
+NameSFX = ExtResource("4_ef0oa")
+WriteSFX = ExtResource("3_n2x3w")
+HighlightSFX = ExtResource("4_egkch")
+
+[node name="TransitionScreen" parent="." instance=ExtResource("5_b00yx")]
+layout_mode = 1
+
+[node name="Collection" parent="." instance=ExtResource("6_8f1pd")]
+layout_mode = 1
 
 [node name="Title" type="Label" parent="."]
 layout_mode = 0
 offset_left = 64.0
 offset_top = 79.0
-offset_right = 558.0
-offset_bottom = 269.0
-text = "Paused"
+offset_right = 398.0
+offset_bottom = 134.0
+text = "Current Location:"
 label_settings = SubResource("LabelSettings_tus5m")
+
+[node name="Location" type="HBoxContainer" parent="."]
+layout_mode = 0
+offset_left = 120.0
+offset_top = 120.0
+offset_right = 1141.0
+offset_bottom = 291.0
+
+[node name="Label" type="Label" parent="Location"]
+layout_mode = 2
+text = "C"
+label_settings = ExtResource("2_roj4l")
+vertical_alignment = 1
+
+[node name="Label2" type="Label" parent="Location"]
+layout_mode = 2
+text = "u"
+label_settings = ExtResource("2_roj4l")
+
+[node name="Label3" type="Label" parent="Location"]
+layout_mode = 2
+text = "r"
+label_settings = ExtResource("2_roj4l")
+
+[node name="Label4" type="Label" parent="Location"]
+layout_mode = 2
+text = "r"
+label_settings = ExtResource("2_roj4l")
+
+[node name="Label5" type="Label" parent="Location"]
+layout_mode = 2
+text = "e"
+label_settings = ExtResource("2_roj4l")
+
+[node name="Label6" type="Label" parent="Location"]
+layout_mode = 2
+text = "n"
+label_settings = ExtResource("2_roj4l")
+
+[node name="Label7" type="Label" parent="Location"]
+layout_mode = 2
+text = "t"
+label_settings = ExtResource("2_roj4l")
+
+[node name="Label8" type="Label" parent="Location"]
+layout_mode = 2
+text = " "
+label_settings = ExtResource("2_roj4l")
+
+[node name="Label9" type="Label" parent="Location"]
+layout_mode = 2
+text = "L"
+label_settings = ExtResource("2_roj4l")
+
+[node name="Label10" type="Label" parent="Location"]
+layout_mode = 2
+text = "o"
+label_settings = ExtResource("2_roj4l")
+
+[node name="Label11" type="Label" parent="Location"]
+layout_mode = 2
+text = "c"
+label_settings = ExtResource("2_roj4l")
+
+[node name="Label12" type="Label" parent="Location"]
+layout_mode = 2
+text = "a"
+label_settings = ExtResource("2_roj4l")
+
+[node name="Label13" type="Label" parent="Location"]
+layout_mode = 2
+text = "t"
+label_settings = ExtResource("2_roj4l")
+
+[node name="Label14" type="Label" parent="Location"]
+layout_mode = 2
+text = "i"
+label_settings = ExtResource("2_roj4l")
+
+[node name="Label15" type="Label" parent="Location"]
+layout_mode = 2
+text = "o"
+label_settings = ExtResource("2_roj4l")
+
+[node name="Label16" type="Label" parent="Location"]
+layout_mode = 2
+text = "n"
+label_settings = ExtResource("2_roj4l")
+
+[node name="Prompt" type="Label" parent="."]
+custom_minimum_size = Vector2(1025, 250)
+layout_direction = 2
+layout_mode = 0
+offset_left = 120.0
+offset_top = 300.0
+offset_right = 907.0
+offset_bottom = 550.0
+text = "Text Text Text"
+label_settings = SubResource("LabelSettings_erk67")
+autowrap_mode = 2
+visible_characters = 0
+visible_ratio = 0.0
+
+[node name="Resume" type="Button" parent="."]
+custom_minimum_size = Vector2(500, 150)
+layout_mode = 2
+offset_left = 54.0
+offset_top = 684.0
+offset_right = 554.0
+offset_bottom = 834.0
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_focus_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("6_aegdp")
+theme_override_font_sizes/font_size = 100
+theme_override_styles/normal = SubResource("StyleBoxFlat_a0eg3")
+theme_override_styles/focus = SubResource("StyleBoxFlat_ug3ib")
+text = "Resume
+"
+
+[node name="Buttons" type="HBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -906.0
+offset_top = -202.0
+offset_right = 634.0
+offset_bottom = -52.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_constants/separation = 20
+
+[node name="Collection Btn" type="Button" parent="Buttons"]
+custom_minimum_size = Vector2(500, 150)
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_focus_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("6_aegdp")
+theme_override_font_sizes/font_size = 100
+theme_override_styles/normal = SubResource("StyleBoxFlat_a0eg3")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_mkvbx")
+theme_override_styles/disabled = SubResource("StyleBoxFlat_ieo8g")
+theme_override_styles/focus = SubResource("StyleBoxFlat_ucdue")
+action_mode = 0
+text = "Collection"
+
+[node name="Configure Btn" type="Button" parent="Buttons"]
+custom_minimum_size = Vector2(500, 150)
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_focus_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("6_aegdp")
+theme_override_font_sizes/font_size = 100
+theme_override_styles/normal = SubResource("StyleBoxFlat_a0eg3")
+theme_override_styles/focus = SubResource("StyleBoxFlat_ucdue")
+text = "Configure"
+
+[node name="Quit Btn" type="Button" parent="Buttons"]
+custom_minimum_size = Vector2(500, 150)
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_focus_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("6_aegdp")
+theme_override_font_sizes/font_size = 100
+theme_override_styles/normal = SubResource("StyleBoxFlat_a0eg3")
+theme_override_styles/focus = SubResource("StyleBoxFlat_ucdue")
+text = "Quit"
 
 [node name="MusicPlayer" type="AudioStreamPlayer" parent="."]
 process_mode = 3
 stream = ExtResource("3_ibwyk")
-volume_db = -15.0
+volume_db = -20.0
+
+[node name="SFX" type="AudioStreamPlayer" parent="."]
+process_mode = 2
+stream = ExtResource("4_ef0oa")
+
+[node name="ButtonSFX" type="AudioStreamPlayer" parent="."]
+process_mode = 2
+stream = ExtResource("4_egkch")
+
+[connection signal="focus_entered" from="Resume" to="." method="PlayHighlightSFX"]
+[connection signal="pressed" from="Resume" to="." method="ResumeGame"]
+[connection signal="focus_entered" from="Buttons/Collection Btn" to="." method="PlayHighlightSFX"]
+[connection signal="pressed" from="Buttons/Collection Btn" to="." method="ToCollection"]
+[connection signal="focus_entered" from="Buttons/Configure Btn" to="." method="PlayHighlightSFX"]
+[connection signal="focus_entered" from="Buttons/Quit Btn" to="." method="PlayHighlightSFX"]
+[connection signal="pressed" from="Buttons/Quit Btn" to="." method="QuitToMenu"]

@@ -72,8 +72,6 @@ func _process(_delta):
 	XP.Bar.value = player.CurrentXP
 	XP.Bar.max_value = player.NeededXP
 	
-	PauseMenu.Title.text = player.GM.Level.AreaName
-	
 	AttackIndex.value = player.AttackTimer.time_left
 	
 	if player.AttackTimer.time_left > 0:
@@ -99,9 +97,6 @@ func _process(_delta):
 			return
 		else:
 			TogglePauseMenu()
-		
-	if PauseMenu.visible:
-		player.CurrentState = player.eStates.InMenu
 		
 func SetStaminaIcons(Amount : int):
 	for i in StaminaIndicatorBox.get_child_count():
@@ -133,6 +128,7 @@ func TogglePauseMenu():
 		MenuTween.tween_property(PauseMenu, "size", Vector2(PauseMenu.xMax, PauseMenu.yMax), 0.25)
 		await MenuTween.finished
 		PauseMenu.EnableChildren()
+		PauseMenu.DrawLocationName(player.GM.Level.AreaName)
 		get_tree().paused = true
 	else:
 		#print("Closing Pause Menu...")
@@ -141,6 +137,7 @@ func TogglePauseMenu():
 		MenuTween.tween_property(PauseMenu, "size", Vector2(0, PauseMenu.yMax), 0.25)
 		await MenuTween.finished
 		player.CurrentState = player.eStates.NoAction
+		PauseMenu.DeleteName()
 		PauseMenu.visible = false
 		get_tree().paused = false
 

@@ -9,3 +9,5 @@ var ShouldFillAnxiety : bool = false
 
 var PlayerXP : int = 0
 var HeldResolvePoints : int = 0
+
+var CurrentPrompt : String

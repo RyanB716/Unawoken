@@ -1,7 +1,7 @@
 shader_type canvas_item;
 
 // set max strength to your liking here=20.0, step_size=0.1
-uniform float strength:hint_range(0, 100, 0.1)=16;
+uniform float strength:hint_range(0, 275, 0.1)=16;
 
 void fragment() {
 	

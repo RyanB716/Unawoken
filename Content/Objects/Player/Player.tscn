@@ -1,4 +1,4 @@
-[gd_scene load_steps=90 format=3 uid="uid://dxprot5svswbe"]
+[gd_scene load_steps=91 format=3 uid="uid://dxprot5svswbe"]
 
 [ext_resource type="Script" path="res://Scripts/Player/Player.gd" id="1_18da1"]
 [ext_resource type="Texture2D" uid="uid://bi38invhap0t" path="res://Aesthetics/Sprites/Player/player.png" id="2_w50ld"]
@@ -28,6 +28,7 @@
 [ext_resource type="PackedScene" uid="uid://bah6bwn6do5bj" path="res://Content/Objects/UI/Statue Menu.tscn" id="19_mgy6k"]
 [ext_resource type="PackedScene" uid="uid://cy3usaue2r7jy" path="res://Content/Objects/Player/Player UI/ItemGUI.tscn" id="20_lthxp"]
 [ext_resource type="PackedScene" uid="uid://bq21xd4n7wkej" path="res://Content/Objects/UI/ShopMenu.tscn" id="20_y22ny"]
+[ext_resource type="PackedScene" uid="uid://b2dt1pbt12b5f" path="res://Content/Objects/UI/CollectionMenu.tscn" id="22_680nm"]
 [ext_resource type="PackedScene" uid="uid://bbcqth4iquje" path="res://Attack_Index_Bar.tscn" id="25_wlqw8"]
 [ext_resource type="PackedScene" uid="uid://p0uwgm5l5ea2" path="res://Content/Objects/UI/Pause_Menu.tscn" id="28_jc7ne"]
 [ext_resource type="PackedScene" uid="uid://xq3fptn0yski" path="res://Content/Objects/UI/XP_Tracker.tscn" id="31_stl7h"]
@@ -955,7 +956,6 @@ MaxHealth = 250
 MaxStaminaActions = 3
 StaminaRefill = 3.5
 BreakTime = 3.0
-NeededXP = 250
 XPScalar = 1.25
 BlinkCooldown = 0.5
 BlinkDistance = 75
@@ -1106,6 +1106,11 @@ StatueMenu = NodePath("StatueMenu")
 Shop = NodePath("ShopPanel")
 XP = NodePath("XP")
 
+[node name="Collection" parent="UI" instance=ExtResource("22_680nm")]
+z_index = 2
+
+[node name="Pause Menu" parent="UI" instance=ExtResource("28_jc7ne")]
+
 [node name="Main UI" type="Control" parent="UI"]
 custom_minimum_size = Vector2(750, 350)
 layout_mode = 3
@@ -1152,10 +1157,10 @@ layout_mode = 2
 
 [node name="Attack Index Bar" parent="UI/Main UI" instance=ExtResource("25_wlqw8")]
 layout_mode = 0
-offset_left = 230.0
-offset_top = 169.0
-offset_right = 480.0
-offset_bottom = 196.0
+offset_left = 233.0
+offset_top = 173.0
+offset_right = 483.0
+offset_bottom = 200.0
 
 [node name="Anxiety DEBUG" type="Label" parent="UI/Main UI"]
 visible = false
@@ -1165,9 +1170,6 @@ offset_top = 305.0
 offset_right = 525.0
 offset_bottom = 328.0
 text = "Anxiety"
-
-[node name="Pause Menu" parent="UI" instance=ExtResource("28_jc7ne")]
-visible = false
 
 [node name="Coin Count" type="Label" parent="UI"]
 anchors_preset = 3
@@ -1205,10 +1207,10 @@ visible = false
 visible = false
 
 [node name="XP" parent="UI" instance=ExtResource("31_stl7h")]
-offset_left = -326.0
-offset_top = 30.0
-offset_right = -26.0
-offset_bottom = 180.0
+offset_left = 675.0
+offset_top = -513.0
+offset_right = 925.0
+offset_bottom = -363.0
 
 [connection signal="area_entered" from="Shield" to="Shield" method="OnHit"]
 [connection signal="timeout" from="Timers/AttackTimer" to="." method="ResetAttackIndex"]

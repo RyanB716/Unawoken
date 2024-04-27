@@ -2,37 +2,94 @@ extends ColorRect
 class_name PauseMenuController
 
 @onready var Music : AudioStreamPlayer = $MusicPlayer
+@onready var SFX : AudioStreamPlayer = $SFX
+@onready var ButtonSFX : AudioStreamPlayer = $ButtonSFX
 @onready var Title : Label = $Title
+@onready var Location : HBoxContainer = $Location
+
+@onready var UI : PlayerUI = get_parent()
 
 @onready var yMax : int
 @onready var xMax : int
+
+@onready var PromptMessage : String
+@onready var PromptField : Label = $Prompt
+
+@onready var RNG = RandomNumberGenerator.new()
+
+@onready var ButtonBox : HBoxContainer = $Buttons
+
+@onready var ButtonArray : Array[Button]
+
+@export var NameSFX : AudioStream
+@export var WriteSFX : AudioStream
+@export var HighlightSFX : AudioStream
+
+@onready var Transition : TransitionController = $TransitionScreen
+@onready var Collection : CollectionMenuController = $Collection
 
 var nextPoint : float
 
 func _ready():
 	visible = false
+	
+	for i in get_child_count():
+		if get_child(i).has_signal("visibility_changed"):
+			get_child(i).visible = false
+	
+	ButtonArray.append($Resume)
+	$Resume.visible = false
+	for i in ButtonBox.get_child_count():
+		ButtonArray.append(ButtonBox.get_child(i))
+		ButtonBox.get_child(i).visible = false
+		
 	self.set_deferred("size", Vector2(0, get_viewport().size.y))
-	xMax = get_viewport().size.x
+	xMax = get_viewport().size.x + 10
 	yMax = get_viewport().size.y
+	DeleteName()
 	GetNextPoint()
+	PromptField.visible_characters = 0
 
 func _process(delta):
 	if !Music.playing && visible == true:
 		Music.play()
+		
+	PromptMessage = GameSettings.CurrentPrompt
+	PromptField.text = PromptMessage
+	
+	if Input.is_action_just_pressed("ui_cancel") && visible:
+		if Collection.visible && Transition.CanTransition:
+			#print("Closing Collection Menu...")
+			Collection.visible = false
+			Transition.PlayTransition()
 
 func GetNextPoint():
 	var RNG = RandomNumberGenerator.new()
-	nextPoint = RNG.randf_range(0.1, Music.stream.get_length())
+	nextPoint = RNG.randf_range(0.1, Music.stream.get_length() - 1.0)
 	
 func EnableChildren():
-	for i in get_child_count():
-		if get_child(i).has_signal("visibility_changed"):
-			get_child(i).visible = true
+	PromptField.visible_characters = 0
+	SFX.volume_db = 0
+	ButtonSFX.volume_db = 0
+	
+	Title.visible = true
+	Location.visible = true
+	PromptField.visible = true
+	ButtonBox.visible = true
 
 func DisableChildren():
-	for i in get_child_count():
-		if get_child(i).has_signal("visibility_changed"):
-			get_child(i).visible = false
+	SFX.volume_db = -50
+	ButtonSFX.volume_db = -50
+	
+	Title.visible = false
+	Location.visible = false
+	PromptField.visible = false
+	ButtonBox.visible = false
+	
+	for i in ButtonArray.size():
+		ButtonArray[i].visible = false
+	
+	Collection.visible = false
 
 func StartMusic():
 	var mTween = get_tree().create_tween()
@@ -48,3 +105,86 @@ func StopMusic():
 	await mTween.finished
 	Music.stop()
 	GetNextPoint()
+
+func DrawLocationName(location : String):
+	#print("Location Name is: " + str(location))
+	var NumOfChar : int = location.length()
+	#print("It has: " + str(NumOfChar) + " characters!")
+	
+	SFX.stream = NameSFX
+	
+	var CharArray : Array[String]
+	for i in NumOfChar:
+		CharArray.append(location[i])
+		var newLabel = Label.new()
+		newLabel.label_settings = load("res://Content/Objects/UI/Pause_Menu_NameSettings.tres")
+		Location.add_child(newLabel)
+	
+	#print("Location now has: " + str(Location.get_child_count()) + " children!")
+	#print("CharArray now has: " + str(CharArray.size()) + " elements!")
+	#print(CharArray)
+
+	RNG.randomize()
+	
+	for i in CharArray.size():
+		if !visible:
+			return
+		Location.get_child(i).text = CharArray[i]
+		SFX.pitch_scale = RNG.randf_range(0.25, 1.5)
+		SFX.play()
+		await get_tree().create_timer(RNG.randf_range(0.05, 0.1)).timeout
+		SFX.stop()
+	
+	await get_tree().create_timer(0.25).timeout
+	SFX.stream = HighlightSFX
+	SFX.pitch_scale = 0.75
+	for i in ButtonBox.get_child_count():
+		if !visible:
+			return
+		ButtonBox.get_child(i).visible = true
+		SFX.pitch_scale += 0.15
+		SFX.play()
+		await get_tree().create_timer(0.25).timeout
+	
+	if visible:
+		await get_tree().create_timer(0.35).timeout
+		$Resume.visible = true
+		$Resume.grab_focus()
+	
+		await get_tree().create_timer(0.25).timeout
+		DrawPrompt()
+
+func DrawPrompt():
+	SFX.stream = WriteSFX
+	SFX.pitch_scale = 1.0
+	SFX.volume_db = 5.0
+	
+	for i in PromptMessage.length():
+		if visible:
+			PromptField.visible_characters += 1
+			SFX.play(RNG.randf_range(0.5, WriteSFX.get_length() - 0.5))
+			await get_tree().create_timer(RNG.randf_range(0.025, 0.05)).timeout
+			SFX.stop()
+		
+	SFX.stop()
+	SFX.volume_db = 0
+	
+func PlayHighlightSFX():
+	ButtonSFX.play()
+
+func DeleteName():
+	for i in Location.get_child_count():
+		Location.get_child(i).queue_free()
+
+func ResumeGame():
+	self.get_parent().TogglePauseMenu()
+
+func QuitToMenu():
+	self.get_parent().TogglePauseMenu()
+	await get_tree().create_timer(0.5).timeout
+	get_tree().change_scene_to_file("res://Game Management/Scenes/Menus/MainMenu.tscn")
+
+func ToCollection():
+	if Transition.CanTransition:
+		Collection.Open()
+		Transition.PlayTransition()
