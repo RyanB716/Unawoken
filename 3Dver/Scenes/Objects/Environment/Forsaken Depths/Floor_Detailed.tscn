@@ -1,0 +1,11 @@
+[gd_scene load_steps=3 format=3 uid="uid://c0rfxeie24psc"]
+
+[ext_resource type="PackedScene" uid="uid://7uttc4hsdco0" path="res://Visuals/Environment/Kenney_Dungeon/floor-detail.glb" id="1_tondb"]
+
+[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_xww47"]
+points = PackedVector3Array(0.499995, 0, 0.5, 0.330849, 0.0249951, 0.117463, 0.116676, 0.05, 0.254894, -0.0281936, 0.05, 0.293755, -0.5, 0, 0.5, 0.499995, 0, -0.5, 0.302658, 0.0249951, -0.226605, 0.0779139, 0.05, 0.110023, -0.0669561, 0.05, 0.148884, -0.398689, 0.0124951, 0.280834, -0.300314, 0.0249951, -0.0611785, -0.5, 0, -0.5, -0.188823, 0.0124951, -0.435395, 0.276229, 0.0249951, -0.296789, -0.242073, 0.0249951, -0.278485)
+
+[node name="Floor_Detailed" instance=ExtResource("1_tondb")]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." index="1"]
+shape = SubResource("ConvexPolygonShape3D_xww47")

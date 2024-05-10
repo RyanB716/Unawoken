@@ -1,0 +1,18 @@
+[gd_resource type="Resource" script_class="Powder" load_steps=4 format=3 uid="uid://dcnarwww73wqb"]
+
+[ext_resource type="Texture2D" uid="uid://1uarnvruolxg" path="res://Aesthetics/Sprites/Items/#1 - Transparent Icons.png" id="1_7xkj3"]
+[ext_resource type="Script" path="res://Scripts/Abstractions/Inventory/Items/PowderResource.gd" id="2_f5myb"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_k77m5"]
+atlas = ExtResource("1_7xkj3")
+region = Rect2(195, 646, 26, 24)
+
+[resource]
+script = ExtResource("2_f5myb")
+TimeToAdd = 0.0
+PercentToSubtract = 15.0
+Name = "Azalea Powder"
+ItemType = 1
+Icon = SubResource("AtlasTexture_k77m5")
+Description = "A coarse and rough dried extract powder."
+AmountHeld = 0

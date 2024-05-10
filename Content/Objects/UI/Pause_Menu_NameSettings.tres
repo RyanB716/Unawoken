@@ -1,8 +1,0 @@
-[gd_resource type="LabelSettings" load_steps=2 format=3 uid="uid://ctjpv4hrbopk8"]
-
-[ext_resource type="FontFile" uid="uid://dlulxm5dxb804" path="res://Aesthetics/Fonts/Seagram tfb.ttf" id="1_c0mqe"]
-
-[resource]
-font = ExtResource("1_c0mqe")
-font_size = 135
-font_color = Color(0, 0, 0, 1)

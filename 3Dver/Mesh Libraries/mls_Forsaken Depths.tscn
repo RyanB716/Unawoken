@@ -1,0 +1,45 @@
+[gd_scene load_steps=11 format=3 uid="uid://cmoew5kdb16ua"]
+
+[ext_resource type="PackedScene" uid="uid://cls6w07rdjm4s" path="res://Visuals/Environment/Kenney_Dungeon/column.glb" id="1_py15h"]
+[ext_resource type="PackedScene" uid="uid://cqxl0d8hrnths" path="res://Visuals/Environment/Kenney_Dungeon/dirt.glb" id="2_u3u3n"]
+[ext_resource type="PackedScene" uid="uid://7uttc4hsdco0" path="res://Visuals/Environment/Kenney_Dungeon/floor-detail.glb" id="3_bjhqb"]
+[ext_resource type="PackedScene" uid="uid://c46ctqkdmfies" path="res://Visuals/Environment/Kenney_Dungeon/floor.glb" id="4_qxudi"]
+[ext_resource type="PackedScene" uid="uid://bxa0dtrnav7cw" path="res://Visuals/Environment/Kenney_Dungeon/gate.glb" id="5_uh8qs"]
+[ext_resource type="PackedScene" uid="uid://blkmnpq77q2v0" path="res://Visuals/Environment/Kenney_Dungeon/rocks.glb" id="6_ajiol"]
+[ext_resource type="PackedScene" uid="uid://cx7yhhm2bwxdd" path="res://Visuals/Environment/Kenney_Dungeon/stairs.glb" id="7_e5g17"]
+[ext_resource type="PackedScene" uid="uid://d3n7g8665dpbh" path="res://Visuals/Environment/Kenney_Dungeon/stones.glb" id="8_yon5p"]
+[ext_resource type="PackedScene" uid="uid://cf73eclgaq4l5" path="res://Visuals/Environment/Kenney_Dungeon/wall.glb" id="9_ww35l"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_3y7ej"]
+size = Vector3(1, 0.05, 1)
+
+[node name="Forsaken Depths Mesh Library" type="Node3D"]
+
+[node name="column" parent="." instance=ExtResource("1_py15h")]
+visible = false
+
+[node name="dirt" parent="." instance=ExtResource("2_u3u3n")]
+visible = false
+
+[node name="floor-detail" parent="." instance=ExtResource("3_bjhqb")]
+visible = false
+
+[node name="floor" parent="." instance=ExtResource("4_qxudi")]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="floor"]
+shape = SubResource("BoxShape3D_3y7ej")
+
+[node name="gate" parent="." instance=ExtResource("5_uh8qs")]
+visible = false
+
+[node name="rocks" parent="." instance=ExtResource("6_ajiol")]
+visible = false
+
+[node name="stairs" parent="." instance=ExtResource("7_e5g17")]
+visible = false
+
+[node name="stones" parent="." instance=ExtResource("8_yon5p")]
+visible = false
+
+[node name="wall" parent="." instance=ExtResource("9_ww35l")]
+visible = false

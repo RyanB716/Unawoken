@@ -1,0 +1,29 @@
+[gd_scene load_steps=4 format=3 uid="uid://b2dt1pbt12b5f"]
+
+[ext_resource type="Script" path="res://Content/Objects/UI/CollectionMenu.gd" id="1_j66mb"]
+[ext_resource type="FontFile" uid="uid://dlulxm5dxb804" path="res://Aesthetics/Fonts/Seagram tfb.ttf" id="1_t1nei"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_ijjwv"]
+font = ExtResource("1_t1nei")
+font_size = 150
+font_color = Color(0, 0, 0, 1)
+
+[node name="Collection" type="ColorRect"]
+process_mode = 2
+z_index = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_j66mb")
+
+[node name="Label" type="Label" parent="."]
+layout_mode = 0
+offset_left = 47.0
+offset_top = 34.0
+offset_right = 646.0
+offset_bottom = 224.0
+text = "Collection"
+label_settings = SubResource("LabelSettings_ijjwv")
+vertical_alignment = 1

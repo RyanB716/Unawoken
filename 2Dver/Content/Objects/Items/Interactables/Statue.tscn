@@ -1,0 +1,56 @@
+[gd_scene load_steps=7 format=3 uid="uid://wvlasq770v6g"]
+
+[ext_resource type="Script" path="res://Scripts/Objects/Statue.gd" id="1_nni3r"]
+[ext_resource type="Texture2D" uid="uid://bkqpghbrj2jv0" path="res://Aesthetics/TileSets/TX Props.png" id="2_gjqxm"]
+[ext_resource type="Texture2D" uid="uid://b7kyjf5pv8ne" path="res://Aesthetics/UI Elements/Controller Icons/PS/icons_ps4_animated_buttons1.png" id="3_i80m2"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_n8qqr"]
+atlas = ExtResource("2_gjqxm")
+region = Rect2(444, 20, 38, 75)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_tu3hc"]
+size = Vector2(32, 39)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_2k2o0"]
+radius = 30.0
+
+[node name="Statue" type="StaticBody2D"]
+scale = Vector2(0.5, 0.5)
+script = ExtResource("1_nni3r")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture_filter = 1
+scale = Vector2(0.75, 0.75)
+texture = SubResource("AtlasTexture_n8qqr")
+region_enabled = true
+region_rect = Rect2(0, 0, 38, 75)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, 8)
+shape = SubResource("RectangleShape2D_tu3hc")
+
+[node name="Detection Sphere" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Detection Sphere"]
+position = Vector2(0, 12)
+shape = SubResource("CircleShape2D_2k2o0")
+
+[node name="Label" type="Control" parent="."]
+z_index = 5
+layout_mode = 3
+anchors_preset = 0
+offset_left = -14.0
+offset_top = -56.0
+offset_right = -14.0
+offset_bottom = -56.0
+
+[node name="Sprite2D" type="Sprite2D" parent="Label"]
+texture_filter = 1
+position = Vector2(14, 11)
+scale = Vector2(1.5, 1.5)
+texture = ExtResource("3_i80m2")
+region_enabled = true
+region_rect = Rect2(0, 0, 16, 16)
+
+[connection signal="area_entered" from="Detection Sphere" to="." method="_on_detection_sphere_area_entered"]
+[connection signal="area_exited" from="Detection Sphere" to="." method="_on_detection_sphere_area_exited"]

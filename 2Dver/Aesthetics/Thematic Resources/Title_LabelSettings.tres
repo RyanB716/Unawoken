@@ -1,0 +1,7 @@
+[gd_resource type="LabelSettings" load_steps=2 format=3 uid="uid://c7gh7kea3dmpf"]
+
+[ext_resource type="FontFile" uid="uid://dlulxm5dxb804" path="res://Aesthetics/Fonts/Seagram tfb.ttf" id="1_0qkiy"]
+
+[resource]
+font = ExtResource("1_0qkiy")
+font_size = 50

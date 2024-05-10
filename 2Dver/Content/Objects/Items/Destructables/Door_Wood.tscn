@@ -1,0 +1,41 @@
+[gd_scene load_steps=10 format=3 uid="uid://1vl2wudjscly"]
+
+[ext_resource type="Texture2D" uid="uid://dij84ijwq0tae" path="res://Aesthetics/TileSets/Forsaken Depths/Tiles.png" id="1_ficw0"]
+[ext_resource type="AudioStream" uid="uid://wxjdu8j2vlgm" path="res://Aesthetics/Audio/SFX/Enemy/Hurt/block_large_59.wav" id="2_4u54g"]
+[ext_resource type="Script" path="res://Scripts/Components/Destructable.gd" id="2_1620b"]
+[ext_resource type="AudioStream" uid="uid://ee4gr04chvry" path="res://Aesthetics/Audio/SFX/Enemy/Hurt/body_hit_large_32.wav" id="3_200y6"]
+[ext_resource type="AudioStream" uid="uid://vysptgw3gs4d" path="res://Aesthetics/Audio/SFX/Enemy/Hurt/body_hit_large_76.wav" id="4_vqq0i"]
+[ext_resource type="AudioStream" uid="uid://dc5w2hst7asji" path="res://Aesthetics/Audio/SFX/Item/Destroy/WoodCrash.mp3" id="5_bjh7i"]
+[ext_resource type="PackedScene" uid="uid://cvn673tlhbnmt" path="res://Content/Objects/Components/Hitbox.tscn" id="7_lkupj"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_fs71p"]
+size = Vector2(32, 32)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_brt2u"]
+size = Vector2(34, 34)
+
+[node name="Door_Wood" type="StaticBody2D" node_paths=PackedStringArray("HitBox")]
+script = ExtResource("2_1620b")
+HitBox = NodePath("Character HitBox")
+NeededHits = 3
+HitSFX = Array[AudioStream]([ExtResource("2_4u54g"), ExtResource("3_200y6"), ExtResource("4_vqq0i")])
+BreakSFX = Array[AudioStream]([ExtResource("5_bjh7i")])
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture_filter = 1
+texture = ExtResource("1_ficw0")
+region_enabled = true
+region_rect = Rect2(112, 128, 32, 32)
+
+[node name="Character HitBox" parent="." instance=ExtResource("7_lkupj")]
+position = Vector2(0, 0)
+
+[node name="CollisionShape2D" parent="Character HitBox" index="0"]
+position = Vector2(0, 0)
+shape = SubResource("RectangleShape2D_fs71p")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+visible = false
+shape = SubResource("RectangleShape2D_brt2u")
+
+[editable path="Character HitBox"]

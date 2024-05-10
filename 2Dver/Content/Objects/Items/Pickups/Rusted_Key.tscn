@@ -1,0 +1,15 @@
+[gd_scene load_steps=3 format=3 uid="uid://dl27vrtnwadof"]
+
+[ext_resource type="Texture2D" uid="uid://1uarnvruolxg" path="res://Visual Assets/#1 - Transparent Icons.png" id="1_p1kpf"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2pobs"]
+atlas = ExtResource("1_p1kpf")
+region = Rect2(291, 355, 26, 25)
+
+[node name="Rusted Key" type="RigidBody2D"]
+texture_filter = 1
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = SubResource("AtlasTexture_2pobs")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
