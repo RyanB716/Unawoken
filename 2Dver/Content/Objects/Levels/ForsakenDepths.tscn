@@ -1,4 +1,4 @@
-[gd_scene load_steps=23 format=3 uid="uid://c4oy4c3d46qb4"]
+[gd_scene load_steps=21 format=3 uid="uid://c4oy4c3d46qb4"]
 
 [ext_resource type="Texture2D" uid="uid://dij84ijwq0tae" path="res://Aesthetics/TileSets/Forsaken Depths/Tiles.png" id="1_ocd84"]
 [ext_resource type="Script" path="res://Scripts/Level Controllers/ForsakenDepths.gd" id="1_u4b3h"]
@@ -11,7 +11,6 @@
 [ext_resource type="PackedScene" uid="uid://jxarx6uqoibj" path="res://Content/Objects/Items/Interactables/Note_Object.tscn" id="10_clkcy"]
 [ext_resource type="Script" path="res://Scripts/Abstractions/Inventory/ItemDropResource.gd" id="12_upbej"]
 [ext_resource type="Resource" uid="uid://djo5mayfmsoct" path="res://Content/Resources/Usable Items/MedElixir.tres" id="13_0vicu"]
-[ext_resource type="Resource" uid="uid://dcnarwww73wqb" path="res://Content/Resources/Usable Items/BluePowder.tres" id="14_8ctq4"]
 [ext_resource type="PackedScene" uid="uid://b1e2vsd1485iw" path="res://Content/Objects/NPCs/Merchants/ForsakenDepths_Merchant.tscn" id="14_78g7w"]
 [ext_resource type="PackedScene" uid="uid://1vl2wudjscly" path="res://Content/Objects/Items/Destructables/Door_Wood.tscn" id="14_awu1w"]
 [ext_resource type="PackedScene" uid="uid://cd4u8ky38vqh1" path="res://Content/Objects/Enemies/Enemy_Eye.tscn" id="17_hug4x"]
@@ -1536,11 +1535,6 @@ script = ExtResource("12_upbej")
 Item = ExtResource("13_0vicu")
 AmountToGive = 1
 
-[sub_resource type="Resource" id="Resource_5qq0n"]
-script = ExtResource("12_upbej")
-Item = ExtResource("14_8ctq4")
-AmountToGive = 3
-
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ovct4"]
 size = Vector2(34, 34)
 
@@ -1646,27 +1640,6 @@ ItemDrops = Array[ExtResource("12_upbej")]([SubResource("Resource_jdsly")])
 Min_CoinAmount = 10
 Max_CoinAmount = 10
 
-[node name="Pot6" parent="Destructables" instance=ExtResource("7_auceg")]
-position = Vector2(-536, 346)
-Min_CoinAmount = 1
-Max_CoinAmount = 5
-
-[node name="Pot13" parent="Destructables" instance=ExtResource("7_auceg")]
-position = Vector2(-520, 346)
-Min_CoinAmount = 1
-Max_CoinAmount = 5
-
-[node name="Pot7" parent="Destructables" instance=ExtResource("7_auceg")]
-position = Vector2(-536, 329)
-Min_CoinAmount = 1
-Max_CoinAmount = 5
-
-[node name="Pot8" parent="Destructables" instance=ExtResource("7_auceg")]
-position = Vector2(-520, 329)
-ItemDrops = Array[ExtResource("12_upbej")]([SubResource("Resource_5qq0n")])
-Min_CoinAmount = 1
-Max_CoinAmount = 5
-
 [node name="Pot9" parent="Destructables" instance=ExtResource("7_auceg")]
 position = Vector2(-648, 346)
 Min_CoinAmount = 2
@@ -1727,11 +1700,7 @@ position = Vector2(282, -330)
 [node name="Enemies" type="Node" parent="."]
 
 [node name="Eye" parent="Enemies" instance=ExtResource("17_hug4x")]
-position = Vector2(-623, 330)
-XpAmount = 35
-
-[node name="Eye5" parent="Enemies" instance=ExtResource("17_hug4x")]
-position = Vector2(-559, 331)
+position = Vector2(-593, 304)
 XpAmount = 35
 
 [node name="Eye2" parent="Enemies" instance=ExtResource("17_hug4x")]
