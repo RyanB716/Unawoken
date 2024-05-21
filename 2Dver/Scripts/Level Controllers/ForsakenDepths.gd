@@ -19,7 +19,7 @@ func _ready():
 		if $Destructables.get_child(i) is DestructableObject:
 			Destructables.append($Destructables.get_child(i))
 			
-	print("Destructable Drop at 0 at 0 is" + str(Destructables[0].ItemDrops[0]))
+	#print("Destructable Drop at 0 at 0 is" + str(Destructables[0].ItemDrops[0]))
 	
 	for i in $Enemies.get_child_count():
 		if $Enemies.get_child(i) is BasicEnemy:
