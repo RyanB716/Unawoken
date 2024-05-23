@@ -1564,6 +1564,23 @@ process_mode = 3
 stream = ExtResource("5_ucqvd")
 volume_db = -15.0
 
+[node name="Tutorial Note (attack)" parent="." instance=ExtResource("10_clkcy")]
+position = Vector2(-590, 545)
+
+[node name="Label" parent="Tutorial Note (attack)/CanvasLayer/Scroll" index="0"]
+text = "ATTACK - Left Mouse Button"
+
+[node name="Tutorial Note (items)" parent="Tutorial Note (attack)" instance=ExtResource("10_clkcy")]
+position = Vector2(1436, -857)
+
+[node name="Label" parent="Tutorial Note (attack)/Tutorial Note (items)/CanvasLayer/Scroll" index="0"]
+text = "SELECT ELIXER - \"C\"
+
+SELECT POWDER - \"X\"
+
+USE SELECTED ITEM - \"Q\"
+"
+
 [node name="1st Note" parent="." instance=ExtResource("10_clkcy")]
 position = Vector2(-676, 521)
 
@@ -1579,12 +1596,6 @@ They call it the Forsaken Depths for a reason.
 
 See you topside, straggler
 ~ A friend"
-
-[node name="Tutorial Note (attack)" parent="1st Note" instance=ExtResource("10_clkcy")]
-position = Vector2(88, 28)
-
-[node name="Label" parent="1st Note/Tutorial Note (attack)/CanvasLayer/Scroll" index="0"]
-text = "ATTACK - Left Mouse Button"
 
 [node name="Prayer Note" parent="." instance=ExtResource("10_clkcy")]
 position = Vector2(672, -260)
@@ -1714,6 +1725,7 @@ shape = SubResource("RectangleShape2D_ovct4")
 
 [connection signal="body_entered" from="Anxiety Trigger" to="." method="_on_anxiety_trigger_body_entered"]
 
+[editable path="Tutorial Note (attack)"]
+[editable path="Tutorial Note (attack)/Tutorial Note (items)"]
 [editable path="1st Note"]
-[editable path="1st Note/Tutorial Note (attack)"]
 [editable path="Prayer Note"]
