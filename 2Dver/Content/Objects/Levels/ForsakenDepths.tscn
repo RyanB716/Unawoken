@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=3 uid="uid://c4oy4c3d46qb4"]
+[gd_scene load_steps=19 format=3 uid="uid://c4oy4c3d46qb4"]
 
 [ext_resource type="Texture2D" uid="uid://dij84ijwq0tae" path="res://Aesthetics/TileSets/Forsaken Depths/Tiles.png" id="1_ocd84"]
 [ext_resource type="Script" path="res://Scripts/Level Controllers/ForsakenDepths.gd" id="1_u4b3h"]
@@ -10,6 +10,7 @@
 [ext_resource type="PackedScene" uid="uid://jxarx6uqoibj" path="res://Content/Objects/Items/Interactables/Note_Object.tscn" id="10_clkcy"]
 [ext_resource type="Script" path="res://Scripts/Abstractions/Inventory/ItemDropResource.gd" id="12_upbej"]
 [ext_resource type="Resource" uid="uid://djo5mayfmsoct" path="res://Content/Resources/Usable Items/MedElixir.tres" id="13_0vicu"]
+[ext_resource type="PackedScene" uid="uid://bd6ats3rhjost" path="res://Content/Objects/Items/Interactables/Chest.tscn" id="13_me13r"]
 [ext_resource type="PackedScene" uid="uid://1vl2wudjscly" path="res://Content/Objects/Items/Destructables/Door_Wood.tscn" id="14_awu1w"]
 [ext_resource type="PackedScene" uid="uid://cd4u8ky38vqh1" path="res://Content/Objects/Enemies/Enemy_Eye.tscn" id="17_hug4x"]
 
@@ -1722,6 +1723,9 @@ position = Vector2(-597, 409)
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Anxiety Trigger"]
 position = Vector2(5, -6)
 shape = SubResource("RectangleShape2D_ovct4")
+
+[node name="Chest" parent="." instance=ExtResource("13_me13r")]
+position = Vector2(942, -209)
 
 [connection signal="body_entered" from="Anxiety Trigger" to="." method="_on_anxiety_trigger_body_entered"]
 

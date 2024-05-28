@@ -1,0 +1,24 @@
+[gd_scene load_steps=5 format=3 uid="uid://bd6ats3rhjost"]
+
+[ext_resource type="Script" path="res://Content/Objects/Items/Interactables/Chest.gd" id="1_j2k5b"]
+[ext_resource type="Texture2D" uid="uid://1uarnvruolxg" path="res://Aesthetics/Sprites/Items/#1 - Transparent Icons.png" id="1_x7nde"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_vqhr7"]
+atlas = ExtResource("1_x7nde")
+region = Rect2(352, 352, 32, 32)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_uk6qs"]
+radius = 35.0
+
+[node name="Chest" type="Area2D"]
+script = ExtResource("1_j2k5b")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture_filter = 1
+texture = SubResource("AtlasTexture_vqhr7")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_uk6qs")
+
+[connection signal="area_entered" from="." to="." method="Check"]
+[connection signal="area_exited" from="." to="." method="Disable"]
