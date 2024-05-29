@@ -14,6 +14,7 @@ class_name InventoryManager
 @onready var player : Player = get_parent()
 @onready var InvSFX : InventoryAudio = $InventoryAudio
 
+@onready var KeyCount : int
 
 #@export var InventoyMap : Dictionary 
 
