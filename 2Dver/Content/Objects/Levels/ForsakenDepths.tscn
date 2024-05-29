@@ -1692,28 +1692,29 @@ collision_layer = 5
 
 [node name="Eye" parent="Enemies" instance=ExtResource("17_hug4x")]
 position = Vector2(-593, 304)
+FlyRange = 125.0
 XpAmount = 35
 
 [node name="Eye2" parent="Enemies" instance=ExtResource("17_hug4x")]
 position = Vector2(82, 76)
+FlyRange = 125.0
 XpAmount = 35
 
 [node name="Eye3" parent="Enemies" instance=ExtResource("17_hug4x")]
 position = Vector2(193, 67)
-XpAmount = 75
+FlyRange = 125.0
+XpAmount = 35
 
-[node name="Eye7" parent="Enemies" node_paths=PackedStringArray("ChangeTimer", "ShootTimer", "HitBox", "HealthBar", "BodySFX", "EnvCollider") instance=ExtResource("17_hug4x")]
+[node name="Eye7" parent="Enemies" node_paths=PackedStringArray("ChangeTimer", "ShootTimer") instance=ExtResource("17_hug4x")]
 position = Vector2(389, -267)
 ChangeTimer = NodePath("../Eye6/Change Timer")
 ShootTimer = NodePath("../Eye6/Shoot Timer")
+FlyRange = 125.0
 XpAmount = 35
-HitBox = NodePath("../Eye6/HitBox")
-HealthBar = NodePath("../Eye6/Health Bar")
-BodySFX = NodePath("../Eye6/BodyAudioPlayer")
-EnvCollider = NodePath("../Eye6/Enviornment Collision")
 
 [node name="Eye6" parent="Enemies" instance=ExtResource("17_hug4x")]
 position = Vector2(189, 144)
+FlyRange = 125.0
 XpAmount = 35
 
 [node name="Anxiety Trigger" type="Area2D" parent="."]

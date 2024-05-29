@@ -30,7 +30,6 @@ script = ExtResource("1_pkwis")
 ProjectileScene = ExtResource("2_hseai")
 ChangeTimer = NodePath("Change Timer")
 ShootTimer = NodePath("Shoot Timer")
-FlyRange = 50.0
 MaxHealth = 125
 XpAmount = 50
 Damage = 30

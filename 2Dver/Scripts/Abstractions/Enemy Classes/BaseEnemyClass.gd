@@ -55,6 +55,18 @@ func _physics_process(_delta):
 func StateMachine():
 	pass
 
+func TestHealth():
+	pass
+
+func ShootProjectile():
+	pass
+
+func ChangeState():
+	pass
+
+func Die():
+	pass
+
 func TakeDamage(Amount : int):
 	OnHit.emit(0.75, 0.25)
 	CurrentHealth -= Amount
