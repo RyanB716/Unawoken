@@ -88,8 +88,7 @@ func CamShake(intensity : float, duration : float):
 func PlayerDeath(location : Vector2):
 	Cam.Spotlight(location)
 	await get_tree().create_timer(5).timeout
-	#get_tree().reload_current_scene()
-	reload_level()
+	get_tree().reload_current_scene()
 
 func StartFill():
 	var newSFX = AudioStreamPlayer.new()
@@ -194,31 +193,3 @@ func UpdateResolvePoints():
 
 func _on_timer_timeout():
 	ElapsedTime += 1
-
-func reload_level():
-	
-	#get_tree().paused = true
-	
-	remove_child(Level)
-	Level.queue_free()
-	
-	var tempscene = load("res://Content/Objects/Levels/ForsakenDepths.tscn")
-	var newlevelinstance: Node = tempscene.instantiate()
-	newlevelinstance.add_to_group('Level')
-	add_child(newlevelinstance,0)
-	
-	Level = get_tree().get_first_node_in_group('Level')
-	
-	#if get_child(0) is LevelController:
-		#Level = get_child(0)
-	for i in Level.Destructables.size():
-		Level.Destructables[i].CallScreenShake.connect(Cam.ApplyShake)
-	Level.AllowFill.connect(StartFill)
-	for i in Level.Enemies.size():
-		Level.Enemies[i].GiveXP.connect(GiveXP)
-	PlayerRef.position = Vector2(GameSettings.RespawnPoint.x, (GameSettings.RespawnPoint.y + 25))
-	print("Spawn Position: " + str(PlayerRef.position))
-	get_tree().get_first_node_in_group("Cameras").position = PlayerRef.position
-	
-	#get_tree().paused = false
-	pass

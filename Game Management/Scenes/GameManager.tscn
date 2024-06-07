@@ -10,7 +10,7 @@ process_mode = 1
 script = ExtResource("1_gdgan")
 FillTime = 5.0
 
-[node name="Forsaken Depths" parent="." groups=["Level"] instance=ExtResource("1_1m60y")]
+[node name="Forsaken Depths" parent="." instance=ExtResource("1_1m60y")]
 
 [node name="MainCamera" parent="." instance=ExtResource("4_8fpqb")]
 position = Vector2(-665, 514)
