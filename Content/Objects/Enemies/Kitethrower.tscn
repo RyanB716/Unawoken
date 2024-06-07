@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://dyvvfsy7i8nki"]
+
+[ext_resource type="Script" path="res://Content/Objects/Enemies/Kitethrower.gd" id="1_l3v3w"]
+
+[node name="Kitethrower" type="CharacterBody2D"]
+script = ExtResource("1_l3v3w")
