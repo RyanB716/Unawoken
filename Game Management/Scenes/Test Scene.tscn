@@ -1,0 +1,29 @@
+[gd_scene load_steps=5 format=3 uid="uid://dpp17pclrukgo"]
+
+[ext_resource type="Script" path="res://Game Management/Scripts/GameManager.gd" id="1_t6kj1"]
+[ext_resource type="PackedScene" uid="uid://cyji3k28ru0dr" path="res://Content/Objects/Levels/TestLevel.tscn" id="2_epj1l"]
+[ext_resource type="PackedScene" uid="uid://bqe051788k1gi" path="res://Game Management/MainCamera.tscn" id="3_rpu78"]
+[ext_resource type="PackedScene" uid="uid://dxprot5svswbe" path="res://Content/Objects/Player/Player.tscn" id="4_4a8ka"]
+
+[node name="Test Manager" type="Node" groups=["GameManager"]]
+process_mode = 1
+script = ExtResource("1_t6kj1")
+FillTime = 5.0
+
+[node name="Test Level" parent="." instance=ExtResource("2_epj1l")]
+
+[node name="MainCamera" parent="." instance=ExtResource("3_rpu78")]
+position = Vector2(-665, 514)
+zoom = Vector2(4, 4)
+CamSpeed = 1.25
+
+[node name="Player" parent="." instance=ExtResource("4_4a8ka")]
+position = Vector2(-667, 517)
+
+[node name="XP Timer" type="Timer" parent="."]
+one_shot = true
+
+[node name="Timer" type="Timer" parent="."]
+
+[connection signal="timeout" from="XP Timer" to="." method="TransferXP"]
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

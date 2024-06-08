@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://ctlb04q33kf4s"
-path="res://.godot/imported/5 walk.png-17dbefcd9cd54b7935333461d1b2cf29.ctex"
+uid="uid://l1ajj5oe6gdr"
+path="res://.godot/imported/Kite.png-e4ccafec770f7174333423fea760587b.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Aesthetics/Sprites/Enemies/Moblin/5 walk.png"
-dest_files=["res://.godot/imported/5 walk.png-17dbefcd9cd54b7935333461d1b2cf29.ctex"]
+source_file="res://Aesthetics/Sprites/Enemies/Kitethrower/Kite.png"
+dest_files=["res://.godot/imported/Kite.png-e4ccafec770f7174333423fea760587b.ctex"]
 
 [params]
 

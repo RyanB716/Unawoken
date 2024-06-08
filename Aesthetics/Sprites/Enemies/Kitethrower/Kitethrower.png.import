@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bscybl5g6eu4b"
-path="res://.godot/imported/3 idle.png-dede307d4a4f645e366640bf23d2efc8.ctex"
+uid="uid://rxswljdnia1y"
+path="res://.godot/imported/Kitethrower.png-d815312fcd6dbe59f7b96d4ea680e1fb.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Aesthetics/Sprites/Enemies/Moblin/3 idle.png"
-dest_files=["res://.godot/imported/3 idle.png-dede307d4a4f645e366640bf23d2efc8.ctex"]
+source_file="res://Aesthetics/Sprites/Enemies/Kitethrower/Kitethrower.png"
+dest_files=["res://.godot/imported/Kitethrower.png-d815312fcd6dbe59f7b96d4ea680e1fb.ctex"]
 
 [params]
 

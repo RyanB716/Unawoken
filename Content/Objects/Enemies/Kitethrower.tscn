@@ -1,6 +1,13 @@
-[gd_scene load_steps=2 format=3 uid="uid://dyvvfsy7i8nki"]
+[gd_scene load_steps=4 format=3 uid="uid://dyvvfsy7i8nki"]
 
 [ext_resource type="Script" path="res://Content/Objects/Enemies/Kitethrower.gd" id="1_l3v3w"]
+[ext_resource type="Texture2D" uid="uid://rxswljdnia1y" path="res://Aesthetics/Sprites/Enemies/Kitethrower/Kitethrower.png" id="2_ai62w"]
+[ext_resource type="PackedScene" uid="uid://b4ta7rnk05sof" path="res://Content/Objects/Projectiles/Kite.tscn" id="3_kie63"]
 
 [node name="Kitethrower" type="CharacterBody2D"]
 script = ExtResource("1_l3v3w")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("2_ai62w")
+
+[node name="Kite" parent="." instance=ExtResource("3_kie63")]

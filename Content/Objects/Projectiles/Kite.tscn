@@ -1,0 +1,10 @@
+[gd_scene load_steps=2 format=3 uid="uid://b4ta7rnk05sof"]
+
+[ext_resource type="Texture2D" uid="uid://l1ajj5oe6gdr" path="res://Aesthetics/Sprites/Enemies/Kitethrower/Kite.png" id="1_h18xh"]
+
+[node name="Kite" type="RigidBody2D"]
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+rotation = 0.785398
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("1_h18xh")
