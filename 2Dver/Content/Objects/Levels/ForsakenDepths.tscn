@@ -1693,29 +1693,29 @@ collision_layer = 5
 
 [node name="Eye" parent="Enemies" instance=ExtResource("17_hug4x")]
 position = Vector2(-593, 304)
-FlyRange = 125.0
+FlyRange = 100.0
 XpAmount = 35
 
 [node name="Eye2" parent="Enemies" instance=ExtResource("17_hug4x")]
 position = Vector2(82, 76)
-FlyRange = 125.0
+FlyRange = 100.0
 XpAmount = 35
 
 [node name="Eye3" parent="Enemies" instance=ExtResource("17_hug4x")]
 position = Vector2(193, 67)
-FlyRange = 125.0
+FlyRange = 100.0
 XpAmount = 35
 
 [node name="Eye7" parent="Enemies" node_paths=PackedStringArray("ChangeTimer", "ShootTimer") instance=ExtResource("17_hug4x")]
 position = Vector2(389, -267)
 ChangeTimer = NodePath("../Eye6/Change Timer")
 ShootTimer = NodePath("../Eye6/Shoot Timer")
-FlyRange = 125.0
+FlyRange = 100.0
 XpAmount = 35
 
 [node name="Eye6" parent="Enemies" instance=ExtResource("17_hug4x")]
 position = Vector2(189, 144)
-FlyRange = 125.0
+FlyRange = 100.0
 XpAmount = 35
 
 [node name="Anxiety Trigger" type="Area2D" parent="."]

@@ -24,7 +24,7 @@ func _process(_delta):
 	if CurrentState != eStates.Dead:
 		if Distance.length() <= DetectionRange:
 			CurrentState = eStates.Follow
-			if Distance.length() <= AttackRange && Distance.length() >= FlyRange:
+			if Distance.length() <= AttackRange: ## && Distance.length() >= FlyRange:
 				CurrentState = eStates.Shoot
 			elif Distance.length() >= FlyRange:
 				CurrentState = eStates.Patrol
@@ -56,13 +56,13 @@ func StateMachine():
 		
 		eStates.Idle:
 			CurrentSpeed = 0
-			if ChangeTimer.is_stopped():
+			if ChangeTimer != null and ChangeTimer.is_stopped():
 				var newTime = RNG.randf_range(3, 5)
 				ChangeTimer.start(newTime)
 			
 		eStates.Patrol:
 			CurrentSpeed = BaseSpeed
-			if ChangeTimer.is_stopped():
+			if ChangeTimer != null and ChangeTimer.is_stopped():
 				var newTime = RNG.randf_range(3, 5)
 				ChangeTimer.start(newTime)
 				
@@ -72,7 +72,7 @@ func StateMachine():
 			
 		eStates.Shoot:
 			CurrentSpeed = 0
-			if ShootTimer.is_stopped():
+			if ShootTimer != null and ShootTimer.is_stopped():
 				ShootProjectile()
 
 
